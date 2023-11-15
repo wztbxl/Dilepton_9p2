@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<job maxFilesPerProcess="54" fileListSyntax="xrootd">
+
+	<command>
+
+		ln -s /star/u/wangzhen/run20/Dielectron/Efficiecny/.sl73_gcc485 ./.sl64_gcc447
+		ln -s /star/u/wangzhen/run20/Dielectron/Efficiecny/.sl73_gcc485 ./
+		ln -s /star/u/wangzhen/run20/Dielectron/Efficiecny/StRoot ./
+		ln -s /star/u/wangzhen/run20/Dielectron/Efficiecny/doEvent.C ./
+
+		starver SL23a
+		root4star -q -b ./doEvent.C\(-1,\"$FILELIST\",\"$SCRATCH/${JOBID}.root\",0\)
+
+	 </command>
+
+	 <stdout URL="file:/star/u/wangzhen/run20/Dielectron/Efficiecny/log/$JOBID.out"/>
+		<stderr URL="file:/star/u/wangzhen/run20/Dielectron/Efficiecny/log/$JOBID.err"/>
+        <Generator>
+		       <Location>/star/u/wangzhen/run20/Dielectron/Efficiecny/info/</Location>
+	    </Generator> 
+  	    <input URL="filelist:/star/u/wangzhen/run20/Dielectron/Efficiecny/Run21_9p2GeV_2020_picoall.list"/> 
+        <output fromScratch="*.root" toURL="file:/star/u/wangzhen/run20/Dielectron/Efficiecny/output/nSigmaEEff/"/>
+
+
+
+</job>
