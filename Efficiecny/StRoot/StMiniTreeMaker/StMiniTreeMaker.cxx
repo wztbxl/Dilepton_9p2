@@ -1,6 +1,7 @@
 #include "headers.h"
 #include "StMiniTreeMaker.h"
 #include "/star/u/wangzhen/run20/Dielectron/Efficiecny/StRoot/StMiniTreeMaker/RefMfun.h"
+#include "/star/u/wangzhen/run20/Dielectron/Efficiecny/pileup.h"
 //For Embedding QA, this ValidTrack and isElectron need change cut selection
 //!!!!!!!!!!!!!!!!!!!!!!!!!
 //change log 
@@ -196,6 +197,8 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	Int_t mnTOFMatch = (int)picoEvent->nBTOFMatch();
 	Double_t refMultCorr = refMult;
 	double reweight = 1.;
+	hRefMultvsnTOFMatch->Fill(refMult,mnTOFMatch);
+	hRefMultvsnTOFMatchvsVz->Fill(refMult,mnTOFMatch,vtxPos.Z());
 
 	// get the centrality
 	Int_t mCentrality = GetCentrality(refMultCorr);// using 9.2 temp Centrality defination
@@ -229,7 +232,8 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		return kFALSE;
 	if (mFillHisto)
 		hEvent->Fill(9.5);
-	if (mnTOFMatch < PileupLimit->Eval(refMult)) return kFALSE;//pile up cut
+	// if (mnTOFMatch < PileupLimit->Eval(refMult)) return kFALSE;//pile up cut
+	if (!  pileupRejection(vtxPos.z(), refMult, mnTOFMatch)) return kFALSE;//using vz dependence vz cut
 	if (mFillHisto)
 		hEvent->Fill(10.5);
 
@@ -259,6 +263,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		PositronTag[i] = 0;
 	}
 	
+	int nChargeParticle = 0;
 	for (Int_t i = 0; i < nNodes; i++)
 	{
 		StPicoTrack *pTrack = mPicoDst->track(i);
@@ -301,6 +306,10 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		}
 
 		hMsquare->Fill(msquare);
+		hMsquraevsRefMult->Fill(msquare,refMult);
+		hMsquarevsP->Fill(p*charge,msquare);
+		if (isPiKP_masscut()) nChargeParticle++;
+
 		if (TMath::Abs(nSigmaP) < 4 && TMath::Abs(msquare-0.879)<0.020)
 		{
 			hPureProtonNSigmaEvsP->Fill(p,nSigmaE);
@@ -608,6 +617,8 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		hPEPlusNSigmaEvsEta->Fill(eta, nSigmaE);*/
 
 	}
+	hRefMultvsnChargeParticle->Fill(refMult,nChargeParticle);
+	hnTOFMatchvsnChargePartile->Fill(mnTOFMatch,nChargeParticle);
 
 	delete[] Electron;
 	delete[] Positron;
@@ -617,6 +628,13 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	delete[] PositronTag;
 	return kTRUE;
 }
+//_____________________________________________________________________________
+//select the Pi/K/P/E by the mass square cut
+bool StMiniTreeMaker::isPiKP_masscut(StPicoTrack *pTrack, TVector3 vtxPos) const
+{
+	if(TMath::Abs(msquare-0.879)<0.020 || TMath::Abs(msquare-0.243)<0.005 || TMath::Abs(msquare-0.019)<0.003) return kTRUE;
+}
+
 //_____________________________________________________________________________
 Bool_t StMiniTreeMaker::isValidTrack(StPicoTrack *pTrack, TVector3 vtxPos) const
 {
@@ -693,6 +711,11 @@ void StMiniTreeMaker::bookHistos()
 	hULDcavsPt = new TH2D("hULDcavsPt", "hULDcavsPt;p_{T} (GeV/c);dca (cm)", 500, 0, 5, 300, 0, 3);
 	hLPosDcavsPt = new TH2D("hLPDcavsPt", "hLPDcavsPt;p_{T} (GeV/c);dca (cm)", 500, 0, 5, 300, 0, 3);
 	hLNegDcavsPt = new TH2D("hLNDcavsPt", "hLNDcavsPt;p_{T} (GeV/c);dca (cm)", 500, 0, 5, 300, 0, 3);
+	hRefMultvsnTOFMatch = new TH2D("hRefMultvsnTOFMatch","hRefMultvsnTOFMatch; RefMult; nTOFMatch",500,0,500,500,0,500);
+	hMsquraevsRefMult = new TH2D("hMsquraevsRefMult","hMsquraevsRefMult; m^{2} (GeV/c)^2; RefMult",1000,-0.1,1.2,500,0,500);
+	hRefMultvsnChargeParticle = new TH2D("hRefMultvsnChargeParticle","hRefMultvsnChargeParticle; RefMult; nPi/K/P",500,0,500,500,0,500);
+	hnTOFMatchvsnChargePartile = new TH2D("hnTOFMatchvsnChargePartile","hnTOFMatchvsnChargePartile; nTOFMatch;nChargePartile",500,0,500,500,0,500);
+	hRefMultvsnTOFMatchvsVz = new TH3D("hRefMultvsnTOFMatchvsVz","hRefMultvsnTOFMatchvsVz;RefMult;nTOFMatch;Vz (cm)",500,0,500,500,0,500,290,-145,145);
 
 	//histo for Different Centrality efficiency
 	for(int i  = 0;i<9;i++)
@@ -722,7 +745,8 @@ void StMiniTreeMaker::bookHistos()
 	hPEMinusBetavsPtCen = new TH3F(Form("hPEMinusBetavsPtCen"), Form("hPEMinusBetavsPtCen;p (GeV/c); 1/#beta"), 500, 0, 5, 200, 0.9, 1.1,16,0,16);
 
 	// for check something that in the start of analysis
-	hMsquare = new TH1D("hMsquare","hMsquare;mass^(2);(GeV/c^{2})^{2};counts",510,-0.5,1.2);
+	hMsquare = new TH1D("hMsquare","hMsquare;mass^(2) (GeV/c^{2})^{2};counts",510,-0.5,1.2);
+	hMsquarevsP = new TH2D("hMsquarevsP","hMsquarevsP; p*q (GeV/C); mass^(2) (GeV/c^{2})^{2}",3000,-3,3,1800,-0.4,1.4);
 	hPurePionNSigmaEvsP = new TH2D("hPurePionNSigmaEvsP","hPurePionNSigmaEvsP;p (GeV/C);n#sigma_{e}^{#pi}",500,0,4,400,-19.005,20.995);
 	hMergePionNSigmaEvsP = new TH2D("hMergePionNSigmaEvsP","hMergePionNSigmaEvsP;p (GeV/C);n#sigma_{e}^{#pi}",500,0,4,400,-20.005,19.995);
 	hPureKaonNSigmaEvsP = new TH2D("hPureKaonNSigmaEvsP","hPureKaonNSigmaEvsP;p (GeV/C);n#sigma_{e}^{K}",500,0,4,400,-19.005,20.995);

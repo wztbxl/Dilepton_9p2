@@ -94,6 +94,7 @@ class StMiniTreeMaker : public StMaker
 	bool isElectronBetaCut(StPicoTrack *pTrack);
 	bool isElectronSigmaECut(StPicoTrack *pTrack);
 	double phiVangle(TLorentzVector e1, TLorentzVector e2, int q1, int q2);
+	bool isPiKP_masscut(double msquare);
 
   private:
 
@@ -155,6 +156,11 @@ class StMiniTreeMaker : public StMaker
 	//some histo to check refMult
 	TH1D* hRefMult;
 	TH1D* hCentrality9;
+	TH2D* hRefMultvsnTOFMatch;
+	TH2D* hMsquraevsRefMult;
+	TH3D* hRefMultvsnTOFMatchvsVz;
+	TH2D* hRefMultvsnChargeParticle;
+	TH2D* hnTOFMatchvsnChargePartile;
 
 	TH2D *hdEdxvsP;
 	TH2D *hdNdxvsP;
@@ -217,6 +223,7 @@ class StMiniTreeMaker : public StMaker
 
 	// for check something that in the start of analysis
 	TH1D *hMsquare;
+	TH2D *hMsquarevsP;
 	TH2D *hPurePionNSigmaEvsP;
 	TH2D *hMergePionNSigmaEvsP;
 	TH2D *hPureKaonNSigmaEvsP;
@@ -242,7 +249,6 @@ class StMiniTreeMaker : public StMaker
 	TH2D *hSigmaEvsPwithNSigEandBeta;
 
 	TH2D* hPurePionSigmaPionvsP;
-
 
 
 
