@@ -630,7 +630,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 }
 //_____________________________________________________________________________
 //select the Pi/K/P/E by the mass square cut
-bool StMiniTreeMaker::isPiKP_masscut(StPicoTrack *pTrack, TVector3 vtxPos) const
+bool StMiniTreeMaker::isPiKP_masscut(double msquare) const
 {
 	if(TMath::Abs(msquare-0.879)<0.020 || TMath::Abs(msquare-0.243)<0.005 || TMath::Abs(msquare-0.019)<0.003) return kTRUE;
 }
