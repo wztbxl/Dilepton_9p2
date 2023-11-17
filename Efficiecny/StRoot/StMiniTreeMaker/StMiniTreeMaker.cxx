@@ -715,7 +715,7 @@ void StMiniTreeMaker::bookHistos()
 	hMsquraevsRefMult = new TH2D("hMsquraevsRefMult","hMsquraevsRefMult; m^{2} (GeV/c)^2; RefMult",1000,-0.1,1.2,500,0,500);
 	hRefMultvsnChargeParticle = new TH2D("hRefMultvsnChargeParticle","hRefMultvsnChargeParticle; RefMult; nPi/K/P",500,0,500,500,0,500);
 	hnTOFMatchvsnChargePartile = new TH2D("hnTOFMatchvsnChargePartile","hnTOFMatchvsnChargePartile; nTOFMatch;nChargePartile",500,0,500,500,0,500);
-	hRefMultvsnTOFMatchvsVz = new TH3D("hRefMultvsnTOFMatchvsVz","hRefMultvsnTOFMatchvsVz;RefMult;nTOFMatch;Vz (cm)",500,0,500,500,0,500,290,-145,145);
+	hRefMultvsnTOFMatchvsVz = new TH3D("hRefMultvsnTOFMatchvsVz","hRefMultvsnTOFMatchvsVz;RefMult;nTOFMatch;Vz (cm)",500,0,500,500,0,500,5,-145,145);
 
 	//histo for Different Centrality efficiency
 	for(int i  = 0;i<9;i++)
