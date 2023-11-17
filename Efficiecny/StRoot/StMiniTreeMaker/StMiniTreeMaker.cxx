@@ -308,7 +308,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		hMsquare->Fill(msquare);
 		hMsquraevsRefMult->Fill(msquare,refMult);
 		hMsquarevsP->Fill(p*charge,msquare);
-		if (isPiKP_masscut()) nChargeParticle++;
+		if (isPiKP_masscut(msquare)) nChargeParticle++;
 
 		if (TMath::Abs(nSigmaP) < 4 && TMath::Abs(msquare-0.879)<0.020)
 		{
