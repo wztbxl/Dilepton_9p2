@@ -63,9 +63,7 @@ bool nPi_K_P_rejection(int refmult, int nPi_K_P );
 
 int nPi_K_P_tof = 0;//used for pile rejection
 TF1* f_upper = new TF1("f_upper","pol5",0,350);
-f_upper->SetParameters(6.32816,0.689232,-0.00185181,6.31563e-06,-8.29481e-09);
 TF1* f_lower = new TF1("f_lower","pol5",0,350);
-f_lower->SetParameters(-5.20165,0.144438,0.00186397,-1.28471e-05,4.28608e-08);
 
 TTimer   *timer;
 TRandom3 *myRandom;
@@ -1617,6 +1615,8 @@ Bool_t Init()
 	Delta_Psi2 = new TF1("Delta_Psi2","0.5*( 2*[0]*sin(2*x)-2*[1]*cos(2*x)+[3]*sin(4*x)-[2]*cos(4*x) )",-TMath::Pi(),TMath::Pi());
 	Delta_Psi2->SetParNames("<cos2#Psi_{2}>","<sin2#Psi_{2}>","<cos4#Psi_{2}>","<sin4#Psi_{2}>");
 	Delta_Psi2->SetParameters(0.001461,0.000840,0.002069,0.002289);
+	f_upper->SetParameters(6.32816,0.689232,-0.00185181,6.31563e-06,-8.29481e-09);
+	f_lower->SetParameters(-5.20165,0.144438,0.00186397,-1.28471e-05,4.28608e-08);
 
 
 	cout<<"Initialization DONE !!!"<<endl;
