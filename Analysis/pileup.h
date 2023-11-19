@@ -1,9 +1,9 @@
-TF1* f_upper;
-TF1* f_lower;
-f_upper = new TF1("f_upper","pol5",0,350);
-f_upper->SetParameters(6.32816,0.689232,-0.00185181,6.31563e-06,-8.29481e-09);
-f_lower = new TF1("f_lower","pol5",0,350);
-f_lower->SetParameters(-5.20165,0.144438,0.00186397,-1.28471e-05,4.28608e-08);
+// TF1* f_upper;
+// TF1* f_lower;
+// f_upper = new TF1("f_upper","pol5",0,350);
+// f_upper->SetParameters(6.32816,0.689232,-0.00185181,6.31563e-06,-8.29481e-09);
+// f_lower = new TF1("f_lower","pol5",0,350);
+// f_lower->SetParameters(-5.20165,0.144438,0.00186397,-1.28471e-05,4.28608e-08);
 
 bool pileupRejection( double vz, int refmult, int NtofMatch )
 {
@@ -63,10 +63,11 @@ if(refmult>b0+
     return true;
 }
 
-bool nPi_K_P_rejection(int refmult, int nPi_K_P )
-{
-	if ( nPi_K_P >= f_lower->Eval(refmult) && nPi_K_P < f_upper->Eval(refmult))
-	{
-		return kTRUE; // pass the cut
-	} else return kFALSE; // did not pass the cut
-}
+// bool nPi_K_P_rejection(int refmult, int nPi_K_P )
+// {
+	
+// 	if ( nPi_K_P >= f_lower->Eval(refmult) && nPi_K_P < f_upper->Eval(refmult))
+// 	{
+// 		return kTRUE; // pass the cut
+// 	} else return kFALSE; // did not pass the cut
+// }
