@@ -451,6 +451,7 @@ void StMiniTreeMaker::bookTree()
 	mEvtTree->Branch("mNTrigs", &mEvtData.mNTrigs, "mNTrigs/I");
 	mEvtTree->Branch("mTrigId", mEvtData.mTrigId, "mTrigId[mNTrigs]/I");
 	mEvtTree->Branch("mnTOFMatch", &mEvtData.mnTOFMatch, "mnTOFMatch/S");
+	mEvtTree->Branch("mnChargeParticle", &mEvtData.mnChargeParticle, "mnChargeParticle/I");
 	mEvtTree->Branch("mRefMult", &mEvtData.mRefMult, "mRefMult/S");
 	mEvtTree->Branch("mGRefMult", &mEvtData.mGRefMult, "mGRefMult/S");
 	mEvtTree->Branch("mGRefMultCorr", &mEvtData.mGRefMultCorr, "mGRefMultCorr/F");
