@@ -59,8 +59,13 @@ Double_t calReWeight(Double_t refMultCorr);
 Double_t calCosTheta(TLorentzVector eVec,TLorentzVector eeVec);
 Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron = kFALSE);
 Double_t phiVAngle(TLorentzVector e1, TLorentzVector e2, Int_t q1, Int_t q2);
+bool nPi_K_P_rejection(int refmult, int nPi_K_P );
 
 int nPi_K_P_tof = 0;//used for pile rejection
+TF1* f_upper = new TF1("f_upper","pol5",0,350);
+f_upper->SetParameters(6.32816,0.689232,-0.00185181,6.31563e-06,-8.29481e-09);
+TF1* f_lower = new TF1("f_lower","pol5",0,350);
+f_lower->SetParameters(-5.20165,0.144438,0.00186397,-1.28471e-05,4.28608e-08);
 
 TTimer   *timer;
 TRandom3 *myRandom;
@@ -364,6 +369,7 @@ int main(int argc, char** argv)
     // cout << "after passtrack" << endl;
 		hnEMinusvsEPlus->Fill(current_nEPlus,current_nEMinus);
 		hRefMultvsnPiKP->Fill(event->mRefMult,nPi_K_P_tof);
+
 		if(!nPi_K_P_rejection(event->mRefMult,nPi_K_P_tof))
 		{
 			continue;
@@ -482,6 +488,15 @@ int main(int argc, char** argv)
 	cout<<"end of program"<<endl;
 	return 0;
 }
+//________________________________________________________________
+bool nPi_K_P_rejection(int refmult, int nPi_K_P )
+{
+	if ( nPi_K_P >= f_lower->Eval(refmult) && nPi_K_P < f_upper->Eval(refmult))
+	{
+		return kTRUE; // pass the cut
+	} else return kFALSE; // did not pass the cut
+}
+
 //________________________________________________________________
 Bool_t passEvent(miniDst* event)
 {
