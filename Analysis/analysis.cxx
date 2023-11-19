@@ -60,6 +60,8 @@ Double_t calCosTheta(TLorentzVector eVec,TLorentzVector eeVec);
 Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron = kFALSE);
 Double_t phiVAngle(TLorentzVector e1, TLorentzVector e2, Int_t q1, Int_t q2);
 
+int nPi_K_P_tof = 0;//used for pile rejection
+
 TTimer   *timer;
 TRandom3 *myRandom;
 
@@ -208,7 +210,7 @@ TH3F *hLNegMvsPhiCen;
 TH1D* hCellIDDiff;
 TH2F* hnSigmaEvsP;
 TH2F* hnSigmaEvsP_extraE;
-//QA plot to 
+//QA plot to dig the extra E issue;
 TH2D* hVxvsVy_extraE;
 TH2D* hnTofHitsvsRefMult_extraE;
 TH1D* hVz_extraE;
@@ -225,6 +227,7 @@ TH2D* hnHitsFitvspT_Elec_extraE;
 TH2D* hnHitsdEdxvspT_Elec_extraE;
 TH2D* hnHitsFitvspT_Posi_extraE;
 TH2D* hnHitsdEdxvspT_Posi_extraE;
+TH2D* hRefMultvsnPiKP;
 
 
 
@@ -356,11 +359,19 @@ int main(int argc, char** argv)
 		current_nEMinus=0;
 		Int_t npTrks = event->mNTrks;
 		// cout << "npTrks = " << npTrks << endl;
-    for(int j=0;j<npTrks;j++) passTrack(event,j);
+		nPi_K_P_tof = 0;
+		for(int j=0;j<npTrks;j++) passTrack(event,j); //Trk loop
     // cout << "after passtrack" << endl;
 		hnEMinusvsEPlus->Fill(current_nEPlus,current_nEMinus);
+		hRefMultvsnPiKP->Fill(event->mRefMult,nPi_K_P_tof);
+		if (!nPi_K_P_rejection(event->mRefMult,nPi_K_P_tof)¡¡)
+		{
+			continue;
+		}
 		
-    /*
+
+		
+    
 		//Zhen add it to test the extral electron and extra positions
 		if( current_nEPlus > 7 || current_nEMinus >7)//extra electron
 		// if( current_nEPlus <= 7 && current_nEMinus <=7)//remain electron
@@ -426,7 +437,7 @@ int main(int argc, char** argv)
 			}
 			continue;
 		}
-		*/
+		
 
 		Double_t finalEventPlane = reCalEventPlane(event);
 		if(finalEventPlane<0) continue;
@@ -593,6 +604,10 @@ Bool_t passTrack(miniDst* event, Int_t i)
 	TVector3 mom;
 	mom.SetPtEtaPhi(pt,eta,phi);
 	Float_t p = mom.Mag();
+	double msquare =  -999;
+	msquare = pow(p, 2) * (1 - pow(beta, 2)) / pow(beta, 2);
+
+	if(TMath::Abs(msquare-0.879)<0.020 || TMath::Abs(msquare-0.243)<0.005 || TMath::Abs(msquare-0.019)<0.003) nPi_K_P_tof = nPi_K_P_tof+1;
 
 //   if(charge < 0) return kFALSE;
 	// if(charge<0)cout<<"charge="<<charge<<endl;
@@ -1349,6 +1364,7 @@ void bookHistograms()
 	hnHitsdEdxvspT_Elec_extraE = new TH2D("hnHitsdEdxvspT_Elec_extraE",";p_{T} (GeV/c^{2});nHisdEdx",1200,0,6,100,0,100);
 	hnHitsFitvspT_Posi_extraE = new TH2D("hnHitsFitvspT_Posi_extraE",";p_{T} (GeV/c^{2});nHitsFit",1200,0,6,100,0,100);
 	hnHitsdEdxvspT_Posi_extraE = new TH2D("hnHitsdEdxvspT_Posi_extraE",";p_{T} (GeV/c^{2});nHisdEdx",1200,0,6,100,0,100);
+	hRefMultvsnPiKP = new TH2D("hRefMultvsnPiKP",";RefMult;nPi+K+P",500,0,500,500,0,500);
 
 	// hULMvsPtCen->Sumw2();
 	// hLPosMvsPtCen->Sumw2();
@@ -1473,6 +1489,7 @@ void writeHistograms(char* outFile)
 	hnHitsdEdxvspT_Elec_extraE->Write();
 	hnHitsFitvspT_Posi_extraE->Write();
 	hnHitsdEdxvspT_Posi_extraE->Write();
+	hRefMultvsnPiKP->Write();
 	
 
 	// hULCosThetavsMvsCen->Write();
