@@ -80,7 +80,8 @@ class StMiniTreeMaker : public StMaker {
 		void     bookTree();
 		void     bookHistos();
 		Bool_t   processPicoEvent();
-		void     calQxQy(StPicoTrack *pTrack, TVector3 vtexPos) const;
+		void     calQxQy(StPicoTrack *pTrack, TVector3 vtexPos);
+		//void     calQxQy(StPicoTrack *pTrack, TVector3 vtexPos) const;
 		void     fillEventPlane();
 		Bool_t   isValidTrack(StPicoTrack *pTrack, TVector3 vtxPos) const;
 
@@ -128,6 +129,7 @@ class StMiniTreeMaker : public StMaker {
 		TF1* PileupUplimit;
 		TF1* PileupLowlimit;
 		TF1* PileupLimit;
+		bool isPiKP_masscut(double msquare);
 
 
 		//define histograms ongoing...

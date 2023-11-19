@@ -11,6 +11,7 @@ struct StEvtData
 	Short_t  mnTOFMatch;
 	Short_t  mRefMult;
 	Short_t  mRefMult3;
+	int      mnChargeParticle;
 	Short_t  mGRefMult;
 	Float_t  mGRefMultCorr;
 	Float_t  mEvtWeight;

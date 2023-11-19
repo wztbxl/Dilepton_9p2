@@ -235,6 +235,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	}
 
 	Short_t nTrks    = 0;
+	int nChargeParticle = 0;
 	for(Int_t i=0;i<nNodes;i++){
 		StPicoTrack *pTrack = mPicoDst->track(i);
 		if(!pTrack) continue;
@@ -304,6 +305,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 				hMSquarevsP->Fill(msquare, pMom.Mag()*mEvtData.mCharge[nTrks]);
 			}
 		}
+		if (isPiKP_masscut(msquare)) nChargeParticle++;
 
 		if(
 				TMath::Abs(mEvtData.mNSigmaE[nTrks])<=mMaxnSigmaE
@@ -333,6 +335,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	//if(nTrks==0 ) return kFALSE;
 
 	mEvtData.mNTrks       = nTrks;
+	mEvtData.mnChargeParticle = nChargeParticle;
 	if(Debug()){
 		LOG_INFO<<"# of primary tracks stored: "<<mEvtData.mNTrks<<endm;
 	}
@@ -342,7 +345,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	return kTRUE;
 }
 //_____________________________________________________________________________
-void StMiniTreeMaker::calQxQy(StPicoTrack *pTrack, TVector3 vtxPos) const
+void StMiniTreeMaker::calQxQy(StPicoTrack *pTrack, TVector3 vtxPos) 
 {
 	Float_t pt  = pTrack->pMom().Perp();
 	Float_t eta = pTrack->pMom().PseudoRapidity();
@@ -426,6 +429,11 @@ Bool_t StMiniTreeMaker::isValidTrack(StPicoTrack *pTrack, TVector3 vtxPos) const
 	if(dca>mMaxDca)                             return kFALSE;
 
 	return kTRUE;
+}
+//____________________________________________________________________________
+bool StMiniTreeMaker::isPiKP_masscut(double msquare)
+{
+	if(TMath::Abs(msquare-0.879)<0.020 || TMath::Abs(msquare-0.243)<0.005 || TMath::Abs(msquare-0.019)<0.003) return kTRUE;
 }
 //_____________________________________________________________________________
 void StMiniTreeMaker::bookTree()
