@@ -288,13 +288,13 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		mEvtData.mTOFMatchFlag[nTrks]     = -1; 
 		mEvtData.mTOFLocalY[nTrks]        = -999;
 		mEvtData.mBeta2TOF[nTrks]         = -999;
+		double msquare = -999;
 		if(bTofPidTraitsIndex>=0){
 			StPicoBTofPidTraits *btofPidTraits = mPicoDst->btofPidTraits(bTofPidTraitsIndex);
 			mEvtData.mTOFMatchFlag[nTrks] = btofPidTraits->btofMatchFlag(); 
 			mEvtData.mTOFCellID[nTrks]     = btofPidTraits->btofCellId();
 			mEvtData.mTOFLocalY[nTrks]    = btofPidTraits->btofYLocal();
 			mEvtData.mBeta2TOF[nTrks]     = btofPidTraits->btofBeta();
-			double msquare = -999;
 			msquare = pow(pMom.Mag(),2) * (1-pow(mEvtData.mBeta2TOF[nTrks],2)) / pow(mEvtData.mBeta2TOF[nTrks],2);
 
 			if(mFillHisto) 
