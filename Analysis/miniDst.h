@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Tue May 16 06:11:57 2023 by ROOT version 5.34/30
+// Sun Nov 19 22:07:54 2023 by ROOT version 5.34/38
 // from TTree miniDst/miniDst
-// found on file: ADCAA6B29466256D9048942E99623012_782.root
+// found on file: 85F750D096773521C6D629B41588D1E8_1289.root
 //////////////////////////////////////////////////////////
 
 #ifndef miniDst_h
@@ -11,8 +11,6 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
-
-const int MaxTrk = 1500;
 
 // Header file for the classes stored in the TTree if any.
 
@@ -31,6 +29,7 @@ public :
    Int_t           mNTrigs;
    Int_t           mTrigId[1];   //[mNTrigs]
    Short_t         mnTOFMatch;
+   Int_t           mnChargeParticle;
    Short_t         mRefMult;
    Short_t         mGRefMult;
    Float_t         mGRefMultCorr;
@@ -53,28 +52,28 @@ public :
    Float_t         mEtaMinusPtWeight;
    Short_t         mEtaMinusNTrks;
    Short_t         mNTrks;
-   Short_t         mTrkId[MaxTrk];   //[mNTrks]
-   Bool_t          mTPCeTrkFlag[MaxTrk];   //[mNTrks]
-   Int_t           mCharge[MaxTrk];   //[mNTrks]
-   Float_t         mPt[MaxTrk];   //[mNTrks]
-   Float_t         mEta[MaxTrk];   //[mNTrks]
-   Float_t         mPhi[MaxTrk];   //[mNTrks]
-   Float_t         mgPt[MaxTrk];   //[mNTrks]
-   Float_t         mgEta[MaxTrk];   //[mNTrks]
-   Float_t         mgPhi[MaxTrk];   //[mNTrks]
-   Float_t         mgOriginX[MaxTrk];   //[mNTrks]
-   Float_t         mgOriginY[MaxTrk];   //[mNTrks]
-   Float_t         mgOriginZ[MaxTrk];   //[mNTrks]
-   Int_t           mNHitsFit[MaxTrk];   //[mNTrks]
-   Int_t           mNHitsPoss[MaxTrk];   //[mNTrks]
-   Int_t           mNHitsDedx[MaxTrk];   //[mNTrks]
-   Float_t         mDedx[MaxTrk];   //[mNTrks]
-   Float_t         mNSigmaE[MaxTrk];   //[mNTrks]
-   Float_t         mDca[MaxTrk];   //[mNTrks]
-   Int_t           mTOFMatchFlag[MaxTrk];   //[mNTrks]
-   Int_t           mTOFCellID[MaxTrk];   //[mNTrks]
-   Float_t         mTOFLocalY[MaxTrk];   //[mNTrks]
-   Float_t         mBeta2TOF[MaxTrk];   //[mNTrks]
+   Short_t         mTrkId[15];   //[mNTrks]
+   Bool_t          mTPCeTrkFlag[15];   //[mNTrks]
+   Int_t           mCharge[15];   //[mNTrks]
+   Float_t         mPt[15];   //[mNTrks]
+   Float_t         mEta[15];   //[mNTrks]
+   Float_t         mPhi[15];   //[mNTrks]
+   Float_t         mgPt[15];   //[mNTrks]
+   Float_t         mgEta[15];   //[mNTrks]
+   Float_t         mgPhi[15];   //[mNTrks]
+   Float_t         mgOriginX[15];   //[mNTrks]
+   Float_t         mgOriginY[15];   //[mNTrks]
+   Float_t         mgOriginZ[15];   //[mNTrks]
+   Int_t           mNHitsFit[15];   //[mNTrks]
+   Int_t           mNHitsPoss[15];   //[mNTrks]
+   Int_t           mNHitsDedx[15];   //[mNTrks]
+   Float_t         mDedx[15];   //[mNTrks]
+   Float_t         mNSigmaE[15];   //[mNTrks]
+   Float_t         mDca[15];   //[mNTrks]
+   Int_t           mTOFMatchFlag[15];   //[mNTrks]
+   Int_t           mTOFCellID[15];   //[mNTrks]
+   Float_t         mTOFLocalY[15];   //[mNTrks]
+   Float_t         mBeta2TOF[15];   //[mNTrks]
 
    // List of branches
    TBranch        *b_mRunId;   //!
@@ -84,6 +83,7 @@ public :
    TBranch        *b_mNTrigs;   //!
    TBranch        *b_mTrigId;   //!
    TBranch        *b_mnTOFMatch;   //!
+   TBranch        *b_mnChargeParticle;   //!
    TBranch        *b_mRefMult;   //!
    TBranch        *b_mGRefMult;   //!
    TBranch        *b_mGRefMultCorr;   //!
@@ -148,9 +148,9 @@ miniDst::miniDst(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("ADCAA6B29466256D9048942E99623012_782.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("85F750D096773521C6D629B41588D1E8_1289.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("ADCAA6B29466256D9048942E99623012_782.root");
+         f = new TFile("85F750D096773521C6D629B41588D1E8_1289.root");
       }
       f->GetObject("miniDst",tree);
 
@@ -206,6 +206,7 @@ void miniDst::Init(TTree *tree)
    fChain->SetBranchAddress("mNTrigs", &mNTrigs, &b_mNTrigs);
    fChain->SetBranchAddress("mTrigId", mTrigId, &b_mTrigId);
    fChain->SetBranchAddress("mnTOFMatch", &mnTOFMatch, &b_mnTOFMatch);
+   fChain->SetBranchAddress("mnChargeParticle", &mnChargeParticle, &b_mnChargeParticle);
    fChain->SetBranchAddress("mRefMult", &mRefMult, &b_mRefMult);
    fChain->SetBranchAddress("mGRefMult", &mGRefMult, &b_mGRefMult);
    fChain->SetBranchAddress("mGRefMultCorr", &mGRefMultCorr, &b_mGRefMultCorr);
