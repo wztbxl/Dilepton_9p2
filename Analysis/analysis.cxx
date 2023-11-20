@@ -361,8 +361,9 @@ int main(int argc, char** argv)
 		current_nEPlus=0;
 		current_nEMinus=0;
 		Int_t npTrks = event->mNTrks;
+		nPi_K_P_tof = event->mnChargeParticle;
 		// cout << "npTrks = " << npTrks << endl;
-		nPi_K_P_tof = 0;
+		// nPi_K_P_tof = 0;
 		for(int j=0;j<npTrks;j++) passTrack(event,j); //Trk loop
     // cout << "after passtrack" << endl;
 		hnEMinusvsEPlus->Fill(current_nEPlus,current_nEMinus);
@@ -439,7 +440,7 @@ int main(int argc, char** argv)
 				if(charge < 0 ) {hPt_Electron_extraE->Fill(pt); hnHitsFitvspT_Elec_extraE->Fill(pt,nHitsFit); hnHitsdEdxvspT_Elec_extraE->Fill(pt,nHitsDedx);}
 				if(charge > 0 ) {hPt_Positron_extraE->Fill(pt); hnHitsFitvspT_Posi_extraE->Fill(pt,nHitsFit); hnHitsdEdxvspT_Posi_extraE->Fill(pt,nHitsDedx);}
 			}
-			continue;
+			// continue;
 		}
 		
 
