@@ -621,7 +621,7 @@ Bool_t passTrack(miniDst* event, Int_t i)
 	double msquare =  -999;
 	msquare = pow(p, 2) * (1 - pow(beta2TOF, 2)) / pow(beta2TOF, 2);
 
-	if(TMath::Abs(msquare-0.879)<0.020 || TMath::Abs(msquare-0.243)<0.005 || TMath::Abs(msquare-0.019)<0.003) nPi_K_P_tof = nPi_K_P_tof+1;
+	// if(TMath::Abs(msquare-0.879)<0.020 || TMath::Abs(msquare-0.243)<0.005 || TMath::Abs(msquare-0.019)<0.003) nPi_K_P_tof = nPi_K_P_tof+1;
 
 //   if(charge < 0) return kFALSE;
 	// if(charge<0)cout<<"charge="<<charge<<endl;
