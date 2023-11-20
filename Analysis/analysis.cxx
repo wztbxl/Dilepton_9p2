@@ -368,6 +368,7 @@ int main(int argc, char** argv)
     // cout << "after passtrack" << endl;
 		hnEMinusvsEPlus->Fill(current_nEPlus,current_nEMinus);
 		hRefMultvsnPiKP->Fill(event->mRefMult,nPi_K_P_tof);
+		cout << "nPi_K_P_tof = " << nPi_K_P_tof << endl; 
 
 		if(!nPi_K_P_rejection(event->mRefMult,nPi_K_P_tof))
 		{
