@@ -12,6 +12,8 @@
 #include <TChain.h>
 #include <TFile.h>
 
+const int nMaxTrk = 1000;
+
 // Header file for the classes stored in the TTree if any.
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
@@ -27,7 +29,7 @@ public :
    Int_t           mEventId;
    Char_t          mShouldHaveRejectEvent;
    Int_t           mNTrigs;
-   Int_t           mTrigId[1];   //[mNTrigs]
+   Int_t           mTrigId[3];   //[mNTrigs]
    Short_t         mnTOFMatch;
    Int_t           mnChargeParticle;
    Short_t         mRefMult;
@@ -52,28 +54,28 @@ public :
    Float_t         mEtaMinusPtWeight;
    Short_t         mEtaMinusNTrks;
    Short_t         mNTrks;
-   Short_t         mTrkId[15];   //[mNTrks]
-   Bool_t          mTPCeTrkFlag[15];   //[mNTrks]
-   Int_t           mCharge[15];   //[mNTrks]
-   Float_t         mPt[15];   //[mNTrks]
-   Float_t         mEta[15];   //[mNTrks]
-   Float_t         mPhi[15];   //[mNTrks]
-   Float_t         mgPt[15];   //[mNTrks]
-   Float_t         mgEta[15];   //[mNTrks]
-   Float_t         mgPhi[15];   //[mNTrks]
-   Float_t         mgOriginX[15];   //[mNTrks]
-   Float_t         mgOriginY[15];   //[mNTrks]
-   Float_t         mgOriginZ[15];   //[mNTrks]
-   Int_t           mNHitsFit[15];   //[mNTrks]
-   Int_t           mNHitsPoss[15];   //[mNTrks]
-   Int_t           mNHitsDedx[15];   //[mNTrks]
-   Float_t         mDedx[15];   //[mNTrks]
-   Float_t         mNSigmaE[15];   //[mNTrks]
-   Float_t         mDca[15];   //[mNTrks]
-   Int_t           mTOFMatchFlag[15];   //[mNTrks]
-   Int_t           mTOFCellID[15];   //[mNTrks]
-   Float_t         mTOFLocalY[15];   //[mNTrks]
-   Float_t         mBeta2TOF[15];   //[mNTrks]
+   Short_t         mTrkId[nMaxTrk];   //[mNTrks]
+   Bool_t          mTPCeTrkFlag[nMaxTrk];   //[mNTrks]
+   Int_t           mCharge[nMaxTrk];   //[mNTrks]
+   Float_t         mPt[nMaxTrk];   //[mNTrks]
+   Float_t         mEta[nMaxTrk];   //[mNTrks]
+   Float_t         mPhi[nMaxTrk];   //[mNTrks]
+   Float_t         mgPt[nMaxTrk];   //[mNTrks]
+   Float_t         mgEta[nMaxTrk];   //[mNTrks]
+   Float_t         mgPhi[nMaxTrk];   //[mNTrks]
+   Float_t         mgOriginX[nMaxTrk];   //[mNTrks]
+   Float_t         mgOriginY[nMaxTrk];   //[mNTrks]
+   Float_t         mgOriginZ[nMaxTrk];   //[mNTrks]
+   Int_t           mNHitsFit[nMaxTrk];   //[mNTrks]
+   Int_t           mNHitsPoss[nMaxTrk];   //[mNTrks]
+   Int_t           mNHitsDedx[nMaxTrk];   //[mNTrks]
+   Float_t         mDedx[nMaxTrk];   //[mNTrks]
+   Float_t         mNSigmaE[nMaxTrk];   //[mNTrks]
+   Float_t         mDca[nMaxTrk];   //[mNTrks]
+   Int_t           mTOFMatchFlag[nMaxTrk];   //[mNTrks]
+   Int_t           mTOFCellID[nMaxTrk];   //[mNTrks]
+   Float_t         mTOFLocalY[nMaxTrk];   //[mNTrks]
+   Float_t         mBeta2TOF[nMaxTrk];   //[mNTrks]
 
    // List of branches
    TBranch        *b_mRunId;   //!
