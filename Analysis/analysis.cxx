@@ -143,6 +143,8 @@ TProfile2D *etaminuszplusQy;
 TProfile2D *etaminuszminusQy;
 //in passEvent function
 TH1D* hnEvts;
+TH1D* hRunID;
+TH1D* hTriggerID;
 TH1F *hCentrality9;
 TH1F *hRefMult;
 TH1F *hVertexZ;
@@ -231,6 +233,7 @@ TH2D* hnHitsdEdxvspT_Elec_extraE;
 TH2D* hnHitsFitvspT_Posi_extraE;
 TH2D* hnHitsdEdxvspT_Posi_extraE;
 TH2D* hRefMultvsnPiKP;
+TH2D* hRefMultvsnPiKP_extraE;
 
 
 
@@ -438,6 +441,7 @@ int main(int argc, char** argv)
 
 				hnSigmaEvsP_extraE->Fill(p*charge, nSigmaE);
 				hCut3EPhivsPt_extraE->Fill(charge*pt,phi);
+				hRefMultvsnPiKP_extraE->Fill(event->mRefMult,nPi_K_P_tof)
 				if(charge < 0 ) {hPt_Electron_extraE->Fill(pt); hnHitsFitvspT_Elec_extraE->Fill(pt,nHitsFit); hnHitsdEdxvspT_Elec_extraE->Fill(pt,nHitsDedx);}
 				if(charge > 0 ) {hPt_Positron_extraE->Fill(pt); hnHitsFitvspT_Posi_extraE->Fill(pt,nHitsFit); hnHitsdEdxvspT_Posi_extraE->Fill(pt,nHitsDedx);}
 			}
@@ -523,6 +527,7 @@ Bool_t passEvent(miniDst* event)
 		}
 		if(trigId == mTrigId[0])RefMVzCorFlag = kTRUE, is001Trigger = kTRUE;
 		if(trigId == mTrigId[2])is021Trigger = kTRUE;
+		hTriggerID->Fill(trigId);
 	}
 	if(!fireTrigger) return kFALSE;
 	bField = event->mBField;
@@ -534,13 +539,14 @@ Bool_t passEvent(miniDst* event)
 		return kFALSE;
 	}
 
-	map<Int_t, Int_t>::iterator iter_021 = mBadRunId_021.find(runId);
-	if(iter_021 != mBadRunId_021.end() && is021Trigger){
+	map<Int_t, Int_t>::iterator iter_021 = mBadRunId_001.find(runId);
+	if(iter_021 != mBadRunId_001.end() && is021Trigger){ // using same bad runlist for the test
 		//cout<<"bad run, continue"<<endl;
 		return kFALSE;
 	}
 
 	hnEvts->Fill(1);
+	hRunID->Fill(runId);
 	// reWeight = 1.;
 	Double_t RefMultCorr = refMult;
 	mCentrality = event->mCentrality;
@@ -1288,6 +1294,8 @@ void bookHistograms()
 	hnTofHitsvsRefMult_noCut = new TH2D("hnTofHitsvsRefMult_noCut",";RefMult;nTofHits",500,0,500,500,0,500); 
   hnTofHitsvsRefMult_Vz35 = new TH2D("hnTofHitsvsRefMult_Vz35",";RefMult;nTofHits",500,0,500,500,0,500);
   hVxvsVy = new TH2D("hVxvsVy",";Vx;Vy",100,0,10,100,0,10);
+	hRunID = new TH1D("hRunID",";RunID;nCounts",214990,21030025,21245015);
+	hTriggerID = new TH1D("hTriggerID",";Trigger ID;nCounts",4,780000-1,780040-1;);
 
 	const Int_t    nPtBins   = 500;
 	const Double_t ptLow     = 0;
@@ -1380,6 +1388,7 @@ void bookHistograms()
 	hnHitsFitvspT_Posi_extraE = new TH2D("hnHitsFitvspT_Posi_extraE",";p_{T} (GeV/c^{2});nHitsFit",1200,0,6,100,0,100);
 	hnHitsdEdxvspT_Posi_extraE = new TH2D("hnHitsdEdxvspT_Posi_extraE",";p_{T} (GeV/c^{2});nHisdEdx",1200,0,6,100,0,100);
 	hRefMultvsnPiKP = new TH2D("hRefMultvsnPiKP",";RefMult;nPi+K+P",500,0,500,500,0,500);
+	hRefMultvsnPiKP_extraE = new TH2D("hRefMultvsnPiKP_extraE",";RefMult;nPi+K+P",500,0,500,500,0,500);
 
 	// hULMvsPtCen->Sumw2();
 	// hLPosMvsPtCen->Sumw2();
@@ -1421,7 +1430,9 @@ void writeHistograms(char* outFile)
 	hBField->Write();
 	hnTofHitsvsRefMult_noCut->Write();
     hnTofHitsvsRefMult_Vz35->Write();
-  hnTofHitsvsRefMult->Write();
+	hnTofHitsvsRefMult->Write();
+	hRunID->Write();
+	hTriggerID->Write();
 
 	//eventPlane
 	hRawEventPlane->Write();
@@ -1505,6 +1516,7 @@ void writeHistograms(char* outFile)
 	hnHitsFitvspT_Posi_extraE->Write();
 	hnHitsdEdxvspT_Posi_extraE->Write();
 	hRefMultvsnPiKP->Write();
+	hRefMultvsnPiKP_extraE->Write();
 	
 
 	// hULCosThetavsMvsCen->Write();
