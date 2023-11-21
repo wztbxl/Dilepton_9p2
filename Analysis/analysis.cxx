@@ -441,7 +441,7 @@ int main(int argc, char** argv)
 
 				hnSigmaEvsP_extraE->Fill(p*charge, nSigmaE);
 				hCut3EPhivsPt_extraE->Fill(charge*pt,phi);
-				hRefMultvsnPiKP_extraE->Fill(event->mRefMult,nPi_K_P_tof)
+				hRefMultvsnPiKP_extraE->Fill(event->mRefMult,nPi_K_P_tof);
 				if(charge < 0 ) {hPt_Electron_extraE->Fill(pt); hnHitsFitvspT_Elec_extraE->Fill(pt,nHitsFit); hnHitsdEdxvspT_Elec_extraE->Fill(pt,nHitsDedx);}
 				if(charge > 0 ) {hPt_Positron_extraE->Fill(pt); hnHitsFitvspT_Posi_extraE->Fill(pt,nHitsFit); hnHitsdEdxvspT_Posi_extraE->Fill(pt,nHitsDedx);}
 			}
@@ -1295,7 +1295,7 @@ void bookHistograms()
   hnTofHitsvsRefMult_Vz35 = new TH2D("hnTofHitsvsRefMult_Vz35",";RefMult;nTofHits",500,0,500,500,0,500);
   hVxvsVy = new TH2D("hVxvsVy",";Vx;Vy",100,0,10,100,0,10);
 	hRunID = new TH1D("hRunID",";RunID;nCounts",214990,21030025,21245015);
-	hTriggerID = new TH1D("hTriggerID",";Trigger ID;nCounts",4,780000-1,780040-1;);
+	hTriggerID = new TH1D("hTriggerID",";Trigger ID;nCounts",4,780000-1,780040-1);
 
 	const Int_t    nPtBins   = 500;
 	const Double_t ptLow     = 0;
