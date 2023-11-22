@@ -121,6 +121,7 @@ TProfile *hKBetaDiffvsRunIndex;
 TProfile *hDedxvsRunIndex;
 TProfile *hNSigmaEvsRunIndex;
 TProfile* hNHitsdEdxvsRunIndex;
+TProfile* hnTrkvsRunIndex;
 
 TF1* Pileuplimit;
 
@@ -253,6 +254,7 @@ bool passEvent(miniDst* event)
 	Float_t vz = event->mVertexZ;
 	Float_t vpdVz = event->mVpdVz;
 	Float_t vzDiff = vz - vpdVz;
+	Int_t nTrks = event->mNTrks;
         Float_t vr = sqrt(pow(vx,2)+pow(vy,2));
 
 	//already have event cuts in pico production
@@ -278,6 +280,7 @@ bool passEvent(miniDst* event)
 	hDeltaZvsRunIndex->Fill(runIndex,vzDiff);
 	hRefMultvsRunIndex->Fill(runIndex,refMult);
 	hnTofMatchvsRefMult->Fill(refMult,mnTOFMatch);
+	hnTrkvsRunIndex->Fill(runIndex,nTrks);
 
 
 	if (mnTOFMatch > Pileuplimit->Eval(refMult))
@@ -480,6 +483,7 @@ void bookHistograms()
 	hNSigmaEvsRunIndex = new TProfile("hNSigmaEvsRunIndex","hNSigmaEvsRunIndex;runIndex;n#sigma_{e}",mTotalRun,0,mTotalRun,-30-1.e-6,30-1.e-6);
     hNHitsFitvsRunIndex = new TProfile("hNHitsFitvsRunIndex","hNHitsFitvsRunIndex;runIndex;NHitsFit",mTotalRun,0,mTotalRun,0,100);
     hNHitsdEdxvsRunIndex = new TProfile("hNHitsDedxvsRunIndex","hNHitsDedxvsRunIndex;runIndex;NHitsDedx",mTotalRun,0,mTotalRun,0,100);
+	hnTrkvsRunIndex = new TProfile("hnTrkvsRunIndex","hnTrkvsRunIndex;runIndex;nTrk",mTotalRun,0,mTotalRun,0,100)
 }
 //=======================================================================================
 void writeHistograms(char* outFile)
@@ -553,6 +557,7 @@ void writeHistograms(char* outFile)
 	hDedxvsRunIndex->Write();
 	hNSigmaEvsRunIndex->Write();
 	hNHitsdEdxvsRunIndex->Write();
+	hnTrkvsRunIndex->Write();
 }
 //==============================================================================================
 bool Init()
