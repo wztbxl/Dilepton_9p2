@@ -433,8 +433,8 @@ Bool_t passEvent(miniDst* event)
 		return kFALSE;
 	}
 
-	map<Int_t, Int_t>::iterator iter_021 = iter_001.find(runId);
-	if(iter_021 != iter_001.end() && is021Trigger){
+	map<Int_t, Int_t>::iterator iter_021 = mBadRunId_001.find(runId);
+	if(iter_021 != mBadRunId_001.end() && is021Trigger){
 		//cout<<"bad run, continue"<<endl;
 		return kFALSE;
 	}
