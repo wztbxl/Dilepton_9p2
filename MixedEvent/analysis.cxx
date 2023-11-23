@@ -84,7 +84,7 @@ const Int_t mCenBins = 1; //used for do mixed centrality by centrality
 // const Int_t mCenBins = 9; //16; //9;
 const Int_t mVzBins = 10; //10; //6;
 const Int_t mEveBins = 12; //24; //12;
-const Int_t mMaxEventsInBuffer = 350; //100; //50;
+const Int_t mMaxEventsInBuffer = 500; //100; //50;
 const Int_t mMaxElectrons = 70;
 const Float_t mPhiVCutMRange = 0.2;
 Float_t current_EQx[mMaxElectrons],current_EQy[mMaxElectrons];
@@ -225,6 +225,7 @@ Int_t runId;
 Int_t EvtID;
 
 int targetCent = 0;
+//for the centrality, 1-9 is 70-80% ~ 0-5%, 9 is most central bins
 
 int main(int argc, char** argv)
 {
@@ -299,13 +300,13 @@ int main(int argc, char** argv)
 
 		if(i%(nEvts/10)==0) cout << "begin " << i << "th entry...." << endl;
 		event->GetEntry(i);
-		 runId = event->mRunId;
+		runId = event->mRunId;
 
-
-		if(targetCent<9&&targetCent>=0)//only process the selected centrality events, if input centIdx not within 0-9, will process all centrality
+		// targetCent = targetCent-1;// 0-8 is most central bins
+		if(targetCent<=9&&targetCent>0)//only process the selected centrality 
 		{
 			if( event->mCentrality != targetCent ) continue;// 1-9 for 70-80% - 0-5%
-		}
+		} else continue;
 
 		map<Int_t,Int_t>::iterator iter = mTotalDayId.find((runId/1000)%1000);
 		if(iter != mTotalDayId.end())
@@ -345,15 +346,15 @@ int main(int argc, char** argv)
 		current_nEMinus=0;
 		Int_t npTrks = event->mNTrks;
 		// cout << "npTrks = " << npTrks << endl;
-    for(int j=0;j<npTrks;j++) passTrack(event,j);
-    // cout << "after passtrack" << endl;
+    	for(int j=0;j<npTrks;j++) passTrack(event,j);
+    	// cout << "after passtrack" << endl;
 		hnEMinusvsEPlus->Fill(current_nEPlus,current_nEMinus);
 
 		Double_t finalEventPlane = reCalEventPlane(event);
 		if(finalEventPlane<0) continue;
 		eveBufferPointer = (Int_t)(finalEventPlane/TMath::Pi()*mEveBins);
 		// // cout<<"eveBufferPointer:"<<eveBufferPointer<<endl;
-		// if(eveBufferPointer<0 || eveBufferPointer>=mEveBins) continue;
+		if(eveBufferPointer<0 || eveBufferPointer>=mEveBins) continue;
 		// eveBufferPointer = 0;
 
 
@@ -432,8 +433,8 @@ Bool_t passEvent(miniDst* event)
 		return kFALSE;
 	}
 
-	map<Int_t, Int_t>::iterator iter_021 = mBadRunId_021.find(runId);
-	if(iter_021 != mBadRunId_021.end() && is021Trigger){
+	map<Int_t, Int_t>::iterator iter_021 = iter_001.find(runId);
+	if(iter_021 != iter_001.end() && is021Trigger){
 		//cout<<"bad run, continue"<<endl;
 		return kFALSE;
 	}
@@ -443,7 +444,7 @@ Bool_t passEvent(miniDst* event)
 	Double_t RefMultCorr = refMult;
 	mCentrality = event->mCentrality;// 1-9 for 70-80% - 0-5%
   // mCentrality = mCentrality+1;
-  cenBufferPointer = mCentrality;
+  cenBufferPointer = mCentrality-1;
   RefMultCorr = event->mGRefMultCorr;
   reWeight = event->mEvtWeight;
 
@@ -453,6 +454,7 @@ Bool_t passEvent(miniDst* event)
 
 	// used for mixed centrality by centrality
 	cenBufferPointer = 0;
+
 	// if (cenBufferPointer <0 || cenBufferPointer >8) return kFALSE;// 0-8 for 70-80% - 0-5%
 	//cout << cenBufferPointer<<endl;
 	
