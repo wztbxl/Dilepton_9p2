@@ -45,12 +45,12 @@ if(vz<-87.0)// -145,-87 cm
 bool limit1 = false;
 bool limit2 = false;
 
-if(refmult<d0+
+if(refmult<d0+ //lower limit
             d1*NtofMatch+
 			d2*NtofMatch*NtofMatch+
 			d3*NtofMatch*NtofMatch*NtofMatch+
 			d4*NtofMatch*NtofMatch*NtofMatch*NtofMatch){return false;}
-if(refmult>b0+
+if(refmult>b0+ //upper limit
             b1*NtofMatch+
 			b2*NtofMatch*NtofMatch+
 			b3*NtofMatch*NtofMatch*NtofMatch+

@@ -48,10 +48,10 @@ Int_t StMiniTreeMaker::Init()
 	if (mFillHisto)
 		bookHistos();
 	LOG_INFO << "BookHistos Finish" << endm;
-	PileupUplimit = new TF1("PileupUplimit","pol6",0,340);
-	PileupUplimit->SetParameters(7.14109e+00,3.24086e+00,-5.75451e-02,8.41265e-04,-5.77820e-06,1.82626e-08,-2.17213e-11);
-	PileupLowlimit = new TF1("PileupLowlimit","pol6",0,340);
-	PileupLowlimit->SetParameters(-6.33246e+00,7.90568e-02,3.03279e-02,-5.03738e-04,3.82206e-06,-1.30813e-08,1.64832e-11);
+	PileupUplimit = new TF1("PileupUplimit","pol5",0,400);
+	PileupUplimit->SetParameters(-15.7887025834219, 0.789786364309292, -0.000637115144252616, 1.00019972792727e-05, -2.45208851616324e-08;);
+	PileupLowlimit = new TF1("PileupLowlimit","pol5",0,400);
+	PileupLowlimit->SetParameters(16.4277056306649, 1.71652229539398, -0.00406847684302521, 1.65203560938885e-05, -2.96250329214512e-08);
 	PileupLimit = new TF1("PileupLimit","[0]*x-[1]",0,1000);
 	PileupLimit->SetParameters(0.7,10);
 
@@ -233,7 +233,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	if (mFillHisto)
 		hEvent->Fill(9.5);
 	// if (mnTOFMatch < PileupLimit->Eval(refMult)) return kFALSE;//pile up cut
-	if (!  pileupRejection(vtxPos.z(), refMult, mnTOFMatch)) return kFALSE;//using vz dependence vz cut
+	if (!pileupRejection(vtxPos.z(), refMult, mnTOFMatch)) return kFALSE;//using vz dependence vz cut
 	if (mFillHisto)
 		hEvent->Fill(10.5);
 

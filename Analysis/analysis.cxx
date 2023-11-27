@@ -1292,8 +1292,8 @@ void bookHistograms()
 	hBField = new TH1F("hBField","hBField;Magnetic Filed (KiloGauss);Counts",400,-10,10);
 	hnTofHitsvsRefMult = new TH2D("hnTofHitsvsRefMult",";RefMult;nTofHits",500,0,500,500,0,500);
 	hnTofHitsvsRefMult_noCut = new TH2D("hnTofHitsvsRefMult_noCut",";RefMult;nTofHits",500,0,500,500,0,500); 
-  hnTofHitsvsRefMult_Vz35 = new TH2D("hnTofHitsvsRefMult_Vz35",";RefMult;nTofHits",500,0,500,500,0,500);
-  hVxvsVy = new TH2D("hVxvsVy",";Vx;Vy",100,0,10,100,0,10);
+  	hnTofHitsvsRefMult_Vz35 = new TH2D("hnTofHitsvsRefMult_Vz35",";RefMult;nTofHits",500,0,500,500,0,500);
+  	hVxvsVy = new TH2D("hVxvsVy",";Vx;Vy",100,0,10,100,0,10);
 	hRunID = new TH1D("hRunID",";RunID;nCounts",214990,21030025,21245015);
 	hTriggerID = new TH1D("hTriggerID",";Trigger ID;nCounts",4,780000-1,780040-1);
 
