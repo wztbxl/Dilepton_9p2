@@ -49,7 +49,7 @@ Int_t StMiniTreeMaker::Init()
 		bookHistos();
 	LOG_INFO << "BookHistos Finish" << endm;
 	PileupUplimit = new TF1("PileupUplimit","pol5",0,400);
-	PileupUplimit->SetParameters(-15.7887025834219, 0.789786364309292, -0.000637115144252616, 1.00019972792727e-05, -2.45208851616324e-08;);
+	PileupUplimit->SetParameters(-15.7887025834219, 0.789786364309292, -0.000637115144252616, 1.00019972792727e-05, -2.45208851616324e-08);
 	PileupLowlimit = new TF1("PileupLowlimit","pol5",0,400);
 	PileupLowlimit->SetParameters(16.4277056306649, 1.71652229539398, -0.00406847684302521, 1.65203560938885e-05, -2.96250329214512e-08);
 	PileupLimit = new TF1("PileupLimit","[0]*x-[1]",0,1000);
