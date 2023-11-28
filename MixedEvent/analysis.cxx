@@ -144,29 +144,8 @@ TH1F *hVertexZ;
 TH1F *hVzDiff;
 TH1D *hVr;
 TH1F *hBField;
-TH2D *hnTofHitsvsRefMult;
-TH2D* hnTofHitsvsRefMult_noCut;
-TH2D* hnTofHitsvsRefMult_Vz35;
-TH2D* hVxvsVy;
 //eventPlane
-TH1F *hRawEventPlane;
-TH1F *hNewEventPlane;
-TH1F *hFinalEventPlane;
-TH1F *hFinalEventPlane_Fit;
-TH1F *hReCenterEventPlane;
-TH2F *hDelta_Psi2;
-TH2F *hDelta_Psi2_FitvsFactor;
-TH1D* hLargeDiffEvt_Day;
-TH1D* hLargeDiffEvt_vz;
-TH1D* hLargeDiffEvt_vr;
-TH2F *hInclusiveEPhivsPt;
-TH2F *hExclusiveEPhivsPt;
-TH2F *hCut3EPhivsPt;
-TH2F *hnEMinusvsEPlus;
 //angleV 
-TH2F *hULAngleVvsM;
-TH2F *hLPosAngleVvsM;
-TH2F *hLNegAngleVvsM;
 TH2F *hMixULAngleVvsM;
 TH2F *hMixLPosAngleVvsM;
 TH2F *hMixLNegAngleVvsM;
@@ -178,9 +157,6 @@ TH2F *hMixLNegAngleVvsM;
 // TH2F *hMixLPosMvsPtwophiV;
 // TH2F *hMixLNegMvsPtwophiV;
 //with phiV cut
-TH2F *hULMvsPt;
-TH2F *hLPosMvsPt;
-TH2F *hLNegMvsPt;
 TH2F *hMixULMvsPt;
 TH2F *hMixLPosMvsPt;
 TH2F *hMixLNegMvsPt;
@@ -188,21 +164,9 @@ TH2F *hElectronCenvsPt;
 TH2F *hPositronCenvsPt;
 //**********************
 //add centrality dimension
-TH3F *hULMvsPtCen;
-TH3F *hLPosMvsPtCen;
-TH3F *hLNegMvsPtCen;
-TH3F *hULMvsPtCen_CutedbyPhiV;
-TH3F *hLPosMvsPtCen_CutedbyPhiV;
-TH3F *hLNegMvsPtCen_CutedbyPhiV;
 TH3F *hMixULMvsPtCen;
 TH3F *hMixLPosMvsPtCen;
 TH3F *hMixLNegMvsPtCen;
-TH3F *hMixLPosMvsPtCen_CutedbyPhiV;
-TH3F *hMixLNegMvsPtCen_CutedbyPhiV;
-TH3F *hULMvsPhiCen;
-TH3F *hLPosMvsPhiCen;
-TH3F *hLNegMvsPhiCen;
-
 TH1D* hCellIDDiff;
 TH2F* hnSigmaEvsP;
 
@@ -220,11 +184,12 @@ TH2F* hnSigmaEvsP;
 // TH3F *hMixLSePtvsMeevsCen;
 TH3D* hMixPollFullFlag;
 TH3D* hnEvtsPerMixPoll;
+TH2F* hnEMinusvsEPlus
 
 Int_t runId;
 Int_t EvtID;
 
-int targetCent = 0;
+int targetCent = -99;
 //for the centrality, 1-9 is 70-80% ~ 0-5%, 9 is most central bins
 
 int main(int argc, char** argv)
@@ -365,9 +330,9 @@ int main(int argc, char** argv)
 		}
 
 		
-		makeTags();
+		makeTags();//make photonic electron tag
 		// cout << "after tags " << endl;
-		makeRealPairs();
+		// makeRealPairs();
 		// cout << "after real pairs " << endl;
 		makeMixPairs();
 		// cout << "after mixed pairs " << endl;
@@ -423,12 +388,13 @@ Bool_t passEvent(miniDst* event)
 		if(trigId == mTrigId[0])RefMVzCorFlag = kTRUE, is001Trigger = kTRUE;
 		if(trigId == mTrigId[2])is021Trigger = kTRUE;
 	}
-	if(!fireTrigger) return kFALSE;
+	if(!fireTrigger) return kFALSE;//no 9.2 GeV trigger
 	bField = event->mBField;
-	mCentrality = event->mCentrality;
+	mCentrality = event->mCentrality;//1~9 for 70-80% ~ 0-5%
 
+	//using same bad runlist
 	map<Int_t, Int_t>::iterator iter_001 = mBadRunId_001.find(runId);
-	if(iter_001 != mBadRunId_001.end() && is001Trigger){
+	if(iter_001 != mBadRunId_001.end() && is001Trigger){// find a badrun in the list
 		//cout<<"bad run, continue"<<endl;
 		return kFALSE;
 	}
@@ -443,43 +409,18 @@ Bool_t passEvent(miniDst* event)
 	// reWeight = 1.;
 	Double_t RefMultCorr = refMult;
 	mCentrality = event->mCentrality;// 1-9 for 70-80% - 0-5%
-  // mCentrality = mCentrality+1;
-  cenBufferPointer = mCentrality-1;
-  RefMultCorr = event->mGRefMultCorr;
-  reWeight = event->mEvtWeight;
+	if(mCentrality > 9 || mCentrality < 1) return kFALSE;
+	// mCentrality = mCentrality+1;
+	cenBufferPointer = 0;// for the centrality by centrality mixed, the pointer will be 0
+	RefMultCorr = event->mGRefMultCorr;
+	reWeight = event->mEvtWeight;
 
-  // if(RefMVzCorFlag)RefMultCorr = GetRefMultCorr(refMult, vz);
-	// reWeight = GetWeight(RefMultCorr);
-	// mCentrality = GetCentrality(RefMultCorr);
-
-	// used for mixed centrality by centrality
-	cenBufferPointer = 0;
-
-	// if (cenBufferPointer <0 || cenBufferPointer >8) return kFALSE;// 0-8 for 70-80% - 0-5%
-	//cout << cenBufferPointer<<endl;
-	
-	
-	// refMultCorrUtil->init(runId);
-	// refMultCorrUtil->initEvent(refMult,vz,ZDCrate);
-	// mCentrality = refMultCorrUtil->getCentralityBin9();
-	// reWeight = refMultCorrUtil->getWeight();
-	// double refMultCorr = refMultCorrUtil->getRefMultCorr();
-	// cenBufferPointer = mCentrality;
-	// if (cenBufferPointer <0 || cenBufferPointer >8) return kFALSE;
-
-	//cout << cenBufferPointer<<endl;
-	//if(refMult<300) cout<<"reWeight: "<<reWeight<<endl;
-
-	hnTofHitsvsRefMult_noCut->Fill(refMult,mnTOFMatch);
 	if(TMath::Abs(vx)<1.e-5 && TMath::Abs(vy)<1.e-5 && TMath::Abs(vz)<1.e-5) return kFALSE;
 	if(TMath::Abs(vz)>=mVzCut) return kFALSE;//vz should also be in the range listed in the parameters file to do the refMult correction
 	hnEvts->Fill(2);
 	if(vr>=mVrCut) return kFALSE;
 	hnEvts->Fill(3);
-	// hnTofHitsvsRefMult_noCut->Fill(refMult,mnTOFMatch);
-	// if(TMath::Abs(vzDiff)>=mVzDiffCut) return kFALSE;
 	//pile up rejection
-  hnTofHitsvsRefMult_Vz35->Fill(refMult,mnTOFMatch);
 	if (mnTOFMatch < Pileuplimit->Eval(refMult)) return kFALSE;
 	hnEvts->Fill(4);
 
@@ -487,10 +428,8 @@ Bool_t passEvent(miniDst* event)
 	hVertexZ->Fill(vz);
 	hVzDiff->Fill(vzDiff);
 	hVr->Fill(vr);
-	hVxvsVy->Fill(vx,vy);
 
 	hRefMult->Fill(refMult,reWeight);
-	hnTofHitsvsRefMult->Fill(refMult,mnTOFMatch);
 	
 
 	Int_t centrality9 = mCentrality;
@@ -531,11 +470,9 @@ Bool_t passTrack(miniDst* event, Int_t i)
 	// if(dca>0.8) return kFALSE;
 	if(dca>mTpceDcaCut) return kFALSE;
 	if(TMath::Abs(eta)>mTpceEtaCut) return kFALSE;
-	hInclusiveEPhivsPt->Fill(charge*pt,phi);
 	if(beta2TOF<=0. || TMath::Abs(1.-1./beta2TOF)>mTpceBeta2TOFCut) return kFALSE;
-  hnSigmaEvsP->Fill(p,nSigmaE);
+	hnSigmaEvsP->Fill(p,nSigmaE);
 
-	hExclusiveEPhivsPt->Fill(charge*pt,phi);
 	Float_t mTpceNSigmaECutLow;
 	if(p<.8){
 		mTpceNSigmaECutLow = 3.0*p - 3.15; 
@@ -543,7 +480,6 @@ Bool_t passTrack(miniDst* event, Int_t i)
 		mTpceNSigmaECutLow = mTpceNSigmaECut[0];
 	}
 	if(nSigmaE<mTpceNSigmaECutLow+mNSigmaEShift || nSigmaE>mTpceNSigmaECut[1]+mNSigmaEShift) return kFALSE;
-	hCut3EPhivsPt->Fill(charge*pt,phi);
 
 	// if(current_nE != current_nEPlus+current_nEMinus) current_nE = current_nEPlus+current_nEMinus;
 	// cout << "current_nE = " << current_nE << " current_nEPlus = " << current_nEPlus << " current_nEMinus = " << current_nEMinus << endl;
@@ -659,6 +595,7 @@ void makeTags() // using for additional photon electron cut M_ee < 0.055 GeV
 
 }
 
+/*
 void makeRealPairs()
 {
 	//+--------------------------+
@@ -791,6 +728,7 @@ void makeRealPairs()
 		}//end of e- loop
 	}//end of e- loop
 }
+*/
 //_____________________________________________________________________________
 void makeMixPairs()
 {
@@ -1007,7 +945,6 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	TVector2 mRawQ(Qx,Qy);
 	Double_t rawEP = 0.5*mRawQ.Phi();
 	if(rawEP<0.) rawEP += TMath::Pi();
-	hRawEventPlane->Fill(rawEP);
 
 	if(rejElectron){ //reject the contribution of electron
 		for(Int_t i=0;i<current_nE;i++){
@@ -1169,10 +1106,6 @@ void bookHistograms()
 	hVzDiff = new TH1F("hVzDiff","hVzDiff;Vz_{TPC} - Vz_{VPD} (cm);Counts",200,-10,10);
 	hVr = new TH1D("hVr","hVr;V_{r} (cm);Counts",500,0,5);
 	hBField = new TH1F("hBField","hBField;Magnetic Filed (KiloGauss);Counts",400,-10,10);
-	hnTofHitsvsRefMult = new TH2D("hnTofHitsvsRefMult",";RefMult;nTofHits",500,0,500,500,0,500);
-	hnTofHitsvsRefMult_noCut = new TH2D("hnTofHitsvsRefMult_noCut",";RefMult;nTofHits",500,0,500,500,0,500); 
-  hnTofHitsvsRefMult_Vz35 = new TH2D("hnTofHitsvsRefMult_Vz35",";RefMult;nTofHits",500,0,500,500,0,500);
-  hVxvsVy = new TH2D("hVxvsVy",";Vx;Vy",100,0,10,100,0,10);
 
 	const Int_t    nPtBins   = 500;
 	const Double_t ptLow     = 0;
@@ -1182,47 +1115,17 @@ void bookHistograms()
 	const Double_t massHi    = 4;
 
 	//eventPlane
-	hRawEventPlane = new TH1F("hRawEventPlane","hRawEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
-	hNewEventPlane = new TH1F("hNewEventPlane","hNewEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
-	hReCenterEventPlane = new TH1F("hReCenterEventPlane","hReCenterEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
-	hFinalEventPlane = new TH1F("hFinalEventPlane","hFinalEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
-	hFinalEventPlane_Fit = new TH1F("hFinalEventPlane_Fit","hFinalEventPlane_Fit;Reaction Plane (rad); Counts",300,0,TMath::Pi());
-	hDelta_Psi2 = new TH2F("hDelta_Psi2","hDelta_Psi2;recenter #Psi_{2};#Delta#Psi_{2}",300,0,TMath::Pi(),600,-TMath::Pi()-0.1,TMath::Pi()+0.1);
-	hDelta_Psi2_FitvsFactor = new TH2F("hDelta_Psi2_FitvsFactor","hDelta_Psi2_FitvsFactor;Fit #Delta#Psi_{2};Factor #Delta#Psi_{2}",300,0-0.2,TMath::Pi()+0.2,300,0-0.2,TMath::Pi()+0.2);
-	hLargeDiffEvt_Day = new TH1D("hLargeDiffEvt_Day","hLargeDiffEvt_Day;Day Index; nCounts",mTotalDay+3,0,mTotalDay+3);
-	hLargeDiffEvt_vz = new TH1D("hLargeDiffEvt_vz","hLargeDiffEvt_vz;",1200,-60,60);
-	hLargeDiffEvt_vr = new TH1D("hLargeDiffEvt_vr","hLargeDiffEvt_vr;",500,0,5);
 	
-
-
-	hInclusiveEPhivsPt = new TH2F("hInclusiveEPhivsPt","hInclusiveEPhivsPt;q*p_{T} (GeV/c); #phi",200,-10,10,600,-TMath::Pi(),TMath::Pi());
-	hExclusiveEPhivsPt = new TH2F("hExclusiveEPhivsPt","hExclusiveEPhivsPt;q*p_{T} (GeV/c); #phi",200,-10,10,600,-TMath::Pi(),TMath::Pi());
-	hCut3EPhivsPt = new TH2F("hCut3EPhivsPt","hCut3EPhivsPt;q*p_{T} (GeV/c); #phi",200,-10,10,600,-TMath::Pi(),TMath::Pi());
-
 	hnEMinusvsEPlus = new TH2F("hnEMinusvsEPlus","hnEMinusvsEPlus;# e^{+};# e^{-}",30,0,30,30,0,30);
 	hnSigmaEvsP = new TH2F("hnSigmaEvsP","; P (GeV/c); n#sigma_{e}",600,0,6,1000,-5,5);
 
 
 	//angleV 
-	hULAngleVvsM = new TH2F("hULAngleVvsM","hULAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
-	hLPosAngleVvsM = new TH2F("hLPosAngleVvsM","hLPosAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
-	hLNegAngleVvsM = new TH2F("hLNegAngleVvsM","hLNegAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
 	hMixULAngleVvsM = new TH2F("hMixULAngleVvsM","hMixULAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
 	hMixLPosAngleVvsM = new TH2F("hMixLPosAngleVvsM","hMixLPosAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
 	hMixLNegAngleVvsM = new TH2F("hMixLNegAngleVvsM","hMixLNegAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
 
-	//without phiV cut
-	// hULMvsPtwophiV = new TH2F("hULMvsPtwophiV","hULMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	// hLPosMvsPtwophiV = new TH2F("hLPosMvsPtwophiV","hLPosMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	// hLNegMvsPtwophiV = new TH2F("hLNegMvsPtwophiV","hLNegMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	// hMixULMvsPtwophiV = new TH2F("hMixULMvsPtwophiV","hMixULMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	// hMixLPosMvsPtwophiV = new TH2F("hMixLPosMvsPtwophiV","hMixLPosMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	// hMixLNegMvsPtwophiV = new TH2F("hMixLNegMvsPtwophiV","hMixLNegMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-
 	//with phiV cut
-	hULMvsPt = new TH2F("hULMvsPt","hULMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	hLPosMvsPt = new TH2F("hLPosMvsPt","hLPosMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	hLNegMvsPt = new TH2F("hLNegMvsPt","hLNegMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
 	hMixULMvsPt = new TH2F("hMixULMvsPt","hMixULMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
 	hMixLPosMvsPt = new TH2F("hMixLPosMvsPt","hMixLPosMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
 	hMixLNegMvsPt = new TH2F("hMixLNegMvsPt","hMixLNegMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
@@ -1230,20 +1133,9 @@ void bookHistograms()
 	hPositronCenvsPt = new TH2F("hPositronCenvsPt","hPositronCenvsPt;p_{T} (GeV/c);Centrality",nPtBins,ptLow,ptHi,16,0,16);
 
 	//add centrality dimension
-	hULMvsPtCen = new TH3F("hULMvsPtCen","hULMvsPtCen;p_{T} (GeV/c);Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hLPosMvsPtCen = new TH3F("hLPosMvsPtCen","hLPosMvsPtCen;p_{T} (GeV/c);Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hLNegMvsPtCen = new TH3F("hLNegMvsPtCen","hLNegMvsPtCen;p_{T} (GeV/c);Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
 	hMixULMvsPtCen = new TH3F("hMixULMvsPtCen","hMixULMvsPtCen;p_{T} (GeV/c);Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
 	hMixLPosMvsPtCen = new TH3F("hMixLPosMvsPtCen","hMixLPosMvsPtCen;p_{T} (GeV/c);Centrality;Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
 	hMixLNegMvsPtCen = new TH3F("hMixLNegMvsPtCen","hMixLNegMvsPtCen;p_{T} (GeV/c);Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hMixLPosMvsPtCen_CutedbyPhiV = new TH3F("hMixLPosMvsPtCen_CutedbyPhiV","hMixLPosMvsPtCen_CutedbyPhiV;p_{T} (GeV/c);Centrality;Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hMixLNegMvsPtCen_CutedbyPhiV = new TH3F("hMixLNegMvsPtCen_CutedbyPhiV","hMixLNegMvsPtCen_CutedbyPhiV;p_{T} (GeV/c);Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hULMvsPhiCen = new TH3F("hULMvsPhiCen","hULMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",600,-3.14-0.1,3.14+0.1,16,0,16,1000,massLow,massHi);
-	hLPosMvsPhiCen = new TH3F("hLPosMvsPhiCen","hLPosMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",600,-3.14-0.1,3.14+0.1,16,0,16,1000,massLow,massHi);
-	hLNegMvsPhiCen = new TH3F("hLNegMvsPhiCen","hLNegMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",600,-3.14-0.1,3.14+0.1,16,0,16,1000,massLow,massHi);
-	hULMvsPtCen_CutedbyPhiV = new TH3F("hULMvsPtCen_CutedbyPhiV","hULMvsPtCen;p_{T} (GeV/c^{2});Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hLPosMvsPtCen_CutedbyPhiV = new TH3F("hLPosMvsPtCen_CutedbyPhiV","hLPosMvsPtCen;p_{T} (GeV/c^{2});Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hLNegMvsPtCen_CutedbyPhiV = new TH3F("hLNegMvsPtCen_CutedbyPhiV","hLNegMvsPtCen;p_{T} (GeV/c^{2});Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
 	hCellIDDiff = new TH1D("hCellIDDiff","hCellIDDiff;ID Diff ;counts;",32,-16,16);
 
 	// hULMvsPtCen->Sumw2();
@@ -1288,67 +1180,24 @@ void writeHistograms(char* outFile)
 	hVzDiff->Write();
 	hVr->Write();
 	hBField->Write();
-	hnTofHitsvsRefMult_noCut->Write();
-    hnTofHitsvsRefMult_Vz35->Write();
-  hnTofHitsvsRefMult->Write();
 
 	//eventPlane
-	hRawEventPlane->Write();
-	hNewEventPlane->Write();
-	hFinalEventPlane->Write();
-	hFinalEventPlane_Fit->Write();
-	hReCenterEventPlane->Write();
-	hDelta_Psi2->Write();
-	hDelta_Psi2_FitvsFactor->Write();
-	hLargeDiffEvt_Day->Write();
-	hLargeDiffEvt_vz->Write();
-	hLargeDiffEvt_vr->Write();
-	
-	hInclusiveEPhivsPt->Write();
-	hExclusiveEPhivsPt->Write();
-	hCut3EPhivsPt->Write();
-
 	hnEMinusvsEPlus->Write();
 
 	//angleV 
-	hULAngleVvsM->Write();
-	hLPosAngleVvsM->Write();
-	hLNegAngleVvsM->Write();
 	hMixULAngleVvsM->Write();
 	hMixLPosAngleVvsM->Write();
 	hMixLNegAngleVvsM->Write();
 
-	//without phiV cut
-	// hULMvsPtwophiV->Write();
-	// hLPosMvsPtwophiV->Write();
-	// hLNegMvsPtwophiV->Write();
-	// hMixULMvsPtwophiV->Write();
-	// hMixLPosMvsPtwophiV->Write();
-	// hMixLNegMvsPtwophiV->Write();
-
 	//with phiV cut
-	hULMvsPt->Write();
-	hLPosMvsPt->Write();
-	hLNegMvsPt->Write();
 	hMixULMvsPt->Write();
 	hMixLPosMvsPt->Write();
 	hMixLNegMvsPt->Write();
 
 	//add centrality dimension
-	hULMvsPtCen->Write();
-	hLPosMvsPtCen->Write();
-	hLNegMvsPtCen->Write();
 	hMixULMvsPtCen->Write();
 	hMixLPosMvsPtCen->Write();
 	hMixLNegMvsPtCen->Write();
-	hULMvsPhiCen->Write();
-  	hLPosMvsPhiCen->Write();
-  	hLNegMvsPhiCen->Write();
-	hULMvsPtCen_CutedbyPhiV->Write();
-	hLPosMvsPtCen_CutedbyPhiV->Write();
-	hLNegMvsPtCen_CutedbyPhiV->Write();
-	hMixLPosMvsPtCen_CutedbyPhiV->Write();
-	hMixLNegMvsPtCen_CutedbyPhiV->Write();
 	hElectronCenvsPt->Write();
 	hPositronCenvsPt->Write();
 	hCellIDDiff->Write();
@@ -1356,19 +1205,6 @@ void writeHistograms(char* outFile)
   	//for mixed QA
 	hMixPollFullFlag->Write();
 	hnEvtsPerMixPoll->Write();
-	
-
-	// hULCosThetavsMvsCen->Write();
-	// hLPosCosThetavsMvsCen->Write();
-	// hLNegCosThetavsMvsCen->Write();
-	// hMixULCosThetavsMvsCen->Write();
-	// hMixLPosCosThetavsMvsCen->Write();
-	// hMixLNegCosThetavsMvsCen->Write();
-
-	// hULePtvsMeevsCen->Write();
-	// hLSePtvsMeevsCen->Write();
-	// hMixULePtvsMeevsCen->Write();
-	// hMixLSePtvsMeevsCen->Write();
 }
 //==============================================================================================
 Bool_t Init()
