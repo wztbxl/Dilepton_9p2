@@ -184,7 +184,7 @@ TH2F* hnSigmaEvsP;
 // TH3F *hMixLSePtvsMeevsCen;
 TH3D* hMixPollFullFlag;
 TH3D* hnEvtsPerMixPoll;
-TH2F* hnEMinusvsEPlus
+TH2F* hnEMinusvsEPlus;
 
 Int_t runId;
 Int_t EvtID;
@@ -817,7 +817,7 @@ void makeMixPairs()
 					Double_t angleVcut = phiVcut->Eval(pair.M());
 					Double_t angleV = phiVAngle(current_ePlus[i],buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j],1,1);
 					hMixLPosAngleVvsM->Fill(pair.M(),angleV,reWeight);
-					if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+					// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixLPosMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixLPosMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
@@ -853,7 +853,7 @@ void makeMixPairs()
 					Double_t angleVcut = phiVcut->Eval(pair.M());
 					Double_t angleV = phiVAngle(current_eMinus[i],buffer_eMinus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j],-1,-1);
 					hMixLNegAngleVvsM->Fill(pair.M(),angleV,reWeight);
-					if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+					// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixLNegMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixLNegMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
@@ -958,7 +958,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 		eventPlane = 0.5*Q.Phi();
 		if(eventPlane<0.) eventPlane +=TMath::Pi();
 	}
-	hNewEventPlane->Fill(eventPlane);
+	// hNewEventPlane->Fill(eventPlane);
 	if(eventPlane<0.) return eventPlane;
 
 	//********* get recenter number and recenter *********
@@ -978,7 +978,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	if(mReCenterQ->Mod() > 0){
 		recenterEP = 0.5*mReCenterQ->Phi();
 		if(recenterEP<0.) recenterEP += TMath::Pi();
-		hReCenterEventPlane->Fill(recenterEP);
+		// hReCenterEventPlane->Fill(recenterEP);
 	}
   recenterEP_noFlat = recenterEP;
 
@@ -1002,7 +1002,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	if(recenterEP<0.) recenterEP += TMath::Pi();
 	if(recenterEP>=TMath::Pi()) recenterEP -= TMath::Pi();
 	// hDelta_Psi2->Fill(recenterEP,deltaPhi);
-	hFinalEventPlane->Fill(recenterEP);
+	// hFinalEventPlane->Fill(recenterEP);
 
 	deltaPhi_2 = Delta_Psi2->Eval(recenterEP_2);
 	if(deltaPhi_2<0.) deltaPhi_2 += TMath::Pi();
@@ -1010,16 +1010,16 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	recenterEP_2 += deltaPhi_2;
 	if(recenterEP_2<0.) recenterEP_2 += TMath::Pi();
 	if(recenterEP_2>=TMath::Pi()) recenterEP_2 -= TMath::Pi();
-	hDelta_Psi2->Fill(recenterEP_2,deltaPhi_2);
+	// hDelta_Psi2->Fill(recenterEP_2,deltaPhi_2);
 
 
-	hDelta_Psi2_FitvsFactor->Fill(recenterEP_2,recenterEP);
-	hFinalEventPlane_Fit->Fill(recenterEP_2);
+	// hDelta_Psi2_FitvsFactor->Fill(recenterEP_2,recenterEP);
+	// hFinalEventPlane_Fit->Fill(recenterEP_2);
 	if (abs(recenterEP_2-recenterEP) > 0.02)
 	{
-		hLargeDiffEvt_Day->Fill(dayIndex);
-		hLargeDiffEvt_vz->Fill(vz);
-		hLargeDiffEvt_vr->Fill(vr);
+		// hLargeDiffEvt_Day->Fill(dayIndex);
+		// hLargeDiffEvt_vz->Fill(vz);
+		// hLargeDiffEvt_vr->Fill(vr);
 	}
 	
 	return recenterEP_noFlat;
