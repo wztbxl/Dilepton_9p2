@@ -533,14 +533,15 @@ Bool_t passEvent(miniDst* event)
 	bField = event->mBField;
 	mCentrality = event->mCentrality;
 
+	//reverse the logical to check the data in the bad run list 
 	map<Int_t, Int_t>::iterator iter_001 = mBadRunId_001.find(runId);
-	if(iter_001 != mBadRunId_001.end() && is001Trigger){
+	if(iter_001 == mBadRunId_001.end() && is001Trigger){
 		//cout<<"bad run, continue"<<endl;
 		return kFALSE;
 	}
 
 	map<Int_t, Int_t>::iterator iter_021 = mBadRunId_001.find(runId);
-	if(iter_021 != mBadRunId_001.end() && is021Trigger){ // using same bad runlist for the test
+	if(iter_021 == mBadRunId_001.end() && is021Trigger){ // using same bad runlist for the test
 		//cout<<"bad run, continue"<<endl;
 		return kFALSE;
 	}
