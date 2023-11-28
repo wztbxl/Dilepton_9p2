@@ -40,6 +40,7 @@
 #include "cuts.h"
 #include "RefMfun.h"
 #include "StRefMultCorr.h"
+#include "pileup.h"
 
 using namespace std;
 #endif
@@ -416,12 +417,13 @@ Bool_t passEvent(miniDst* event)
 	reWeight = event->mEvtWeight;
 
 	if(TMath::Abs(vx)<1.e-5 && TMath::Abs(vy)<1.e-5 && TMath::Abs(vz)<1.e-5) return kFALSE;
+	if(!pileupRejection(vz, refMult, mnTOFMatch)) return kFALSE;
 	if(TMath::Abs(vz)>=mVzCut) return kFALSE;//vz should also be in the range listed in the parameters file to do the refMult correction
 	hnEvts->Fill(2);
 	if(vr>=mVrCut) return kFALSE;
 	hnEvts->Fill(3);
 	//pile up rejection
-	if (mnTOFMatch < Pileuplimit->Eval(refMult)) return kFALSE;
+	// if (mnTOFMatch < Pileuplimit->Eval(refMult)) return kFALSE;
 	hnEvts->Fill(4);
 
 	hBField->Fill(bField);
