@@ -1446,6 +1446,7 @@ void writeHistograms(char* outFile)
 	hLargeDiffEvt_Day->Write();
 	hLargeDiffEvt_vz->Write();
 	hLargeDiffEvt_vr->Write();
+	cout << "writing event plane done" << endl;
 	
 	hInclusiveEPhivsPt->Write();
 	hExclusiveEPhivsPt->Write();
@@ -1453,7 +1454,7 @@ void writeHistograms(char* outFile)
 	hCut3EPhivsPt_extraE->Write();
 
 	hnEMinusvsEPlus->Write();
-	cout << "writing event plane done" << endl;
+	cout << "writing electron done" << endl;
 
 	//angleV 
 	hULAngleVvsM->Write();
