@@ -89,7 +89,7 @@ const Float_t pairPtCut = 0.1;
 const Int_t mCenBins = 9; //16; //9;
 const Int_t mVzBins = 10; //10; //6;
 const Int_t mEveBins = 12; //24; //12;
-const Int_t mMaxEventsInBuffer = 375; //100; //50;
+const Int_t mMaxEventsInBuffer = 350; //100; //50;
 const Int_t mMaxElectrons = 70;
 const Float_t mPhiVCutMRange = 0.2;
 Float_t current_EQx[mMaxElectrons],current_EQy[mMaxElectrons];
