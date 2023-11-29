@@ -148,7 +148,7 @@ Int_t StMiniTreeMaker::Make()
 //_____________________________________________________________________________
 Bool_t StMiniTreeMaker::processPicoEvent()
 {
-	int debugflag = 0;//0 is not print debug information
+	int debugflag = 1;//0 is not print debug information
 	if (mFillHisto)
 		hEvent->Fill(0.5);
 
