@@ -1433,6 +1433,7 @@ void writeHistograms(char* outFile)
 	hnTofHitsvsRefMult->Write();
 	hRunID->Write();
 	hTriggerID->Write();
+	cout << "writing passevent done" << endl;
 
 	//eventPlane
 	hRawEventPlane->Write();
@@ -1452,6 +1453,7 @@ void writeHistograms(char* outFile)
 	hCut3EPhivsPt_extraE->Write();
 
 	hnEMinusvsEPlus->Write();
+	cout << "writing event plane done" << endl;
 
 	//angleV 
 	hULAngleVvsM->Write();
@@ -1468,6 +1470,7 @@ void writeHistograms(char* outFile)
 	// hMixULMvsPtwophiV->Write();
 	// hMixLPosMvsPtwophiV->Write();
 	// hMixLNegMvsPtwophiV->Write();
+	cout << "writing angle V done" << endl;
 
 	//with phiV cut
 	hULMvsPt->Write();
@@ -1477,6 +1480,8 @@ void writeHistograms(char* outFile)
 	hMixLPosMvsPt->Write();
 	hMixLNegMvsPt->Write();
 
+	cout << "writing phiV done" << endl;
+	
 	//add centrality dimension
 	hULMvsPtCen->Write();
 	hLPosMvsPtCen->Write();
@@ -1517,6 +1522,8 @@ void writeHistograms(char* outFile)
 	hnHitsdEdxvspT_Posi_extraE->Write();
 	hRefMultvsnPiKP->Write();
 	hRefMultvsnPiKP_extraE->Write();
+	cout << "writing 3D done" << endl;
+
 	
 
 	// hULCosThetavsMvsCen->Write();
