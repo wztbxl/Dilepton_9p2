@@ -644,7 +644,7 @@ Bool_t passTrack(miniDst* event, Int_t i)
 	if(TMath::Abs(eta)>mTpceEtaCut) return kFALSE;
 	hInclusiveEPhivsPt->Fill(charge*pt,phi);
 	if(beta2TOF<=0. || TMath::Abs(1.-1./beta2TOF)>mTpceBeta2TOFCut) return kFALSE;
-	if(abs(TOFLoaclY) < 1.8) return kFALSE;
+	if(abs(TOFLoaclY) > 1.8) return kFALSE;
 	hnSigmaEvsP->Fill(p,nSigmaE);
 
 	hExclusiveEPhivsPt->Fill(charge*pt,phi);
