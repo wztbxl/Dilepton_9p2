@@ -273,6 +273,8 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		if (!isValidTrack(pTrack, vtxPos))
 			continue;
 
+		if (debugflag == 1 ) cout<<"select the track information OK"<<endl;
+		
 		Int_t charge = pTrack->charge();
 		TVector3 pMom = pTrack->pMom();
 		Float_t p = pMom.Mag();
@@ -337,6 +339,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 			hMergePionNSigmaEvsPCen->Fill(p,nSigmaE,mCentrality,reweight);
 		}
 
+		if (debugflag == 1 ) cout<<"select the pure track information OK"<<endl;
 		if (charge > 0)
 		{
 			/*if (TMath::Abs(nSigmaP) < 0.5)
