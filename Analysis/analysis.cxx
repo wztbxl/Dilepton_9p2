@@ -784,9 +784,9 @@ void makeRealPairs()
 	//+--------------------------+
 	TLorentzVector pair(0,0,0,0);
 	for(Int_t i=0;i<current_nEPlus;i++){
-		// if ( current_ePlus_tags[i] == 0) continue;
+		if ( current_ePlus_tags[i] == 0) continue;
 		for(Int_t j=0;j<current_nEMinus;j++){
-			// if ( current_eMinus_tags[j] == 0 ) continue;
+			if ( current_eMinus_tags[j] == 0 ) continue;
 			pair = current_ePlus[i]+current_eMinus[j];
 			if(TMath::Abs(pair.Rapidity())<=mPairYCut){
 				// hULMvsPtwophiV->Fill(pair.Pt(),pair.M(),reWeight);
@@ -827,9 +827,9 @@ void makeRealPairs()
 	//| current e+  + current e+ |
 	//+--------------------------+
 	for(Int_t i=0;i<current_nEPlus;i++){
-		// if ( current_ePlus_tags[i] == 0 ) continue;
+		if ( current_ePlus_tags[i] == 0 ) continue;
 		for(Int_t j=i+1;j<current_nEPlus;j++){
-			// if ( current_ePlus_tags[j] == 0 ) continue;
+			if ( current_ePlus_tags[j] == 0 ) continue;
 			pair = current_ePlus[i]+current_ePlus[j];
 			if(TMath::Abs(pair.Rapidity())<=mPairYCut){
 				// hLPosMvsPtwophiV->Fill(pair.Pt(),pair.M(),reWeight);
@@ -872,9 +872,9 @@ void makeRealPairs()
 	//| current e-  + current e- |
 	//+--------------------------+
 	for(Int_t i=0;i<current_nEMinus;i++){
-		// if ( current_eMinus_tags[i] == 0 ) continue;
+		if ( current_eMinus_tags[i] == 0 ) continue;
 		for(Int_t j=i+1;j<current_nEMinus;j++){
-			// if ( current_eMinus_tags[j] == 0 ) continue;
+			if ( current_eMinus_tags[j] == 0 ) continue;
 			pair = current_eMinus[i]+current_eMinus[j];
 			if(TMath::Abs(pair.Rapidity())<=mPairYCut){
 				// hLNegMvsPtwophiV->Fill(pair.Pt(),pair.M(),reWeight);
@@ -922,7 +922,7 @@ void makeMixPairs()
 		//+-------------------------+
 		for(Int_t i=0;i<current_nEPlus;i++){
 			for(Int_t j=0;j<buffer_nEMinus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent];j++){
-				// if ( current_ePlus_tags[i] == 0 ) continue;
+				if ( current_ePlus_tags[i] == 0 ) continue;
 				pair = current_ePlus[i] + buffer_eMinus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j];
 				if ( abs( current_ePlus_CellID[i]-buffer_eMinus_CellID[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j] ) == 0 ) continue;
 				// if ( abs( current_ePlus_CellID[i]-buffer_eMinus_CellID[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j] ) <= 1 ) continue;
@@ -954,7 +954,7 @@ void makeMixPairs()
 		//+-------------------------+
 		for(Int_t i=0;i<current_nEMinus;i++){
 			for(Int_t j=0;j<buffer_nEPlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent];j++){
-				// if ( current_eMinus_tags[i] == 0) continue;
+				if ( current_eMinus_tags[i] == 0) continue;
 				pair = current_eMinus[i] + buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j];
 				if ( abs( current_eMinus_CellID[i]-buffer_ePlus_CellID[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j] ) == 0 ) continue;
 				// if ( abs( current_eMinus_CellID[i]-buffer_ePlus_CellID[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j] ) <= 1 ) continue;
@@ -988,7 +988,7 @@ void makeMixPairs()
 		//+-------------------------+
 		for(Int_t i=0;i<current_nEPlus;i++){
 			for(Int_t j=0;j<buffer_nEPlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent];j++){
-				// if ( current_ePlus_tags[i] == 0 )  continue;
+				if ( current_ePlus_tags[i] == 0 )  continue;
 				pair = current_ePlus[i] + buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j];
 
 				if ( abs( current_ePlus_CellID[i]-buffer_ePlus_CellID[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j] ) == 0 ) continue;
@@ -1025,7 +1025,7 @@ void makeMixPairs()
 		//+-------------------------+
 		for(Int_t i=0;i<current_nEMinus;i++){
 			for(Int_t j=0;j<buffer_nEMinus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent];j++){
-				// if ( current_eMinus_tags[i] == 0 ) continue;
+				if ( current_eMinus_tags[i] == 0 ) continue;
 				pair = current_eMinus[i] + buffer_eMinus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j];
 
 				if ( abs( current_eMinus_CellID[i]-buffer_eMinus_CellID[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j] ) <= 1 ) continue;
