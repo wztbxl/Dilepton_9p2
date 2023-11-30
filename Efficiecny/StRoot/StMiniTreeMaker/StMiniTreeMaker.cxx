@@ -242,6 +242,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	{
 		LOG_INFO << "# of global tracks in picoDst: " << nNodes << endm;
 	}
+	if (debugflag == 1 ) cout<< "# of global tracks in picoDst: " << nNodes <<endl;
 
 	TLorentzVector pair;
 	TLorentzVector *Electron = new TLorentzVector[MaxNElectron];
@@ -262,6 +263,8 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		ElectronTag[i] = 0;
 		PositronTag[i] = 0;
 	}
+	if (debugflag == 1 ) cout<< "before track loop " << nNodes <<endl;
+
 	
 	int nChargeParticle = 0;
 	for (Int_t i = 0; i < nNodes; i++)
