@@ -219,6 +219,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		hVPDVzvsTPCVz->Fill(vtxPos.z(), vpdvz);
 		hVzDiff->Fill(vtxPos.z() - vpdvz);
 	}
+	if (debugflag == 1) cout<<"after fill histo "<<endl;	
 
 	if (TMath::Abs(vtxPos.x()) < 1.e-5 && TMath::Abs(vtxPos.y()) < 1.e-5 && TMath::Abs(vtxPos.z()) < 1.e-5) // non zero vertem
 		return kFALSE;
@@ -233,6 +234,8 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	if (mFillHisto)
 		hEvent->Fill(9.5);
 	// if (mnTOFMatch < PileupLimit->Eval(refMult)) return kFALSE;//pile up cut
+	if (debugflag == 1) cout<<"before pile up "<<endl;	
+
 	if (!pileupRejection(vtxPos.z(), refMult, mnTOFMatch)) return kFALSE;//using vz dependence vz cut
 	if (mFillHisto)
 		hEvent->Fill(10.5);
