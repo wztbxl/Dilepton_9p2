@@ -455,6 +455,7 @@ Bool_t passTrack(miniDst* event, Int_t i)
 	Float_t eta = event->mEta[i];
 	Float_t phi = event->mPhi[i];
 	Float_t beta2TOF = event->mBeta2TOF[i];
+	Float_t TOFLoaclY = event->mTOFLocalY[i];
 	Float_t ratio = 1.0*nHitsFit/nHitsPoss;
 	int CellID = event->mTOFCellID[i];
 	TVector3 mom;
@@ -473,6 +474,8 @@ Bool_t passTrack(miniDst* event, Int_t i)
 	if(dca>mTpceDcaCut) return kFALSE;
 	if(TMath::Abs(eta)>mTpceEtaCut) return kFALSE;
 	if(beta2TOF<=0. || TMath::Abs(1.-1./beta2TOF)>mTpceBeta2TOFCut) return kFALSE;
+	if(abs(TOFLoaclY) > 1.8) return kFALSE;
+
 	hnSigmaEvsP->Fill(p,nSigmaE);
 
 	Float_t mTpceNSigmaECutLow;
