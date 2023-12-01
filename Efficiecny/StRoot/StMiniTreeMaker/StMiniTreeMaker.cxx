@@ -223,14 +223,19 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 
 	if (TMath::Abs(vtxPos.x()) < 1.e-5 && TMath::Abs(vtxPos.y()) < 1.e-5 && TMath::Abs(vtxPos.z()) < 1.e-5) // non zero vertem
 		return kFALSE;
+	if (debugflag == 1) cout<<"111111"<<endl;	
 	if (mFillHisto)
 		hEvent->Fill(7.5);
+	if (debugflag == 1) cout<<"222222"<<endl;	
 	if (sqrt(vtxPos.x() * vtxPos.x() + vtxPos.y() * vtxPos.y()) >= mMaxVtxR) // vr cut
 		return kFALSE;
+	if (debugflag == 1) cout<<"333333"<<endl;	
 	if (mFillHisto)
 		hEvent->Fill(8.5);
+	if (debugflag == 1) cout<<"444444"<<endl;	
 	if (TMath::Abs(vtxPos.z()) >= mMaxVtxZ)// Vz Cut
 		return kFALSE;
+	if (debugflag == 1) cout<<"555555"<<endl;	
 	if (mFillHisto)
 		hEvent->Fill(9.5);
 	// if (mnTOFMatch < PileupLimit->Eval(refMult)) return kFALSE;//pile up cut
