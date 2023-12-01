@@ -159,6 +159,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		return kFALSE;
 	}
 
+	if (debugflag == 1) cout<<"begin a new pico event "<<endl;
 	Bool_t validTrigger = kFALSE;
 	Bool_t minbias = kFALSE;
 
@@ -208,7 +209,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 
 	mCentrality = mCentrality-1;
 	if (mCentrality<0 || mCentrality>8) return kFALSE;
-	if (debugflag == 1) cout<<"event centrality = "<<mCentrality<<endl;	
+	≈
 	Float_t mTpceNSigmaECutLow;
 	Float_t mTpceNSigmaECutHi;
 
