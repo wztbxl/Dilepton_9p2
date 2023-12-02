@@ -716,11 +716,11 @@ void makeTags()
 					current_ePlus_tags[i] = 0;
 					current_eMinus_tags[j] = 0;
 				}
-				if( pair.M() < 0.055 )
-				{
-					current_ePlus_tags[i] = 0;
-					current_eMinus_tags[j] = 0;
-				}
+				// if( pair.M() < 0.055 )
+				// {
+				// 	current_ePlus_tags[i] = 0;
+				// 	current_eMinus_tags[j] = 0;
+				// }
 			}
 			
 		}
