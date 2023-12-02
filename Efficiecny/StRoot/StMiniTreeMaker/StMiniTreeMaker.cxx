@@ -192,6 +192,8 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 			hEvent->Fill(2.5);
 	}
 
+	if (debugflag == 1) cout<<"begin a new minbias event "<<endl;	
+
 	TVector3 vtxPos = picoEvent->primaryVertex();
 	double vpdvz = picoEvent->vzVpd();
 	Int_t refMult = picoEvent->refMult();
@@ -200,6 +202,8 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	double reweight = 1.;
 	hRefMultvsnTOFMatch->Fill(refMult,mnTOFMatch);
 	hRefMultvsnTOFMatchvsVz->Fill(refMult,mnTOFMatch,vtxPos.Z());
+	cout <<"refmult = " << refMultCorr<< endl;
+	if (debugflag == 1) cout<<"begin a before get cent "<<endl;	
 
 	// get the centrality
 	Int_t mCentrality = GetCentrality(refMultCorr);// using 9.2 temp Centrality defination
