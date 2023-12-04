@@ -206,11 +206,15 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	if (debugflag == 1) cout<<"begin a before get cent "<<endl;	
 
 	// get the centrality
+	if (debugflag == 1) cout<<"1111111"<<endl;	
 	Int_t mCentrality = GetCentrality(refMultCorr);// using 9.2 temp Centrality defination
+	if (debugflag == 1) cout<<"2222222"<<endl;	
 	hRefMult->Fill(refMult);
+	if (debugflag == 1) cout<<"3333333"<<endl;	
 	hCentrality9->Fill(mCentrality); // 9 for 0-5%, 1 f0r 70-80%
 
 
+	if (debugflag == 1) cout<<"4444444"<<endl;	
 	mCentrality = mCentrality-1;
 	if (mCentrality<0 || mCentrality>8) return kFALSE;
 	if (debugflag == 1) cout<<"event centrality = "<<mCentrality<<endl;	
