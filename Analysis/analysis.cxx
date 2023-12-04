@@ -711,11 +711,11 @@ void makeTags()
 			{
 				Double_t angleVcut = phiVcut->Eval(pair.M());
 				Double_t angleV = phiVAngle(current_ePlus[i],current_eMinus[j],1,-1);
-				if( angleV < angleVcut && pair.M()<mPhiVCutMRange )
-				{
-					current_ePlus_tags[i] = 0;
-					current_eMinus_tags[j] = 0;
-				}
+				// if( angleV < angleVcut && pair.M()<mPhiVCutMRange )
+				// {
+				// 	current_ePlus_tags[i] = 0;
+				// 	current_eMinus_tags[j] = 0;
+				// }
 				// if( pair.M() < 0.055 )
 				// {
 				// 	current_ePlus_tags[i] = 0;
