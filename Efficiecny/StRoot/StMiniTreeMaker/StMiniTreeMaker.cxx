@@ -97,7 +97,7 @@ Int_t StMiniTreeMaker::Finish()
 //_____________________________________________________________________________
 Int_t StMiniTreeMaker::Make()
 {
-
+	// SetDEBUG();
 	StTimer timer;
 	if (mPrintMemory)
 		StMemoryInfo::instance()->snapshot();
@@ -148,7 +148,9 @@ Int_t StMiniTreeMaker::Make()
 //_____________________________________________________________________________
 Bool_t StMiniTreeMaker::processPicoEvent()
 {
-	int debugflag = 1;//0 is not print debug information
+	int debugflag = 0;//0 is not print debug information
+	// int debugflag = 1;//0 is not print debug information
+	if (debugflag == 1) cout<<"-3-3-3-3"<<endl;	
 	if (mFillHisto)
 		hEvent->Fill(0.5);
 	if (debugflag == 1) cout<<"-2-2-2-2"<<endl;	
