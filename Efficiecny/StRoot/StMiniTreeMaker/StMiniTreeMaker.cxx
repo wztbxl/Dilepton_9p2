@@ -151,7 +151,11 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	int debugflag = 1;//0 is not print debug information
 	if (mFillHisto)
 		hEvent->Fill(0.5);
-
+	if (!mPicoDst)
+	{
+		LOG_WARN << "No mPicoDst" << endm;
+		return kFALSE;
+	}
 	StPicoEvent *picoEvent = mPicoDst->event();
 	if (!picoEvent)
 	{
