@@ -1534,6 +1534,10 @@ void writeHistograms(char* outFile)
 	// hLSePtvsMeevsCen->Write();
 	// hMixULePtvsMeevsCen->Write();
 	// hMixLSePtvsMeevsCen->Write();
+	for( auto& kv : mBadRun_nElectron ) {
+        kv.second->Write();
+    }
+	
 }
 //==============================================================================================
 Bool_t Init()
