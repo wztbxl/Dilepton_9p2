@@ -76,6 +76,7 @@ map<Int_t,Int_t> mTotalDayId;
 map<Int_t,Int_t> mTotalRunId;
 map<Int_t,Int_t> mBadRunId_001;
 map<Int_t,Int_t> mBadRunId_021;
+map<TString, TH2> mBadRun_nElectron;
 
 Float_t bField;
 Float_t reWeight;
@@ -368,7 +369,9 @@ int main(int argc, char** argv)
 		// cout << "npTrks = " << npTrks << endl;
 		// nPi_K_P_tof = 0;
 		for(int j=0;j<npTrks;j++) passTrack(event,j); //Trk loop
-    // cout << "after passtrack" << endl;
+    	// cout << "after passtrack" << endl;
+		TString name = runId;
+		mBadRun_nElectron[name]->Fill(current_nEPlus,current_nEMinus);
 		hnEMinusvsEPlus->Fill(current_nEPlus,current_nEMinus);
 		hRefMultvsnPiKP->Fill(event->mRefMult,nPi_K_P_tof);
 		// cout << "nPi_K_P_tof = " << nPi_K_P_tof << endl; 
@@ -1566,6 +1569,8 @@ Bool_t Init()
 			mTotalRunId[oldId] = newId;
 			newId++;
 		}
+		TString name = oldId;
+		mBadRun_nElectron[oldId] = new TH2D(Form("nElectron_run%d",name.Data()),Form("nElectron_run%d;nElectron;nPositron",name.Data()),100,0,100,100,0,100);
 		cout<<" [OK]"<<endl;
 	}else{
 		cout<<"Failed to load the total run number list !!!"<<endl;
