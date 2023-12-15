@@ -476,18 +476,18 @@ int main(int argc, char** argv)
 		cout << "after copy ro buffer " << endl;
 	}
 
-  cout << "start checking buffer full flag " << endl;
-  for (int iCent = 0; iCent < mCenBins; iCent++)
-  {
-    for (int iVz = 0; iVz < mVzBins; iVz++)
-    {
-      for (int iEve = 0; iEve < mEveBins; iEve++)
-      {
-         cout << "bufferFullFlag = " << bufferFullFlag[iCent][iVz][iEve] << endl;
-      }
-    }
+//   cout << "start checking buffer full flag " << endl;
+//   for (int iCent = 0; iCent < mCenBins; iCent++)
+//   {
+//     for (int iVz = 0; iVz < mVzBins; iVz++)
+//     {
+//       for (int iEve = 0; iEve < mEveBins; iEve++)
+//       {
+//          cout << "bufferFullFlag = " << bufferFullFlag[iCent][iVz][iEve] << endl;
+//       }
+//     }
 
-  } 
+//   } 
 
 	writeHistograms(outFile);
 	delete chain;
