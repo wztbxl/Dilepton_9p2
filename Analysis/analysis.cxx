@@ -467,13 +467,13 @@ int main(int argc, char** argv)
 		}
 
 		makeTags();
-		// cout << "after tags " << endl;
+		cout << "after tags " << endl;
 		makeRealPairs();
-		// cout << "after real pairs " << endl;
+		cout << "after real pairs " << endl;
 		makeMixPairs();
-		// cout << "after mixed pairs " << endl;
+		cout << "after mixed pairs " << endl;
 		copyCurrentToBuffer();
-		// cout << "after copy ro buffer " << endl;
+		cout << "after copy ro buffer " << endl;
 	}
 
   cout << "start checking buffer full flag " << endl;
