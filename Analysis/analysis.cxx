@@ -1574,6 +1574,7 @@ Bool_t Init()
 			newId++;
 		}
 		TString name = oldId;
+		cout << name << endl;
 		mBadRun_nElectron[oldId] = new TH2D(Form("nElectron_run%s",name.Data()),Form("nElectron_run%s;nElectron;nPositron",name.Data()),100,0,100,100,0,100);
 		cout<<" [OK]"<<endl;
 	}else{
