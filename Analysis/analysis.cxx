@@ -76,7 +76,7 @@ map<Int_t,Int_t> mTotalDayId;
 map<Int_t,Int_t> mTotalRunId;
 map<Int_t,Int_t> mBadRunId_001;
 map<Int_t,Int_t> mBadRunId_021;
-map<TString, TH2> mBadRun_nElectron;
+map<TString, TH2*> mBadRun_nElectron;
 
 Float_t bField;
 Float_t reWeight;
@@ -1570,7 +1570,7 @@ Bool_t Init()
 			newId++;
 		}
 		TString name = oldId;
-		mBadRun_nElectron[oldId] = new TH2D(Form("nElectron_run%d",name.Data()),Form("nElectron_run%d;nElectron;nPositron",name.Data()),100,0,100,100,0,100);
+		mBadRun_nElectron[oldId] = new TH2D(Form("nElectron_run%s",name.Data()),Form("nElectron_run%s;nElectron;nPositron",name.Data()),100,0,100,100,0,100);
 		cout<<" [OK]"<<endl;
 	}else{
 		cout<<"Failed to load the total run number list !!!"<<endl;
