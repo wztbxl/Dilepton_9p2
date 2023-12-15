@@ -1589,7 +1589,7 @@ Bool_t Init()
 		Int_t newId=0;
 		while(indata_001>>oldId){
 			mBadRunId_001[oldId] = newId;
-			mBadRun_nElectron[oldId] = new TH2D(Form("nElectron_run%s",name.Data()),Form("nElectron_run%s;nElectron;nPositron",name.Data()),100,0,100,100,0,100);
+			mBadRun_nElectron[oldId] = new TH2D(Form("nElectron_run%d",oldId),Form("nElectron_run%d;nElectron;nPositron",oldId),100,0,100,100,0,100);
 			newId++;
 		}
 		cout<<" [OK]"<<endl;
