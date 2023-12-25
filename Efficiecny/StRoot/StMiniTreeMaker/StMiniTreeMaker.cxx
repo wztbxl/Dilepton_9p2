@@ -212,7 +212,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	double reweight = 1.;
 	hRefMultvsnTOFMatch->Fill(refMult,mnTOFMatch);
 	hRefMultvsnTOFMatchvsVz->Fill(refMult,mnTOFMatch,vtxPos.Z());
-	cout <<"refmult = " << refMultCorr<< endl;
+	// cout <<"refmult = " << refMultCorr<< endl;
 	if (debugflag == 1) cout<<"begin a before get cent "<<endl;	
 
 	// get the centrality
