@@ -447,13 +447,13 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 				hTOFEtavsPhi_vband->Fill(TOFeta,TOFphi);
 				hTOFCellID_vband->Fill(CellId);
 			}
-			f( (p>0.44 && p < 0.64) && (1./beta > 1.09 && 1./beta < 1.20 ) )
+			if( (p>0.44 && p < 0.64) && (1./beta > 1.09 && 1./beta < 1.20 ) )
 			{
 				hEtavsPhi_vband->Fill(eta,phi);
 				hTOFEtavsPhi_vband->Fill(TOFeta,TOFphi);
 				hTOFCellID_vband->Fill(CellId);
 			}
-			f( (p>0.85 && p < 1.09) && (1./beta > 1.18 && 1./beta < 1.24 ) )
+			if( (p>0.85 && p < 1.09) && (1./beta > 1.18 && 1./beta < 1.24 ) )
 			{
 				hEtavsPhi_vband->Fill(eta,phi);
 				hTOFEtavsPhi_vband->Fill(TOFeta,TOFphi);
