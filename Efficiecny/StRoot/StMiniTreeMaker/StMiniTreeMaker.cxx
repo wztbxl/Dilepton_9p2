@@ -836,7 +836,7 @@ void StMiniTreeMaker::bookHistos()
 	hSigmaEvsPwithNSigEandBeta = new TH2D("hSigmaEvsPwithBeta","hSigmaEvsPwithBeta;p (GeV/C);n#sigma_{e}",500,0,5,400,-19.005,20.995);
 
 	hEtavsPhi_vband = new TH2D("hEtavsPhi_vband","; #eta; #phi",260,-1.3,1.3,640, -3.2, 3.2);
-	hTOFEtavsPhi_vband = new TH2D("hTOFEtavsPhi_vband",";",260,-1.3,1.3,640, -3.2, 3.2);
+	hTOFEtavsPhi_vband = new TH2D("hTOFEtavsPhi_vband",";#eta; #phi",260,-1.3,1.3,640, -3.2, 3.2);
 	hTOFCellID_vband = new TH1D("hTOFCellID_vband",";CellID;Counts",24000,0,24000);
 }
 //_____________________________________________________________________________

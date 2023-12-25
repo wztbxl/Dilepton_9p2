@@ -19,7 +19,7 @@
 		       <Location>/star/u/wangzhen/run20/Dielectron/Efficiecny/info/</Location>
 	    </Generator> 
   	    <input URL="filelist:/star/u/wangzhen/run20/Dielectron/Efficiecny/Run21_9p2GeV_2020_picoall.list"/> 
-        <output fromScratch="*.root" toURL="file:/star/u/wangzhen/run20/Dielectron/Efficiecny/output/nSigmaEEff/"/>
+        <output fromScratch="*.root" toURL="file:/star/u/wangzhen/run20/Dielectron/Efficiecny/output/CheckVBand/"/>
 
 
 
