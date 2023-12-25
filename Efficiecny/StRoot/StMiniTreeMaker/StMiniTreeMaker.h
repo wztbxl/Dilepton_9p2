@@ -250,6 +250,11 @@ class StMiniTreeMaker : public StMaker
 
 	TH2D* hPurePionSigmaPionvsP;
 
+	//check the vertical band 
+	TH2D* hEtavsPhi_vband;
+	TH2D* hTOFEtavsPhi_vband;
+	TH1D* hTOFCellID_vband;
+
 
 
 

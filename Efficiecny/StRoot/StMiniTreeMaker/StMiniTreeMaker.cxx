@@ -321,12 +321,19 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		Float_t tofLocalY = -999;
 		Float_t TOFMatchFlag = -1;
 		Int_t bTofPidTraitsIndex = pTrack->bTofPidTraitsIndex();
+		TVector3 bTOFHit;
+		double TOFeta = -999;
+		double TOFphi = -999;
 		double msquare = -0.5;
+		double CellId = -999;
 		if (bTofPidTraitsIndex >= 0)
 		{
 			StPicoBTofPidTraits *btofPidTraitis = mPicoDst->btofPidTraits(bTofPidTraitsIndex);
 			beta = btofPidTraitis->btofBeta();
-      		double CellId = btofPidTraitis->btofCellId();
+      		CellId = btofPidTraitis->btofCellId();
+			bTOFHit = btofPidTraitis->btofHitPos();
+			TOFeta = bTOFHit.PseudoRapidity();
+			TOFphi = bTOFHit.Phi();
 			hTofCellID->Fill(CellId);
       		// if(CellId == 8994 || CellId == 8998 || CellId == 8999) continue;//new for 54.4 GeV hot TOF Cell ID
 			hBeta->Fill(beta);
@@ -432,7 +439,28 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		hBetavsPwonSigmaE->Fill(p,1./beta);
 		if (TMath::Abs(nSigmaE) <2.0) 
 		if (isElectronBetaCut(pTrack)) // no beta cut
+		{
     		hBetavsP->Fill(p,1./beta);
+			if( (p>0.85 && p < 1.09) && (1./beta > 1.03 && 1./beta < 1.08 ) )
+			{
+				hEtavsPhi_vband->Fill(eta,phi);
+				hTOFEtavsPhi_vband->Fill(TOFeta,TOFphi);
+				hTOFCellID_vband->Fill(CellId);
+			}
+			f( (p>0.44 && p < 0.64) && (1./beta > 1.09 && 1./beta < 1.20 ) )
+			{
+				hEtavsPhi_vband->Fill(eta,phi);
+				hTOFEtavsPhi_vband->Fill(TOFeta,TOFphi);
+				hTOFCellID_vband->Fill(CellId);
+			}
+			f( (p>0.85 && p < 1.09) && (1./beta > 1.18 && 1./beta < 1.24 ) )
+			{
+				hEtavsPhi_vband->Fill(eta,phi);
+				hTOFEtavsPhi_vband->Fill(TOFeta,TOFphi);
+				hTOFCellID_vband->Fill(CellId);
+			}
+
+		}
 		if (TMath::Abs(1.0-1./beta)<0.025)
 			hSigmaEvsPwithNSigEandBeta->Fill(p,nSigmaE);
 		switch (mElectronCutMode) 
@@ -806,6 +834,10 @@ void StMiniTreeMaker::bookHistos()
 	hSignaEvsP = new TH2D("hSigmaEvsP","hSignaEvsP;p (GeV/C);n#sigma_{e}",500,0,5,400,-19.005,20.995);
 	hSigmaEvsPwithNSigmaE = new TH2D("hSigmaEvsPwithNSigmaE","hSigmaEvsPwithNSigmaE;p (GeV/C);n#sigma_{e}",500,0,5,400,-19.005,20.995);
 	hSigmaEvsPwithNSigEandBeta = new TH2D("hSigmaEvsPwithBeta","hSigmaEvsPwithBeta;p (GeV/C);n#sigma_{e}",500,0,5,400,-19.005,20.995);
+
+	hEtavsPhi_vband = new TH2D("hEtavsPhi_vband","; #eta; #phi",260,-1.3,1.3,640, -3.2, 3.2);
+	hTOFEtavsPhi_vband = new TH2D("hTOFEtavsPhi_vband",";",260,-1.3,1.3,640, -3.2, 3.2);
+	hTOFCellID_vband = new TH1D("hTOFCellID_vband",";CellID;Counts",24000,0,24000);
 }
 //_____________________________________________________________________________
 void StMiniTreeMaker::printConfig()
