@@ -83,6 +83,7 @@ Int_t StMiniTreeMaker::InitRun(const Int_t runnumber)
 //_____________________________________________________________________________
 Int_t StMiniTreeMaker::Finish()
 {
+	cout << "start Finish function" << endl;
 	if (fOutFile)
 	{
 		fOutFile->cd();
@@ -212,7 +213,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	double reweight = 1.;
 	hRefMultvsnTOFMatch->Fill(refMult,mnTOFMatch);
 	hRefMultvsnTOFMatchvsVz->Fill(refMult,mnTOFMatch,vtxPos.Z());
-	// cout <<"refmult = " << refMultCorr<< endl;
+	if (debugflag == 1) cout <<"refmult = " << refMultCorr<< endl;
 	if (debugflag == 1) cout<<"begin a before get cent "<<endl;	
 
 	// get the centrality
