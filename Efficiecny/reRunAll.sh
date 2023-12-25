@@ -14,11 +14,13 @@ do
       echo "/star/u/wangzhen/run20/Dielectron/Efficiecny/output/$1_$ifile.root exit, skip ..."
     else
       echo "re-submit crashed job for miniTree/rootfiles_PicoDst/$1_$ifile.root"
-      cp -f ./log/$1_$ifile.out ./log/$1_$ifile.out.old$3
-      cp -f ./log/$1_$ifile.err ./log/$1_$ifile.err.old$3
-      star-submit -r $ifile sched$1.session.xml
+      # cp -f ./log/$1_$ifile.out ./log/$1_$ifile.out.old$3
+      # cp -f ./log/$1_$ifile.err ./log/$1_$ifile.err.old$3
+      # star-submit -r $ifile sched$1.session.xml
       echo -n
      fi
 
     let "ifile+=1";
 done
+
+echo "total have $ifile need to be resubmit"
