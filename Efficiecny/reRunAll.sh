@@ -7,6 +7,7 @@ echo submitting pre-crashed jobs for "$1"
 cp sched${1}.session.xml sched${1}.session.xml.old$3
 tag=0
 ifile=0
+nbadjob=0
 while [ "$ifile" -le $2 ];
 do  
     grep Goodbye /star/u/wangzhen/run20/Dielectron/Efficiecny/log/$1_$ifile.out
@@ -17,6 +18,7 @@ do
       # cp -f ./log/$1_$ifile.out ./log/$1_$ifile.out.old$3
       # cp -f ./log/$1_$ifile.err ./log/$1_$ifile.err.old$3
       # star-submit -r $ifile sched$1.session.xml
+      let "nbadjob+=1"
       echo -n
      fi
 
