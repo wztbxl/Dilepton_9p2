@@ -25,4 +25,4 @@ do
     let "ifile+=1";
 done
 
-echo "total have $ifile need to be resubmit"
+echo "total have $nbadjob need to be resubmit"
