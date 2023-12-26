@@ -856,15 +856,25 @@ void StMiniTreeMaker::writeHistos()
 {
 	cout << "111111" << endl;
 	hEvent->Write();
+	cout << "111111-111111" << endl;
 	hVtxYvsVtxX->Write();
+	cout << "111111-222222" << endl;
 	hVPDVzvsTPCVz->Write();
+	cout << "111111-333333" << endl;
 	hVzDiff->Write();
+	cout << "111111-444444" << endl;
 	hRefMult->Write();
+	cout << "111111-555555" << endl;
 	hCentrality9->Write();
+	cout << "111111-666666" << endl;
 	hRefMultvsnTOFMatch->Write();
+	cout << "111111-777777" << endl;
 	hMsquraevsRefMult->Write();
+	cout << "111111-888888" << endl;
 	hRefMultvsnTOFMatchvsVz->Write();
+	cout << "111111-999999" << endl;
 	hRefMultvsnChargeParticle->Write();
+	cout << "111111-------" << endl;
 	hnTOFMatchvsnChargePartile->Write();
 	cout << "222222" << endl;
 	hdEdxvsP->Write();
