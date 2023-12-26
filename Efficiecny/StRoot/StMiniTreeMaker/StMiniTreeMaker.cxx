@@ -94,8 +94,10 @@ Int_t StMiniTreeMaker::Finish()
 		fOutFile->Close();
 		LOG_INFO << "StMiniTreeMaker::Finish() -> write out tree in " << mOutFileName.Data() << endm;
 	}
+	cout << "before mPrintConfig" << endl;
 	if (mPrintConfig)
 		printConfig();
+	cout << "after mPrintConfig" << endl;
 	return kStOK;
 }
 //_____________________________________________________________________________
