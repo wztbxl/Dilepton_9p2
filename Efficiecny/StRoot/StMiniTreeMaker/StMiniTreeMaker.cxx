@@ -854,6 +854,7 @@ void StMiniTreeMaker::bookHistos()
 //_____________________________________________________________________________
 void StMiniTreeMaker::writeHistos()
 {
+	cout << "111111" << endl;
 	hEvent->Write();
 	hVtxYvsVtxX->Write();
 	hVPDVzvsTPCVz->Write();
@@ -865,6 +866,7 @@ void StMiniTreeMaker::writeHistos()
 	hRefMultvsnTOFMatchvsVz->Write();
 	hRefMultvsnChargeParticle->Write();
 	hnTOFMatchvsnChargePartile->Write();
+	cout << "222222" << endl;
 	hdEdxvsP->Write();
 	hdNdxvsP->Write();
 	hnSigEvsP->Write();
@@ -875,6 +877,7 @@ void StMiniTreeMaker::writeHistos()
 	hLPosMvsphiV->Write();
 	hLNegMvsphiV->Write();
 	htrkMassdistrbution->Write();
+	cout << "333333" << endl;
 	hULMvsPtLarge->Write();
 	hLMPosvsPt->Write();
 	hLMNegvsPt->Write();
@@ -885,6 +888,7 @@ void StMiniTreeMaker::writeHistos()
 	hNumPiPlusTofEff->Write();
 	hDenPiMinusTofEff->Write();
 	hNumPiMinusTofEff->Write();
+	cout << "444444" << endl;
 	hULMvsPt->Write();
 	hLPosMvsPt->Write();
 	hLNegMvsPt->Write();
@@ -892,6 +896,7 @@ void StMiniTreeMaker::writeHistos()
 	hPEMinusBetavsP->Write();
 	hPEPlusBetavsPt->Write();
 	hPEMinusBetavsPt->Write();
+	cout << "555555" << endl;
 	hBeta->Write();
 	hTofLocalY->Write();
 	hTofMatchFlag->Write();
@@ -902,12 +907,14 @@ void StMiniTreeMaker::writeHistos()
 	hPurePositronNSigmaEvsPvsCen->Write();
 	hPureElectronNSigmaEvsPhivsCen->Write();
 	hPurePositronNSigmaEvsPhivsCen->Write();
+	cout << "666666" << endl;
 	hPEPlusBetavsPCen->Write();
 	hPEMinusBetavsPCen->Write();
 	hPEPlusBetavsPtCen->Write();
 	hPEMinusBetavsPtCen->Write();
 	hMsquare->Write();
 	hMsquarevsP->Write();
+	cout << "777777" << endl;
 	hPurePionNSigmaEvsP->Write();
 	hMergePionNSigmaEvsP->Write();
 	hPureKaonNSigmaEvsP->Write();
@@ -917,6 +924,7 @@ void StMiniTreeMaker::writeHistos()
 	hPureKaonNSigmaEvsPCen->Write();
 	hPureProtonNSigmaEvsPCen->Write();
 	hPureElectronNSigmaEvsPCen->Write();
+	cout << "888888" << endl;
 	hPureProtonPhivsEta->Write();
 	hPureElectronNSigmaEvsP->Write();
 	hPEElectronnSigmaEvsP->Write();
@@ -927,6 +935,7 @@ void StMiniTreeMaker::writeHistos()
 	hPureProtonNSigmaEvsPt->Write();
 	hPureElectronNSigmaEvsPt->Write();
 	hPurePositronNSigmaEvsPt->Write();
+	cout << "999999" << endl;
 	hSignaEvsP->Write();
 	hSigmaEvsPwithNSigmaE->Write();
 	hSigmaEvsPwithNSigEandBeta->Write();
@@ -934,8 +943,10 @@ void StMiniTreeMaker::writeHistos()
 	hEtavsPhi_vband->Write();
 	hTOFEtavsPhi_vband->Write();
 	hTOFCellID_vband->Write();
+	cout << "-------" << endl;
 	for (int i = 0; i < 9; i++)
 	{
+		cout << i << endl;
 		hDenPiPlusTofEffCen[i]->Write();
 		hNumPiPlusTofEffCen[i]->Write();
 		hDenPiMinusTofEffCen[i]->Write();
