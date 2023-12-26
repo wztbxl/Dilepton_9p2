@@ -88,6 +88,7 @@ class StMiniTreeMaker : public StMaker
   protected:
 	void printConfig();
 	void bookHistos();
+	void writeHistos();
 	Bool_t processPicoEvent();
 	Bool_t isValidTrack(StPicoTrack *pTrack, TVector3 vtxPos) const;
 	bool isElectron(StPicoTrack *pTrack);
@@ -254,10 +255,6 @@ class StMiniTreeMaker : public StMaker
 	TH2D* hEtavsPhi_vband;
 	TH2D* hTOFEtavsPhi_vband;
 	TH1D* hTOFCellID_vband;
-
-
-
-
 
 
 	ClassDef(StMiniTreeMaker, 1)

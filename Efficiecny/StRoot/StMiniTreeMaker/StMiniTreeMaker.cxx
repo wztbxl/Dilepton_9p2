@@ -42,8 +42,8 @@ Int_t StMiniTreeMaker::Init()
 		LOG_ERROR << "StMiniTreeMaker:: no output file specified for tree and histograms." << endm;
 		return kStERR;
 	}
-	fOutFile = new TFile(mOutFileName.Data(), "recreate");
-	LOG_INFO << "StMiniTreeMaker:: create the output file to store the tree and histograms: " << mOutFileName.Data() << endm;
+	// fOutFile = new TFile(mOutFileName.Data(), "recreate");
+	// LOG_INFO << "StMiniTreeMaker:: create the output file to store the tree and histograms: " << mOutFileName.Data() << endm;
 
 	if (mFillHisto)
 		bookHistos();
@@ -84,9 +84,12 @@ Int_t StMiniTreeMaker::InitRun(const Int_t runnumber)
 Int_t StMiniTreeMaker::Finish()
 {
 	cout << "start Finish function" << endl;
+	fOutFile = new TFile(mOutFileName.Data(), "recreate");
+	LOG_INFO << "StMiniTreeMaker:: create the output file to store the tree and histograms: " << mOutFileName.Data() << endm;
 	if (fOutFile)
 	{
 		fOutFile->cd();
+		writeHistos();
 		fOutFile->Write();
 		fOutFile->Close();
 		LOG_INFO << "StMiniTreeMaker::Finish() -> write out tree in " << mOutFileName.Data() << endm;
@@ -839,6 +842,101 @@ void StMiniTreeMaker::bookHistos()
 	hEtavsPhi_vband = new TH2D("hEtavsPhi_vband","; #eta; #phi",260,-1.3,1.3,640, -3.2, 3.2);
 	hTOFEtavsPhi_vband = new TH2D("hTOFEtavsPhi_vband",";#eta; #phi",260,-1.3,1.3,640, -3.2, 3.2);
 	hTOFCellID_vband = new TH1D("hTOFCellID_vband",";CellID;Counts",24000,0,24000);
+}
+//_____________________________________________________________________________
+void StMiniTreeMaker::writeHistos()
+{
+	hEvent->Write();
+	hVtxYvsVtxX->Write();
+	hVPDVzvsTPCVz->Write();
+	hVzDiff->Write();
+	hRefMult->Write();
+	hCentrality9->Write();
+	hRefMultvsnTOFMatch->Write();
+	hMsquraevsRefMult->Write();
+	hRefMultvsnTOFMatchvsVz->Write();
+	hRefMultvsnChargeParticle->Write();
+	hnTOFMatchvsnChargePartile->Write();
+	hdEdxvsP->Write();
+	hdNdxvsP->Write();
+	hnSigEvsP->Write();
+	hBetavsP->Write();
+	hBetavsPwonSigmaE->Write();
+	hnSigEvsPWTOF->Write();
+	hULMvsphiV->Write();
+	hLPosMvsphiV->Write();
+	hLNegMvsphiV->Write();
+	htrkMassdistrbution->Write();
+	hULMvsPtLarge->Write();
+	hLMPosvsPt->Write();
+	hLMNegvsPt->Write();
+	hULDcavsPt->Write();
+	hLPosDcavsPt->Write();
+	hLNegDcavsPt->Write();
+	hDenPiPlusTofEff->Write();
+	hNumPiPlusTofEff->Write();
+	hDenPiMinusTofEff->Write();
+	hNumPiMinusTofEff->Write();
+	hULMvsPt->Write();
+	hLPosMvsPt->Write();
+	hLNegMvsPt->Write();
+	hPEPlusBetavsP->Write();
+	hPEMinusBetavsP->Write();
+	hPEPlusBetavsPt->Write();
+	hPEMinusBetavsPt->Write();
+	hBeta->Write();
+	hTofLocalY->Write();
+	hTofMatchFlag->Write();
+	hTofCellID->Write();
+	hPureElectronNSigmaEvsPtvsCen;->Write()	
+	hPurePositronNSigmaEvsPtvsCen->Write();
+	hPureElectronNSigmaEvsPvsCen->Write();
+	hPurePositronNSigmaEvsPvsCen->Write();
+	hPureElectronNSigmaEvsPhivsCen->Write();
+	hPurePositronNSigmaEvsPhivsCen->Write();
+	hPEPlusBetavsPCen->Write();
+	hPEMinusBetavsPCen->Write();
+	hPEPlusBetavsPtCen->Write();
+	hPEMinusBetavsPtCen->Write();
+	hMsquare->Write();
+	hMsquarevsP->Write();
+	hPurePionNSigmaEvsP->Write();
+	hMergePionNSigmaEvsP->Write();
+	hPureKaonNSigmaEvsP->Write();
+	hPureProtonNSigmaEvsP->Write();
+	hPurePionNSigmaEvsPCen->Write();
+	hMergePionNSigmaEvsPCen->Write();
+	hPureKaonNSigmaEvsPCen->Write();
+	hPureProtonNSigmaEvsPCen->Write();
+	hPureElectronNSigmaEvsPCen->Write();
+	hPureProtonPhivsEta->Write();
+	hPureElectronNSigmaEvsP->Write();
+	hPEElectronnSigmaEvsP->Write();
+	hPEPositronnSigmaEvsP->Write();
+	hPurePionNSigmaEvsPt->Write();
+	hMergePionNSigmaEvsPt->Write();
+	hPureKaonNSigmaEvsPt->Write();
+	hPureProtonNSigmaEvsPt->Write();
+	hPureElectronNSigmaEvsPt->Write();
+	hPurePositronNSigmaEvsPt->Write();
+	hSignaEvsP->Write();
+	hSigmaEvsPwithNSigmaE->Write();
+	hSigmaEvsPwithNSigEandBeta->Write();
+	hPurePionSigmaPionvsP->Write();
+	hEtavsPhi_vband->Write();
+	hTOFEtavsPhi_vband->Write();
+	hTOFCellID_vband->Write();
+	for (int i = 0; i < 9; i++)
+	{
+		hDenPiPlusTofEffCen[i]->Write();
+		hNumPiPlusTofEffCen[i]->Write();
+		hDenPiMinusTofEffCen[i]->Write();
+		hNumPiMinusTofEffCen[i]->Write();
+		hDenPEPlusTofEffCen[i]->Write();
+		hNumPEPlusTofEffCen[i]->Write();
+		hDenPEMinusTofEffCen[i]->Write();
+		hNumPEMinusTofEffCen[i]->Write(); 
+	}
 }
 //_____________________________________________________________________________
 void StMiniTreeMaker::printConfig()
