@@ -92,7 +92,9 @@ Int_t StMiniTreeMaker::Finish()
 		writeHistos();
 		fOutFile->Write();
 		fOutFile->Close();
+	cout << "after write fOutFile" << endl;
 		LOG_INFO << "StMiniTreeMaker::Finish() -> write out tree in " << mOutFileName.Data() << endm;
+	cout << "after print log " << endl;
 	}
 	cout << "before mPrintConfig" << endl;
 	if (mPrintConfig)
