@@ -888,7 +888,7 @@ void StMiniTreeMaker::writeHistos()
 	hTofLocalY->Write();
 	hTofMatchFlag->Write();
 	hTofCellID->Write();
-	hPureElectronNSigmaEvsPtvsCen;->Write()	
+	hPureElectronNSigmaEvsPtvsCen->Write();
 	hPurePositronNSigmaEvsPtvsCen->Write();
 	hPureElectronNSigmaEvsPvsCen->Write();
 	hPurePositronNSigmaEvsPvsCen->Write();
