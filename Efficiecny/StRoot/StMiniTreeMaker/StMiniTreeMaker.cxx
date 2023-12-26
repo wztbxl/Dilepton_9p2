@@ -85,14 +85,18 @@ Int_t StMiniTreeMaker::Finish()
 {
 	cout << "start Finish function" << endl;
 	fOutFile = new TFile(mOutFileName.Data(), "recreate");
+	cout << "after define fOutFile" << endl;
 	LOG_INFO << "StMiniTreeMaker:: create the output file to store the tree and histograms: " << mOutFileName.Data() << endm;
 	if (fOutFile)
 	{
 		fOutFile->cd();
+		cout << "after cd fOutFile" << endl;
 		writeHistos();
+		cout << "after writeHistos " << endl;
 		fOutFile->Write();
+		cout << "after write fOutFile" << endl;
 		fOutFile->Close();
-	cout << "after write fOutFile" << endl;
+	cout << "after close fOutFile" << endl;
 		LOG_INFO << "StMiniTreeMaker::Finish() -> write out tree in " << mOutFileName.Data() << endm;
 	cout << "after print log " << endl;
 	}
