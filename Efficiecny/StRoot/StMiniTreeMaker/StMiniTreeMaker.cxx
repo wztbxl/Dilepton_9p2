@@ -868,7 +868,7 @@ void StMiniTreeMaker::writeHistos()
 	hnTOFMatchvsnChargePartile->Write();
 	cout << "222222" << endl;
 	hdEdxvsP->Write();
-	hdNdxvsP->Write();
+	// hdNdxvsP->Write();
 	hnSigEvsP->Write();
 	hBetavsP->Write();
 	hBetavsPwonSigmaE->Write();
