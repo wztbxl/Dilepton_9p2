@@ -347,6 +347,9 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 			TOFeta = bTOFHit.PseudoRapidity();
 			TOFphi = bTOFHit.Phi();
 			hTofCellID->Fill(CellId);
+			int Etabin = hTOFEtavsPhi_cellID->GetXaxis()->FindBin(TOFeta);
+			int Phibin = hTOFEtavsPhi_cellID->GetYaxis()->FindBin(TOFphi);
+			hTOFEtavsPhi_cellID->SetBinContent(Etabin,Phibin,CellId);
       		// if(CellId == 8994 || CellId == 8998 || CellId == 8999) continue;//new for 54.4 GeV hot TOF Cell ID
 			hBeta->Fill(beta);
 			tofLocalY = btofPidTraitis->btofYLocal();
@@ -440,6 +443,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 			{
 				hDenPiMinusTofEff->Fill(pt, eta, phi);
 				hDenPiMinusTofEffCen[mCentrality]->Fill(pt, eta, phi,reweight);
+				hBetavsP_Pion->Fill(p,1./beta)；
 				if ((beta > 0.) && (TOFMatchFlag > 0) && (TMath::Abs(tofLocalY) < 1.8))
 				{
 					hNumPiMinusTofEff->Fill(pt, eta, phi);
@@ -458,20 +462,31 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 				hEtavsPhi_vband->Fill(eta,phi);
 				hTOFEtavsPhi_vband->Fill(TOFeta,TOFphi);
 				hTOFCellID_vband->Fill(CellId);
+				nSigmaE_vband->Fill(p,nSigmaE);
+				hLocalY_vband->Fill(tofLocalY);
 			}
 			if( (p>0.44 && p < 0.64) && (1./beta > 1.09 && 1./beta < 1.20 ) )
 			{
 				hEtavsPhi_vband->Fill(eta,phi);
 				hTOFEtavsPhi_vband->Fill(TOFeta,TOFphi);
 				hTOFCellID_vband->Fill(CellId);
+				nSigmaE_vband->Fill(p,nSigmaE);
+				hLocalY_vband->Fill(tofLocalY);
 			}
 			if( (p>0.85 && p < 1.09) && (1./beta > 1.18 && 1./beta < 1.24 ) )
 			{
 				hEtavsPhi_vband->Fill(eta,phi);
 				hTOFEtavsPhi_vband->Fill(TOFeta,TOFphi);
 				hTOFCellID_vband->Fill(CellId);
+				nSigmaE_vband->Fill(p,nSigmaE);
+				hLocalY_vband->Fill(tofLocalY);
 			}
 
+		}
+		if(isElectron(pTrack))
+		{
+			hTOFEtavsPhi->Fill(TOFeta,TOFphi);
+			if( abs(pt-1) < 0.2 ) hEtavsPhi_pT1->Fill(eta,phi);
 		}
 		if (TMath::Abs(1.0-1./beta)<0.025)
 			hSigmaEvsPwithNSigEandBeta->Fill(p,nSigmaE);
@@ -850,6 +865,12 @@ void StMiniTreeMaker::bookHistos()
 	hEtavsPhi_vband = new TH2D("hEtavsPhi_vband","; #eta; #phi",260,-1.3,1.3,640, -3.2, 3.2);
 	hTOFEtavsPhi_vband = new TH2D("hTOFEtavsPhi_vband",";#eta; #phi",260,-1.3,1.3,640, -3.2, 3.2);
 	hTOFCellID_vband = new TH1D("hTOFCellID_vband",";CellID;Counts",24000,0,24000);
+	hTOFEtavsPhi = new TH2D("hTOFEtavsPhi",";#eta; #phi",1300,-1.3,1.3,3200, -3.2, 3.2);
+	hTOFEtavsPhi_cellID = new TH2D("hTOFEtavsPhi_cellID",";#eta; #phi",1300,-1.3,1.3,3200, -3.2, 3.2);
+	nSigmaE_vband = new TH2D("hSigmaEvsP_vband","hSignaEvsP_vband;p (GeV/C);n#sigma_{e}",500,0,5,400,-19.005,20.995);
+	hBetavsP_Pion  = new TH2D("hBetavsP_Pion", "hBetavsP_Pion; p (GeV/c); 1/#beta", 3000, 0, 3, 800, 0.5, 1.3);
+	hLocalY_vband = new TH1D("hTofLocalY", "hTofLocalY;localY (cm);counts", 500, -2.5, 2.5);
+	hEtavsPhi_pT1 = new TH2D("hEtavsPhi_pT1","; #eta; #phi",260,-1.3,1.3,640, -3.2, 3.2);
 }
 //_____________________________________________________________________________
 void StMiniTreeMaker::writeHistos()
@@ -953,6 +974,12 @@ void StMiniTreeMaker::writeHistos()
 	hEtavsPhi_vband->Write();
 	hTOFEtavsPhi_vband->Write();
 	hTOFCellID_vband->Write();
+	hTOFEtavsPhi->Write();
+	hTOFEtavsPhi_cellID->Write();
+	nSigmaE_vband->Write();
+	hBetavsP_Pion->Write();
+	hLocalY_vband->Write();
+	hEtavsPhi_pT1->Write();
 	cout << "-------" << endl;
 	for (int i = 0; i < 9; i++)
 	{
