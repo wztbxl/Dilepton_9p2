@@ -443,7 +443,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 			{
 				hDenPiMinusTofEff->Fill(pt, eta, phi);
 				hDenPiMinusTofEffCen[mCentrality]->Fill(pt, eta, phi,reweight);
-				hBetavsP_Pion->Fill(p,1./beta)；
+				hBetavsP_Pion->Fill(p,1./beta);
 				if ((beta > 0.) && (TOFMatchFlag > 0) && (TMath::Abs(tofLocalY) < 1.8))
 				{
 					hNumPiMinusTofEff->Fill(pt, eta, phi);
