@@ -328,6 +328,10 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		Float_t nSigmaP = pTrack->nSigmaProton();
 		Float_t nSigmaPi = pTrack->nSigmaPion();
 		Float_t nSigmaK = pTrack->nSigmaKaon();
+		int nHitsFit = pTrack->nHitsFit();
+		int nHitsdEdx = pTrack->nHitsDedx();
+		int nHitsPoss = pTrack->nHitsPoss();
+		int nHitsMax = pTrack->nHitsMax();
 		double dca =  pTrack->gDCA(vtxPos).Mag();
 		Float_t beta = -999;
 		Float_t tofLocalY = -999;
@@ -362,6 +366,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		hMsquare->Fill(msquare);
 		hMsquraevsRefMult->Fill(msquare,refMult);
 		hMsquarevsP->Fill(p*charge,msquare);
+		hnHitsPossvsnHitsMax->Fill(nHitsPoss,nHitsMax);
 		if (isPiKP_masscut(msquare)) nChargeParticle++;
 
 		if (TMath::Abs(nSigmaP) < 4 && TMath::Abs(msquare-0.879)<0.020)
@@ -414,6 +419,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 			{
 				hDenPiPlusTofEff->Fill(pt, eta, phi);
 				hDenPiPlusTofEffCen[mCentrality]->Fill(pt, eta, phi,reweight);
+				hBetavsP_Pion->Fill(charge*p,1./beta);
 				if ((beta > 0.) && (TOFMatchFlag > 0) && (TMath::Abs(tofLocalY) < 1.8))
 				{
 					hNumPiPlusTofEff->Fill(pt, eta, phi);
@@ -443,7 +449,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 			{
 				hDenPiMinusTofEff->Fill(pt, eta, phi);
 				hDenPiMinusTofEffCen[mCentrality]->Fill(pt, eta, phi,reweight);
-				hBetavsP_Pion->Fill(p,1./beta);
+				hBetavsP_Pion->Fill(charge*p,1./beta);
 				if ((beta > 0.) && (TOFMatchFlag > 0) && (TMath::Abs(tofLocalY) < 1.8))
 				{
 					hNumPiMinusTofEff->Fill(pt, eta, phi);
@@ -464,6 +470,9 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 				hTOFCellID_vband->Fill(CellId);
 				nSigmaE_vband->Fill(p,nSigmaE);
 				hLocalY_vband->Fill(tofLocalY);
+				hnHitsFitvsP_vBand->Fill(charge*p,nHitsFit);
+				hnHitsdEdxvsP_vBand->Fill(charge*p,nHitsdEdx);
+				hnHitsratiovsP_vBand->Fill(charge*p,nHitsFit/nHitsPoss);
 			}
 			if( (p>0.44 && p < 0.64) && (1./beta > 1.09 && 1./beta < 1.20 ) )
 			{
@@ -472,6 +481,9 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 				hTOFCellID_vband->Fill(CellId);
 				nSigmaE_vband->Fill(p,nSigmaE);
 				hLocalY_vband->Fill(tofLocalY);
+				hnHitsFitvsP_vBand->Fill(charge*p,nHitsFit);
+				hnHitsdEdxvsP_vBand->Fill(charge*p,nHitsdEdx);
+				hnHitsratiovsP_vBand->Fill(charge*p,nHitsFit/nHitsPoss);
 			}
 			if( (p>0.85 && p < 1.09) && (1./beta > 1.18 && 1./beta < 1.24 ) )
 			{
@@ -480,6 +492,9 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 				hTOFCellID_vband->Fill(CellId);
 				nSigmaE_vband->Fill(p,nSigmaE);
 				hLocalY_vband->Fill(tofLocalY);
+				hnHitsFitvsP_vBand->Fill(charge*p,nHitsFit);
+				hnHitsdEdxvsP_vBand->Fill(charge*p,nHitsdEdx);
+				hnHitsratiovsP_vBand->Fill(charge*p,nHitsFit/nHitsPoss);
 			}
 
 		}
@@ -738,7 +753,8 @@ Bool_t StMiniTreeMaker::isValidTrack(StPicoTrack *pTrack, TVector3 vtxPos) const
 		return kFALSE;
 	if (pTrack->nHitsFit() < 20)
 		return kFALSE;
-	if (pTrack->nHitsFit() * 1. / pTrack->nHitsMax() < 0.52)
+	if (pTrack->nHitsFit() * 1. / pTrack->nHitsPoss() < 0.52)
+	// if (pTrack->nHitsFit() * 1. / pTrack->nHitsMax() < 0.52)//change to the nHitsPoss
 		return kFALSE;
 	if (pTrack->nHitsDedx() < 15)
 		return kFALSE;
@@ -876,6 +892,7 @@ void StMiniTreeMaker::bookHistos()
 	hnHitsFitvsP_vBand = new TH2D("hnHitsFitvsP_vBand",";p*q;nHitsFit",3000,-3,3, 80,0,80);
 	hnHitsdEdxvsP_vBand = new TH2D("hnHitsdEdxvsP_vBand",";p*q;nHitsDedx",3000,-3,3, 80,0,80);
 	hnHitsratiovsP_vBand = new TH2D("hnHitsratiovsP_vBand",";p*q;nHitsratio",3000,-3,3, 200,0,2);
+	hnHitsPossvsnHitsMax = new TH2D("hnHitsPossvsnHitsMax",";nHitsPoss;nHitsMax;",90,0,90,90,0,90);
 }
 //_____________________________________________________________________________
 void StMiniTreeMaker::writeHistos()
@@ -986,6 +1003,11 @@ void StMiniTreeMaker::writeHistos()
 	hLocalY_vband->Write();
 	hEtavsPhi_pT1->Write();
 	cout << "-------" << endl;
+	hBetavsP_Kaon->Write();
+	hBetavsP_Proton->Write();
+	hnHitsFitvsP_vBand->Write();
+	hnHitsdEdxvsP_vBand->Write();
+	hnHitsratiovsP_vBand->Write();
 	for (int i = 0; i < 9; i++)
 	{
 		cout << i << endl;
