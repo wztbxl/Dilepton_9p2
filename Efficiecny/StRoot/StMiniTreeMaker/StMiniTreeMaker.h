@@ -266,6 +266,7 @@ class StMiniTreeMaker : public StMaker
 	TH2D* hnHitsFitvsP_vBand;
 	TH2D* hnHitsdEdxvsP_vBand;
 	TH2D* hnHitsratiovsP_vBand;
+	TH2D* hnHitsPossvsnHitsMax;
 
 
 	ClassDef(StMiniTreeMaker, 1)
