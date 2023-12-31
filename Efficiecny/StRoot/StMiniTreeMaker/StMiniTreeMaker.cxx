@@ -1008,6 +1008,7 @@ void StMiniTreeMaker::writeHistos()
 	hnHitsFitvsP_vBand->Write();
 	hnHitsdEdxvsP_vBand->Write();
 	hnHitsratiovsP_vBand->Write();
+	hnHitsPossvsnHitsMax->Write();
 	for (int i = 0; i < 9; i++)
 	{
 		cout << i << endl;
