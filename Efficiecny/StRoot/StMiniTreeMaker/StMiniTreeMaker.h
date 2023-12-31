@@ -253,14 +253,19 @@ class StMiniTreeMaker : public StMaker
 
 	//check the vertical band 
 	TH2D* hEtavsPhi_vband;
-	TH2D* hTOFEtavsPhi;
+	TH2D* hTOFEtavsPhi; // electron TOF eta vs Phi
 	TH2D* hTOFEtavsPhi_cellID;
 	TH2D* hTOFEtavsPhi_vband;
 	TH1D* hTOFCellID_vband;
 	TH2D* nSigmaE_vband;
 	TH2D* hBetavsP_Pion;
+	TH2D* hBetavsP_Kaon;
+	TH2D* hBetavsP_Proton;
 	TH1D* hLocalY_vband;
 	TH2D* hEtavsPhi_pT1;
+	TH2D* hnHitsFitvsP_vBand;
+	TH2D* hnHitsdEdxvsP_vBand;
+	TH2D* hnHitsratiovsP_vBand;
 
 
 	ClassDef(StMiniTreeMaker, 1)

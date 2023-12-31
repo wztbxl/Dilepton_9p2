@@ -456,7 +456,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		if (TMath::Abs(nSigmaE) <2.0) 
 		if (isElectronBetaCut(pTrack)) // no beta cut
 		{
-    		hBetavsP->Fill(p,1./beta);
+    		hBetavsP->Fill(charge*p,1./beta);
 			if( (p>0.85 && p < 1.09) && (1./beta > 1.03 && 1./beta < 1.08 ) )
 			{
 				hEtavsPhi_vband->Fill(eta,phi);
@@ -767,7 +767,7 @@ void StMiniTreeMaker::bookHistos()
 	hdEdxvsP = new TH2D("hdEdxvsP", "hdEdxvsP; p (GeV/c); dE/dx (KeV/cm)", 500, 0, 5, 400, 0, 20);
 	hnSigEvsP = new TH2D("hnSigEvsP", "hnSigEvsP; p (GeV/c); n#sigma_{e}", 3000, 0, 3, 1200, -6, 6);
 	hnSigEvsPWTOF = new TH2D("hnSigEvsPWTOF", "hnSigEvsP; p (GeV/c); n#sigma_{e}", 3000, 0, 3, 1200, -6, 6);
-	hBetavsP = new TH2D("hBetavsP", "hBetavsP; p (GeV/c); 1/#beta", 3000, 0, 3, 800, 0.5, 1.3);
+	hBetavsP = new TH2D("hBetavsP", "hBetavsP; p (GeV/c); 1/#beta", 6000, -3, 3, 800, 0.5, 1.3);
 	hBetavsPwonSigmaE = new TH2D("hBetavsPwonSigmaE", "hBetavsPwonSigmaE; p (GeV/c); 1/#beta", 3000, 0, 3, 800, 0.5, 1.3);
 	hULMvsphiV = new TH2D("hULMvsphiV", "UnLike-sign mass vs phiV;M_{primary} (GeV/c^{2});#phi_{V}", 2000, 0, 0.2, 180, 0, TMath::Pi());
 	hLPosMvsphiV = new TH2D("hLPosMvsphiV", "Like-sign mass vs phiV;M_{primary} (GeV/c^{2});#phi_{V}", 2000, 0, 0.2, 180, 0, TMath::Pi());
@@ -868,9 +868,14 @@ void StMiniTreeMaker::bookHistos()
 	hTOFEtavsPhi = new TH2D("hTOFEtavsPhi",";#eta; #phi",1300,-1.3,1.3,3200, -3.2, 3.2);
 	hTOFEtavsPhi_cellID = new TH2D("hTOFEtavsPhi_cellID",";#eta; #phi",1300,-1.3,1.3,3200, -3.2, 3.2);
 	nSigmaE_vband = new TH2D("hSigmaEvsP_vband","hSignaEvsP_vband;p (GeV/C);n#sigma_{e}",500,0,5,400,-19.005,20.995);
-	hBetavsP_Pion  = new TH2D("hBetavsP_Pion", "hBetavsP_Pion; p (GeV/c); 1/#beta", 3000, 0, 3, 800, 0.5, 1.3);
-	hLocalY_vband = new TH1D("hTofLocalY", "hTofLocalY;localY (cm);counts", 500, -2.5, 2.5);
+	hBetavsP_Pion  = new TH2D("hBetavsP_Pion", "hBetavsP_Pion; q*p (GeV/c); 1/#beta", 3000, -3, 3, 800, 0.5, 1.3);
+	hBetavsP_Kaon  = new TH2D("hBetavsP_Kaon", "hBetavsP_Kaon; q*p (GeV/c); 1/#beta", 3000, -3, 3, 800, 0.5, 1.3);
+	hBetavsP_Proton  = new TH2D("hBetavsP_Proton", "hBetavsP_Proton; q*p (GeV/c); 1/#beta", 3000, -3, 3, 800, 0.5, 1.3);
+	hLocalY_vband = new TH1D("hTofLocalY_vband", "hTofLocalY;localY (cm);counts", 500, -2.5, 2.5);
 	hEtavsPhi_pT1 = new TH2D("hEtavsPhi_pT1","; #eta; #phi",260,-1.3,1.3,640, -3.2, 3.2);
+	hnHitsFitvsP_vBand = new TH2D("hnHitsFitvsP_vBand",";p*q;nHitsFit",3000,-3,3, 80,0,80);
+	hnHitsdEdxvsP_vBand = new TH2D("hnHitsdEdxvsP_vBand",";p*q;nHitsDedx",3000,-3,3, 80,0,80);
+	hnHitsratiovsP_vBand = new TH2D("hnHitsratiovsP_vBand",";p*q;nHitsratio",3000,-3,3, 200,0,2);
 }
 //_____________________________________________________________________________
 void StMiniTreeMaker::writeHistos()
