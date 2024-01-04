@@ -2,6 +2,6 @@
 date
 
 echo $SHELL
-starver SL18c
+starver SL20c
 echo $STAR
 

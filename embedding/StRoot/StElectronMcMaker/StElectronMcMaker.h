@@ -13,6 +13,9 @@ class TRandom;
 class StFileI;
 class TChain;
 class TClonesArray;
+class StRefMultCorr;
+class CentralityMaker;
+
 
 //-- add class
 class StEvent;
@@ -22,6 +25,17 @@ class StGlobalTrack;
 class StMcTrack;
 class StAssociationMaker;
 class StRefMultCorr;
+class StMuDstMaker;
+class StMuDst;
+class StMuTrack;
+class StMuEvent;
+class StMuEmcTowerData;
+
+
+class StEmcTriggerMaker;
+class StBemcTriggerSimu;
+class StEmcGeom;
+
 #include "StAssociationMaker/StAssociationMaker.h"
 #include "StAssociationMaker/StTrackPairInfo.hh"
 #include "StThreeVectorF.hh"
@@ -50,6 +64,7 @@ class StElectronMcMaker : public StMaker {
 				const char* file = "undefined");
 		~StElectronMcMaker();
 		void  Clear(const char* opt="");
+                void  matchEmc(StMuTrack* track, StMuDst *mudst,Float_t* emcInfo);
 		Int_t Init();
 		Int_t Make();
 		Int_t Finish();
@@ -58,74 +73,116 @@ class StElectronMcMaker : public StMaker {
 
 		struct ElectronEvent {
 			int   runId;
-			int   triggerId;
-			int   mcEvtId;
-			float mcVertexX;
-			float mcVertexY;
-			float mcVertexZ;
-			int   rcEvtId;
-			float rcVertexRanking;
-			float rcVertexX;
-			float rcVertexY;
-			float rcVertexZ;
-			float rcVpdVz;
-			int   rcRefMult;
-			float rcRefMultCorr;
-			float gWeight;
+			int   triggerId[4];
+			int   muEvtId;
+			float muPriVertexX;
+			float muPriVertexY;
+			float muPriVertexZ;
+			//int   rcEvtId;
+			//float rcVertexRanking;
+			//float rcVertexX;
+			//float rcVertexY;
+			//float rcVertexZ;
+			float muVpdVz;
+			int   muRefMult;
+			int   mugRefMult;
+			int   munBtofMatch;
+			//float rcRefMultCorr;
+			//float gWeight;
 			float zdcX;
+			int Centrality_16;
+			int Centrality_9;
+			float refmult_corr;
+			float reweight;
 
 			int   nMcTrks;
+			int   nMcVertices;
 			int   nMcE;
+			int   nRcE;
+			int   nMcTrack;
 			int   geantId[mMax];
-			int   mcTrkKey[mMax];
-			int   parentGeantId[mMax];
-			int   mcParentTrkKey[mMax];
+			int   mcTrackId[mMax];
+			Short_t   mcCharge[mMax];
+			//int   mcTrkKey[mMax];
+			//int   parentGeantId[mMax];
+			//int   mcParentTrkKey[mMax];
+			int mcTrack_par_Geantid[mMax];
+			float mcTrack_Vr[mMax];
 			float mcPt[mMax];
 			float mcEta[mMax];
 			float mcPhi[mMax];
-			float mcPtFirst[mMax];
-			float mcEtaFirst[mMax];
-			float mcPhiFirst[mMax];
-			float mcPtLast[mMax];
-			float mcEtaLast[mMax];
-			float mcPhiLast[mMax];
-			int   rcTrkKey[mMax];
-			float rcPtFirst[mMax];
-			float rcEtaFirst[mMax];
-			float rcPhiFirst[mMax];
-			float rcPtLast[mMax];
-			float rcEtaLast[mMax];
-			float rcPhiLast[mMax];
+			//float mcPtFirst[mMax];
+			////float mcEtaFirst[mMax];
+			////float mcPhiFirst[mMax];
+			//float mcPtLast[mMax];
+			//float mcEtaLast[mMax];
+			//float mcPhiLast[mMax];
+			//int   rcTrkKey[mMax];
+			int   rcidtruth[mMax];
+			int   rcQaTruth[mMax];
+			int   rcflag[mMax];
+			Short_t   rcCharge[mMax];
+			float rcPt[mMax];
+			float rcEta[mMax];
+			float rcPhi[mMax];
+			// float rcPtFirst[mMax];
+			// float rcEtaFirst[mMax];
+			// float rcPhiFirst[mMax];
+			// float rcPtLast[mMax];
+			// float rcEtaLast[mMax];
+			// float rcPhiLast[mMax];
 			int   rcNHitsFit[mMax];            
 			int   rcNHitsPoss[mMax];
 			int   rcNHitsDedx[mMax];
-			int   rcNHitsCommon[mMax];
+			//int   rcNHitsCommon[mMax];
 			float rcDedx[mMax];
 			float rcNSigmaE[mMax];
 			float rcNSigmaPi[mMax];
 			float rcNSigmaK[mMax];
 			float rcNSigmaP[mMax];
 			float rcDca[mMax];
-			float rcDca1[mMax]; // vertex XY smear by 0.02 cm
-			float rcDca2[mMax]; // vertex XY smear by 0.05 cm
-			float rcDca3[mMax]; // vertex XY smear by 0.10 cm
-			float rcDca4[mMax]; // vertex XY smear by 0.15 cm
-			float rcDca5[mMax]; // vertex XY smear by 0.20 cm
-			float rcDca6[mMax]; // vertex XY smear by 0.25 cm
+			
+			// float rcDca1[mMax]; // vertex XY smear by 0.02 cm
+			// float rcDca2[mMax]; // vertex XY smear by 0.05 cm
+			// float rcDca3[mMax]; // vertex XY smear by 0.10 cm
+			// float rcDca4[mMax]; // vertex XY smear by 0.15 cm
+			// float rcDca5[mMax]; // vertex XY smear by 0.20 cm
+			// float rcDca6[mMax]; // vertex XY smear by 0.25 cm
+    
+			//bool IsBemcMatched[mMax];//Is bemc matched
+			//bool IsBemcMatched_EMC[mMax];
+			float energy_EMC[mMax];
+			float energy0_EMC[mMax];
+			float nEta_EMC[mMax];
+			float nPhi_EMC[mMax]; 
+			float zDist_EMC[mMax]; 
+			float phiDist_EMC[mMax]; 
+			float minDist_EMC[mMax]; 
+			float maxadc_EMC[mMax]; 
+			float maxdsmadc_EMC[mMax]; 
+			float etaBSMD_EMC[mMax]; 
+			float phiBSMD_EMC[mMax]; 
 		};
 		ElectronEvent mElectron;
 
+                //char detname[4][100] = {{"bemc"},{"bprs"},{"bsmde"},{"bsmdp"}};
+                Float_t emcInfo[11];
 		TFile* mOutputFile;
 		TTree* mTree;
 
 		StEvent*       mRcEvent;
 		StMcEvent*     mMcEvent;
+                StMuDst* mMuDst;
+                //StMuEvent* mMuEvent;
 
 		StThreeVectorF       mMcVertex;
 		StAssociationMaker*  mAssocMaker;
 		rcTrackMapType*      mRcTrackMap;
 		mcTrackMapType*      mMcTrackMap;
 		StRefMultCorr*       mRefMultCorr;
+                 
+                StEmcGeom*           mEmcGeom;
+                StBemcTriggerSimu*   mBemcTriggerSimu;
 
 		StTrackPairInfo*     findBestMatchedGlobal(StMcTrack*);
 

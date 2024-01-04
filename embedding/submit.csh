@@ -1,18 +1,22 @@
 #! /bin/tcsh
 
-if($#argv != 2) then
+if($#argv != 3) then
    echo "Please infile TWO arguments!"
    echo "argv0 -- the particle species. For me, it should be 'Electron' or 'Positron' "
    echo "argv1 -- the production number ID. For me, it should be '100', or '200' "
+   echo "argv2 -- the request ID "
    exit 0
 endif
 
-set myPath = /star/u/wangzhen/QA/wangzhen/embedding/myEmbedding/basicQA
+set myPath = /gpfs/mnt/gpfs01/star/pwg/kshen/isobar_embedding/basicQA
+#set myPath = /star/u/wangzhen/QA/wangzhen/embedding/myEmbedding/basicQA
 #set infileDir = /star/embed/embedding/AuAu54_production_2017/$1_$2_20183001/P18ic.SL18c/2017
 #set infileDir = /star/embed/embedding/AuAu54_production_2017/$1_$2_20183001/P18ic.SL18c_embed/2017
-set infileDir = /star/embed/embedding/27GeV_production_2018/$1_$2_20193201/P19ib.SL19b/2018
+#set infileDir = /star/embed/embedding/27GeV_production_2018/$1_$2_20193201/P19ib.SL19b/2018
 #set infileDir = /star/embed/embedding/AuAu54_production_2017/$1_$2_20191701/P18ic.SL18c_embed/2017
 #set infileDir = /star/embed/embedding/AuAu54_production_2017/$1_$2_20183001/P18ic.SL18c_embed/2017
+#set infileDir = /star/embed/embedding/production_isobar_2018/$1_$2_20214217/P20ic.SL20c/2018
+set infileDir = /star/embed/embedding/production_isobar_2018/$1_$2_$3/P20ic.SL20c/2018
 #set infileDir = /star/data18/embedding/AuAu54_production_2017/$1_$2_20183001/P18ic.SL18c_embed/2017
 #/star/embed/embedding/AuAu54_production_2017/Electron_100_20183001/
 set outfileDir = out_$1_$2
@@ -31,32 +35,33 @@ if(! -d $myPath/$scriptDir) then
       mkdir $myPath/$scriptDir
 endif
 
-if(! -d $outfileDir) then
-      ln -s $myPath/$outfileDir ./
-endif
+#if(! -d $outfileDir) then
+#      ln -s $myPath/$outfileDir ./
+#endif
 
-if(! -d $logDir) then
-      ln -s $myPath/$logDir ./
-endif
+#if(! -d $logDir) then
+#      ln -s $myPath/$logDir ./
+#endif
 
-if(! -d $scriptDir) then
-      ln -s $myPath/$scriptDir ./
-endif
+#if(! -d $scriptDir) then
+#      ln -s $myPath/$scriptDir ./
+#endif
 
 rm -rf $scriptDir/*
 rm -rf $logDir/*
 rm -rf $outfileDir/*.root
 rm -rf job/*
 
+#cp run.con job/runAll$1_$2.job
 @ nfile=0
 
 
 
-#foreach file (`find $infileDir/*/* -name 'st_physics_adc*.geant.root'`)
-foreach file (`ls $infileDir/*/*/st_physics_adc*.geant.root`)
+foreach file (`find $infileDir/*/* -name 'st_physics_adc*.MuDst.root'`)
+#foreach file (`ls $infileDir/*/st_physics_adc*.event.root`)
   echo " *** $nfile ***"
 
-  cp run.con job/runAll$1_$2_$nfile.job
+ cp run.con job/runAll$1_$2_$nfile.job
 
   set baseName = `basename $file`
   set log = `basename $file`
@@ -87,4 +92,5 @@ foreach file (`ls $infileDir/*/*/st_physics_adc*.geant.root`)
 
 end
 
+  #condor_submit job/runAll$1_$2.job
 
