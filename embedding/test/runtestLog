@@ -1,0 +1,4510 @@
+*** Float Point Exception is OFF ***
+ *** Start at Date : Thu Oct 18 22:23:43 2018
+QAInfo:You are using STAR_LEVEL : DEV, ROOT_LEVEL : 5.34.30 and node : rcas6009.rcf.bnl.gov 
+Warning in <TClass::TClass>: no dictionary for class StStrangeMuDst is available
+Warning in <TClass::TClass>: no dictionary for class StStrangeAssoc is available
+strangeArrayNames-arrayNames-__NARRAYS__ = 0
+ loading of shared libraries done
+created new StAssociationMaker
+embedrun:   AuAu54_production_2017/Electron_100_20183001/
+output: 18162038_raw_2500024.geant.root
+Output: ./test/embAuAu54_production_2017xElectron_100_20183001x_18162038_raw_2500024.myminimc.root
+StInfo: Cuts used in association for this run:
+StInfo: 
+ TPC Cuts 
+ X Cut   : 5 mm
+ Y Cut   : 5 mm
+ Z Cut   : 5 mm
+ Required Hits for Associating Tracks: 10
+ SVT Cuts 
+ X Cut   : 1 mm
+ Y Cut   : 1 mm
+ Z Cut   : 1 mm
+ Required Hits for Associating Tracks: 1
+ SSD Cuts 
+ X Cut   : 1 mm
+ Y Cut   : 1 mm
+ Z Cut   : 1 mm
+ Required Hits for Associating Tracks: 1
+ FTPC Cuts 
+ R Cut   : 3 mm
+ Phi Cut : 5 degrees
+ Required Hits for Associating Tracks: 2
+
+
+StInfo: Using IT Tracks in Association
+StQAInfo: QAInfo:StChain              built Jun 30 2018 23:11:52 from Tag $Name:  $ $Id: StChain.h,v 1.48 2018/06/29 21:46:18 smirnovd Exp $
+StQAInfo: QAInfo:StIOMaker            built Jun 30 2018 23:16:50 from Tag $Name:  $ $Id: StIOMaker.h,v 1.15 2014/08/06 11:43:21 jeromel Exp $
+StQAInfo: QAInfo:StMcEventMaker       built Aug 28 2018 04:12:05 from Tag $Name:  $ $Id: StMcEventMaker.h,v 1.28 2014/08/06 11:43:26 jeromel Exp $
+StQAInfo: QAInfo:StAssociationMaker   built Oct 17 2018 23:10:53 from Tag $Name:  $ $Id: StAssociationMaker.h,v 1.28 2015/03/13 18:44:44 perev Exp $
+StQAInfo: QAInfo:StElectronMcMaker    built Jun 30 2018 23:11:53 from Tag $Name:  $ $Id: StMaker.h,v 1.101 2017/04/26 18:33:12 perev Exp $
+
+============================ Event 1 start ============================
+<StIOMaker::Load() trying to GetClass(StTreeMaker) case 1
+<StTreeMaker(StIO_Root)::Init> Branch geantBranch is MAIN in tree
+<StBranch::UpdateFile> Branch=geantBranch file /star/embed/embedding/AuAu54_production_2017/Electron_100_20183001/P18ic.SL18c/2017/162/18162038/st_physics_adc_18162038_raw_2500024.geant.root
+<StBranch::UpdateFile> Branch=eventBranch file /star/embed/embedding/AuAu54_production_2017/Electron_100_20183001/P18ic.SL18c/2017/162/18162038/st_physics_adc_18162038_raw_2500024.event.root
+<StBranch::UpdateFile> Branch=histBranch file /star/embed/embedding/AuAu54_production_2017/Electron_100_20183001/P18ic.SL18c/2017/162/18162038/st_physics_adc_18162038_raw_2500024.hist.root
+<StBranch::UpdateFile> Branch=runcoBranch file /star/embed/embedding/AuAu54_production_2017/Electron_100_20183001/P18ic.SL18c/2017/162/18162038/st_physics_adc_18162038_raw_2500024.runco.root
+** <StBranch::Open> Branch=geantBranch 	Mode=READ 	File=/star/embed/embedding/AuAu54_production_2017/Electron_100_20183001/P18ic.SL18c/2017/162/18162038/st_physics_adc_18162038_raw_2500024.geant.root 	Opened **
+** <StBranch::Open> Branch=eventBranch 	Mode=READ 	File=/star/embed/embedding/AuAu54_production_2017/Electron_100_20183001/P18ic.SL18c/2017/162/18162038/st_physics_adc_18162038_raw_2500024.event.root 	Opened **
+StQAInfo: StIOMaker:  Event: 1  Run: 18162038  EventId: 1810072
+StInfo: StEmcGeom::getGeantGeometryTable() could not find geom
+StInfo: StEmcGeom::getGeantGeometryTable() create own calb_calg/r
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+
+============================ Event 2 start ============================
+StQAInfo: StIOMaker:  Event: 2  Run: 18162038  EventId: 1812561
+StInfo: AssociationMaker::Make()
+nCommonHits = 26
+Warning in <dEdxParameterization::GetFile>: File P10T.root has been found as /afs/rhic.bnl.gov/star/packages/DEV/StarDb/dEdxModel/P10T.root
+	i = 	0	fnBins[i] = 	101	fbinW[i] = 	0.05
+	i = 	1	fnBins[i] = 	11	fbinW[i] = 	0.33
+	i = 	2	fnBins[i] = 	51	fbinW[i] = 	0.2
+nCommonHits = 25
+nCommonHits = 32
+nCommonHits = 40
+nCommonHits = 40
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 22
+nCommonHits = 31
+nCommonHits = 11
+nCommonHits = 22
+nCommonHits = 38
+nCommonHits = 25
+nCommonHits = 35
+nCommonHits = 0
+
+============================ Event 3 start ============================
+StQAInfo: StIOMaker:  Event: 3  Run: 18162038  EventId: 1814167
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+nCommonHits = 38
+nCommonHits = 44
+nCommonHits = 41
+nCommonHits = 42
+nCommonHits = 33
+
+============================ Event 4 start ============================
+StQAInfo: StIOMaker:  Event: 4  Run: 18162038  EventId: 1816631
+StInfo: AssociationMaker::Make()
+nCommonHits = 27
+nCommonHits = 19
+nCommonHits = 35
+nCommonHits = 42
+nCommonHits = 39
+nCommonHits = 34
+nCommonHits = 36
+nCommonHits = 31
+nCommonHits = 0
+nCommonHits = 32
+nCommonHits = 41
+nCommonHits = 12
+nCommonHits = 38
+nCommonHits = 13
+nCommonHits = 37
+nCommonHits = 26
+
+============================ Event 5 start ============================
+StQAInfo: StIOMaker:  Event: 5  Run: 18162038  EventId: 1818262
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+nCommonHits = 21
+nCommonHits = 43
+nCommonHits = 40
+nCommonHits = 38
+nCommonHits = 37
+nCommonHits = 31
+nCommonHits = 28
+nCommonHits = 42
+nCommonHits = 32
+nCommonHits = 41
+
+============================ Event 6 start ============================
+StQAInfo: StIOMaker:  Event: 6  Run: 18162038  EventId: 1820741
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+nCommonHits = 19
+nCommonHits = 0
+nCommonHits = 28
+nCommonHits = 14
+nCommonHits = 32
+nCommonHits = 43
+nCommonHits = 16
+nCommonHits = 24
+nCommonHits = 39
+nCommonHits = 29
+nCommonHits = 0
+nCommonHits = 22
+nCommonHits = 37
+nCommonHits = 39
+
+============================ Event 7 start ============================
+StQAInfo: StIOMaker:  Event: 7  Run: 18162038  EventId: 1821316
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+nCommonHits = 40
+nCommonHits = 41
+nCommonHits = 44
+nCommonHits = 15
+nCommonHits = 42
+nCommonHits = 44
+nCommonHits = 24
+nCommonHits = 43
+nCommonHits = 26
+
+============================ Event 8 start ============================
+StQAInfo: StIOMaker:  Event: 8  Run: 18162038  EventId: 1822357
+StInfo: AssociationMaker::Make()
+nCommonHits = 21
+nCommonHits = 42
+
+============================ Event 9 start ============================
+StQAInfo: StIOMaker:  Event: 9  Run: 18162038  EventId: 1824855
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 10
+nCommonHits = 42
+nCommonHits = 0
+nCommonHits = 44
+nCommonHits = 42
+nCommonHits = 39
+nCommonHits = 38
+nCommonHits = 0
+
+============================ Event 10 start ============================
+StQAInfo: StIOMaker:  Event: 10  Run: 18162038  EventId: 1824874
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 42
+nCommonHits = 21
+nCommonHits = 44
+
+============================ Event 11 start ============================
+StQAInfo: StIOMaker:  Event: 11  Run: 18162038  EventId: 1825411
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 39
+nCommonHits = 45
+nCommonHits = 31
+nCommonHits = 41
+nCommonHits = 35
+
+============================ Event 12 start ============================
+StQAInfo: StIOMaker:  Event: 12  Run: 18162038  EventId: 1826452
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+nCommonHits = 18
+
+============================ Event 13 start ============================
+StQAInfo: StIOMaker:  Event: 13  Run: 18162038  EventId: 1828950
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+
+============================ Event 14 start ============================
+StQAInfo: StIOMaker:  Event: 14  Run: 18162038  EventId: 1828969
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 15 start ============================
+StQAInfo: StIOMaker:  Event: 15  Run: 18162038  EventId: 1829506
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 16 start ============================
+StQAInfo: StIOMaker:  Event: 16  Run: 18162038  EventId: 1830547
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+
+============================ Event 17 start ============================
+StQAInfo: StIOMaker:  Event: 17  Run: 18162038  EventId: 1833045
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+nCommonHits = 11
+nCommonHits = 41
+nCommonHits = 36
+nCommonHits = 0
+nCommonHits = 42
+
+============================ Event 18 start ============================
+StQAInfo: StIOMaker:  Event: 18  Run: 18162038  EventId: 1833064
+StInfo: AssociationMaker::Make()
+nCommonHits = 32
+nCommonHits = 16
+nCommonHits = 31
+nCommonHits = 40
+nCommonHits = 41
+nCommonHits = 43
+nCommonHits = 0
+nCommonHits = 34
+nCommonHits = 44
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 36
+nCommonHits = 41
+nCommonHits = 44
+
+============================ Event 19 start ============================
+StQAInfo: StIOMaker:  Event: 19  Run: 18162038  EventId: 1834642
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 44
+nCommonHits = 34
+nCommonHits = 31
+nCommonHits = 38
+nCommonHits = 22
+nCommonHits = 34
+nCommonHits = 43
+
+============================ Event 20 start ============================
+StQAInfo: StIOMaker:  Event: 20  Run: 18162038  EventId: 1837140
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+nCommonHits = 34
+nCommonHits = 25
+
+============================ Event 21 start ============================
+StQAInfo: StIOMaker:  Event: 21  Run: 18162038  EventId: 1837159
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 22
+nCommonHits = 18
+nCommonHits = 16
+nCommonHits = 31
+nCommonHits = 41
+nCommonHits = 34
+nCommonHits = 33
+nCommonHits = 0
+nCommonHits = 31
+nCommonHits = 32
+nCommonHits = 0
+nCommonHits = 40
+nCommonHits = 39
+
+============================ Event 22 start ============================
+StQAInfo: StIOMaker:  Event: 22  Run: 18162038  EventId: 1837696
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 19
+nCommonHits = 27
+nCommonHits = 15
+nCommonHits = 22
+nCommonHits = 13
+nCommonHits = 27
+
+============================ Event 23 start ============================
+StQAInfo: StIOMaker:  Event: 23  Run: 18162038  EventId: 1841254
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 43
+nCommonHits = 41
+nCommonHits = 40
+
+============================ Event 24 start ============================
+StQAInfo: StIOMaker:  Event: 24  Run: 18162038  EventId: 1841791
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+
+============================ Event 25 start ============================
+StQAInfo: StIOMaker:  Event: 25  Run: 18162038  EventId: 1842832
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 41
+
+============================ Event 26 start ============================
+StQAInfo: StIOMaker:  Event: 26  Run: 18162038  EventId: 1845330
+StInfo: AssociationMaker::Make()
+nCommonHits = 11
+
+============================ Event 27 start ============================
+StQAInfo: StIOMaker:  Event: 27  Run: 18162038  EventId: 1845886
+StInfo: AssociationMaker::Make()
+StWarning: 
+-----------  WARNING ---------------
+   The Tpc Hit Map is too small for   
+   any meaningful track association.  
+ ------------------------------------ 
+Entries in Hit Map  : 9
+Required Common Hits: 10
+Suggest increase distance cuts.
+nCommonHits = 0
+
+============================ Event 28 start ============================
+StQAInfo: StIOMaker:  Event: 28  Run: 18162038  EventId: 1849425
+StInfo: AssociationMaker::Make()
+nCommonHits = 26
+nCommonHits = 44
+nCommonHits = 0
+
+============================ Event 29 start ============================
+StQAInfo: StIOMaker:  Event: 29  Run: 18162038  EventId: 1849981
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+
+============================ Event 30 start ============================
+StQAInfo: StIOMaker:  Event: 30  Run: 18162038  EventId: 1851022
+StInfo: AssociationMaker::Make()
+nCommonHits = 28
+nCommonHits = 30
+nCommonHits = 39
+nCommonHits = 45
+nCommonHits = 36
+nCommonHits = 45
+nCommonHits = 36
+nCommonHits = 42
+nCommonHits = 30
+nCommonHits = 43
+
+============================ Event 31 start ============================
+StQAInfo: StIOMaker:  Event: 31  Run: 18162038  EventId: 1853539
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 40
+
+============================ Event 32 start ============================
+StQAInfo: StIOMaker:  Event: 32  Run: 18162038  EventId: 1854076
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+nCommonHits = 45
+
+============================ Event 33 start ============================
+StQAInfo: StIOMaker:  Event: 33  Run: 18162038  EventId: 1857615
+StInfo: AssociationMaker::Make()
+nCommonHits = 26
+
+============================ Event 34 start ============================
+StQAInfo: StIOMaker:  Event: 34  Run: 18162038  EventId: 1857634
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 38
+nCommonHits = 39
+nCommonHits = 41
+nCommonHits = 45
+nCommonHits = 11
+nCommonHits = 44
+nCommonHits = 0
+nCommonHits = 40
+nCommonHits = 0
+nCommonHits = 39
+
+============================ Event 35 start ============================
+StQAInfo: StIOMaker:  Event: 35  Run: 18162038  EventId: 1859222
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 40
+nCommonHits = 33
+nCommonHits = 40
+nCommonHits = 44
+nCommonHits = 41
+nCommonHits = 27
+nCommonHits = 31
+nCommonHits = 41
+nCommonHits = 35
+
+============================ Event 36 start ============================
+StQAInfo: StIOMaker:  Event: 36  Run: 18162038  EventId: 1861710
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 29
+nCommonHits = 31
+nCommonHits = 44
+nCommonHits = 32
+nCommonHits = 15
+nCommonHits = 18
+nCommonHits = 41
+nCommonHits = 0
+
+============================ Event 37 start ============================
+StQAInfo: StIOMaker:  Event: 37  Run: 18162038  EventId: 1861729
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 38 start ============================
+StQAInfo: StIOMaker:  Event: 38  Run: 18162038  EventId: 1862266
+StInfo: AssociationMaker::Make()
+nCommonHits = 19
+
+============================ Event 39 start ============================
+StQAInfo: StIOMaker:  Event: 39  Run: 18162038  EventId: 1865844
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+nCommonHits = 31
+nCommonHits = 0
+nCommonHits = 39
+nCommonHits = 39
+nCommonHits = 41
+nCommonHits = 42
+nCommonHits = 37
+nCommonHits = 0
+nCommonHits = 33
+nCommonHits = 24
+nCommonHits = 36
+nCommonHits = 27
+nCommonHits = 23
+nCommonHits = 34
+nCommonHits = 34
+nCommonHits = 42
+nCommonHits = 23
+nCommonHits = 15
+nCommonHits = 0
+
+============================ Event 40 start ============================
+StQAInfo: StIOMaker:  Event: 40  Run: 18162038  EventId: 1866361
+StInfo: AssociationMaker::Make()
+nCommonHits = 21
+nCommonHits = 41
+
+============================ Event 41 start ============================
+StQAInfo: StIOMaker:  Event: 41  Run: 18162038  EventId: 1867412
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 42 start ============================
+StQAInfo: StIOMaker:  Event: 42  Run: 18162038  EventId: 1870456
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 45
+
+============================ Event 43 start ============================
+StQAInfo: StIOMaker:  Event: 43  Run: 18162038  EventId: 1871507
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 12
+nCommonHits = 40
+nCommonHits = 35
+nCommonHits = 43
+nCommonHits = 39
+nCommonHits = 11
+nCommonHits = 26
+nCommonHits = 32
+nCommonHits = 0
+nCommonHits = 12
+nCommonHits = 26
+nCommonHits = 35
+nCommonHits = 41
+nCommonHits = 33
+nCommonHits = 35
+
+============================ Event 44 start ============================
+StQAInfo: StIOMaker:  Event: 44  Run: 18162038  EventId: 1874005
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 42
+nCommonHits = 22
+
+============================ Event 45 start ============================
+StQAInfo: StIOMaker:  Event: 45  Run: 18162038  EventId: 1874064
+StInfo: AssociationMaker::Make()
+StWarning: 
+-----------  WARNING ---------------
+   The Tpc Hit Map is too small for   
+   any meaningful track association.  
+ ------------------------------------ 
+Entries in Hit Map  : 5
+Required Common Hits: 10
+Suggest increase distance cuts.
+nCommonHits = 0
+
+============================ Event 46 start ============================
+StQAInfo: StIOMaker:  Event: 46  Run: 18162038  EventId: 1875602
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 19
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 41
+nCommonHits = 33
+nCommonHits = 33
+nCommonHits = 22
+
+============================ Event 47 start ============================
+StQAInfo: StIOMaker:  Event: 47  Run: 18162038  EventId: 1878159
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 43
+
+============================ Event 48 start ============================
+StQAInfo: StIOMaker:  Event: 48  Run: 18162038  EventId: 1878646
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 49 start ============================
+StQAInfo: StIOMaker:  Event: 49  Run: 18162038  EventId: 1879717
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 12
+nCommonHits = 34
+nCommonHits = 40
+nCommonHits = 19
+nCommonHits = 43
+nCommonHits = 40
+nCommonHits = 0
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 11
+nCommonHits = 0
+
+============================ Event 50 start ============================
+StQAInfo: StIOMaker:  Event: 50  Run: 18162038  EventId: 1882195
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+nCommonHits = 40
+nCommonHits = 25
+nCommonHits = 42
+nCommonHits = 36
+nCommonHits = 35
+nCommonHits = 40
+nCommonHits = 40
+nCommonHits = 33
+
+============================ Event 51 start ============================
+StQAInfo: StIOMaker:  Event: 51  Run: 18162038  EventId: 1882254
+StInfo: AssociationMaker::Make()
+nCommonHits = 16
+
+============================ Event 52 start ============================
+StQAInfo: StIOMaker:  Event: 52  Run: 18162038  EventId: 1882741
+StInfo: AssociationMaker::Make()
+nCommonHits = 17
+nCommonHits = 45
+
+============================ Event 53 start ============================
+StQAInfo: StIOMaker:  Event: 53  Run: 18162038  EventId: 1883812
+StInfo: AssociationMaker::Make()
+StWarning: 
+-----------  WARNING ---------------
+   The Tpc Hit Map is too small for   
+   any meaningful track association.  
+ ------------------------------------ 
+Entries in Hit Map  : 2
+Required Common Hits: 10
+Suggest increase distance cuts.
+nCommonHits = 0
+
+============================ Event 54 start ============================
+StQAInfo: StIOMaker:  Event: 54  Run: 18162038  EventId: 1886349
+StInfo: AssociationMaker::Make()
+nCommonHits = 12
+nCommonHits = 0
+
+============================ Event 55 start ============================
+StQAInfo: StIOMaker:  Event: 55  Run: 18162038  EventId: 1887907
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 45
+nCommonHits = 44
+
+============================ Event 56 start ============================
+StQAInfo: StIOMaker:  Event: 56  Run: 18162038  EventId: 1890444
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 57 start ============================
+StQAInfo: StIOMaker:  Event: 57  Run: 18162038  EventId: 1892002
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+
+============================ Event 58 start ============================
+StQAInfo: StIOMaker:  Event: 58  Run: 18162038  EventId: 1894480
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+nCommonHits = 42
+nCommonHits = 24
+
+============================ Event 59 start ============================
+StQAInfo: StIOMaker:  Event: 59  Run: 18162038  EventId: 1894539
+StInfo: AssociationMaker::Make()
+nCommonHits = 14
+
+============================ Event 60 start ============================
+StQAInfo: StIOMaker:  Event: 60  Run: 18162038  EventId: 1895015
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 33
+nCommonHits = 18
+nCommonHits = 40
+nCommonHits = 37
+nCommonHits = 36
+nCommonHits = 0
+nCommonHits = 35
+nCommonHits = 32
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 39
+nCommonHits = 39
+nCommonHits = 40
+nCommonHits = 45
+nCommonHits = 0
+nCommonHits = 27
+nCommonHits = 39
+nCommonHits = 40
+nCommonHits = 41
+
+============================ Event 61 start ============================
+StQAInfo: StIOMaker:  Event: 61  Run: 18162038  EventId: 1896097
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 28
+nCommonHits = 0
+nCommonHits = 37
+
+============================ Event 62 start ============================
+StQAInfo: StIOMaker:  Event: 62  Run: 18162038  EventId: 1898584
+StInfo: AssociationMaker::Make()
+nCommonHits = 32
+nCommonHits = 17
+nCommonHits = 32
+nCommonHits = 34
+nCommonHits = 39
+nCommonHits = 30
+
+============================ Event 63 start ============================
+StQAInfo: StIOMaker:  Event: 63  Run: 18162038  EventId: 1898634
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 64 start ============================
+StQAInfo: StIOMaker:  Event: 64  Run: 18162038  EventId: 1899100
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 24
+nCommonHits = 31
+nCommonHits = 43
+nCommonHits = 42
+nCommonHits = 36
+nCommonHits = 41
+nCommonHits = 16
+nCommonHits = 39
+nCommonHits = 29
+nCommonHits = 27
+nCommonHits = 43
+nCommonHits = 43
+nCommonHits = 0
+
+============================ Event 65 start ============================
+StQAInfo: StIOMaker:  Event: 65  Run: 18162038  EventId: 1900192
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 0
+nCommonHits = 33
+nCommonHits = 20
+nCommonHits = 39
+nCommonHits = 10
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 31
+nCommonHits = 36
+
+============================ Event 66 start ============================
+StQAInfo: StIOMaker:  Event: 66  Run: 18162038  EventId: 1902679
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 67 start ============================
+StQAInfo: StIOMaker:  Event: 67  Run: 18162038  EventId: 1907290
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 44
+nCommonHits = 39
+nCommonHits = 44
+nCommonHits = 40
+
+============================ Event 68 start ============================
+StQAInfo: StIOMaker:  Event: 68  Run: 18162038  EventId: 1908411
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 30
+nCommonHits = 22
+nCommonHits = 37
+nCommonHits = 42
+nCommonHits = 40
+nCommonHits = 0
+
+============================ Event 69 start ============================
+StQAInfo: StIOMaker:  Event: 69  Run: 18162038  EventId: 1910889
+StInfo: AssociationMaker::Make()
+nCommonHits = 15
+nCommonHits = 44
+nCommonHits = 40
+nCommonHits = 31
+
+============================ Event 70 start ============================
+StQAInfo: StIOMaker:  Event: 70  Run: 18162038  EventId: 1910919
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 20
+nCommonHits = 37
+nCommonHits = 42
+nCommonHits = 38
+nCommonHits = 29
+nCommonHits = 42
+
+============================ Event 71 start ============================
+StQAInfo: StIOMaker:  Event: 71  Run: 18162038  EventId: 1912506
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 40
+nCommonHits = 14
+nCommonHits = 25
+nCommonHits = 34
+nCommonHits = 20
+nCommonHits = 12
+nCommonHits = 13
+
+============================ Event 72 start ============================
+StQAInfo: StIOMaker:  Event: 72  Run: 18162038  EventId: 1914974
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 44
+nCommonHits = 22
+
+============================ Event 73 start ============================
+StQAInfo: StIOMaker:  Event: 73  Run: 18162038  EventId: 1915004
+StInfo: AssociationMaker::Make()
+nCommonHits = 25
+nCommonHits = 39
+nCommonHits = 39
+nCommonHits = 44
+nCommonHits = 37
+nCommonHits = 35
+nCommonHits = 41
+nCommonHits = 40
+nCommonHits = 40
+
+============================ Event 74 start ============================
+StQAInfo: StIOMaker:  Event: 74  Run: 18162038  EventId: 1915480
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+nCommonHits = 25
+nCommonHits = 41
+nCommonHits = 33
+nCommonHits = 25
+nCommonHits = 39
+nCommonHits = 40
+nCommonHits = 0
+
+============================ Event 75 start ============================
+StQAInfo: StIOMaker:  Event: 75  Run: 18162038  EventId: 1916601
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 76 start ============================
+StQAInfo: StIOMaker:  Event: 76  Run: 18162038  EventId: 1919069
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 77 start ============================
+StQAInfo: StIOMaker:  Event: 77  Run: 18162038  EventId: 1919099
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+
+============================ Event 78 start ============================
+StQAInfo: StIOMaker:  Event: 78  Run: 18162038  EventId: 1919575
+StInfo: AssociationMaker::Make()
+nCommonHits = 21
+nCommonHits = 45
+nCommonHits = 15
+nCommonHits = 34
+nCommonHits = 39
+nCommonHits = 37
+nCommonHits = 23
+nCommonHits = 43
+nCommonHits = 45
+nCommonHits = 22
+
+============================ Event 79 start ============================
+StQAInfo: StIOMaker:  Event: 79  Run: 18162038  EventId: 1920696
+StInfo: AssociationMaker::Make()
+nCommonHits = 26
+nCommonHits = 18
+nCommonHits = 39
+nCommonHits = 42
+nCommonHits = 43
+
+============================ Event 80 start ============================
+StQAInfo: StIOMaker:  Event: 80  Run: 18162038  EventId: 1923164
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 45
+
+============================ Event 81 start ============================
+StQAInfo: StIOMaker:  Event: 81  Run: 18162038  EventId: 1923194
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 82 start ============================
+StQAInfo: StIOMaker:  Event: 82  Run: 18162038  EventId: 1923670
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 33
+
+============================ Event 83 start ============================
+StQAInfo: StIOMaker:  Event: 83  Run: 18162038  EventId: 1924791
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 34
+nCommonHits = 33
+nCommonHits = 41
+nCommonHits = 44
+nCommonHits = 24
+nCommonHits = 44
+
+============================ Event 84 start ============================
+StQAInfo: StIOMaker:  Event: 84  Run: 18162038  EventId: 1927259
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+nCommonHits = 36
+nCommonHits = 35
+nCommonHits = 37
+nCommonHits = 18
+nCommonHits = 0
+
+============================ Event 85 start ============================
+StQAInfo: StIOMaker:  Event: 85  Run: 18162038  EventId: 1927289
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 86 start ============================
+StQAInfo: StIOMaker:  Event: 86  Run: 18162038  EventId: 1927765
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 36
+nCommonHits = 20
+nCommonHits = 44
+nCommonHits = 40
+
+============================ Event 87 start ============================
+StQAInfo: StIOMaker:  Event: 87  Run: 18162038  EventId: 1931870
+StInfo: AssociationMaker::Make()
+nCommonHits = 25
+nCommonHits = 45
+nCommonHits = 42
+nCommonHits = 45
+nCommonHits = 44
+
+============================ Event 88 start ============================
+StQAInfo: StIOMaker:  Event: 88  Run: 18162038  EventId: 1935439
+StInfo: AssociationMaker::Make()
+nCommonHits = 11
+
+============================ Event 89 start ============================
+StQAInfo: StIOMaker:  Event: 89  Run: 18162038  EventId: 1935479
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+nCommonHits = 31
+nCommonHits = 21
+nCommonHits = 45
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 40
+nCommonHits = 27
+
+============================ Event 90 start ============================
+StQAInfo: StIOMaker:  Event: 90  Run: 18162038  EventId: 1939534
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 91 start ============================
+StQAInfo: StIOMaker:  Event: 91  Run: 18162038  EventId: 1939574
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 39
+
+============================ Event 92 start ============================
+StQAInfo: StIOMaker:  Event: 92  Run: 18162038  EventId: 1940071
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+
+============================ Event 93 start ============================
+StQAInfo: StIOMaker:  Event: 93  Run: 18162038  EventId: 1941161
+StInfo: AssociationMaker::Make()
+nCommonHits = 24
+nCommonHits = 42
+nCommonHits = 35
+nCommonHits = 45
+nCommonHits = 32
+nCommonHits = 10
+nCommonHits = 42
+nCommonHits = 22
+nCommonHits = 16
+nCommonHits = 16
+nCommonHits = 24
+nCommonHits = 0
+nCommonHits = 14
+nCommonHits = 0
+nCommonHits = 41
+nCommonHits = 32
+nCommonHits = 10
+
+============================ Event 94 start ============================
+StQAInfo: StIOMaker:  Event: 94  Run: 18162038  EventId: 1943629
+StInfo: AssociationMaker::Make()
+nCommonHits = 28
+nCommonHits = 38
+nCommonHits = 33
+nCommonHits = 42
+nCommonHits = 36
+nCommonHits = 13
+nCommonHits = 0
+nCommonHits = 42
+nCommonHits = 37
+nCommonHits = 13
+nCommonHits = 39
+
+============================ Event 95 start ============================
+StQAInfo: StIOMaker:  Event: 95  Run: 18162038  EventId: 1943669
+StInfo: AssociationMaker::Make()
+nCommonHits = 15
+
+============================ Event 96 start ============================
+StQAInfo: StIOMaker:  Event: 96  Run: 18162038  EventId: 1944166
+StInfo: AssociationMaker::Make()
+nCommonHits = 24
+
+============================ Event 97 start ============================
+StQAInfo: StIOMaker:  Event: 97  Run: 18162038  EventId: 1945256
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+nCommonHits = 44
+
+============================ Event 98 start ============================
+StQAInfo: StIOMaker:  Event: 98  Run: 18162038  EventId: 1947764
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 44
+nCommonHits = 34
+nCommonHits = 31
+nCommonHits = 28
+nCommonHits = 42
+
+============================ Event 99 start ============================
+StQAInfo: StIOMaker:  Event: 99  Run: 18162038  EventId: 1948261
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 16
+nCommonHits = 31
+nCommonHits = 38
+nCommonHits = 34
+nCommonHits = 41
+nCommonHits = 41
+nCommonHits = 12
+nCommonHits = 14
+nCommonHits = 35
+nCommonHits = 40
+nCommonHits = 42
+nCommonHits = 39
+nCommonHits = 30
+
+============================ Event 100 start ============================
+StQAInfo: StIOMaker:  Event: 100  Run: 18162038  EventId: 1951819
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+nCommonHits = 44
+nCommonHits = 12
+nCommonHits = 10
+nCommonHits = 15
+
+============================ Event 101 start ============================
+StQAInfo: StIOMaker:  Event: 101  Run: 18162038  EventId: 1951859
+StInfo: AssociationMaker::Make()
+nCommonHits = 15
+
+============================ Event 102 start ============================
+StQAInfo: StIOMaker:  Event: 102  Run: 18162038  EventId: 1952345
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+nCommonHits = 42
+nCommonHits = 34
+
+============================ Event 103 start ============================
+StQAInfo: StIOMaker:  Event: 103  Run: 18162038  EventId: 1953456
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+
+============================ Event 104 start ============================
+StQAInfo: StIOMaker:  Event: 104  Run: 18162038  EventId: 1955964
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 38
+nCommonHits = 32
+nCommonHits = 34
+nCommonHits = 39
+nCommonHits = 15
+nCommonHits = 34
+nCommonHits = 42
+nCommonHits = 0
+nCommonHits = 15
+nCommonHits = 37
+nCommonHits = 14
+
+============================ Event 105 start ============================
+StQAInfo: StIOMaker:  Event: 105  Run: 18162038  EventId: 1957551
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 45
+
+============================ Event 106 start ============================
+StQAInfo: StIOMaker:  Event: 106  Run: 18162038  EventId: 1960019
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 40
+nCommonHits = 31
+nCommonHits = 36
+nCommonHits = 35
+nCommonHits = 25
+nCommonHits = 37
+nCommonHits = 39
+nCommonHits = 36
+nCommonHits = 12
+nCommonHits = 43
+nCommonHits = 31
+
+============================ Event 107 start ============================
+StQAInfo: StIOMaker:  Event: 107  Run: 18162038  EventId: 1960059
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 16
+nCommonHits = 0
+nCommonHits = 43
+nCommonHits = 43
+nCommonHits = 27
+nCommonHits = 29
+nCommonHits = 28
+nCommonHits = 0
+nCommonHits = 22
+nCommonHits = 38
+
+============================ Event 108 start ============================
+StQAInfo: StIOMaker:  Event: 108  Run: 18162038  EventId: 1960535
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 37
+nCommonHits = 43
+nCommonHits = 45
+
+============================ Event 109 start ============================
+StQAInfo: StIOMaker:  Event: 109  Run: 18162038  EventId: 1961636
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+
+============================ Event 110 start ============================
+StQAInfo: StIOMaker:  Event: 110  Run: 18162038  EventId: 1964163
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 20
+nCommonHits = 39
+nCommonHits = 36
+nCommonHits = 14
+nCommonHits = 38
+nCommonHits = 40
+nCommonHits = 46
+nCommonHits = 25
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 37
+nCommonHits = 12
+nCommonHits = 29
+nCommonHits = 30
+nCommonHits = 0
+
+============================ Event 111 start ============================
+StQAInfo: StIOMaker:  Event: 111  Run: 18162038  EventId: 1964630
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 112 start ============================
+StQAInfo: StIOMaker:  Event: 112  Run: 18162038  EventId: 1968209
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+
+============================ Event 113 start ============================
+StQAInfo: StIOMaker:  Event: 113  Run: 18162038  EventId: 1968258
+StInfo: AssociationMaker::Make()
+nCommonHits = 20
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 36
+nCommonHits = 39
+nCommonHits = 24
+nCommonHits = 28
+nCommonHits = 27
+nCommonHits = 44
+
+============================ Event 114 start ============================
+StQAInfo: StIOMaker:  Event: 114  Run: 18162038  EventId: 1968725
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+nCommonHits = 42
+nCommonHits = 45
+nCommonHits = 23
+nCommonHits = 43
+nCommonHits = 24
+nCommonHits = 33
+nCommonHits = 15
+nCommonHits = 45
+nCommonHits = 36
+nCommonHits = 31
+nCommonHits = 28
+nCommonHits = 36
+nCommonHits = 41
+nCommonHits = 31
+nCommonHits = 43
+nCommonHits = 23
+
+============================ Event 115 start ============================
+StQAInfo: StIOMaker:  Event: 115  Run: 18162038  EventId: 1969836
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+nCommonHits = 40
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 33
+nCommonHits = 34
+nCommonHits = 40
+nCommonHits = 29
+nCommonHits = 11
+nCommonHits = 0
+nCommonHits = 14
+nCommonHits = 31
+nCommonHits = 41
+nCommonHits = 38
+nCommonHits = 0
+nCommonHits = 16
+
+============================ Event 116 start ============================
+StQAInfo: StIOMaker:  Event: 116  Run: 18162038  EventId: 1972304
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 31
+nCommonHits = 24
+nCommonHits = 42
+nCommonHits = 44
+nCommonHits = 37
+nCommonHits = 37
+nCommonHits = 27
+nCommonHits = 34
+nCommonHits = 35
+nCommonHits = 17
+nCommonHits = 35
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 31
+
+============================ Event 117 start ============================
+StQAInfo: StIOMaker:  Event: 117  Run: 18162038  EventId: 1972353
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+
+============================ Event 118 start ============================
+StQAInfo: StIOMaker:  Event: 118  Run: 18162038  EventId: 1972820
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 119 start ============================
+StQAInfo: StIOMaker:  Event: 119  Run: 18162038  EventId: 1973931
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 45
+
+============================ Event 120 start ============================
+StQAInfo: StIOMaker:  Event: 120  Run: 18162038  EventId: 1976399
+StInfo: AssociationMaker::Make()
+StWarning: 
+-----------  WARNING ---------------
+   The Tpc Hit Map is too small for   
+   any meaningful track association.  
+ ------------------------------------ 
+Entries in Hit Map  : 8
+Required Common Hits: 10
+Suggest increase distance cuts.
+nCommonHits = 0
+
+============================ Event 121 start ============================
+StQAInfo: StIOMaker:  Event: 121  Run: 18162038  EventId: 1976448
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 122 start ============================
+StQAInfo: StIOMaker:  Event: 122  Run: 18162038  EventId: 1978026
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 26
+nCommonHits = 39
+nCommonHits = 36
+nCommonHits = 0
+nCommonHits = 11
+nCommonHits = 33
+nCommonHits = 0
+
+============================ Event 123 start ============================
+StQAInfo: StIOMaker:  Event: 123  Run: 18162038  EventId: 1980494
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 124 start ============================
+StQAInfo: StIOMaker:  Event: 124  Run: 18162038  EventId: 1980543
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 43
+nCommonHits = 33
+nCommonHits = 34
+nCommonHits = 42
+nCommonHits = 0
+nCommonHits = 38
+
+============================ Event 125 start ============================
+StQAInfo: StIOMaker:  Event: 125  Run: 18162038  EventId: 1982121
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+
+============================ Event 126 start ============================
+StQAInfo: StIOMaker:  Event: 126  Run: 18162038  EventId: 1984589
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 42
+nCommonHits = 34
+nCommonHits = 41
+
+============================ Event 127 start ============================
+StQAInfo: StIOMaker:  Event: 127  Run: 18162038  EventId: 1984638
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+nCommonHits = 31
+nCommonHits = 12
+nCommonHits = 19
+nCommonHits = 39
+nCommonHits = 37
+nCommonHits = 37
+nCommonHits = 43
+nCommonHits = 41
+nCommonHits = 39
+nCommonHits = 10
+nCommonHits = 40
+nCommonHits = 0
+nCommonHits = 39
+nCommonHits = 42
+nCommonHits = 37
+nCommonHits = 0
+
+============================ Event 128 start ============================
+StQAInfo: StIOMaker:  Event: 128  Run: 18162038  EventId: 1986216
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 42
+nCommonHits = 34
+nCommonHits = 12
+
+============================ Event 129 start ============================
+StQAInfo: StIOMaker:  Event: 129  Run: 18162038  EventId: 1988684
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+
+============================ Event 130 start ============================
+StQAInfo: StIOMaker:  Event: 130  Run: 18162038  EventId: 1989235
+StInfo: AssociationMaker::Make()
+nCommonHits = 26
+nCommonHits = 31
+nCommonHits = 41
+nCommonHits = 31
+nCommonHits = 42
+nCommonHits = 40
+nCommonHits = 41
+nCommonHits = 23
+nCommonHits = 42
+
+============================ Event 131 start ============================
+StQAInfo: StIOMaker:  Event: 131  Run: 18162038  EventId: 1990335
+StInfo: AssociationMaker::Make()
+nCommonHits = 10
+nCommonHits = 12
+nCommonHits = 37
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 21
+nCommonHits = 42
+nCommonHits = 34
+nCommonHits = 22
+nCommonHits = 0
+nCommonHits = 19
+nCommonHits = 0
+nCommonHits = 37
+
+============================ Event 132 start ============================
+StQAInfo: StIOMaker:  Event: 132  Run: 18162038  EventId: 1992819
+StInfo: AssociationMaker::Make()
+nCommonHits = 18
+nCommonHits = 43
+nCommonHits = 27
+nCommonHits = 29
+nCommonHits = 33
+nCommonHits = 0
+nCommonHits = 41
+nCommonHits = 12
+nCommonHits = 45
+nCommonHits = 39
+nCommonHits = 18
+nCommonHits = 24
+nCommonHits = 33
+
+============================ Event 133 start ============================
+StQAInfo: StIOMaker:  Event: 133  Run: 18162038  EventId: 1993315
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 134 start ============================
+StQAInfo: StIOMaker:  Event: 134  Run: 18162038  EventId: 1996874
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 135 start ============================
+StQAInfo: StIOMaker:  Event: 135  Run: 18162038  EventId: 1996914
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 18
+nCommonHits = 39
+nCommonHits = 32
+nCommonHits = 41
+nCommonHits = 42
+nCommonHits = 42
+nCommonHits = 36
+nCommonHits = 44
+
+============================ Event 136 start ============================
+StQAInfo: StIOMaker:  Event: 136  Run: 18162038  EventId: 1997410
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+nCommonHits = 0
+nCommonHits = 41
+nCommonHits = 20
+nCommonHits = 37
+nCommonHits = 11
+nCommonHits = 37
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 34
+nCommonHits = 38
+nCommonHits = 36
+nCommonHits = 16
+nCommonHits = 36
+nCommonHits = 28
+nCommonHits = 42
+nCommonHits = 42
+nCommonHits = 39
+
+============================ Event 137 start ============================
+StQAInfo: StIOMaker:  Event: 137  Run: 18162038  EventId: 1998525
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 138 start ============================
+StQAInfo: StIOMaker:  Event: 138  Run: 18162038  EventId: 2000969
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+
+============================ Event 139 start ============================
+StQAInfo: StIOMaker:  Event: 139  Run: 18162038  EventId: 2001505
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+
+============================ Event 140 start ============================
+StQAInfo: StIOMaker:  Event: 140  Run: 18162038  EventId: 2002620
+StInfo: AssociationMaker::Make()
+StWarning: 
+-----------  WARNING ---------------
+   The Tpc Hit Map is too small for   
+   any meaningful track association.  
+ ------------------------------------ 
+Entries in Hit Map  : 1
+Required Common Hits: 10
+Suggest increase distance cuts.
+nCommonHits = 0
+
+============================ Event 141 start ============================
+StQAInfo: StIOMaker:  Event: 141  Run: 18162038  EventId: 2005074
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 39
+nCommonHits = 11
+nCommonHits = 32
+nCommonHits = 18
+nCommonHits = 40
+nCommonHits = 11
+nCommonHits = 35
+nCommonHits = 39
+nCommonHits = 38
+nCommonHits = 37
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 32
+nCommonHits = 34
+nCommonHits = 34
+nCommonHits = 34
+nCommonHits = 22
+nCommonHits = 28
+nCommonHits = 24
+nCommonHits = 40
+
+============================ Event 142 start ============================
+StQAInfo: StIOMaker:  Event: 142  Run: 18162038  EventId: 2005600
+StInfo: AssociationMaker::Make()
+nCommonHits = 28
+nCommonHits = 35
+nCommonHits = 26
+nCommonHits = 35
+nCommonHits = 32
+nCommonHits = 40
+nCommonHits = 21
+nCommonHits = 45
+nCommonHits = 44
+nCommonHits = 42
+
+============================ Event 143 start ============================
+StQAInfo: StIOMaker:  Event: 143  Run: 18162038  EventId: 2006715
+StInfo: AssociationMaker::Make()
+nCommonHits = 29
+
+============================ Event 144 start ============================
+StQAInfo: StIOMaker:  Event: 144  Run: 18162038  EventId: 2009169
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 33
+nCommonHits = 44
+
+============================ Event 145 start ============================
+StQAInfo: StIOMaker:  Event: 145  Run: 18162038  EventId: 2009695
+StInfo: AssociationMaker::Make()
+nCommonHits = 19
+nCommonHits = 36
+nCommonHits = 33
+nCommonHits = 33
+nCommonHits = 25
+nCommonHits = 40
+nCommonHits = 36
+nCommonHits = 17
+nCommonHits = 27
+nCommonHits = 43
+nCommonHits = 0
+
+============================ Event 146 start ============================
+StQAInfo: StIOMaker:  Event: 146  Run: 18162038  EventId: 2010810
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 147 start ============================
+StQAInfo: StIOMaker:  Event: 147  Run: 18162038  EventId: 2013264
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 148 start ============================
+StQAInfo: StIOMaker:  Event: 148  Run: 18162038  EventId: 2013303
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 32
+nCommonHits = 0
+nCommonHits = 25
+nCommonHits = 26
+nCommonHits = 28
+nCommonHits = 15
+nCommonHits = 33
+nCommonHits = 36
+nCommonHits = 16
+nCommonHits = 30
+nCommonHits = 0
+nCommonHits = 28
+nCommonHits = 34
+nCommonHits = 32
+nCommonHits = 0
+nCommonHits = 0
+
+============================ Event 149 start ============================
+StQAInfo: StIOMaker:  Event: 149  Run: 18162038  EventId: 2013790
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 33
+nCommonHits = 39
+nCommonHits = 42
+nCommonHits = 43
+nCommonHits = 44
+
+============================ Event 150 start ============================
+StQAInfo: StIOMaker:  Event: 150  Run: 18162038  EventId: 2017359
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 151 start ============================
+StQAInfo: StIOMaker:  Event: 151  Run: 18162038  EventId: 2017398
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+nCommonHits = 36
+nCommonHits = 0
+nCommonHits = 35
+nCommonHits = 39
+nCommonHits = 31
+nCommonHits = 43
+nCommonHits = 41
+nCommonHits = 0
+
+============================ Event 152 start ============================
+StQAInfo: StIOMaker:  Event: 152  Run: 18162038  EventId: 2019010
+StInfo: AssociationMaker::Make()
+nCommonHits = 12
+nCommonHits = 42
+nCommonHits = 45
+nCommonHits = 31
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 43
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 21
+
+============================ Event 153 start ============================
+StQAInfo: StIOMaker:  Event: 153  Run: 18162038  EventId: 2021454
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+
+============================ Event 154 start ============================
+StQAInfo: StIOMaker:  Event: 154  Run: 18162038  EventId: 2021493
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 45
+
+============================ Event 155 start ============================
+StQAInfo: StIOMaker:  Event: 155  Run: 18162038  EventId: 2023095
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+
+============================ Event 156 start ============================
+StQAInfo: StIOMaker:  Event: 156  Run: 18162038  EventId: 2025549
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+
+============================ Event 157 start ============================
+StQAInfo: StIOMaker:  Event: 157  Run: 18162038  EventId: 2025588
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 32
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 13
+nCommonHits = 43
+nCommonHits = 39
+nCommonHits = 42
+nCommonHits = 32
+nCommonHits = 13
+nCommonHits = 44
+nCommonHits = 32
+nCommonHits = 33
+nCommonHits = 45
+
+============================ Event 158 start ============================
+StQAInfo: StIOMaker:  Event: 158  Run: 18162038  EventId: 2026654
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 36
+nCommonHits = 24
+nCommonHits = 16
+nCommonHits = 29
+nCommonHits = 38
+nCommonHits = 27
+nCommonHits = 12
+nCommonHits = 0
+nCommonHits = 32
+
+============================ Event 159 start ============================
+StQAInfo: StIOMaker:  Event: 159  Run: 18162038  EventId: 2027176
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 26
+nCommonHits = 41
+nCommonHits = 40
+nCommonHits = 41
+nCommonHits = 37
+nCommonHits = 43
+nCommonHits = 11
+nCommonHits = 33
+nCommonHits = 12
+nCommonHits = 43
+nCommonHits = 32
+nCommonHits = 23
+nCommonHits = 32
+nCommonHits = 31
+nCommonHits = 28
+nCommonHits = 31
+
+============================ Event 160 start ============================
+StQAInfo: StIOMaker:  Event: 160  Run: 18162038  EventId: 2029644
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 39
+nCommonHits = 38
+nCommonHits = 40
+nCommonHits = 30
+nCommonHits = 41
+nCommonHits = 45
+nCommonHits = 27
+nCommonHits = 37
+nCommonHits = 42
+
+============================ Event 161 start ============================
+StQAInfo: StIOMaker:  Event: 161  Run: 18162038  EventId: 2029683
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 45
+
+============================ Event 162 start ============================
+StQAInfo: StIOMaker:  Event: 162  Run: 18162038  EventId: 2030749
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 163 start ============================
+StQAInfo: StIOMaker:  Event: 163  Run: 18162038  EventId: 2031271
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 40
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 33
+nCommonHits = 0
+nCommonHits = 26
+nCommonHits = 25
+nCommonHits = 40
+nCommonHits = 0
+nCommonHits = 32
+nCommonHits = 39
+nCommonHits = 34
+nCommonHits = 17
+nCommonHits = 18
+nCommonHits = 43
+nCommonHits = 0
+nCommonHits = 42
+
+============================ Event 164 start ============================
+StQAInfo: StIOMaker:  Event: 164  Run: 18162038  EventId: 2033746
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 39
+nCommonHits = 25
+nCommonHits = 31
+nCommonHits = 0
+nCommonHits = 15
+
+============================ Event 165 start ============================
+StQAInfo: StIOMaker:  Event: 165  Run: 18162038  EventId: 2033778
+StInfo: AssociationMaker::Make()
+nCommonHits = 16
+
+============================ Event 166 start ============================
+StQAInfo: StIOMaker:  Event: 166  Run: 18162038  EventId: 2034854
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 39
+nCommonHits = 43
+nCommonHits = 16
+nCommonHits = 16
+
+============================ Event 167 start ============================
+StQAInfo: StIOMaker:  Event: 167  Run: 18162038  EventId: 2035366
+StInfo: AssociationMaker::Make()
+nCommonHits = 12
+nCommonHits = 43
+nCommonHits = 36
+nCommonHits = 10
+nCommonHits = 0
+nCommonHits = 33
+nCommonHits = 43
+nCommonHits = 15
+
+============================ Event 168 start ============================
+StQAInfo: StIOMaker:  Event: 168  Run: 18162038  EventId: 2037841
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 169 start ============================
+StQAInfo: StIOMaker:  Event: 169  Run: 18162038  EventId: 2038949
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 44
+nCommonHits = 12
+nCommonHits = 34
+nCommonHits = 41
+
+============================ Event 170 start ============================
+StQAInfo: StIOMaker:  Event: 170  Run: 18162038  EventId: 2039461
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+nCommonHits = 44
+
+============================ Event 171 start ============================
+StQAInfo: StIOMaker:  Event: 171  Run: 18162038  EventId: 2041968
+StInfo: AssociationMaker::Make()
+nCommonHits = 32
+nCommonHits = 40
+nCommonHits = 0
+nCommonHits = 21
+nCommonHits = 39
+nCommonHits = 37
+
+============================ Event 172 start ============================
+StQAInfo: StIOMaker:  Event: 172  Run: 18162038  EventId: 2043556
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+nCommonHits = 41
+nCommonHits = 36
+nCommonHits = 43
+nCommonHits = 35
+nCommonHits = 32
+nCommonHits = 43
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 43
+
+============================ Event 173 start ============================
+StQAInfo: StIOMaker:  Event: 173  Run: 18162038  EventId: 2046034
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 32
+
+============================ Event 174 start ============================
+StQAInfo: StIOMaker:  Event: 174  Run: 18162038  EventId: 2047149
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 44
+nCommonHits = 41
+nCommonHits = 37
+nCommonHits = 39
+nCommonHits = 20
+
+============================ Event 175 start ============================
+StQAInfo: StIOMaker:  Event: 175  Run: 18162038  EventId: 2047641
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+
+============================ Event 176 start ============================
+StQAInfo: StIOMaker:  Event: 176  Run: 18162038  EventId: 2050129
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+nCommonHits = 31
+nCommonHits = 0
+nCommonHits = 29
+nCommonHits = 33
+nCommonHits = 0
+nCommonHits = 31
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 0
+nCommonHits = 44
+nCommonHits = 37
+nCommonHits = 28
+nCommonHits = 14
+nCommonHits = 0
+nCommonHits = 30
+nCommonHits = 33
+nCommonHits = 38
+
+============================ Event 177 start ============================
+StQAInfo: StIOMaker:  Event: 177  Run: 18162038  EventId: 2050158
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 38
+nCommonHits = 37
+nCommonHits = 37
+
+============================ Event 178 start ============================
+StQAInfo: StIOMaker:  Event: 178  Run: 18162038  EventId: 2051244
+StInfo: AssociationMaker::Make()
+nCommonHits = 16
+nCommonHits = 43
+nCommonHits = 33
+nCommonHits = 29
+nCommonHits = 39
+nCommonHits = 37
+nCommonHits = 44
+nCommonHits = 33
+nCommonHits = 41
+nCommonHits = 18
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 44
+nCommonHits = 0
+
+============================ Event 179 start ============================
+StQAInfo: StIOMaker:  Event: 179  Run: 18162038  EventId: 2051736
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+
+============================ Event 180 start ============================
+StQAInfo: StIOMaker:  Event: 180  Run: 18162038  EventId: 2054221
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 20
+nCommonHits = 43
+nCommonHits = 15
+nCommonHits = 43
+nCommonHits = 42
+nCommonHits = 45
+nCommonHits = 38
+nCommonHits = 41
+
+============================ Event 181 start ============================
+StQAInfo: StIOMaker:  Event: 181  Run: 18162038  EventId: 2054244
+StInfo: AssociationMaker::Make()
+nCommonHits = 11
+nCommonHits = 14
+nCommonHits = 0
+nCommonHits = 11
+nCommonHits = 36
+nCommonHits = 42
+nCommonHits = 0
+nCommonHits = 32
+nCommonHits = 40
+nCommonHits = 13
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 14
+nCommonHits = 43
+nCommonHits = 21
+nCommonHits = 28
+nCommonHits = 30
+nCommonHits = 38
+nCommonHits = 33
+nCommonHits = 30
+
+============================ Event 182 start ============================
+StQAInfo: StIOMaker:  Event: 182  Run: 18162038  EventId: 2055339
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+nCommonHits = 30
+nCommonHits = 24
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 29
+nCommonHits = 42
+nCommonHits = 0
+
+============================ Event 183 start ============================
+StQAInfo: StIOMaker:  Event: 183  Run: 18162038  EventId: 2055831
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 184 start ============================
+StQAInfo: StIOMaker:  Event: 184  Run: 18162038  EventId: 2058309
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 185 start ============================
+StQAInfo: StIOMaker:  Event: 185  Run: 18162038  EventId: 2058329
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+nCommonHits = 41
+nCommonHits = 42
+nCommonHits = 36
+nCommonHits = 36
+nCommonHits = 37
+nCommonHits = 18
+nCommonHits = 16
+nCommonHits = 27
+nCommonHits = 44
+nCommonHits = 39
+nCommonHits = 13
+
+============================ Event 186 start ============================
+StQAInfo: StIOMaker:  Event: 186  Run: 18162038  EventId: 2062404
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 187 start ============================
+StQAInfo: StIOMaker:  Event: 187  Run: 18162038  EventId: 2062424
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+
+============================ Event 188 start ============================
+StQAInfo: StIOMaker:  Event: 188  Run: 18162038  EventId: 2063519
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 189 start ============================
+StQAInfo: StIOMaker:  Event: 189  Run: 18162038  EventId: 2064031
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+nCommonHits = 27
+nCommonHits = 18
+nCommonHits = 45
+nCommonHits = 20
+nCommonHits = 40
+nCommonHits = 39
+nCommonHits = 39
+nCommonHits = 20
+nCommonHits = 31
+nCommonHits = 43
+nCommonHits = 28
+nCommonHits = 36
+nCommonHits = 40
+nCommonHits = 40
+nCommonHits = 36
+
+============================ Event 190 start ============================
+StQAInfo: StIOMaker:  Event: 190  Run: 18162038  EventId: 2066499
+StInfo: AssociationMaker::Make()
+nCommonHits = 13
+nCommonHits = 37
+nCommonHits = 45
+nCommonHits = 37
+nCommonHits = 44
+nCommonHits = 25
+
+============================ Event 191 start ============================
+StQAInfo: StIOMaker:  Event: 191  Run: 18162038  EventId: 2066519
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 45
+
+============================ Event 192 start ============================
+StQAInfo: StIOMaker:  Event: 192  Run: 18162038  EventId: 2067614
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 28
+nCommonHits = 42
+nCommonHits = 11
+nCommonHits = 36
+nCommonHits = 11
+
+============================ Event 193 start ============================
+StQAInfo: StIOMaker:  Event: 193  Run: 18162038  EventId: 2068126
+StInfo: AssociationMaker::Make()
+nCommonHits = 32
+nCommonHits = 30
+nCommonHits = 43
+nCommonHits = 0
+nCommonHits = 32
+
+============================ Event 194 start ============================
+StQAInfo: StIOMaker:  Event: 194  Run: 18162038  EventId: 2071709
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 43
+nCommonHits = 34
+
+============================ Event 195 start ============================
+StQAInfo: StIOMaker:  Event: 195  Run: 18162038  EventId: 2072221
+StInfo: AssociationMaker::Make()
+StWarning: 
+-----------  WARNING ---------------
+   The Tpc Hit Map is too small for   
+   any meaningful track association.  
+ ------------------------------------ 
+Entries in Hit Map  : 9
+Required Common Hits: 10
+Suggest increase distance cuts.
+nCommonHits = 0
+
+============================ Event 196 start ============================
+StQAInfo: StIOMaker:  Event: 196  Run: 18162038  EventId: 2074689
+StInfo: AssociationMaker::Make()
+nCommonHits = 16
+
+============================ Event 197 start ============================
+StQAInfo: StIOMaker:  Event: 197  Run: 18162038  EventId: 2074709
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 198 start ============================
+StQAInfo: StIOMaker:  Event: 198  Run: 18162038  EventId: 2075814
+StInfo: AssociationMaker::Make()
+nCommonHits = 20
+nCommonHits = 37
+nCommonHits = 0
+nCommonHits = 28
+nCommonHits = 11
+nCommonHits = 26
+nCommonHits = 26
+nCommonHits = 24
+nCommonHits = 41
+nCommonHits = 26
+nCommonHits = 33
+nCommonHits = 30
+nCommonHits = 35
+nCommonHits = 32
+nCommonHits = 27
+nCommonHits = 28
+nCommonHits = 33
+nCommonHits = 14
+nCommonHits = 41
+nCommonHits = 24
+nCommonHits = 42
+nCommonHits = 38
+nCommonHits = 40
+nCommonHits = 33
+
+============================ Event 199 start ============================
+StQAInfo: StIOMaker:  Event: 199  Run: 18162038  EventId: 2076316
+StInfo: AssociationMaker::Make()
+nCommonHits = 32
+nCommonHits = 42
+nCommonHits = 35
+nCommonHits = 13
+nCommonHits = 44
+nCommonHits = 10
+nCommonHits = 18
+nCommonHits = 0
+nCommonHits = 45
+
+============================ Event 200 start ============================
+StQAInfo: StIOMaker:  Event: 200  Run: 18162038  EventId: 2078791
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 21
+nCommonHits = 0
+
+============================ Event 201 start ============================
+StQAInfo: StIOMaker:  Event: 201  Run: 18162038  EventId: 2079909
+StInfo: AssociationMaker::Make()
+nCommonHits = 25
+
+============================ Event 202 start ============================
+StQAInfo: StIOMaker:  Event: 202  Run: 18162038  EventId: 2080411
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+
+============================ Event 203 start ============================
+StQAInfo: StIOMaker:  Event: 203  Run: 18162038  EventId: 2082886
+StInfo: AssociationMaker::Make()
+nCommonHits = 19
+
+============================ Event 204 start ============================
+StQAInfo: StIOMaker:  Event: 204  Run: 18162038  EventId: 2084506
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 41
+nCommonHits = 44
+nCommonHits = 21
+
+============================ Event 205 start ============================
+StQAInfo: StIOMaker:  Event: 205  Run: 18162038  EventId: 2086981
+StInfo: AssociationMaker::Make()
+nCommonHits = 10
+
+============================ Event 206 start ============================
+StQAInfo: StIOMaker:  Event: 206  Run: 18162038  EventId: 2088099
+StInfo: AssociationMaker::Make()
+nCommonHits = 28
+nCommonHits = 45
+nCommonHits = 37
+nCommonHits = 39
+nCommonHits = 43
+nCommonHits = 37
+nCommonHits = 37
+nCommonHits = 24
+
+============================ Event 207 start ============================
+StQAInfo: StIOMaker:  Event: 207  Run: 18162038  EventId: 2088601
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 38
+nCommonHits = 24
+nCommonHits = 17
+nCommonHits = 13
+nCommonHits = 30
+nCommonHits = 41
+nCommonHits = 10
+nCommonHits = 21
+nCommonHits = 36
+nCommonHits = 19
+
+============================ Event 208 start ============================
+StQAInfo: StIOMaker:  Event: 208  Run: 18162038  EventId: 2091076
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 33
+nCommonHits = 12
+nCommonHits = 36
+nCommonHits = 26
+nCommonHits = 35
+nCommonHits = 38
+nCommonHits = 0
+nCommonHits = 39
+nCommonHits = 27
+nCommonHits = 32
+nCommonHits = 34
+
+============================ Event 209 start ============================
+StQAInfo: StIOMaker:  Event: 209  Run: 18162038  EventId: 2091079
+StInfo: AssociationMaker::Make()
+nCommonHits = 12
+nCommonHits = 23
+nCommonHits = 30
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 34
+nCommonHits = 10
+nCommonHits = 42
+nCommonHits = 42
+nCommonHits = 39
+nCommonHits = 29
+nCommonHits = 12
+nCommonHits = 32
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 33
+nCommonHits = 24
+nCommonHits = 33
+
+============================ Event 210 start ============================
+StQAInfo: StIOMaker:  Event: 210  Run: 18162038  EventId: 2092194
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 40
+nCommonHits = 45
+
+============================ Event 211 start ============================
+StQAInfo: StIOMaker:  Event: 211  Run: 18162038  EventId: 2092696
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 13
+nCommonHits = 29
+nCommonHits = 40
+nCommonHits = 32
+nCommonHits = 38
+nCommonHits = 45
+nCommonHits = 21
+nCommonHits = 19
+
+============================ Event 212 start ============================
+StQAInfo: StIOMaker:  Event: 212  Run: 18162038  EventId: 2095171
+StInfo: AssociationMaker::Make()
+nCommonHits = 29
+
+============================ Event 213 start ============================
+StQAInfo: StIOMaker:  Event: 213  Run: 18162038  EventId: 2095174
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 36
+nCommonHits = 43
+
+============================ Event 214 start ============================
+StQAInfo: StIOMaker:  Event: 214  Run: 18162038  EventId: 2096289
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 43
+nCommonHits = 34
+nCommonHits = 37
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 14
+
+============================ Event 215 start ============================
+StQAInfo: StIOMaker:  Event: 215  Run: 18162038  EventId: 2096791
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 0
+nCommonHits = 0
+
+============================ Event 216 start ============================
+StQAInfo: StIOMaker:  Event: 216  Run: 18162038  EventId: 2099266
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 0
+
+============================ Event 217 start ============================
+StQAInfo: StIOMaker:  Event: 217  Run: 18162038  EventId: 2099269
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+
+============================ Event 218 start ============================
+StQAInfo: StIOMaker:  Event: 218  Run: 18162038  EventId: 2100399
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+
+============================ Event 219 start ============================
+StQAInfo: StIOMaker:  Event: 219  Run: 18162038  EventId: 2100886
+StInfo: AssociationMaker::Make()
+nCommonHits = 13
+
+============================ Event 220 start ============================
+StQAInfo: StIOMaker:  Event: 220  Run: 18162038  EventId: 2103361
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 221 start ============================
+StQAInfo: StIOMaker:  Event: 221  Run: 18162038  EventId: 2103364
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 31
+nCommonHits = 38
+nCommonHits = 41
+nCommonHits = 44
+nCommonHits = 24
+nCommonHits = 40
+nCommonHits = 0
+
+============================ Event 222 start ============================
+StQAInfo: StIOMaker:  Event: 222  Run: 18162038  EventId: 2104494
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 43
+nCommonHits = 38
+nCommonHits = 13
+nCommonHits = 31
+nCommonHits = 0
+
+============================ Event 223 start ============================
+StQAInfo: StIOMaker:  Event: 223  Run: 18162038  EventId: 2104981
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 42
+nCommonHits = 39
+nCommonHits = 35
+nCommonHits = 41
+
+============================ Event 224 start ============================
+StQAInfo: StIOMaker:  Event: 224  Run: 18162038  EventId: 2108589
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+nCommonHits = 28
+
+============================ Event 225 start ============================
+StQAInfo: StIOMaker:  Event: 225  Run: 18162038  EventId: 2109076
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 226 start ============================
+StQAInfo: StIOMaker:  Event: 226  Run: 18162038  EventId: 2111551
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 36
+nCommonHits = 36
+
+============================ Event 227 start ============================
+StQAInfo: StIOMaker:  Event: 227  Run: 18162038  EventId: 2111554
+StInfo: AssociationMaker::Make()
+nCommonHits = 29
+nCommonHits = 45
+nCommonHits = 39
+nCommonHits = 38
+nCommonHits = 0
+nCommonHits = 26
+nCommonHits = 33
+nCommonHits = 41
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 28
+nCommonHits = 16
+nCommonHits = 38
+nCommonHits = 42
+
+============================ Event 228 start ============================
+StQAInfo: StIOMaker:  Event: 228  Run: 18162038  EventId: 2112684
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 39
+nCommonHits = 31
+nCommonHits = 39
+nCommonHits = 32
+nCommonHits = 0
+nCommonHits = 39
+nCommonHits = 45
+nCommonHits = 43
+nCommonHits = 18
+nCommonHits = 0
+
+============================ Event 229 start ============================
+StQAInfo: StIOMaker:  Event: 229  Run: 18162038  EventId: 2113161
+StInfo: AssociationMaker::Make()
+nCommonHits = 32
+
+============================ Event 230 start ============================
+StQAInfo: StIOMaker:  Event: 230  Run: 18162038  EventId: 2115659
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 38
+nCommonHits = 43
+nCommonHits = 39
+nCommonHits = 43
+nCommonHits = 24
+nCommonHits = 41
+nCommonHits = 39
+nCommonHits = 39
+nCommonHits = 37
+nCommonHits = 20
+nCommonHits = 10
+nCommonHits = 14
+nCommonHits = 28
+nCommonHits = 31
+nCommonHits = 0
+
+============================ Event 231 start ============================
+StQAInfo: StIOMaker:  Event: 231  Run: 18162038  EventId: 2115669
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 232 start ============================
+StQAInfo: StIOMaker:  Event: 232  Run: 18162038  EventId: 2116779
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 39
+nCommonHits = 28
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 43
+nCommonHits = 11
+nCommonHits = 22
+nCommonHits = 43
+nCommonHits = 37
+nCommonHits = 13
+nCommonHits = 34
+nCommonHits = 39
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 43
+
+============================ Event 233 start ============================
+StQAInfo: StIOMaker:  Event: 233  Run: 18162038  EventId: 2119754
+StInfo: AssociationMaker::Make()
+nCommonHits = 24
+nCommonHits = 37
+nCommonHits = 37
+nCommonHits = 41
+nCommonHits = 43
+nCommonHits = 18
+nCommonHits = 0
+
+============================ Event 234 start ============================
+StQAInfo: StIOMaker:  Event: 234  Run: 18162038  EventId: 2119764
+StInfo: AssociationMaker::Make()
+nCommonHits = 32
+nCommonHits = 43
+nCommonHits = 29
+nCommonHits = 0
+
+============================ Event 235 start ============================
+StQAInfo: StIOMaker:  Event: 235  Run: 18162038  EventId: 2120874
+StInfo: AssociationMaker::Make()
+nCommonHits = 14
+nCommonHits = 0
+nCommonHits = 35
+nCommonHits = 42
+nCommonHits = 39
+nCommonHits = 13
+nCommonHits = 33
+nCommonHits = 32
+
+============================ Event 236 start ============================
+StQAInfo: StIOMaker:  Event: 236  Run: 18162038  EventId: 2121341
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+
+============================ Event 237 start ============================
+StQAInfo: StIOMaker:  Event: 237  Run: 18162038  EventId: 2123849
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+nCommonHits = 39
+nCommonHits = 42
+nCommonHits = 43
+nCommonHits = 13
+nCommonHits = 31
+nCommonHits = 40
+nCommonHits = 31
+nCommonHits = 44
+nCommonHits = 43
+nCommonHits = 39
+nCommonHits = 27
+nCommonHits = 34
+nCommonHits = 33
+nCommonHits = 34
+nCommonHits = 29
+nCommonHits = 29
+
+============================ Event 238 start ============================
+StQAInfo: StIOMaker:  Event: 238  Run: 18162038  EventId: 2123859
+StInfo: AssociationMaker::Make()
+nCommonHits = 24
+nCommonHits = 34
+nCommonHits = 44
+nCommonHits = 40
+
+============================ Event 239 start ============================
+StQAInfo: StIOMaker:  Event: 239  Run: 18162038  EventId: 2124969
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 45
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 43
+nCommonHits = 40
+nCommonHits = 36
+
+============================ Event 240 start ============================
+StQAInfo: StIOMaker:  Event: 240  Run: 18162038  EventId: 2127963
+StInfo: AssociationMaker::Make()
+StWarning: 
+-----------  WARNING ---------------
+   The Tpc Hit Map is too small for   
+   any meaningful track association.  
+ ------------------------------------ 
+Entries in Hit Map  : 1
+Required Common Hits: 10
+Suggest increase distance cuts.
+nCommonHits = 0
+
+============================ Event 241 start ============================
+StQAInfo: StIOMaker:  Event: 241  Run: 18162038  EventId: 2129064
+StInfo: AssociationMaker::Make()
+nCommonHits = 31
+nCommonHits = 43
+nCommonHits = 0
+nCommonHits = 24
+nCommonHits = 41
+nCommonHits = 39
+nCommonHits = 35
+nCommonHits = 40
+nCommonHits = 42
+nCommonHits = 28
+
+============================ Event 242 start ============================
+StQAInfo: StIOMaker:  Event: 242  Run: 18162038  EventId: 2129531
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+
+============================ Event 243 start ============================
+StQAInfo: StIOMaker:  Event: 243  Run: 18162038  EventId: 2132049
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+nCommonHits = 33
+nCommonHits = 39
+nCommonHits = 36
+nCommonHits = 42
+nCommonHits = 32
+nCommonHits = 42
+nCommonHits = 36
+nCommonHits = 36
+nCommonHits = 35
+nCommonHits = 35
+nCommonHits = 38
+nCommonHits = 16
+nCommonHits = 30
+
+============================ Event 244 start ============================
+StQAInfo: StIOMaker:  Event: 244  Run: 18162038  EventId: 2132058
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 44
+nCommonHits = 44
+nCommonHits = 21
+nCommonHits = 35
+nCommonHits = 42
+
+============================ Event 245 start ============================
+StQAInfo: StIOMaker:  Event: 245  Run: 18162038  EventId: 2133188
+StInfo: AssociationMaker::Make()
+nCommonHits = 28
+nCommonHits = 0
+nCommonHits = 14
+nCommonHits = 44
+nCommonHits = 35
+nCommonHits = 22
+nCommonHits = 38
+nCommonHits = 34
+nCommonHits = 28
+nCommonHits = 36
+nCommonHits = 36
+
+============================ Event 246 start ============================
+StQAInfo: StIOMaker:  Event: 246  Run: 18162038  EventId: 2136144
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 40
+nCommonHits = 37
+nCommonHits = 20
+nCommonHits = 39
+nCommonHits = 40
+nCommonHits = 42
+
+============================ Event 247 start ============================
+StQAInfo: StIOMaker:  Event: 247  Run: 18162038  EventId: 2137273
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 248 start ============================
+StQAInfo: StIOMaker:  Event: 248  Run: 18162038  EventId: 2137741
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+nCommonHits = 25
+nCommonHits = 13
+nCommonHits = 17
+
+============================ Event 249 start ============================
+StQAInfo: StIOMaker:  Event: 249  Run: 18162038  EventId: 2140258
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 45
+nCommonHits = 45
+
+============================ Event 250 start ============================
+StQAInfo: StIOMaker:  Event: 250  Run: 18162038  EventId: 2141816
+StInfo: AssociationMaker::Make()
+nCommonHits = 21
+nCommonHits = 43
+nCommonHits = 26
+nCommonHits = 45
+nCommonHits = 30
+nCommonHits = 42
+nCommonHits = 38
+nCommonHits = 45
+
+============================ Event 251 start ============================
+StQAInfo: StIOMaker:  Event: 251  Run: 18162038  EventId: 2144353
+StInfo: AssociationMaker::Make()
+nCommonHits = 28
+nCommonHits = 38
+nCommonHits = 33
+nCommonHits = 36
+nCommonHits = 0
+nCommonHits = 34
+nCommonHits = 40
+nCommonHits = 12
+nCommonHits = 0
+nCommonHits = 34
+nCommonHits = 44
+nCommonHits = 32
+nCommonHits = 16
+nCommonHits = 26
+
+============================ Event 252 start ============================
+StQAInfo: StIOMaker:  Event: 252  Run: 18162038  EventId: 2144363
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 36
+nCommonHits = 38
+nCommonHits = 40
+nCommonHits = 36
+nCommonHits = 20
+nCommonHits = 25
+nCommonHits = 29
+nCommonHits = 30
+
+============================ Event 253 start ============================
+StQAInfo: StIOMaker:  Event: 253  Run: 18162038  EventId: 2145453
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 254 start ============================
+StQAInfo: StIOMaker:  Event: 254  Run: 18162038  EventId: 2148477
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 16
+nCommonHits = 18
+nCommonHits = 13
+nCommonHits = 30
+nCommonHits = 21
+nCommonHits = 24
+nCommonHits = 40
+nCommonHits = 42
+nCommonHits = 43
+
+============================ Event 255 start ============================
+StQAInfo: StIOMaker:  Event: 255  Run: 18162038  EventId: 2148486
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 18
+nCommonHits = 16
+nCommonHits = 34
+nCommonHits = 44
+nCommonHits = 41
+nCommonHits = 36
+nCommonHits = 41
+nCommonHits = 43
+nCommonHits = 34
+nCommonHits = 37
+
+============================ Event 256 start ============================
+StQAInfo: StIOMaker:  Event: 256  Run: 18162038  EventId: 2149548
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 257 start ============================
+StQAInfo: StIOMaker:  Event: 257  Run: 18162038  EventId: 2150016
+StInfo: AssociationMaker::Make()
+nCommonHits = 14
+nCommonHits = 23
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 39
+nCommonHits = 25
+nCommonHits = 20
+nCommonHits = 30
+nCommonHits = 0
+nCommonHits = 44
+nCommonHits = 11
+
+============================ Event 258 start ============================
+StQAInfo: StIOMaker:  Event: 258  Run: 18162038  EventId: 2152572
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 41
+
+============================ Event 259 start ============================
+StQAInfo: StIOMaker:  Event: 259  Run: 18162038  EventId: 2152581
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+
+============================ Event 260 start ============================
+StQAInfo: StIOMaker:  Event: 260  Run: 18162038  EventId: 2156667
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+nCommonHits = 16
+nCommonHits = 39
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 29
+nCommonHits = 14
+nCommonHits = 26
+nCommonHits = 38
+nCommonHits = 42
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 20
+nCommonHits = 40
+nCommonHits = 0
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 35
+nCommonHits = 44
+nCommonHits = 16
+
+============================ Event 261 start ============================
+StQAInfo: StIOMaker:  Event: 261  Run: 18162038  EventId: 2156676
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 36
+nCommonHits = 44
+
+============================ Event 262 start ============================
+StQAInfo: StIOMaker:  Event: 262  Run: 18162038  EventId: 2157729
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 44
+nCommonHits = 44
+nCommonHits = 16
+
+============================ Event 263 start ============================
+StQAInfo: StIOMaker:  Event: 263  Run: 18162038  EventId: 2158240
+StInfo: AssociationMaker::Make()
+StWarning: 
+-----------  WARNING ---------------
+   The Tpc Hit Map is too small for   
+   any meaningful track association.  
+ ------------------------------------ 
+Entries in Hit Map  : 2
+Required Common Hits: 10
+Suggest increase distance cuts.
+nCommonHits = 0
+
+============================ Event 264 start ============================
+StQAInfo: StIOMaker:  Event: 264  Run: 18162038  EventId: 2160791
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 265 start ============================
+StQAInfo: StIOMaker:  Event: 265  Run: 18162038  EventId: 2161824
+StInfo: AssociationMaker::Make()
+nCommonHits = 15
+nCommonHits = 41
+nCommonHits = 24
+
+============================ Event 266 start ============================
+StQAInfo: StIOMaker:  Event: 266  Run: 18162038  EventId: 2164876
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 40
+nCommonHits = 10
+nCommonHits = 12
+nCommonHits = 0
+nCommonHits = 40
+nCommonHits = 38
+nCommonHits = 36
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 31
+nCommonHits = 15
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 28
+nCommonHits = 31
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 38
+nCommonHits = 34
+nCommonHits = 41
+
+============================ Event 267 start ============================
+StQAInfo: StIOMaker:  Event: 267  Run: 18162038  EventId: 2166430
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 268 start ============================
+StQAInfo: StIOMaker:  Event: 268  Run: 18162038  EventId: 2170014
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 269 start ============================
+StQAInfo: StIOMaker:  Event: 269  Run: 18162038  EventId: 2170525
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+
+============================ Event 270 start ============================
+StQAInfo: StIOMaker:  Event: 270  Run: 18162038  EventId: 2173086
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 271 start ============================
+StQAInfo: StIOMaker:  Event: 271  Run: 18162038  EventId: 2173096
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+nCommonHits = 15
+nCommonHits = 44
+nCommonHits = 20
+nCommonHits = 39
+nCommonHits = 33
+nCommonHits = 31
+nCommonHits = 0
+nCommonHits = 21
+nCommonHits = 12
+nCommonHits = 12
+nCommonHits = 39
+nCommonHits = 24
+
+============================ Event 272 start ============================
+StQAInfo: StIOMaker:  Event: 272  Run: 18162038  EventId: 2174118
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 273 start ============================
+StQAInfo: StIOMaker:  Event: 273  Run: 18162038  EventId: 2177181
+StInfo: AssociationMaker::Make()
+nCommonHits = 21
+nCommonHits = 39
+nCommonHits = 28
+nCommonHits = 40
+nCommonHits = 32
+nCommonHits = 0
+nCommonHits = 30
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 37
+nCommonHits = 20
+nCommonHits = 15
+nCommonHits = 38
+nCommonHits = 16
+nCommonHits = 40
+nCommonHits = 38
+
+============================ Event 274 start ============================
+StQAInfo: StIOMaker:  Event: 274  Run: 18162038  EventId: 2177191
+StInfo: AssociationMaker::Make()
+nCommonHits = 32
+nCommonHits = 42
+nCommonHits = 11
+nCommonHits = 22
+nCommonHits = 20
+nCommonHits = 33
+nCommonHits = 43
+nCommonHits = 33
+nCommonHits = 31
+nCommonHits = 45
+nCommonHits = 40
+nCommonHits = 26
+
+============================ Event 275 start ============================
+StQAInfo: StIOMaker:  Event: 275  Run: 18162038  EventId: 2178715
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 16
+nCommonHits = 0
+nCommonHits = 39
+nCommonHits = 18
+nCommonHits = 31
+nCommonHits = 34
+nCommonHits = 23
+nCommonHits = 25
+nCommonHits = 0
+nCommonHits = 25
+nCommonHits = 20
+nCommonHits = 28
+nCommonHits = 35
+nCommonHits = 37
+nCommonHits = 24
+nCommonHits = 36
+nCommonHits = 34
+nCommonHits = 20
+nCommonHits = 33
+nCommonHits = 32
+nCommonHits = 30
+nCommonHits = 35
+
+============================ Event 276 start ============================
+StQAInfo: StIOMaker:  Event: 276  Run: 18162038  EventId: 2181286
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 29
+nCommonHits = 41
+nCommonHits = 40
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 29
+nCommonHits = 41
+nCommonHits = 35
+nCommonHits = 40
+nCommonHits = 40
+nCommonHits = 40
+nCommonHits = 36
+nCommonHits = 0
+nCommonHits = 37
+
+============================ Event 277 start ============================
+StQAInfo: StIOMaker:  Event: 277  Run: 18162038  EventId: 2182308
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 35
+nCommonHits = 15
+nCommonHits = 27
+nCommonHits = 36
+
+============================ Event 278 start ============================
+StQAInfo: StIOMaker:  Event: 278  Run: 18162038  EventId: 2182829
+StInfo: AssociationMaker::Make()
+nCommonHits = 27
+nCommonHits = 40
+nCommonHits = 11
+nCommonHits = 42
+nCommonHits = 23
+nCommonHits = 14
+nCommonHits = 40
+nCommonHits = 42
+nCommonHits = 45
+nCommonHits = 34
+
+============================ Event 279 start ============================
+StQAInfo: StIOMaker:  Event: 279  Run: 18162038  EventId: 2185381
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 43
+nCommonHits = 43
+nCommonHits = 40
+
+============================ Event 280 start ============================
+StQAInfo: StIOMaker:  Event: 280  Run: 18162038  EventId: 2185396
+StInfo: AssociationMaker::Make()
+StWarning: 
+-----------  WARNING ---------------
+   The Tpc Hit Map is too small for   
+   any meaningful track association.  
+ ------------------------------------ 
+Entries in Hit Map  : 6
+Required Common Hits: 10
+Suggest increase distance cuts.
+nCommonHits = 0
+
+============================ Event 281 start ============================
+StQAInfo: StIOMaker:  Event: 281  Run: 18162038  EventId: 2186403
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+nCommonHits = 45
+nCommonHits = 44
+nCommonHits = 35
+nCommonHits = 33
+
+============================ Event 282 start ============================
+StQAInfo: StIOMaker:  Event: 282  Run: 18162038  EventId: 2189476
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+
+============================ Event 283 start ============================
+StQAInfo: StIOMaker:  Event: 283  Run: 18162038  EventId: 2190498
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 284 start ============================
+StQAInfo: StIOMaker:  Event: 284  Run: 18162038  EventId: 2191019
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 37
+
+============================ Event 285 start ============================
+StQAInfo: StIOMaker:  Event: 285  Run: 18162038  EventId: 2193595
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 286 start ============================
+StQAInfo: StIOMaker:  Event: 286  Run: 18162038  EventId: 2195114
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 14
+nCommonHits = 19
+nCommonHits = 0
+nCommonHits = 16
+nCommonHits = 45
+
+============================ Event 287 start ============================
+StQAInfo: StIOMaker:  Event: 287  Run: 18162038  EventId: 2197710
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+nCommonHits = 13
+nCommonHits = 35
+nCommonHits = 22
+nCommonHits = 45
+
+============================ Event 288 start ============================
+StQAInfo: StIOMaker:  Event: 288  Run: 18162038  EventId: 2198708
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 289 start ============================
+StQAInfo: StIOMaker:  Event: 289  Run: 18162038  EventId: 2202803
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 290 start ============================
+StQAInfo: StIOMaker:  Event: 290  Run: 18162038  EventId: 2203294
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 291 start ============================
+StQAInfo: StIOMaker:  Event: 291  Run: 18162038  EventId: 2205890
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 27
+
+============================ Event 292 start ============================
+StQAInfo: StIOMaker:  Event: 292  Run: 18162038  EventId: 2205919
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 14
+nCommonHits = 16
+nCommonHits = 30
+nCommonHits = 38
+nCommonHits = 30
+nCommonHits = 12
+nCommonHits = 29
+nCommonHits = 41
+nCommonHits = 36
+nCommonHits = 43
+
+============================ Event 293 start ============================
+StQAInfo: StIOMaker:  Event: 293  Run: 18162038  EventId: 2207389
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 43
+nCommonHits = 35
+nCommonHits = 39
+nCommonHits = 25
+nCommonHits = 39
+nCommonHits = 16
+nCommonHits = 35
+nCommonHits = 36
+nCommonHits = 0
+nCommonHits = 16
+nCommonHits = 38
+nCommonHits = 15
+nCommonHits = 35
+nCommonHits = 42
+nCommonHits = 0
+nCommonHits = 12
+
+============================ Event 294 start ============================
+StQAInfo: StIOMaker:  Event: 294  Run: 18162038  EventId: 2210034
+StInfo: AssociationMaker::Make()
+nCommonHits = 25
+
+============================ Event 295 start ============================
+StQAInfo: StIOMaker:  Event: 295  Run: 18162038  EventId: 2210993
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 13
+nCommonHits = 36
+nCommonHits = 43
+nCommonHits = 38
+nCommonHits = 17
+nCommonHits = 40
+
+============================ Event 296 start ============================
+StQAInfo: StIOMaker:  Event: 296  Run: 18162038  EventId: 2211484
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+nCommonHits = 36
+nCommonHits = 33
+nCommonHits = 38
+nCommonHits = 32
+nCommonHits = 14
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 44
+nCommonHits = 38
+nCommonHits = 38
+nCommonHits = 0
+nCommonHits = 40
+nCommonHits = 0
+
+============================ Event 297 start ============================
+StQAInfo: StIOMaker:  Event: 297  Run: 18162038  EventId: 2214099
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 298 start ============================
+StQAInfo: StIOMaker:  Event: 298  Run: 18162038  EventId: 2215088
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+
+============================ Event 299 start ============================
+StQAInfo: StIOMaker:  Event: 299  Run: 18162038  EventId: 2218194
+StInfo: AssociationMaker::Make()
+nCommonHits = 26
+nCommonHits = 0
+nCommonHits = 40
+nCommonHits = 35
+nCommonHits = 36
+nCommonHits = 41
+nCommonHits = 40
+nCommonHits = 19
+nCommonHits = 42
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 41
+nCommonHits = 29
+nCommonHits = 12
+nCommonHits = 25
+nCommonHits = 12
+
+============================ Event 300 start ============================
+StQAInfo: StIOMaker:  Event: 300  Run: 18162038  EventId: 2218224
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+nCommonHits = 19
+nCommonHits = 43
+nCommonHits = 41
+nCommonHits = 36
+
+============================ Event 301 start ============================
+StQAInfo: StIOMaker:  Event: 301  Run: 18162038  EventId: 2219192
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 302 start ============================
+StQAInfo: StIOMaker:  Event: 302  Run: 18162038  EventId: 2222308
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+
+============================ Event 303 start ============================
+StQAInfo: StIOMaker:  Event: 303  Run: 18162038  EventId: 2223287
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 44
+
+============================ Event 304 start ============================
+StQAInfo: StIOMaker:  Event: 304  Run: 18162038  EventId: 2223769
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 305 start ============================
+StQAInfo: StIOMaker:  Event: 305  Run: 18162038  EventId: 2226403
+StInfo: AssociationMaker::Make()
+nCommonHits = 16
+nCommonHits = 35
+nCommonHits = 21
+nCommonHits = 44
+nCommonHits = 25
+nCommonHits = 16
+nCommonHits = 41
+nCommonHits = 42
+nCommonHits = 42
+
+============================ Event 306 start ============================
+StQAInfo: StIOMaker:  Event: 306  Run: 18162038  EventId: 2226424
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+nCommonHits = 36
+nCommonHits = 12
+nCommonHits = 30
+nCommonHits = 26
+nCommonHits = 11
+nCommonHits = 0
+
+============================ Event 307 start ============================
+StQAInfo: StIOMaker:  Event: 307  Run: 18162038  EventId: 2230519
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+nCommonHits = 21
+
+============================ Event 308 start ============================
+StQAInfo: StIOMaker:  Event: 308  Run: 18162038  EventId: 2231477
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 33
+nCommonHits = 44
+
+============================ Event 309 start ============================
+StQAInfo: StIOMaker:  Event: 309  Run: 18162038  EventId: 2231959
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 310 start ============================
+StQAInfo: StIOMaker:  Event: 310  Run: 18162038  EventId: 2234604
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 311 start ============================
+StQAInfo: StIOMaker:  Event: 311  Run: 18162038  EventId: 2235572
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 312 start ============================
+StQAInfo: StIOMaker:  Event: 312  Run: 18162038  EventId: 2238699
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 18
+nCommonHits = 0
+nCommonHits = 19
+nCommonHits = 24
+
+============================ Event 313 start ============================
+StQAInfo: StIOMaker:  Event: 313  Run: 18162038  EventId: 2239667
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 44
+nCommonHits = 38
+
+============================ Event 314 start ============================
+StQAInfo: StIOMaker:  Event: 314  Run: 18162038  EventId: 2242794
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 41
+nCommonHits = 36
+nCommonHits = 26
+nCommonHits = 43
+nCommonHits = 40
+nCommonHits = 41
+
+============================ Event 315 start ============================
+StQAInfo: StIOMaker:  Event: 315  Run: 18162038  EventId: 2243762
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+
+============================ Event 316 start ============================
+StQAInfo: StIOMaker:  Event: 316  Run: 18162038  EventId: 2244235
+StInfo: AssociationMaker::Make()
+StWarning: 
+-----------  WARNING ---------------
+   The Tpc Hit Map is too small for   
+   any meaningful track association.  
+ ------------------------------------ 
+Entries in Hit Map  : 9
+Required Common Hits: 10
+Suggest increase distance cuts.
+nCommonHits = 0
+
+============================ Event 317 start ============================
+StQAInfo: StIOMaker:  Event: 317  Run: 18162038  EventId: 2246899
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 35
+nCommonHits = 43
+nCommonHits = 26
+nCommonHits = 19
+nCommonHits = 0
+nCommonHits = 43
+nCommonHits = 40
+
+============================ Event 318 start ============================
+StQAInfo: StIOMaker:  Event: 318  Run: 18162038  EventId: 2247857
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 0
+
+============================ Event 319 start ============================
+StQAInfo: StIOMaker:  Event: 319  Run: 18162038  EventId: 2248320
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 45
+
+============================ Event 320 start ============================
+StQAInfo: StIOMaker:  Event: 320  Run: 18162038  EventId: 2250994
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 24
+nCommonHits = 43
+
+============================ Event 321 start ============================
+StQAInfo: StIOMaker:  Event: 321  Run: 18162038  EventId: 2251003
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 44
+nCommonHits = 0
+nCommonHits = 27
+nCommonHits = 30
+nCommonHits = 44
+nCommonHits = 43
+nCommonHits = 38
+
+============================ Event 322 start ============================
+StQAInfo: StIOMaker:  Event: 322  Run: 18162038  EventId: 2251952
+StInfo: AssociationMaker::Make()
+nCommonHits = 14
+nCommonHits = 34
+
+============================ Event 323 start ============================
+StQAInfo: StIOMaker:  Event: 323  Run: 18162038  EventId: 2255089
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 44
+nCommonHits = 37
+nCommonHits = 39
+nCommonHits = 40
+nCommonHits = 42
+nCommonHits = 14
+nCommonHits = 39
+
+============================ Event 324 start ============================
+StQAInfo: StIOMaker:  Event: 324  Run: 18162038  EventId: 2255098
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 13
+
+============================ Event 325 start ============================
+StQAInfo: StIOMaker:  Event: 325  Run: 18162038  EventId: 2256047
+StInfo: AssociationMaker::Make()
+nCommonHits = 24
+
+============================ Event 326 start ============================
+StQAInfo: StIOMaker:  Event: 326  Run: 18162038  EventId: 2256510
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+
+============================ Event 327 start ============================
+StQAInfo: StIOMaker:  Event: 327  Run: 18162038  EventId: 2259184
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 45
+nCommonHits = 44
+nCommonHits = 38
+nCommonHits = 43
+nCommonHits = 23
+nCommonHits = 45
+nCommonHits = 40
+nCommonHits = 28
+nCommonHits = 35
+
+============================ Event 328 start ============================
+StQAInfo: StIOMaker:  Event: 328  Run: 18162038  EventId: 2259193
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 329 start ============================
+StQAInfo: StIOMaker:  Event: 329  Run: 18162038  EventId: 2260605
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 36
+nCommonHits = 44
+
+============================ Event 330 start ============================
+StQAInfo: StIOMaker:  Event: 330  Run: 18162038  EventId: 2263308
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 13
+nCommonHits = 0
+nCommonHits = 22
+nCommonHits = 33
+
+============================ Event 331 start ============================
+StQAInfo: StIOMaker:  Event: 331  Run: 18162038  EventId: 2263317
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+
+============================ Event 332 start ============================
+StQAInfo: StIOMaker:  Event: 332  Run: 18162038  EventId: 2264237
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+nCommonHits = 12
+nCommonHits = 34
+nCommonHits = 17
+nCommonHits = 42
+nCommonHits = 37
+nCommonHits = 29
+nCommonHits = 0
+nCommonHits = 35
+nCommonHits = 24
+nCommonHits = 18
+nCommonHits = 12
+nCommonHits = 33
+nCommonHits = 43
+nCommonHits = 0
+
+============================ Event 333 start ============================
+StQAInfo: StIOMaker:  Event: 333  Run: 18162038  EventId: 2264686
+StInfo: AssociationMaker::Make()
+nCommonHits = 32
+nCommonHits = 41
+nCommonHits = 37
+nCommonHits = 0
+nCommonHits = 40
+nCommonHits = 45
+nCommonHits = 33
+nCommonHits = 42
+nCommonHits = 38
+nCommonHits = 36
+nCommonHits = 45
+
+============================ Event 334 start ============================
+StQAInfo: StIOMaker:  Event: 334  Run: 18162038  EventId: 2267403
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 45
+nCommonHits = 36
+nCommonHits = 43
+nCommonHits = 28
+
+============================ Event 335 start ============================
+StQAInfo: StIOMaker:  Event: 335  Run: 18162038  EventId: 2267412
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+
+============================ Event 336 start ============================
+StQAInfo: StIOMaker:  Event: 336  Run: 18162038  EventId: 2268332
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+
+============================ Event 337 start ============================
+StQAInfo: StIOMaker:  Event: 337  Run: 18162038  EventId: 2268781
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 32
+nCommonHits = 44
+nCommonHits = 24
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 37
+nCommonHits = 0
+
+============================ Event 338 start ============================
+StQAInfo: StIOMaker:  Event: 338  Run: 18162038  EventId: 2271507
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+
+============================ Event 339 start ============================
+StQAInfo: StIOMaker:  Event: 339  Run: 18162038  EventId: 2272427
+StInfo: AssociationMaker::Make()
+nCommonHits = 31
+nCommonHits = 28
+nCommonHits = 38
+nCommonHits = 0
+nCommonHits = 41
+nCommonHits = 33
+nCommonHits = 17
+nCommonHits = 44
+nCommonHits = 13
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 0
+
+============================ Event 340 start ============================
+StQAInfo: StIOMaker:  Event: 340  Run: 18162038  EventId: 2272876
+StInfo: AssociationMaker::Make()
+nCommonHits = 27
+
+============================ Event 341 start ============================
+StQAInfo: StIOMaker:  Event: 341  Run: 18162038  EventId: 2275602
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 45
+
+============================ Event 342 start ============================
+StQAInfo: StIOMaker:  Event: 342  Run: 18162038  EventId: 2276971
+StInfo: AssociationMaker::Make()
+nCommonHits = 27
+nCommonHits = 18
+
+============================ Event 343 start ============================
+StQAInfo: StIOMaker:  Event: 343  Run: 18162038  EventId: 2279688
+StInfo: AssociationMaker::Make()
+nCommonHits = 17
+nCommonHits = 30
+nCommonHits = 21
+nCommonHits = 42
+nCommonHits = 37
+nCommonHits = 36
+nCommonHits = 31
+nCommonHits = 37
+nCommonHits = 11
+nCommonHits = 40
+nCommonHits = 44
+nCommonHits = 34
+nCommonHits = 29
+nCommonHits = 42
+
+============================ Event 344 start ============================
+StQAInfo: StIOMaker:  Event: 344  Run: 18162038  EventId: 2280617
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+
+============================ Event 345 start ============================
+StQAInfo: StIOMaker:  Event: 345  Run: 18162038  EventId: 2281066
+StInfo: AssociationMaker::Make()
+nCommonHits = 12
+
+============================ Event 346 start ============================
+StQAInfo: StIOMaker:  Event: 346  Run: 18162038  EventId: 2283783
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 19
+nCommonHits = 31
+nCommonHits = 42
+nCommonHits = 43
+nCommonHits = 32
+nCommonHits = 42
+nCommonHits = 42
+nCommonHits = 14
+nCommonHits = 28
+nCommonHits = 40
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 19
+nCommonHits = 35
+nCommonHits = 40
+nCommonHits = 37
+nCommonHits = 37
+nCommonHits = 41
+
+============================ Event 347 start ============================
+StQAInfo: StIOMaker:  Event: 347  Run: 18162038  EventId: 2283792
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+
+============================ Event 348 start ============================
+StQAInfo: StIOMaker:  Event: 348  Run: 18162038  EventId: 2284712
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+
+============================ Event 349 start ============================
+StQAInfo: StIOMaker:  Event: 349  Run: 18162038  EventId: 2285161
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+
+============================ Event 350 start ============================
+StQAInfo: StIOMaker:  Event: 350  Run: 18162038  EventId: 2288807
+StInfo: AssociationMaker::Make()
+nCommonHits = 17
+
+============================ Event 351 start ============================
+StQAInfo: StIOMaker:  Event: 351  Run: 18162038  EventId: 2289256
+StInfo: AssociationMaker::Make()
+nCommonHits = 17
+nCommonHits = 33
+nCommonHits = 43
+
+============================ Event 352 start ============================
+StQAInfo: StIOMaker:  Event: 352  Run: 18162038  EventId: 2291973
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+
+============================ Event 353 start ============================
+StQAInfo: StIOMaker:  Event: 353  Run: 18162038  EventId: 2292902
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+
+============================ Event 354 start ============================
+StQAInfo: StIOMaker:  Event: 354  Run: 18162038  EventId: 2296068
+StInfo: AssociationMaker::Make()
+nCommonHits = 27
+
+============================ Event 355 start ============================
+StQAInfo: StIOMaker:  Event: 355  Run: 18162038  EventId: 2296087
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 356 start ============================
+StQAInfo: StIOMaker:  Event: 356  Run: 18162038  EventId: 2296997
+StInfo: AssociationMaker::Make()
+nCommonHits = 32
+nCommonHits = 44
+nCommonHits = 43
+nCommonHits = 43
+nCommonHits = 41
+nCommonHits = 44
+nCommonHits = 30
+nCommonHits = 34
+
+============================ Event 357 start ============================
+StQAInfo: StIOMaker:  Event: 357  Run: 18162038  EventId: 2297470
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 358 start ============================
+StQAInfo: StIOMaker:  Event: 358  Run: 18162038  EventId: 2300163
+StInfo: AssociationMaker::Make()
+nCommonHits = 13
+
+============================ Event 359 start ============================
+StQAInfo: StIOMaker:  Event: 359  Run: 18162038  EventId: 2301092
+StInfo: AssociationMaker::Make()
+nCommonHits = 29
+nCommonHits = 34
+nCommonHits = 42
+nCommonHits = 11
+nCommonHits = 33
+nCommonHits = 40
+nCommonHits = 36
+nCommonHits = 39
+nCommonHits = 0
+
+============================ Event 360 start ============================
+StQAInfo: StIOMaker:  Event: 360  Run: 18162038  EventId: 2304267
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 361 start ============================
+StQAInfo: StIOMaker:  Event: 361  Run: 18162038  EventId: 2304286
+StInfo: AssociationMaker::Make()
+nCommonHits = 19
+
+============================ Event 362 start ============================
+StQAInfo: StIOMaker:  Event: 362  Run: 18162038  EventId: 2308353
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+nCommonHits = 28
+nCommonHits = 41
+nCommonHits = 35
+nCommonHits = 39
+nCommonHits = 37
+
+============================ Event 363 start ============================
+StQAInfo: StIOMaker:  Event: 363  Run: 18162038  EventId: 2308381
+StInfo: AssociationMaker::Make()
+nCommonHits = 12
+nCommonHits = 38
+nCommonHits = 12
+nCommonHits = 18
+
+============================ Event 364 start ============================
+StQAInfo: StIOMaker:  Event: 364  Run: 18162038  EventId: 2309282
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 45
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 0
+nCommonHits = 20
+
+============================ Event 365 start ============================
+StQAInfo: StIOMaker:  Event: 365  Run: 18162038  EventId: 2309764
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 30
+nCommonHits = 42
+nCommonHits = 23
+nCommonHits = 29
+nCommonHits = 44
+nCommonHits = 34
+nCommonHits = 35
+nCommonHits = 35
+nCommonHits = 37
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 29
+nCommonHits = 0
+nCommonHits = 39
+
+============================ Event 366 start ============================
+StQAInfo: StIOMaker:  Event: 366  Run: 18162038  EventId: 2312448
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 35
+nCommonHits = 26
+nCommonHits = 0
+nCommonHits = 34
+nCommonHits = 35
+nCommonHits = 13
+nCommonHits = 0
+nCommonHits = 33
+nCommonHits = 27
+nCommonHits = 34
+nCommonHits = 11
+nCommonHits = 10
+nCommonHits = 38
+nCommonHits = 30
+nCommonHits = 40
+nCommonHits = 39
+
+============================ Event 367 start ============================
+StQAInfo: StIOMaker:  Event: 367  Run: 18162038  EventId: 2313859
+StInfo: AssociationMaker::Make()
+nCommonHits = 33
+nCommonHits = 32
+nCommonHits = 31
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 37
+nCommonHits = 37
+nCommonHits = 13
+nCommonHits = 38
+nCommonHits = 38
+nCommonHits = 41
+nCommonHits = 19
+nCommonHits = 0
+nCommonHits = 35
+nCommonHits = 36
+nCommonHits = 0
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 28
+nCommonHits = 43
+
+============================ Event 368 start ============================
+StQAInfo: StIOMaker:  Event: 368  Run: 18162038  EventId: 2316533
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 15
+nCommonHits = 27
+nCommonHits = 38
+
+============================ Event 369 start ============================
+StQAInfo: StIOMaker:  Event: 369  Run: 18162038  EventId: 2317472
+StInfo: AssociationMaker::Make()
+nCommonHits = 16
+nCommonHits = 24
+nCommonHits = 21
+
+============================ Event 370 start ============================
+StQAInfo: StIOMaker:  Event: 370  Run: 18162038  EventId: 2317954
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 30
+nCommonHits = 26
+nCommonHits = 20
+nCommonHits = 28
+nCommonHits = 40
+nCommonHits = 42
+
+============================ Event 371 start ============================
+StQAInfo: StIOMaker:  Event: 371  Run: 18162038  EventId: 2320628
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+
+============================ Event 372 start ============================
+StQAInfo: StIOMaker:  Event: 372  Run: 18162038  EventId: 2322040
+StInfo: AssociationMaker::Make()
+nCommonHits = 11
+
+============================ Event 373 start ============================
+StQAInfo: StIOMaker:  Event: 373  Run: 18162038  EventId: 2324723
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+nCommonHits = 43
+nCommonHits = 15
+nCommonHits = 37
+nCommonHits = 23
+nCommonHits = 33
+nCommonHits = 29
+nCommonHits = 40
+
+============================ Event 374 start ============================
+StQAInfo: StIOMaker:  Event: 374  Run: 18162038  EventId: 2324752
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 375 start ============================
+StQAInfo: StIOMaker:  Event: 375  Run: 18162038  EventId: 2325672
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+nCommonHits = 21
+nCommonHits = 33
+nCommonHits = 35
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 45
+nCommonHits = 41
+
+============================ Event 376 start ============================
+StQAInfo: StIOMaker:  Event: 376  Run: 18162038  EventId: 2326135
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 14
+nCommonHits = 34
+nCommonHits = 32
+nCommonHits = 36
+nCommonHits = 15
+nCommonHits = 34
+nCommonHits = 38
+
+============================ Event 377 start ============================
+StQAInfo: StIOMaker:  Event: 377  Run: 18162038  EventId: 2329757
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+nCommonHits = 33
+nCommonHits = 37
+nCommonHits = 31
+nCommonHits = 39
+nCommonHits = 13
+nCommonHits = 41
+nCommonHits = 41
+nCommonHits = 19
+nCommonHits = 0
+
+============================ Event 378 start ============================
+StQAInfo: StIOMaker:  Event: 378  Run: 18162038  EventId: 2332913
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 24
+
+============================ Event 379 start ============================
+StQAInfo: StIOMaker:  Event: 379  Run: 18162038  EventId: 2334315
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+nCommonHits = 37
+nCommonHits = 35
+nCommonHits = 37
+nCommonHits = 12
+nCommonHits = 27
+nCommonHits = 34
+nCommonHits = 40
+nCommonHits = 34
+nCommonHits = 38
+nCommonHits = 0
+nCommonHits = 11
+nCommonHits = 33
+nCommonHits = 35
+
+============================ Event 380 start ============================
+StQAInfo: StIOMaker:  Event: 380  Run: 18162038  EventId: 2337027
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+
+============================ Event 381 start ============================
+StQAInfo: StIOMaker:  Event: 381  Run: 18162038  EventId: 2337947
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+nCommonHits = 43
+
+============================ Event 382 start ============================
+StQAInfo: StIOMaker:  Event: 382  Run: 18162038  EventId: 2338410
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+
+============================ Event 383 start ============================
+StQAInfo: StIOMaker:  Event: 383  Run: 18162038  EventId: 2341122
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+
+============================ Event 384 start ============================
+StQAInfo: StIOMaker:  Event: 384  Run: 18162038  EventId: 2345179
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 385 start ============================
+StQAInfo: StIOMaker:  Event: 385  Run: 18162038  EventId: 2345217
+StInfo: AssociationMaker::Make()
+nCommonHits = 18
+nCommonHits = 45
+
+============================ Event 386 start ============================
+StQAInfo: StIOMaker:  Event: 386  Run: 18162038  EventId: 2346137
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 387 start ============================
+StQAInfo: StIOMaker:  Event: 387  Run: 18162038  EventId: 2346600
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 42
+nCommonHits = 11
+nCommonHits = 12
+nCommonHits = 34
+nCommonHits = 39
+nCommonHits = 35
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 14
+nCommonHits = 0
+nCommonHits = 37
+nCommonHits = 40
+nCommonHits = 0
+nCommonHits = 19
+
+============================ Event 388 start ============================
+StQAInfo: StIOMaker:  Event: 388  Run: 18162038  EventId: 2349274
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 39
+nCommonHits = 29
+nCommonHits = 35
+nCommonHits = 32
+nCommonHits = 32
+nCommonHits = 23
+nCommonHits = 30
+nCommonHits = 35
+nCommonHits = 39
+nCommonHits = 37
+nCommonHits = 0
+nCommonHits = 10
+nCommonHits = 31
+nCommonHits = 42
+
+============================ Event 389 start ============================
+StQAInfo: StIOMaker:  Event: 389  Run: 18162038  EventId: 2350232
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 390 start ============================
+StQAInfo: StIOMaker:  Event: 390  Run: 18162038  EventId: 2350735
+StInfo: AssociationMaker::Make()
+nCommonHits = 31
+nCommonHits = 39
+nCommonHits = 40
+nCommonHits = 34
+nCommonHits = 38
+nCommonHits = 43
+nCommonHits = 29
+nCommonHits = 13
+nCommonHits = 37
+nCommonHits = 37
+nCommonHits = 24
+nCommonHits = 0
+
+============================ Event 391 start ============================
+StQAInfo: StIOMaker:  Event: 391  Run: 18162038  EventId: 2353369
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 11
+nCommonHits = 43
+nCommonHits = 31
+nCommonHits = 41
+nCommonHits = 35
+nCommonHits = 37
+nCommonHits = 40
+nCommonHits = 0
+nCommonHits = 28
+nCommonHits = 30
+nCommonHits = 43
+nCommonHits = 36
+
+============================ Event 392 start ============================
+StQAInfo: StIOMaker:  Event: 392  Run: 18162038  EventId: 2357464
+StInfo: AssociationMaker::Make()
+nCommonHits = 18
+
+============================ Event 393 start ============================
+StQAInfo: StIOMaker:  Event: 393  Run: 18162038  EventId: 2358422
+StInfo: AssociationMaker::Make()
+nCommonHits = 24
+
+============================ Event 394 start ============================
+StQAInfo: StIOMaker:  Event: 394  Run: 18162038  EventId: 2358925
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+
+============================ Event 395 start ============================
+StQAInfo: StIOMaker:  Event: 395  Run: 18162038  EventId: 2361559
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+nCommonHits = 44
+nCommonHits = 41
+nCommonHits = 44
+nCommonHits = 43
+nCommonHits = 33
+nCommonHits = 38
+nCommonHits = 40
+nCommonHits = 0
+
+============================ Event 396 start ============================
+StQAInfo: StIOMaker:  Event: 396  Run: 18162038  EventId: 2361578
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 0
+nCommonHits = 42
+nCommonHits = 43
+nCommonHits = 45
+
+============================ Event 397 start ============================
+StQAInfo: StIOMaker:  Event: 397  Run: 18162038  EventId: 2362517
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+
+============================ Event 398 start ============================
+StQAInfo: StIOMaker:  Event: 398  Run: 18162038  EventId: 2363020
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 41
+nCommonHits = 37
+nCommonHits = 27
+nCommonHits = 14
+nCommonHits = 0
+nCommonHits = 19
+nCommonHits = 33
+nCommonHits = 26
+nCommonHits = 33
+nCommonHits = 25
+nCommonHits = 40
+nCommonHits = 43
+nCommonHits = 44
+
+============================ Event 399 start ============================
+StQAInfo: StIOMaker:  Event: 399  Run: 18162038  EventId: 2365654
+StInfo: AssociationMaker::Make()
+nCommonHits = 24
+nCommonHits = 27
+
+============================ Event 400 start ============================
+StQAInfo: StIOMaker:  Event: 400  Run: 18162038  EventId: 2365673
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 34
+nCommonHits = 34
+nCommonHits = 35
+nCommonHits = 43
+nCommonHits = 40
+nCommonHits = 28
+nCommonHits = 38
+nCommonHits = 38
+nCommonHits = 45
+nCommonHits = 41
+
+============================ Event 401 start ============================
+StQAInfo: StIOMaker:  Event: 401  Run: 18162038  EventId: 2366641
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+nCommonHits = 45
+nCommonHits = 0
+nCommonHits = 17
+
+============================ Event 402 start ============================
+StQAInfo: StIOMaker:  Event: 402  Run: 18162038  EventId: 2367115
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 403 start ============================
+StQAInfo: StIOMaker:  Event: 403  Run: 18162038  EventId: 2370736
+StInfo: AssociationMaker::Make()
+nCommonHits = 14
+
+============================ Event 404 start ============================
+StQAInfo: StIOMaker:  Event: 404  Run: 18162038  EventId: 2373844
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+nCommonHits = 44
+nCommonHits = 45
+nCommonHits = 13
+nCommonHits = 26
+nCommonHits = 34
+nCommonHits = 39
+
+============================ Event 405 start ============================
+StQAInfo: StIOMaker:  Event: 405  Run: 18162038  EventId: 2373863
+StInfo: AssociationMaker::Make()
+nCommonHits = 39
+nCommonHits = 38
+nCommonHits = 29
+nCommonHits = 16
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 27
+nCommonHits = 0
+nCommonHits = 39
+nCommonHits = 41
+
+============================ Event 406 start ============================
+StQAInfo: StIOMaker:  Event: 406  Run: 18162038  EventId: 2374841
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 42
+nCommonHits = 30
+nCommonHits = 42
+nCommonHits = 12
+
+============================ Event 407 start ============================
+StQAInfo: StIOMaker:  Event: 407  Run: 18162038  EventId: 2377958
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+
+============================ Event 408 start ============================
+StQAInfo: StIOMaker:  Event: 408  Run: 18162038  EventId: 2378936
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 38
+nCommonHits = 0
+nCommonHits = 26
+nCommonHits = 28
+nCommonHits = 45
+nCommonHits = 34
+nCommonHits = 18
+nCommonHits = 41
+nCommonHits = 43
+nCommonHits = 43
+nCommonHits = 38
+nCommonHits = 11
+
+============================ Event 409 start ============================
+StQAInfo: StIOMaker:  Event: 409  Run: 18162038  EventId: 2379429
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+
+============================ Event 410 start ============================
+StQAInfo: StIOMaker:  Event: 410  Run: 18162038  EventId: 2382034
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+nCommonHits = 42
+nCommonHits = 21
+nCommonHits = 36
+nCommonHits = 32
+nCommonHits = 19
+nCommonHits = 0
+nCommonHits = 27
+nCommonHits = 34
+nCommonHits = 38
+nCommonHits = 44
+nCommonHits = 36
+nCommonHits = 44
+nCommonHits = 0
+nCommonHits = 34
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 35
+nCommonHits = 20
+
+============================ Event 411 start ============================
+StQAInfo: StIOMaker:  Event: 411  Run: 18162038  EventId: 2382053
+StInfo: AssociationMaker::Make()
+nCommonHits = 29
+nCommonHits = 27
+nCommonHits = 35
+nCommonHits = 42
+nCommonHits = 43
+nCommonHits = 40
+nCommonHits = 35
+nCommonHits = 43
+nCommonHits = 27
+nCommonHits = 17
+nCommonHits = 12
+nCommonHits = 37
+
+============================ Event 412 start ============================
+StQAInfo: StIOMaker:  Event: 412  Run: 18162038  EventId: 2386148
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 413 start ============================
+StQAInfo: StIOMaker:  Event: 413  Run: 18162038  EventId: 2387137
+StInfo: AssociationMaker::Make()
+nCommonHits = 36
+nCommonHits = 43
+nCommonHits = 27
+nCommonHits = 18
+
+============================ Event 414 start ============================
+StQAInfo: StIOMaker:  Event: 414  Run: 18162038  EventId: 2387619
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+
+============================ Event 415 start ============================
+StQAInfo: StIOMaker:  Event: 415  Run: 18162038  EventId: 2390224
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 416 start ============================
+StQAInfo: StIOMaker:  Event: 416  Run: 18162038  EventId: 2390243
+StInfo: AssociationMaker::Make()
+nCommonHits = 22
+nCommonHits = 37
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 39
+nCommonHits = 43
+nCommonHits = 43
+nCommonHits = 40
+nCommonHits = 16
+nCommonHits = 41
+nCommonHits = 0
+nCommonHits = 40
+
+============================ Event 417 start ============================
+StQAInfo: StIOMaker:  Event: 417  Run: 18162038  EventId: 2391232
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 418 start ============================
+StQAInfo: StIOMaker:  Event: 418  Run: 18162038  EventId: 2391714
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 38
+nCommonHits = 40
+
+============================ Event 419 start ============================
+StQAInfo: StIOMaker:  Event: 419  Run: 18162038  EventId: 2394319
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+nCommonHits = 24
+nCommonHits = 39
+nCommonHits = 43
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 40
+nCommonHits = 44
+nCommonHits = 0
+nCommonHits = 31
+nCommonHits = 35
+nCommonHits = 25
+nCommonHits = 31
+nCommonHits = 12
+
+============================ Event 420 start ============================
+StQAInfo: StIOMaker:  Event: 420  Run: 18162038  EventId: 2394338
+StInfo: AssociationMaker::Make()
+nCommonHits = 25
+nCommonHits = 12
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 17
+nCommonHits = 23
+nCommonHits = 37
+nCommonHits = 15
+nCommonHits = 37
+nCommonHits = 43
+nCommonHits = 42
+nCommonHits = 39
+nCommonHits = 40
+
+============================ Event 421 start ============================
+StQAInfo: StIOMaker:  Event: 421  Run: 18162038  EventId: 2395336
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 422 start ============================
+StQAInfo: StIOMaker:  Event: 422  Run: 18162038  EventId: 2395809
+StInfo: AssociationMaker::Make()
+nCommonHits = 38
+nCommonHits = 18
+nCommonHits = 29
+nCommonHits = 44
+nCommonHits = 44
+
+============================ Event 423 start ============================
+StQAInfo: StIOMaker:  Event: 423  Run: 18162038  EventId: 2398414
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+
+============================ Event 424 start ============================
+StQAInfo: StIOMaker:  Event: 424  Run: 18162038  EventId: 2399431
+StInfo: AssociationMaker::Make()
+nCommonHits = 34
+nCommonHits = 40
+nCommonHits = 38
+nCommonHits = 23
+nCommonHits = 39
+nCommonHits = 41
+nCommonHits = 21
+nCommonHits = 35
+nCommonHits = 36
+nCommonHits = 44
+nCommonHits = 30
+nCommonHits = 17
+nCommonHits = 35
+nCommonHits = 23
+nCommonHits = 32
+nCommonHits = 29
+nCommonHits = 28
+nCommonHits = 36
+nCommonHits = 41
+
+============================ Event 425 start ============================
+StQAInfo: StIOMaker:  Event: 425  Run: 18162038  EventId: 2402499
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+nCommonHits = 43
+nCommonHits = 44
+nCommonHits = 39
+nCommonHits = 0
+nCommonHits = 26
+nCommonHits = 44
+nCommonHits = 36
+
+============================ Event 426 start ============================
+StQAInfo: StIOMaker:  Event: 426  Run: 18162038  EventId: 2402518
+StInfo: AssociationMaker::Make()
+nCommonHits = 28
+
+============================ Event 427 start ============================
+StQAInfo: StIOMaker:  Event: 427  Run: 18162038  EventId: 2403526
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+nCommonHits = 40
+nCommonHits = 29
+nCommonHits = 36
+nCommonHits = 45
+
+============================ Event 428 start ============================
+StQAInfo: StIOMaker:  Event: 428  Run: 18162038  EventId: 2403999
+StInfo: AssociationMaker::Make()
+nCommonHits = 37
+nCommonHits = 0
+
+============================ Event 429 start ============================
+StQAInfo: StIOMaker:  Event: 429  Run: 18162038  EventId: 2406594
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 34
+nCommonHits = 38
+
+============================ Event 430 start ============================
+StQAInfo: StIOMaker:  Event: 430  Run: 18162038  EventId: 2407640
+StInfo: AssociationMaker::Make()
+nCommonHits = 41
+
+============================ Event 431 start ============================
+StQAInfo: StIOMaker:  Event: 431  Run: 18162038  EventId: 2408084
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+nCommonHits = 41
+nCommonHits = 17
+nCommonHits = 12
+nCommonHits = 44
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 39
+nCommonHits = 33
+nCommonHits = 25
+
+============================ Event 432 start ============================
+StQAInfo: StIOMaker:  Event: 432  Run: 18162038  EventId: 2410689
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+nCommonHits = 42
+nCommonHits = 39
+nCommonHits = 32
+nCommonHits = 26
+nCommonHits = 44
+nCommonHits = 44
+
+============================ Event 433 start ============================
+StQAInfo: StIOMaker:  Event: 433  Run: 18162038  EventId: 2410708
+StInfo: AssociationMaker::Make()
+nCommonHits = 24
+
+============================ Event 434 start ============================
+StQAInfo: StIOMaker:  Event: 434  Run: 18162038  EventId: 2412179
+StInfo: AssociationMaker::Make()
+nCommonHits = 23
+nCommonHits = 27
+nCommonHits = 36
+nCommonHits = 29
+nCommonHits = 30
+nCommonHits = 41
+nCommonHits = 19
+nCommonHits = 40
+nCommonHits = 42
+nCommonHits = 37
+
+============================ Event 435 start ============================
+StQAInfo: StIOMaker:  Event: 435  Run: 18162038  EventId: 2414794
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 39
+nCommonHits = 20
+nCommonHits = 43
+nCommonHits = 32
+nCommonHits = 45
+nCommonHits = 40
+
+============================ Event 436 start ============================
+StQAInfo: StIOMaker:  Event: 436  Run: 18162038  EventId: 2414813
+StInfo: AssociationMaker::Make()
+nCommonHits = 28
+nCommonHits = 38
+nCommonHits = 0
+nCommonHits = 36
+nCommonHits = 33
+
+============================ Event 437 start ============================
+StQAInfo: StIOMaker:  Event: 437  Run: 18162038  EventId: 2415830
+StInfo: AssociationMaker::Make()
+nCommonHits = 45
+
+============================ Event 438 start ============================
+StQAInfo: StIOMaker:  Event: 438  Run: 18162038  EventId: 2416274
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 34
+nCommonHits = 0
+nCommonHits = 34
+nCommonHits = 14
+
+============================ Event 439 start ============================
+StQAInfo: StIOMaker:  Event: 439  Run: 18162038  EventId: 2418889
+StInfo: AssociationMaker::Make()
+nCommonHits = 0
+
+============================ Event 440 start ============================
+StQAInfo: StIOMaker:  Event: 440  Run: 18162038  EventId: 2418908
+StInfo: AssociationMaker::Make()
+nCommonHits = 40
+
+============================ Event 441 start ============================
+StQAInfo: StIOMaker:  Event: 441  Run: 18162038  EventId: 2419925
+StInfo: AssociationMaker::Make()
+nCommonHits = 19
+nCommonHits = 41
+nCommonHits = 11
+nCommonHits = 37
+nCommonHits = 40
+nCommonHits = 44
+nCommonHits = 34
+nCommonHits = 30
+nCommonHits = 14
+nCommonHits = 45
+nCommonHits = 18
+nCommonHits = 31
+nCommonHits = 36
+nCommonHits = 35
+nCommonHits = 0
+nCommonHits = 32
+nCommonHits = 14
+nCommonHits = 44
+
+============================ Event 442 start ============================
+StQAInfo: StIOMaker:  Event: 442  Run: 18162038  EventId: 2420369
+StInfo: AssociationMaker::Make()
+nCommonHits = 24
+
+============================ Event 443 start ============================
+StQAInfo: StIOMaker:  Event: 443  Run: 18162038  EventId: 2423013
+StInfo: AssociationMaker::Make()
+nCommonHits = 43
+nCommonHits = 35
+nCommonHits = 41
+nCommonHits = 43
+nCommonHits = 34
+
+============================ Event 444 start ============================
+StQAInfo: StIOMaker:  Event: 444  Run: 18162038  EventId: 2424020
+StInfo: AssociationMaker::Make()
+nCommonHits = 35
+
+============================ Event 445 start ============================
+StQAInfo: StIOMaker:  Event: 445  Run: 18162038  EventId: 2424464
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 446 start ============================
+StQAInfo: StIOMaker:  Event: 446  Run: 18162038  EventId: 2427108
+StInfo: AssociationMaker::Make()
+nCommonHits = 24
+nCommonHits = 29
+nCommonHits = 16
+nCommonHits = 25
+nCommonHits = 17
+nCommonHits = 0
+nCommonHits = 41
+nCommonHits = 30
+nCommonHits = 35
+nCommonHits = 11
+nCommonHits = 45
+nCommonHits = 0
+nCommonHits = 20
+nCommonHits = 21
+nCommonHits = 39
+nCommonHits = 43
+nCommonHits = 32
+nCommonHits = 39
+nCommonHits = 39
+nCommonHits = 42
+
+============================ Event 447 start ============================
+StQAInfo: StIOMaker:  Event: 447  Run: 18162038  EventId: 2427127
+StInfo: AssociationMaker::Make()
+nCommonHits = 30
+nCommonHits = 43
+nCommonHits = 0
+nCommonHits = 45
+
+============================ Event 448 start ============================
+StQAInfo: StIOMaker:  Event: 448  Run: 18162038  EventId: 2431203
+StInfo: AssociationMaker::Make()
+nCommonHits = 42
+
+============================ Event 449 start ============================
+StQAInfo: StIOMaker:  Event: 449  Run: 18162038  EventId: 2431222
+StInfo: AssociationMaker::Make()
+nCommonHits = 44
+
+============================ Event 450 start ============================
+StQAInfo: StIOMaker:  Event: 450  Run: 18162038  EventId: 2431222
+** <StBranch::Close> Branch=geantBranch 	File=/star/embed/embedding/AuAu54_production_2017/Electron_100_20183001/P18ic.SL18c/2017/162/18162038/st_physics_adc_18162038_raw_2500024.geant.root 	Closed **
+** <StBranch::Close> Branch=eventBranch 	File=/star/embed/embedding/AuAu54_production_2017/Electron_100_20183001/P18ic.SL18c/2017/162/18162038/st_physics_adc_18162038_raw_2500024.event.root 	Closed **
+StInfo: *** StIOMaker::Make() == StEOF(2) ***
+Last  event processed. Status = 2
+
+============================ Event 450 finish ============================
+StQAInfo: =================================================================================
+StQAInfo: QAInfo:Chain              StChain::StChain              Ast =203.47        Cpu =201.42
+StQAInfo: QAInfo:Maker    StElectronMcMaker::electron             Ast =  0.60( 0.3%) Cpu =  0.58( 0.3%)
+StQAInfo: QAInfo:Maker   StAssociationMaker::StAssociationMaker   Ast =  9.32( 4.6%) Cpu =  9.47( 4.7%)
+StQAInfo: QAInfo:Maker       StMcEventMaker::StMcEventMaker       Ast =  1.97( 1.0%) Cpu =  1.79( 0.9%)
+StQAInfo: QAInfo:Maker            StIOMaker::StIO                 Ast =191.59(94.2%) Cpu =189.58(94.1%)
+<StIOMaker::Finish> StIO: 450 I/O's
+StQAInfo: =================================================================================
+StQAInfo: QAInfo:Chain            StIOMaker::StIO                 Ast =  0.00        Cpu =  1.00
+StQAInfo: QAInfo:Maker          StTreeMaker::StIO_Root            Ast =  0.00(100.0%) Cpu =  0.00( 0.0%)
+StQAInfo:  nStOK=449 nStEOF=1
+StInfo: --------------Error Codes-------------------------
+StInfo:      nStOK   nStWarn    nStEOF    nStErr  nStFatal
+StInfo:       1796         0         1         0         0
+StInfo: --------------------------------------------------
+               StMemStat::Summary(calls)        Min        Aver         Max         RMS 
+=============================================================================================
+StAssociationMaker(StAssociationMaker)::(429)   -1.192600   -0.036048   -0.000320    0.117799
+StAssociationMaker(StAssociationMaker)::(429)    0.000320    0.036048    1.192600    0.117799
+      StElectronMcMaker(electron)::Clear(429)    0.000000    0.000000    0.000000    0.000000
+      StElectronMcMaker(electron)::Make (429)    0.000000    0.000000    0.000000    0.000000
+                  StIOMaker(StIO)::Clear(429)   -6.381208   -2.472868   -1.027136    1.322147
+                  StIOMaker(StIO)::Make (430)   -0.237696    2.476657    7.481056    1.357320
+   StMcEventMaker(StMcEventMaker)::Clear(429)   -0.429256   -0.238245   -0.152720    0.054472
+   StMcEventMaker(StMcEventMaker)::Make (429)    0.152720    0.238245    0.429256    0.054472
+---------------------------------------------------------------------------------------------
+                                   Total(8)   -6.381208    0.003789    7.481056    1.903701
+=============================================================================================
+
+This is the end of ROOT -- Goodbye
+
