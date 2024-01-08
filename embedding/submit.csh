@@ -8,7 +8,7 @@ if($#argv != 3) then
    exit 0
 endif
 
-set myPath = /gpfs/mnt/gpfs01/star/pwg/kshen/isobar_embedding/basicQA
+set myPath = /star/u/wangzhen/run20/Dielectron/embedding
 #set myPath = /star/u/wangzhen/QA/wangzhen/embedding/myEmbedding/basicQA
 #set infileDir = /star/embed/embedding/AuAu54_production_2017/$1_$2_20183001/P18ic.SL18c/2017
 #set infileDir = /star/embed/embedding/AuAu54_production_2017/$1_$2_20183001/P18ic.SL18c_embed/2017
@@ -16,7 +16,8 @@ set myPath = /gpfs/mnt/gpfs01/star/pwg/kshen/isobar_embedding/basicQA
 #set infileDir = /star/embed/embedding/AuAu54_production_2017/$1_$2_20191701/P18ic.SL18c_embed/2017
 #set infileDir = /star/embed/embedding/AuAu54_production_2017/$1_$2_20183001/P18ic.SL18c_embed/2017
 #set infileDir = /star/embed/embedding/production_isobar_2018/$1_$2_20214217/P20ic.SL20c/2018
-set infileDir = /star/embed/embedding/production_isobar_2018/$1_$2_$3/P20ic.SL20c/2018
+# set infileDir = /star/embed/embedding/production_isobar_2018/$1_$2_$3/P20ic.SL20c/2018
+set infileDir = /star/data105/embedding/production_7p7GeV_2021//$1_$2_$3/P22ib.SL22b/2021
 #set infileDir = /star/data18/embedding/AuAu54_production_2017/$1_$2_20183001/P18ic.SL18c_embed/2017
 #/star/embed/embedding/AuAu54_production_2017/Electron_100_20183001/
 set outfileDir = out_$1_$2
