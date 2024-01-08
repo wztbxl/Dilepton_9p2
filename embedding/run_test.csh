@@ -7,4 +7,4 @@ root4star -b -l <<EOF >& test/runtestLog
 .x doEvent.C 
 .q
 EOF
-~    
+# ~    
