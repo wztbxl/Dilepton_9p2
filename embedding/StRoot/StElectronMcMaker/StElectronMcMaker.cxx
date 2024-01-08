@@ -223,21 +223,6 @@ StElectronMcMaker::StElectronMcMaker(const char *name, const char *file):StMaker
 	// mTree->Branch("rcDca4",mElectron.rcDca4,"rcDca4[nMcE]/F");
 	// mTree->Branch("rcDca5",mElectron.rcDca5,"rcDca5[nMcE]/F");
 	// mTree->Branch("rcDca6",mElectron.rcDca6,"rcDca6[nMcE]/F");
-	
-	//bemc match
-	//mTree->Branch("IsBemcMatched",mElectron.IsBemcMatched,"IsBemcMatched[nMcE]/O");
-	//mTree->Branch("IsBemcMatched_EMC",mElectron.IsBemcMatched_EMC,"IsBemcMatched_EMC[nMcE]/O");
-	mTree->Branch("energy_EMC",mElectron.energy_EMC,"energy_EMC[nRcE]/F");
-	mTree->Branch("energy0_EMC",mElectron.energy0_EMC,"energy0_EMC[nRcE]/F");
-	mTree->Branch("nEta_EMC",mElectron.nEta_EMC,"nEta_EMC[nRcE]/F");
-	mTree->Branch("nPhi_EMC",mElectron.nPhi_EMC,"nPhi_EMC[nRcE]/F");
-	mTree->Branch("zDist_EMC",mElectron.zDist_EMC,"zDist_EMC[nRcE]/F");
-	mTree->Branch("phiDist_EMC",mElectron.phiDist_EMC,"phiDist_EMC[nRcE]/F");
-	mTree->Branch("minDist_EMC",mElectron.minDist_EMC,"minDist_EMC[nRcE]/F");
-	mTree->Branch("maxadc_EMC",mElectron.maxadc_EMC,"maxadc_EMC[nRcE]/F");
-	mTree->Branch("maxdsmadc_EMC",mElectron.maxdsmadc_EMC,"maxdsmadc_EMC[nRcE]/F");
-	mTree->Branch("etaBSMD_EMC",mElectron.etaBSMD_EMC,"etaBSMD_EMC[nRcE]/F");
-	mTree->Branch("phiBSMD_EMC",mElectron.phiBSMD_EMC,"phiBSMD_EMC[nRcE]/F");
 
 
 	// - zero all pointers defined in the header file
@@ -267,10 +252,11 @@ Int_t StElectronMcMaker::Finish()
 //_________________________________________________
 Int_t StElectronMcMaker::Init()
 {
-        cout<<"ustc Init"<<endl;
+    cout<<"ustc Init"<<endl;
 	Clear("C");
 
 	//Zhen change it ,no centrality definition
+	// for 7.7 using the temporary centrality defination
 	//intialize the StRefMultCorr
 	//mRefMultCorr = new StRefMultCorr();
 
@@ -316,9 +302,9 @@ Int_t StElectronMcMaker::Make()
 	 //vertex is not selected
      if ( ! selectedVertex ) return kStOk;
      //trigger
-     if ( ! mMuEvent->triggerIdCollection().nominal().isTrigger(600001) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(600011) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(600021) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(600031) ) return kStOK ;
+     if ( ! mMuEvent->triggerIdCollection().nominal().isTrigger(810010) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810020) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810030) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810040) ) return kStOK ;
      //Vz
-     if ( fabs(mMuEvent->primaryVertexPosition().z()) > 60.0 ) return kStOk ;
+     if ( fabs(mMuEvent->primaryVertexPosition().z()) > 70.0 ) return kStOk ;
      //Vr
      if ( mMuEvent->primaryVertexPosition().perp() > 2.0 ) return kStOk ;
 	 
@@ -328,10 +314,10 @@ Int_t StElectronMcMaker::Make()
 	 }
 	 
 	 
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600001)) mElectron.triggerId[0] =600001;
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600011)) mElectron.triggerId[1] =600011;
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600021)) mElectron.triggerId[2] =600021;
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600031)) mElectron.triggerId[3] =600031;
+	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600001)) mElectron.triggerId[0] =810010;
+	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600011)) mElectron.triggerId[1] =810020;
+	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600021)) mElectron.triggerId[2] =810030;
+	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600031)) mElectron.triggerId[3] =810040;
 	 
 	 
 	 mElectron.runId = -999;
@@ -371,7 +357,7 @@ Int_t StElectronMcMaker::Make()
        }
 
 
-        refmultCorrUtil = CentralityMaker::instance()->getRefMultCorr_Isobar();
+        refmultCorrUtil = CentralityMaker::instance()->getRefMultCorr();
         refmultCorrUtil->init(mMuEvent->runId());
         Bool_t isPileUpEvt_Cen = !refmultCorrUtil->passnTofMatchRefmultCut(mMuEvent->refMult()*1.0,mMuDst->primaryVertex()->nBTOFMatch()*1.0);
         if(isPileUpEvt_Cen) return kStOk;
@@ -525,22 +511,6 @@ Int_t StElectronMcMaker::Make()
 	  mElectron.rcNSigmaP[nRcE] = ptrack->nSigmaProton();
 	  
 	  mElectron.rcDca[nRcE] = (Float_t)ptrack->dcaGlobal().mag();//?
-	  
-	   matchEmc(ptrack,mMuDst,emcInfo);
-	  // cout<<"p: "<<ptrack->momentum().mag()<<endl;
-	  // cout<<"energy(EMC): "<<emcInfo[0]<<endl;
-	   mElectron.energy_EMC[nRcE] = emcInfo[0];
-	   mElectron.energy0_EMC[nRcE] = emcInfo[10];
-    // //  cout<<"energy(EMC): "<<mElectron.energy_EMC[nMcE]<<endl;
-	   mElectron.nEta_EMC[nRcE] = emcInfo[1];
-	   mElectron.nPhi_EMC[nRcE] = emcInfo[2];
-	   mElectron.zDist_EMC[nRcE] = emcInfo[3];
-	   mElectron.phiDist_EMC[nRcE] = emcInfo[4];
-	   mElectron.minDist_EMC[nRcE] = emcInfo[5];
-	   mElectron.maxadc_EMC[nRcE] = emcInfo[6];
-	   mElectron.maxdsmadc_EMC[nRcE] = emcInfo[7];
-	   mElectron.etaBSMD_EMC[nRcE] = emcInfo[8];
-	   mElectron.phiBSMD_EMC[nRcE] = emcInfo[9];
 	  
 	  nRcE++;
 	  
