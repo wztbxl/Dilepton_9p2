@@ -347,9 +347,9 @@ Int_t StElectronMcMaker::Make()
 
    
 
-       StTriggerSimuMaker* mTriggerSimuMaker = (StTriggerSimuMaker*) GetMaker("StarTrigSimu");
-       assert(mTriggerSimuMaker);
-       mBemcTriggerSimu = (StBemcTriggerSimu*) mTriggerSimuMaker->bemc;
+    //    StTriggerSimuMaker* mTriggerSimuMaker = (StTriggerSimuMaker*) GetMaker("StarTrigSimu");
+    //    assert(mTriggerSimuMaker);
+    //    mBemcTriggerSimu = (StBemcTriggerSimu*) mTriggerSimuMaker->bemc;
 
        for(int i=1;i<=4800;i++)
        {
