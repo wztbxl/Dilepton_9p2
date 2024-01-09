@@ -1,6 +1,6 @@
 #include "iostream.h"
 
-void split(const Char_t *infile = "/star/u/wangzhen/run20/Dielectron/Analysis/data.list", const Int_t NUM = 50)
+void split(const Char_t *infile = "./data.list", const Int_t NUM = 500)
 {
 	gROOT->Reset();
 
