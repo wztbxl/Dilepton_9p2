@@ -1,6 +1,6 @@
 Universe     = vanilla
 Notification = never
-Initialdir   = /gpfs/mnt/gpfs01/star/pwg/kshen/isobar_embedding/basicQA
+Initialdir   = /star/u/wangzhen/run20/Dielectron/embedding
 GetEnv       = True
 
 

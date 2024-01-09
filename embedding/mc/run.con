@@ -1,0 +1,9 @@
+Universe     = vanilla
+Notification = never
+Requirements = Mips>21000
+Initialdir   = /star/u/wangzhen/QA/wangzhen/embedding/myEmbedding/basicQA/mc 
+request_memory = 5000M
+GetEnv       = True
++Job_Type    = "cas"
+
+
