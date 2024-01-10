@@ -24,7 +24,7 @@ const Int_t   mNHitsDedxCut = 15;
 const Float_t mNHitsFitRatioCut[2] = {0.52, 1.05};
 const Float_t mPtCut[2] = {0.2, 2.};
 const Float_t mEtaCut = 1.;
-const Float_t mDcaCut  = 2.;
+const Float_t mDcaCut  = 1.;
 const Float_t mBeta2TOFCut = 0.05;
 const Float_t mNSigmaECut = 3.;
 
