@@ -215,8 +215,12 @@ int main(int argc, char** argv)
 		Float_t vzDiff = rcVertexZ - rcVpdVz;
 		Float_t rcRefMult = event->muRefMult;
 		Float_t rcRefMultCorr = event->refmult_corr;
-		Int_t triggerID = event->triggerId;
-		if (triggerID != 580001 && triggerID != 580021) continue;
+		Int_t triggerID ;
+		if(event->triggerId[0] > 0) triggerID = event->triggerId[0];
+		if(event->triggerId[1] > 0) triggerID = event->triggerId[1];
+		if(event->triggerId[2] > 0) triggerID = event->triggerId[2];
+		if(event->triggerId[3] > 0) triggerID = event->triggerId[3];
+		if (triggerID != 810010 && triggerID != 810020 && triggerID != 810030 && triggerID != 810040) continue;
 
 		hVyvsVx->Fill(rcVertexX,rcVertexY);
 		hVyvsVz->Fill(rcVertexZ,rcVertexY);
@@ -236,7 +240,7 @@ int main(int argc, char** argv)
 
 		Int_t runId = event->runId;
 		Int_t zdcRate = event->zdcX;
-		Int_t refMult = event->rcRefMult;
+		Int_t refMult = event->muRefMult;
 		refMultCorrUtil->init(runId);
 		refMultCorrUtil->initEvent(refMult,rcVertexZ,zdcRate);
 		//mCentrality = refMultCorrUtil->getCentralityBin16();
@@ -267,9 +271,9 @@ int main(int argc, char** argv)
 			mcFourMom.SetPtEtaPhiM(mcPt,mcEta,mcPhi,Melectron);
 			Float_t mcY = mcFourMom.Rapidity();
 			Float_t mcP = mcFourMom.P();
-			Float_t rcPt = event->rcPtFirst[i];
-			Float_t rcEta = event->rcEtaFirst[i];
-			Float_t rcPhi = event->rcPhiFirst[i];
+			Float_t rcPt = event->rcPt[i];
+			Float_t rcEta = event->rcEta[i];
+			Float_t rcPhi = event->rcPhi[i];
 			TLorentzVector rcFourMom(0.,0.,0.,0.);
 			rcFourMom.SetPtEtaPhiM(rcPt,rcEta,rcPhi,Melectron);
 			Float_t rcY = rcFourMom.Rapidity();
@@ -277,7 +281,7 @@ int main(int argc, char** argv)
 			Int_t rcNHitsFit = event->rcNHitsFit[i];
 			Int_t rcNHitsPoss = event->rcNHitsPoss[i];
 			Int_t rcNHitsDedx = event->rcNHitsDedx[i];
-			Int_t rcNHitsCommon = event->rcNHitsCommon[i];
+			// Int_t rcNHitsCommon = event->rcNHitsCommon[i];
 			Float_t rcDedx = event->rcDedx[i];
 			Float_t rcNSigmaE = event->rcNSigmaE[i];
 			Float_t rcNSigmaPi = event->rcNSigmaPi[i];
@@ -400,9 +404,9 @@ int main(int argc, char** argv)
 				hRcNHitsPossvsEtaQ->Fill(q,rcEta,rcNHitsPoss,weightPlus);
 				hRcNHitsPossvsPhiQ->Fill(q,rcPhi,rcNHitsPoss,weightPlus);
 				hRcNHitsDedxvsPtQ->Fill(q,rcPt,rcNHitsDedx,weightPlus);
-				hRcNHitsCommonvsPtQ->Fill(q,rcPt,rcNHitsCommon,weightPlus);
-				hRcNHitsCommonvsEtaQ->Fill(q,rcEta,rcNHitsCommon,weightPlus);
-				hRcNHitsCommonvsPhiQ->Fill(q,rcPhi,rcNHitsCommon,weightPlus);
+				// hRcNHitsCommonvsPtQ->Fill(q,rcPt,rcNHitsCommon,weightPlus);
+				// hRcNHitsCommonvsEtaQ->Fill(q,rcEta,rcNHitsCommon,weightPlus);
+				// hRcNHitsCommonvsPhiQ->Fill(q,rcPhi,rcNHitsCommon,weightPlus);
 			}
 			if (q < 0)
 			{
@@ -424,9 +428,9 @@ int main(int argc, char** argv)
 				hRcNHitsPossvsEtaQ->Fill(q,rcEta,rcNHitsPoss,weightMinus);
 				hRcNHitsPossvsPhiQ->Fill(q,rcPhi,rcNHitsPoss,weightMinus);
 				hRcNHitsDedxvsPtQ->Fill(q,rcPt,rcNHitsDedx,weightMinus);
-				hRcNHitsCommonvsPtQ->Fill(q,rcPt,rcNHitsCommon,weightMinus);
-				hRcNHitsCommonvsEtaQ->Fill(q,rcEta,rcNHitsCommon,weightMinus);
-				hRcNHitsCommonvsPhiQ->Fill(q,rcPhi,rcNHitsCommon,weightMinus);
+				// hRcNHitsCommonvsPtQ->Fill(q,rcPt,rcNHitsCommon,weightMinus);
+				// hRcNHitsCommonvsEtaQ->Fill(q,rcEta,rcNHitsCommon,weightMinus);
+				// hRcNHitsCommonvsPhiQ->Fill(q,rcPhi,rcNHitsCommon,weightMinus);
 			}
 			
 			if (q<0)
