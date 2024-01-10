@@ -192,7 +192,7 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
-	refMultCorrUtil = new StRefMultCorr();
+	refMultCorrUtil = CentralityMaker::instance()->getRefMultCorr();
 
 	//+-------------+
 	//| loop events |
