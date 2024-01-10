@@ -288,7 +288,7 @@ int main(int argc, char** argv)
 			Float_t rcNSigmaK = event->rcNSigmaK[i];
 			Float_t rcNSigmaP = event->rcNSigmaP[i];
 			Float_t rcDca = event->rcDca[i];
-			Float_t rcPhiFirst = event->rcPhiFirst[i];
+			Float_t rcPhiFirst = event->rcPhi[i];
 
 			hMcEtavsPtQ->Fill(q,mcPt,mcEta);
 			hMcPhivsPtQ->Fill(q,mcPt,mcPhi);
