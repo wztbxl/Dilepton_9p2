@@ -302,7 +302,7 @@ Int_t StElectronMcMaker::Make()
 	 //vertex is not selected
      if ( ! selectedVertex ) return kStOk;
      //trigger
-     if ( ! mMuEvent->triggerIdCollection().nominal().isTrigger(810010) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810020) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810030) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810040) ) return kStOK ;
+     if ( ! mMuEvent->triggerIdCollection().nominal().isTrigger(810010) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810020) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810030) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810040) ) return kStOK ; //7.7 GeV trigger
      //Vz
      if ( fabs(mMuEvent->primaryVertexPosition().z()) > 70.0 ) return kStOk ;
      //Vr
@@ -314,10 +314,10 @@ Int_t StElectronMcMaker::Make()
 	 }
 	 
 	 
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600001)) mElectron.triggerId[0] =810010;
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600011)) mElectron.triggerId[1] =810020;
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600021)) mElectron.triggerId[2] =810030;
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(600031)) mElectron.triggerId[3] =810040;
+	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(810010)) mElectron.triggerId[0] =810010;
+	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(810020)) mElectron.triggerId[1] =810020;
+	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(810030)) mElectron.triggerId[2] =810030;
+	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(810040)) mElectron.triggerId[3] =810040;
 	 
 	 
 	 mElectron.runId = -999;

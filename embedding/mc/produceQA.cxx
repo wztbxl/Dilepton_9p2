@@ -204,17 +204,17 @@ int main(int argc, char** argv)
 		if(i%(nEvts/10)==0) cout << "begin " << i << "th entry...." << endl;
 		event->GetEntry(i);
 
-		Float_t mcVertexX = event->mcVertexX;
-		Float_t mcVertexY = event->mcVertexY;
-		Float_t mcVertexZ = event->mcVertexZ;
-		Float_t rcVertexX = event->rcVertexX;
-		Float_t rcVertexY = event->rcVertexY;
-		Float_t rcVertexZ = event->rcVertexZ;
+		Float_t mcVertexX = event->muPriVertexX;
+		Float_t mcVertexY = event->muPriVertexY;
+		Float_t mcVertexZ = event->muPriVertexZ;
+		Float_t rcVertexX = event->muPriVertexX;
+		Float_t rcVertexY = event->muPriVertexY;
+		Float_t rcVertexZ = event->muPriVertexZ;
 		Float_t rcVertexR = sqrt(rcVertexX*rcVertexX+rcVertexY*rcVertexY);
-		Float_t rcVpdVz = event->rcVpdVz; 
+		Float_t rcVpdVz = event->muVpdVz; 
 		Float_t vzDiff = rcVertexZ - rcVpdVz;
-		Float_t rcRefMult = event->rcRefMult;
-		Float_t rcRefMultCorr = event->rcRefMultCorr;
+		Float_t rcRefMult = event->muRefMult;
+		Float_t rcRefMultCorr = event->refmult_corr;
 		Int_t triggerID = event->triggerId;
 		if (triggerID != 580001 && triggerID != 580021) continue;
 
@@ -414,7 +414,7 @@ int main(int argc, char** argv)
 				hRcPhivsMcPhiQ->Fill(q,mcPhi,rcPhi,weightMinus);
 				hRcYvsMcYQ->Fill(q,mcY,rcY,weightMinus);
 				hPtResvsPtQ->Fill(q,mcPt,(rcPt-mcPt)/mcPt,weightMinus);
-				hPResvsPQ->Fill(q,mcP,(rcP-mcP)/mcP,weightMinus),weightMinus;
+				hPResvsPQ->Fill(q,mcP,(rcP-mcP)/mcP,weightMinus);
 
 				hRcDcavsPtQ->Fill(q,rcPt,rcDca,weightMinus);
 				hRcNHitsFitvsPtQ->Fill(q,rcPt,rcNHitsFit,weightMinus);
