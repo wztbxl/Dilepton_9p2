@@ -36,8 +36,8 @@
 #include "TLorentzVector.h"
 
 #include "MCEVENT.h"
-#include "StRefMultCorr.h"
-#include "CentralityMaker.h"
+#include "StRefMultCorr/StRefMultCorr.h"
+#include "StRefMultCorr/CentralityMaker.h"
 #include "cuts.h"
 //#include "RefMfun.h"
 
@@ -242,11 +242,10 @@ int main(int argc, char** argv)
 		//mCentrality = refMultCorrUtil->getCentralityBin16();
 		hRefMult->Fill(refMult);
 		Double_t RefMultCorr = refMultCorrUtil->getRefMultCorr();
-    mCentrality = refMultCorrUtil->getCentralityBin9();
-    Double_t weight = refMultCorrUtil->getWeight();
+    	mCentrality = refMultCorrUtil->getCentralityBin9();//Centrality defined by offical, 0 is 70-80%,8 is 0-5%,0 is refMult<7 
+    	Double_t weight = refMultCorrUtil->getWeight();
     // mCentrality = mCentrality + 1;
 		hRefMultCorr->Fill(RefMultCorr);
-		//mCentrality = GetCentrality(RefMultCorr);//Centrality defined by Qian, 1 is 70-80%,9 is 0-5%,0 is refMult<7 
 		hCentrality9->Fill(mCentrality,weight);
 		// mCentrality = mCentrality - 1;
 		printf("Centrality is %d \n",mCentrality);
@@ -374,10 +373,12 @@ int main(int argc, char** argv)
 
 			int pTEtaBinMinus = pTEtaWeight[0]->FindBin(rcPt,rcEta);
 			int pTEtaBinPlus = pTEtaWeight[1]->FindBin(rcPt,rcEta);
-			double weightMinus = pTEtaWeight[0]->GetBinContent(pTEtaBinMinus);
-			double weightPlus = pTEtaWeight[1]->GetBinContent(pTEtaBinPlus);
+			// double weightMinus = pTEtaWeight[0]->GetBinContent(pTEtaBinMinus);
+			// double weightPlus = pTEtaWeight[1]->GetBinContent(pTEtaBinPlus);
+			double weightMinus = 1; // this version do not add the weight, will check the difference with and without weight
+			double weightPlus = 1;
 
-      hPtResvsPtCen->Fill(mCentrality,mcPt,(rcPt-mcPt)/mcPt,weight);
+    	hPtResvsPtCen->Fill(mCentrality,mcPt,(rcPt-mcPt)/mcPt,weight);
 
 			if (q > 0)
 			{
