@@ -1,4 +1,4 @@
-OBJS = MCEVENT.o StRefMultCorr.o produceQA.o
+OBJS = MCEVENT.o StRefMultCorr.o Param.o produceQA.o
 EXE =  produceQA
 
 #OBJS = MuDst.o createphiwgt.o
