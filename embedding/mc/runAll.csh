@@ -6,37 +6,37 @@ if [ $# -ne 2 ]; then
 	 exit 1
 fi
 
-dir="/star/u/wangzhen/QA/wangzhen/embedding/myEmbedding/basicQA/mc"
+dir="/star/u/wangzhen/run20/Dielectron/embedding/mc"
 echo $dir
 
-if [ ! -d $dir/output_$1/$2 ]; then
+if [ ! -d $dir/output/output_$1/$2 ]; then
      mkdir -p $dir/output_$1/$2
 fi
 
-if [ ! -d $dir/script_$1/$2 ]; then
+if [ ! -d $dir/script/script_$1/$2 ]; then
      mkdir -p $dir/script_$1/$2
 fi 
 
-if [ ! -d  $dir/log_$1/$2 ]; then
+if [ ! -d  $dir/log/log_$1/$2 ]; then
      mkdir -p $dir/log_$1/$2
 fi
 
-if [ ! -d output_$1/$2 ]; then
+if [ ! -d output/output_$1/$2 ]; then
      ln -s $dir/output_$1/$2 ./
 fi
 
-if [ ! -d script_$1/$2 ]; then
+if [ ! -d script/script_$1/$2 ]; then
      ln -s $dir/script_$1/$2 ./
 fi
 
-if [ ! -d log_$1/$2 ]; then
+if [ ! -d log/log_$1/$2 ]; then
      ln -s $dir/log_$1/$2 ./
 fi
 
 rm -rf job/*
   
 ifile=0
-for FILE in `cat /star/u/wangzhen/QA/wangzhen/embedding/myEmbedding/basicQA/mc/mydatalist_$1`
+for FILE in `cat /star/u/wangzhen/QA/wangzhen/embedding/myEmbedding/basicQA/mc/datalist_$1`
 do
      echo $FILE
      cp run.con job/runAll_$1_$ifile.job
