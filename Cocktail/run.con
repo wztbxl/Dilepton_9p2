@@ -1,0 +1,9 @@
+Universe     = vanilla
+Notification = never
+Requirements = (CPU_Type != "crs") && (CPU_Experiment == "star")
+Initialdir   = /star/u/wangzhen/QA/wangzhen/Cocktail
+GetEnv       = True
++Experiment  = "star"
++Job_Type    = "cas"
+
+
