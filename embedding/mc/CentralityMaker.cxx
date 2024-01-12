@@ -35,7 +35,7 @@
 using std::cout ;
 using std::endl ;
 
-ClassImp(CentralityMaker)
+// ClassImp(CentralityMaker)
 
 CentralityMaker* CentralityMaker::fInstance = 0 ;
 
