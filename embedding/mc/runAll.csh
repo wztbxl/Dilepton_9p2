@@ -36,7 +36,7 @@ fi
 rm -rf job/*
   
 ifile=0
-for FILE in `cat /star/u/wangzhen/QA/wangzhen/embedding/myEmbedding/basicQA/mc/datalist_$1`
+for FILE in `cat /star/u/wangzhen/run20/Dielectron/embedding/mc/datalist_$1`
 do
      echo $FILE
      cp run.con job/runAll_$1_$ifile.job
