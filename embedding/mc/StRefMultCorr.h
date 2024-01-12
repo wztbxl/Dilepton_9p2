@@ -226,7 +226,7 @@ class StRefMultCorr {
   Bool_t isInPileUpRefMultLimits(Double_t refMult, Double_t low, Double_t hi) const 
   { return ( low < refMult && refMult < hi); }
 
-  ClassDef(StRefMultCorr, 0)
+  // ClassDef(StRefMultCorr, 0)
 };
 #endif
 

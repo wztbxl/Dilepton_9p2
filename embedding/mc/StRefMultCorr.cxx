@@ -16,7 +16,7 @@
 #include "TRandom.h"
 #include "TMath.h"
 
-ClassImp(StRefMultCorr)
+// ClassImp(StRefMultCorr)
 
 namespace {
   typedef std::pair<Double_t, Int_t> keys;
