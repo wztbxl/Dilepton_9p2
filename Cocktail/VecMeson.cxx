@@ -52,10 +52,7 @@ VecMeson::VecMeson(ParticleTypes particle, DecayMode dmode)
 	for(int i=0;i<nSmearFac;i++){
 		mPtSmearPar[i]=0.;
 	}
-	//mPtSmearPar[0] = 3.5e-3;mPtSmearPar[1] = 8.0e-03;mPtSmearPar[2]=0.000511; //untuned pt reso. - directly from run12 UU embedding fit
-	//mPtSmearPar[0] = 6.0e-3;mPtSmearPar[1] = 8.3e-03;mPtSmearPar[2]=0.000511; //tuned pt reso. - from published AuAu@200GeV PRC paper
-	mPtSmearPar[0] = 0.009440;mPtSmearPar[1] = 0.01;mPtSmearPar[2]=0.000511; //tuned pt reso. - from published AuAu@200GeV PRC paper
-	// mPtSmearPar[0] = 0.009440;mPtSmearPar[1] = 0.007473;mPtSmearPar[2]=0.000511; //tuned pt reso. - from published AuAu@200GeV PRC paper
+	mPtSmearPar[0] = 0.009440;mPtSmearPar[1] = 0.01;mPtSmearPar[2]=0.000511; //from 54 GeV cocktail 
 }
 
 VecMeson::~VecMeson(){}
@@ -94,10 +91,10 @@ Int_t VecMeson::Init()
 	if(mDmode==2) sprintf(name,"hMCMvsPt%s2ee",MesonType);
 	if(mDmode==3) sprintf(name,"hMCMvsPt%sdalitz",MesonType);
 	hMCMvsPt = new TH2D(name,name,1500,0,15,3000,0,6);
-	if(mDmode==2) sprintf(name,"hMCAcc0MvsPt%s2ee",MesonType);
+	if(mDmode==2) sprintf(name,"hMCAcc0MvsPt%s2ee",MesonType); // Acc0 for the cut
 	if(mDmode==3) sprintf(name,"hMCAcc0MvsPt%sdalitz",MesonType);
 	hMCAcc0MvsPt = new TH2D(name,name,1500,0,15,3000,0,6);
-	if(mDmode==2) sprintf(name,"hMCAcc1MvsPt%s2ee",MesonType);
+	if(mDmode==2) sprintf(name,"hMCAcc1MvsPt%s2ee",MesonType); // Acc1 for the cut
 	if(mDmode==3) sprintf(name,"hMCAcc1MvsPt%sdalitz",MesonType);
 	hMCAcc1MvsPt = new TH2D(name,name,1500,0,15,3000,0,6);
 	if(mDmode==2) sprintf(name,"hMCAcc2MvsPt%s2ee",MesonType);
