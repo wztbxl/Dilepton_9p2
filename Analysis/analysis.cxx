@@ -246,28 +246,28 @@ TH2D* hRefMultvsnPiKP;
 TH2D* hRefMultvsnPiKP_extraE;
 
 //histograms for the polarization
-TH2F* hPairPhiPt
-TH2F* hPairPhiPtBG
-TH2F* hPairCosThetaPt
-TH2F* hPairCosThetaPtBG
-TH2F* hPairPhiPtHX
-TH2F* hPairPhiPtHXBG
-TH2F* hPairCosThetaPtCS
-TH2F* hPairCosThetaPtCSBG
-TH2F* hPairPhiPtCS
-TH2F* hPairPhiPtCSBG
-TH3F* hPairCosThetaInvMPt
-TH3F* hPairCosThetaInvMPtBG
-TH3F* hPairCosThetaInvMPtCS
-TH3F* hPairCosThetaInvMPtCSBG
-TH3F* hPairPhiInvMPt
-TH3F* hPairPhiInvMPtBG
-TH3F* hPairPhiInvMPtCS
-TH3F* hPairPhiInvMPtCSBG
-TH3F* hPairCosThetaPhiPt
-TH3F* hPairCosThetaPhiPtBG
-TH3F* hPairCosThetaPhiPtCS
-TH3F* hPairCosThetaPhiPtCSBG
+TH2F* hPairPhiPt;
+TH2F* hPairPhiPtBG;
+TH2F* hPairCosThetaPt;
+TH2F* hPairCosThetaPtBG;
+TH2F* hPairPhiPtHX;
+TH2F* hPairPhiPtHXBG;
+TH2F* hPairCosThetaPtCS;
+TH2F* hPairCosThetaPtCSBG;
+TH2F* hPairPhiPtCS;
+TH2F* hPairPhiPtCSBG;
+TH3F* hPairCosThetaInvMPt;
+TH3F* hPairCosThetaInvMPtBG;
+TH3F* hPairCosThetaInvMPtCS;
+TH3F* hPairCosThetaInvMPtCSBG;
+TH3F* hPairPhiInvMPt;
+TH3F* hPairPhiInvMPtBG;
+TH3F* hPairPhiInvMPtCS;
+TH3F* hPairPhiInvMPtCSBG;
+TH3F* hPairCosThetaPhiPt;
+TH3F* hPairCosThetaPhiPtBG;
+TH3F* hPairCosThetaPhiPtCS;
+TH3F* hPairCosThetaPhiPtCSBG;
 
 Int_t runId;
 Int_t EvtID;
@@ -1347,10 +1347,10 @@ void Polarization(int icharge,int jcharge,TLorentzVector ivector,TLorentzVector 
 	electron_theta_cs = melectron.Angle(ZZ);
 	electron_phi_cs = TMath::ATan2(melectron.Vect().Dot(YY.Unit()),melectron.Vect().Dot(XX.Unit()));
 
-	jpsi_pt = JPSI.Pt();
-	jpsi_eta = JPSI.Eta();
-	jpsi_phi = JPSI.Phi();
-	jpsi_InvM = JPSI.M();
+	pair_pt = JPSI.Pt();
+	pair_eta = JPSI.Eta();
+	pair_phi = JPSI.Phi();
+	pair_InvM = JPSI.M();
 
 	lepton1_pt = mpositron.Pt();
 	lepton1_eta = mpositron.Eta();
@@ -1595,10 +1595,10 @@ void bookHistograms()
 
 	tree = new TTree("tree","J/psi polarization");
 	tree->SetAutoSave(100000);
-	tree->Branch("jpsi_pt",&jpsi_pt,"jpsi_pt/F");
-	tree->Branch("jpsi_eta",&jpsi_eta,"jpsi_eta/F");
-	tree->Branch("jpsi_phi",&jpsi_phi,"jpsi_phi/F");
-	tree->Branch("jpsi_InvM",&jpsi_InvM,"jpsi_InvM/F");
+	tree->Branch("pair_pt",&pair_pt,"pair_pt/F");
+	tree->Branch("pair_eta",&pair_eta,"pair_eta/F");
+	tree->Branch("pair_phi",&pair_phi,"pair_phi/F");
+	tree->Branch("pair_InvM",&pair_InvM,"pair_InvM/F");
 	tree->Branch("lepton1_pt",&lepton1_pt,"lepton1_pt/F");
 	tree->Branch("lepton1_eta",&lepton1_eta,"lepton1_eta/F");
 	tree->Branch("lepton1_phi",&lepton1_phi,"lepton1_phi/F");
@@ -1615,8 +1615,6 @@ void bookHistograms()
 	tree->Branch("electron_theta_cs",&electron_theta_cs,"electron_theta_cs/F");
 	tree->Branch("electron_phi_hx",&electron_phi_hx,"electron_phi_hx/F");
 	tree->Branch("electron_phi_cs",&electron_phi_cs,"electron_phi_cs/F");
-	tree->Branch("lepton1_isTPCe",&lepton1_isTPCe,"lepton1_isTPCe/B");
-	tree->Branch("lepton2_isTPCe",&lepton2_isTPCe,"lepton2_isTPCe/B");
 }
 //=======================================================================================
 void writeHistograms(char* outFile)
