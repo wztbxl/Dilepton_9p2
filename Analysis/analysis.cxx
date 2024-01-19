@@ -60,6 +60,7 @@ Double_t calCosTheta(TLorentzVector eVec,TLorentzVector eeVec);
 Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron = kFALSE);
 Double_t phiVAngle(TLorentzVector e1, TLorentzVector e2, Int_t q1, Int_t q2);
 bool nPi_K_P_rejection(int refmult, int nPi_K_P );
+void Polarization(int icharge,int jcharge,TLorentzVector ivector,TLorentzVector jvector);
 
 int nPi_K_P_tof = 0;//used for pile rejection
 TF1* f_upper = new TF1("f_upper","pol5",0,350);
@@ -80,6 +81,15 @@ map<Int_t,Int_t> mBadRunId_021;
 Float_t bField;
 Float_t reWeight;
 Int_t iran = 0;
+
+//for the polarization, not only Jpsi
+TTree *tree;
+Float_t positron_theta_hx=-99.,positron_theta_cs=-99.,positron_phi_hx=-99.,positron_phi_cs=-99.;
+Float_t electron_theta_hx=-99.,electron_theta_cs=-99.,electron_phi_hx=-99.,electron_phi_cs=-99.;
+Float_t pair_pt,pair_eta,pair_phi,pair_InvM;
+Float_t lepton1_pt,lepton1_eta,lepton1_phi,lepton1_InvM;
+Float_t lepton2_pt,lepton2_eta,lepton2_phi,lepton2_InvM;
+TLorentzVector lepton1,lepton2;
 
 const Float_t pairPtCut = 0.1;
 
@@ -235,21 +245,29 @@ TH2D* hnHitsdEdxvspT_Posi_extraE;
 TH2D* hRefMultvsnPiKP;
 TH2D* hRefMultvsnPiKP_extraE;
 
-
-
-
-// TH3F *hULCosThetavsMvsCen;
-// TH3F *hLPosCosThetavsMvsCen;
-// TH3F *hLNegCosThetavsMvsCen;
-// TH3F *hMixULCosThetavsMvsCen;
-// TH3F *hMixLPosCosThetavsMvsCen;
-// TH3F *hMixLNegCosThetavsMvsCen;
-
-//*** for QA purpose;
-// TH3F *hULePtvsMeevsCen;
-// TH3F *hLSePtvsMeevsCen;
-// TH3F *hMixULePtvsMeevsCen;
-// TH3F *hMixLSePtvsMeevsCen;
+//histograms for the polarization
+TH2F* hPairPhiPt
+TH2F* hPairPhiPtBG
+TH2F* hPairCosThetaPt
+TH2F* hPairCosThetaPtBG
+TH2F* hPairPhiPtHX
+TH2F* hPairPhiPtHXBG
+TH2F* hPairCosThetaPtCS
+TH2F* hPairCosThetaPtCSBG
+TH2F* hPairPhiPtCS
+TH2F* hPairPhiPtCSBG
+TH3F* hPairCosThetaInvMPt
+TH3F* hPairCosThetaInvMPtBG
+TH3F* hPairCosThetaInvMPtCS
+TH3F* hPairCosThetaInvMPtCSBG
+TH3F* hPairPhiInvMPt
+TH3F* hPairPhiInvMPtBG
+TH3F* hPairPhiInvMPtCS
+TH3F* hPairPhiInvMPtCSBG
+TH3F* hPairCosThetaPhiPt
+TH3F* hPairCosThetaPhiPtBG
+TH3F* hPairCosThetaPhiPtCS
+TH3F* hPairCosThetaPhiPtCSBG
 
 Int_t runId;
 Int_t EvtID;
@@ -785,7 +803,7 @@ void makeRealPairs()
 	TLorentzVector pair(0,0,0,0);
 	for(Int_t i=0;i<current_nEPlus;i++){
 		if ( current_ePlus_tags[i] == 0) continue;
-		for(Int_t j=0;j<current_nEMinus;j++){
+		for(Int_t j=0;j<current_nEMinus;j++){ 
 			if ( current_eMinus_tags[j] == 0 ) continue;
 			pair = current_ePlus[i]+current_eMinus[j];
 			if(TMath::Abs(pair.Rapidity())<=mPairYCut){
@@ -797,6 +815,13 @@ void makeRealPairs()
 				hULAngleVvsM->Fill(pair.M(),angleV,reWeight);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hULMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				hULMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+				if (pair.M()>0.2 && pair.M() < 1.1 )
+				{
+					Polarization(1,-1,current_ePlus[i],current_eMinus[j]);
+					fill3DHistograms("unlike",pair,i,j,0);
+					fillHistograms("unlike",pair);
+				}
+				
 				if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 					hULMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 					//hULMvsPt->Fill(pair.Pt(),pair.M());
@@ -846,6 +871,12 @@ void makeRealPairs()
 				hLPosAngleVvsM->Fill(pair.M(),angleV,reWeight);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				hLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+				if (pair.M()>0.2 && pair.M() < 1.1 )
+				{
+					Polarization(1,1,current_ePlus[i],current_ePlus[j]);
+					fill3DHistograms("like",pair,i,j,0);
+					fillHistograms("like",pair);
+				}
 				if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 				// if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 					hLPosMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
@@ -891,6 +922,12 @@ void makeRealPairs()
 				hLNegAngleVvsM->Fill(pair.M(),angleV,reWeight);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				hLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+				if (pair.M()>0.2 && pair.M() < 1.1 )
+				{
+					Polarization(-1,-1,current_eMinus[i],current_eMinus[j]);
+					fill3DHistograms("like",pair,i,j,0);
+					fillHistograms("like",pair)
+				}
 				if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 					hLNegMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 					//hLNegMvsPt->Fill(pair.Pt(),pair.M());
@@ -1270,6 +1307,107 @@ Double_t calCosTheta(TLorentzVector eVec,TLorentzVector eeVec)
 	return TMath::Cos(theta);
 }
 //____________________________________________________________
+void Polarization(int icharge,int jcharge,TLorentzVector ivector,TLorentzVector jvector){
+	TLorentzVector mpositron,melectron,JPSI;
+	TLorentzVector Proton1(0.,0.,100.,100.),Proton2(0.,0.,-100.,100.);
+	TVector3 XX,YY,ZZ;
+	JPSI = ivector+jvector;
+	mpositron = icharge>=jcharge? ivector:jvector;
+	melectron = jcharge<=icharge? jvector:ivector;
+	Int_t NFRAME =4;
+	Double_t theta[NFRAME];
+	Double_t phi[NFRAME];
+	TVector3 XXHX,YYHX,ZZHX;
+	ZZHX = JPSI.Vect();
+	YYHX = JPSI.Vect().Cross(Proton1.Vect());
+	XXHX = YYHX.Cross(ZZHX);
+
+	mpositron.Boost(-JPSI.Px()/JPSI.E(),-JPSI.Py()/JPSI.E(),-JPSI.Pz()/JPSI.E());
+	melectron.Boost(-JPSI.Px()/JPSI.E(),-JPSI.Py()/JPSI.E(),-JPSI.Pz()/JPSI.E());
+	Proton1.Boost(-JPSI.Px()/JPSI.E(),-JPSI.Py()/JPSI.E(),-JPSI.Pz()/JPSI.E());
+	Proton2.Boost(-JPSI.Px()/JPSI.E(),-JPSI.Py()/JPSI.E(),-JPSI.Pz()/JPSI.E());
+
+	theta[0]= mpositron.Angle(JPSI.Vect());
+	phi[0] = TMath::ATan2(mpositron.Vect().Dot(YYHX.Unit()),mpositron.Vect().Dot(XXHX.Unit()));
+	electron_theta_hx = melectron.Angle(JPSI.Vect());
+	electron_phi_hx = TMath::ATan2(melectron.Vect().Dot(YYHX.Unit()),(melectron.Vect().Dot(XXHX.Unit())));
+
+	ZZ = Proton1.Vect()*(1/(Proton1.Vect()).Mag())-Proton2.Vect()*(1/(Proton2.Vect()).Mag());
+	YY = Proton1.Vect().Cross(Proton2.Vect());
+	XX = Proton1.Vect()*(1/(Proton1.Vect()).Mag())+Proton2.Vect()*(1/(Proton2.Vect()).Mag());
+
+	theta[1] = mpositron.Angle(ZZ);
+	phi[1] = TMath::ATan2(mpositron.Vect().Dot(YY.Unit()),mpositron.Vect().Dot(XX.Unit()));
+
+	positron_theta_hx = theta[0];
+	positron_theta_cs = theta[1];
+	positron_phi_hx = phi[0];
+	positron_phi_cs = phi[1];
+
+	electron_theta_cs = melectron.Angle(ZZ);
+	electron_phi_cs = TMath::ATan2(melectron.Vect().Dot(YY.Unit()),melectron.Vect().Dot(XX.Unit()));
+
+	jpsi_pt = JPSI.Pt();
+	jpsi_eta = JPSI.Eta();
+	jpsi_phi = JPSI.Phi();
+	jpsi_InvM = JPSI.M();
+
+	lepton1_pt = mpositron.Pt();
+	lepton1_eta = mpositron.Eta();
+	lepton1_phi = mpositron.Phi();
+	lepton1_InvM = mpositron.M();
+
+	lepton2_pt = melectron.Pt();
+	lepton2_eta = melectron.Eta();
+	lepton2_phi = melectron.Phi();
+	lepton2_InvM = melectron.M();
+}
+//____________________________________________________________
+void fillHistograms(std::string unlikeOrlike, TLorentzVector JPSI)
+{
+	if(unlikeOrlike.compare("unlike")==0){
+		hPairCosThetaPt->Fill(TMath::Cos(positron_theta_hx),JPSI.Pt());
+		hPairPhiPtHX->Fill(positron_phi_hx,JPSI.Pt());
+		hPairCosThetaPtCS->Fill(TMath::Cos(positron_theta_cs),JPSI.Pt());
+		hPairPhiPtCS->Fill(positron_phi_cs,JPSI.Pt());
+		hPairCosThetaPhiPt->Fill(TMath::Cos(positron_theta_hx),positron_phi_hx,JPSI.Pt());	
+		hPairCosThetaPhiPtCS->Fill(TMath::Cos(positron_theta_cs),positron_phi_cs,JPSI.Pt());	
+	}
+	else{
+		hPairCosThetaPtBG->Fill(TMath::Cos(positron_theta_hx),JPSI.Pt(),0.5);
+		hPairPhiPtHXBG->Fill(positron_phi_hx,JPSI.Pt(),0.5);
+		hPairCosThetaPtCSBG->Fill(TMath::Cos(positron_theta_cs),JPSI.Pt(),0.5);
+		hPairPhiPtCSBG->Fill(positron_phi_cs,JPSI.Pt(),0.5);
+		hPairCosThetaPtBG->Fill(TMath::Cos(electron_theta_hx),JPSI.Pt(),0.5);
+		hPairPhiPtHXBG->Fill(electron_phi_hx,JPSI.Pt(),0.5);
+		hPairCosThetaPtCSBG->Fill(TMath::Cos(electron_theta_cs),JPSI.Pt(),0.5);
+		hPairPhiPtCSBG->Fill(electron_phi_cs,JPSI.Pt(),0.5);
+		hPairCosThetaPhiPtBG->Fill(TMath::Cos(positron_theta_hx),positron_phi_hx,JPSI.Pt(),0.5);
+		hPairCosThetaPhiPtBG->Fill(TMath::Cos(electron_theta_hx),electron_phi_hx,JPSI.Pt(),0.5);
+		hPairCosThetaPhiPtCSBG->Fill(TMath::Cos(positron_theta_cs),positron_phi_cs,JPSI.Pt(),0.5);
+		hPairCosThetaPhiPtCSBG->Fill(TMath::Cos(electron_theta_cs),electron_phi_cs,JPSI.Pt(),0.5);
+	}
+}
+//____________________________________________________________
+void fill3DHistograms(std::string unlikeOrlike, TLorentzVector JPSI,int i,int j,int pairs){
+	if(unlikeOrlike.compare("unlike")==0){
+		hPairCosThetaInvMPt->Fill(TMath::Cos(positron_theta_hx),JPSI.M(),JPSI.Pt());
+		hPairCosThetaInvMPtCS->Fill(TMath::Cos(positron_theta_cs),JPSI.M(),JPSI.Pt());
+		hPairPhiInvMPt->Fill(positron_phi_hx,JPSI.M(),JPSI.Pt());
+		hPairPhiInvMPtCS->Fill(positron_phi_cs,JPSI.M(),JPSI.Pt());
+	}
+	else{	
+		hPairCosThetaInvMPtBG->Fill(TMath::Cos(positron_theta_hx),JPSI.M(),JPSI.Pt(),0.5);
+		hPairCosThetaInvMPtBG->Fill(TMath::Cos(electron_theta_hx),JPSI.M(),JPSI.Pt(),0.5);
+		hPairCosThetaInvMPtCSBG->Fill(TMath::Cos(positron_theta_cs),JPSI.M(),JPSI.Pt(),0.5);
+		hPairCosThetaInvMPtCSBG->Fill(TMath::Cos(electron_theta_cs),JPSI.M(),JPSI.Pt(),0.5);
+		hPairPhiInvMPtBG->Fill(positron_phi_hx,JPSI.M(),JPSI.Pt(),0.5);
+		hPairPhiInvMPtBG->Fill(electron_phi_hx,JPSI.M(),JPSI.Pt(),0.5);
+		hPairPhiInvMPtCSBG->Fill(positron_phi_cs,JPSI.M(),JPSI.Pt(),0.5);
+		hPairPhiInvMPtCSBG->Fill(electron_phi_cs,JPSI.M(),JPSI.Pt(),0.5);
+	}
+}
+//____________________________________________________________
 void bookHistograms()
 {
 	char buf[500];
@@ -1392,26 +1530,93 @@ void bookHistograms()
 	hRefMultvsnPiKP = new TH2D("hRefMultvsnPiKP",";RefMult;nPi+K+P",500,0,500,500,0,500);
 	hRefMultvsnPiKP_extraE = new TH2D("hRefMultvsnPiKP_extraE",";RefMult;nPi+K+P",500,0,500,500,0,500);
 
-	// hULMvsPtCen->Sumw2();
-	// hLPosMvsPtCen->Sumw2();
-	// hLNegMvsPtCen->Sumw2();
-	// hMixULMvsPtCen->Sumw2();
-	// hMixLPosMvsPtCen->Sumw2();
-	// hMixLNegMvsPtCen->Sumw2();
+	hULMvsPtCen->Sumw2();
+	hLPosMvsPtCen->Sumw2();
+	hLNegMvsPtCen->Sumw2();
+	hMixULMvsPtCen->Sumw2();
+	hMixLPosMvsPtCen->Sumw2();
+	hMixLNegMvsPtCen->Sumw2();
 
-	//low ee pair pT cos_{theta} distribution
-	// hULCosThetavsMvsCen = new TH3F("hULCosThetavsMvsCen","hULCosThetavsMvsCen; Centrality; M_{ee} (GeV/c^{2}); cos_{#theta}",16,0,16,400,0,4,100,0,1);
-	// hLPosCosThetavsMvsCen = new TH3F("hLPosCosThetavsMvsCen","hLPosCosThetavsMvsCen; Centrality; M_{ee} (GeV/c^{2}); cos_{#theta}",16,0,16,400,0,4,100,0,1);
-	// hLNegCosThetavsMvsCen = new TH3F("hLNegCosThetavsMvsCen","hLNegCosThetavsMvsCen; Centrality; M_{ee} (GeV/c^{2}); cos_{#theta}",16,0,16,400,0,4,100,0,1);
-	// hMixULCosThetavsMvsCen = new TH3F("hMixULCosThetavsMvsCen","hMixULCosThetavsMvsCen; Centrality; M_{ee} (GeV/c^{2}); cos_{#theta}",16,0,16,400,0,4,100,0,1);
-	// hMixLPosCosThetavsMvsCen = new TH3F("hMixLPosCosThetavsMvsCen","hMixLPosCosThetavsMvsCen; Centrality; M_{ee} (GeV/c^{2}); cos_{#theta}",16,0,16,400,0,4,100,0,1);
-	// hMixLNegCosThetavsMvsCen = new TH3F("hMixLNegCosThetavsMvsCen","hMixLNegCosThetavsMvsCen; Centrality; M_{ee} (GeV/c^{2}); cos_{#theta}",16,0,16,400,0,4,100,0,1);
+	//add the histograms for the dilepton polarization, in the mass region 0.2-1.1
+	hPairPhiPt = new TH2F("hPairPhiPt","Pair Phi vs #Phi;#Phi;P_{T} GeV/c",360,-TMath::Pi(),TMath::Pi(),120,0,30);
+	hPairPhiPt->Sumw2();
+	hPairPhiPtBG = new TH2F("hPairPhiPtBG","Pair Phi vs #Phi;#Phi;P_{T} GeV/c",360,-TMath::Pi(),TMath::Pi(),120,0,30);
+	hPairPhiPtBG->Sumw2();
 
-	//low ee pair pT indivadual electron pT distribution
-	// hULePtvsMeevsCen = new TH3F("hULePtvsMeevsCen", "hULePtvsMeevsCen; Centrality; M_{ee} (GeV/c^{2}); eletron p_{T} (GeV/c)",16,0,16,400,0,4,1000,0,10);
-	// hLSePtvsMeevsCen = new TH3F("hLSePtvsMeevsCen", "hLSePtvsMeevsCen; Centrality; M_{ee} (GeV/c^{2}); eletron p_{T} (GeV/c)",16,0,16,400,0,4,1000,0,10);
-	// hMixULePtvsMeevsCen = new TH3F("hMixULePtvsMeevsCen", "hMixULePtvsMeevsCen; Centrality; M_{ee} (GeV/c^{2}); eletron p_{T} (GeV/c)",16,0,16,400,0,4,1000,0,10);
-	// hMixLSePtvsMeevsCen = new TH3F("hMixLSePtvsMeevsCen", "hMixLSePtvsMeevsCen; Centrality; M_{ee} (GeV/c^{2}); eletron p_{T} (GeV/c)",16,0,16,400,0,4,1000,0,10);
+	hPairCosThetaPt = new TH2F("hPairCosThetaPt","Pair Pt vs Cos(#theta); Cos(#theta); Pair Pt;",10,-1,1,120,0,30);
+	hPairCosThetaPt->Sumw2();
+	hPairCosThetaPtBG = new TH2F("hPairCosThetaPtBG","Pair Pt vs Cos(#theta); Cos(#theta); Pair Pt;",10,-1,1,120,0,30);
+	hPairCosThetaPtBG->Sumw2();
+
+	hPairPhiPtHX = new TH2F("hPairPhiPtHX","Pair Pt vs #phi;#phi;Pair Pt",10,-TMath::Pi(),TMath::Pi(),120,0,30);
+	hPairPhiPtHX->Sumw2();
+	hPairPhiPtHXBG = new TH2F("hPairPhiPtHXBG","Pair Pt vs #phi;#phi;Pair Pt",10,-TMath::Pi(),TMath::Pi(),120,0,30);
+	hPairPhiPtHXBG->Sumw2();
+
+	hPairCosThetaPtCS = new TH2F("hPairCosThetaPtCS","Pair Pt vs Cos(#theta);Cos(#theta);Pair Pt",10,-1,1,120,0,30);
+	hPairCosThetaPtCS->Sumw2();
+	hPairCosThetaPtCSBG = new TH2F("hPairCosThetaPtCSBG","Pair Pt vs Cos(#theta);Cos(#theta);Pair Pt",10,-1,1,120,0,30);
+	hPairCosThetaPtCSBG->Sumw2();
+
+	hPairPhiPtCS = new TH2F("hPairPhiPtCS","Pair Pt vs #phi;#phi;Pair Pt",10,-TMath::Pi(),TMath::Pi(),120,0,30);
+	hPairPhiPtCS->Sumw2();
+	hPairPhiPtCSBG = new TH2F("hPairPhiPtCSBG","Pair Pt vs #phi;#phi;Pair Pt",10,-TMath::Pi(),TMath::Pi(),120,0,30);
+	hPairPhiPtCSBG->Sumw2();
+
+	hPairCosThetaInvMPt = new TH3F("hPairCosThetaInvMPt","hPairCosThetaInvMPt",40,-1,1,40,2,4,120,0,30);
+	hPairCosThetaInvMPtBG= new TH3F("hPairCosThetaInvMPtBG","hPairCosThetaInvMPtBG",40,-1,1,40,2,4,120,0,30);
+	hPairCosThetaInvMPtCS= new TH3F("hPairCosThetaInvMPtCS","hPairCosThetaInvMPtCS",40,-1,1,40,2,4,120,0,30);
+	hPairCosThetaInvMPtCSBG= new TH3F("hPairCosThetaInvMPtCSBG","hPairCosThetaInvMPtCSBG",40,-1,1,40,2,4,120,0,30);
+
+	hPairPhiInvMPt = new TH3F("hPairPhiInvMPt","hPairPhiInvMPt",40,-TMath::Pi(),TMath::Pi(),40,2,4,120,0,30);
+	hPairPhiInvMPtBG = new TH3F("hPairPhiInvMPtBG","hPairPhiInvMPtBG",40,-TMath::Pi(),TMath::Pi(),40,2,4,120,0,30);
+	hPairPhiInvMPtCS = new TH3F("hPairPhiInvMPtCS","hPairPhiInvMPtCS",40,-TMath::Pi(),TMath::Pi(),40,2,4,120,0,30);
+	hPairPhiInvMPtCSBG = new TH3F("hPairPhiInvMPtCSBG","hPairPhiInvMPtCSBG",40,-TMath::Pi(),TMath::Pi(),40,2,4,120,0,30);
+
+	hPairCosThetaInvMPt->Sumw2();
+	hPairCosThetaInvMPtBG->Sumw2();
+	hPairCosThetaInvMPtCS->Sumw2();
+	hPairCosThetaInvMPtCSBG->Sumw2();
+
+	hPairPhiInvMPt->Sumw2();
+	hPairPhiInvMPtBG->Sumw2();
+	hPairPhiInvMPtCS->Sumw2();
+	hPairPhiInvMPtCSBG->Sumw2();
+
+	hPairCosThetaPhiPt = new TH3F("hPairCosThetaPhiPt","hPairCosThetaPhiPt;cos#theta;#phi;p_{T}",40,-1,1,40,-TMath::Pi(),TMath::Pi(),120,0,30);
+	hPairCosThetaPhiPtBG = new TH3F("hPairCosThetaPhiPtBG","hPairCosThetaPhiPtBG;cos#theta;#phi;p_{T}",40,-1,1,40,-TMath::Pi(),TMath::Pi(),120,0,30);
+	hPairCosThetaPhiPt->Sumw2();
+	hPairCosThetaPhiPtBG->Sumw2();
+
+	hPairCosThetaPhiPtCS = new TH3F("hPairCosThetaPhiPtCS","hPairCosThetaPhiPtCS;cos#theta;#phi;p_{T}",40,-1,1,40,-TMath::Pi(),TMath::Pi(),120,0,30);
+	hPairCosThetaPhiPtCSBG = new TH3F("hPairCosThetaPhiPtCSBG","hPairCosThetaPhiPtCSBG;cos#theta;#phi;p_{T}",40,-1,1,40,-TMath::Pi(),TMath::Pi(),120,0,30);
+	hPairCosThetaPhiPtCS->Sumw2();
+	hPairCosThetaPhiPtCSBG->Sumw2();
+
+	tree = new TTree("tree","J/psi polarization");
+	tree->SetAutoSave(100000);
+	tree->Branch("jpsi_pt",&jpsi_pt,"jpsi_pt/F");
+	tree->Branch("jpsi_eta",&jpsi_eta,"jpsi_eta/F");
+	tree->Branch("jpsi_phi",&jpsi_phi,"jpsi_phi/F");
+	tree->Branch("jpsi_InvM",&jpsi_InvM,"jpsi_InvM/F");
+	tree->Branch("lepton1_pt",&lepton1_pt,"lepton1_pt/F");
+	tree->Branch("lepton1_eta",&lepton1_eta,"lepton1_eta/F");
+	tree->Branch("lepton1_phi",&lepton1_phi,"lepton1_phi/F");
+	tree->Branch("lepton1_InvM",&lepton1_InvM,"lepton1_InvM/F");
+	tree->Branch("lepton2_pt",&lepton2_pt,"lepton2_pt/F");
+	tree->Branch("lepton2_eta",&lepton2_eta,"lepton2_eta/F");
+	tree->Branch("lepton2_phi",&lepton2_phi,"lepton2_phi/F");
+	tree->Branch("lepton2_InvM",&lepton2_InvM,"lepton2_InvM/F");
+	tree->Branch("positron_theta_hx",&positron_theta_hx,"positron_theta_hx/F");
+	tree->Branch("positron_theta_cs",&positron_theta_cs,"positron_theta_cs/F");
+	tree->Branch("positron_phi_hx",&positron_phi_hx,"positron_phi_hx/F");
+	tree->Branch("positron_phi_cs",&positron_phi_cs,"positron_phi_cs/F");
+	tree->Branch("electron_theta_hx",&electron_theta_hx,"electron_theta_hx/F");
+	tree->Branch("electron_theta_cs",&electron_theta_cs,"electron_theta_cs/F");
+	tree->Branch("electron_phi_hx",&electron_phi_hx,"electron_phi_hx/F");
+	tree->Branch("electron_phi_cs",&electron_phi_cs,"electron_phi_cs/F");
+	tree->Branch("lepton1_isTPCe",&lepton1_isTPCe,"lepton1_isTPCe/B");
+	tree->Branch("lepton2_isTPCe",&lepton2_isTPCe,"lepton2_isTPCe/B");
 }
 //=======================================================================================
 void writeHistograms(char* outFile)
