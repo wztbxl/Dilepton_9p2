@@ -88,7 +88,7 @@ Float_t reWeight;
 Int_t iran = 0;
 
 //for the polarization, not only Jpsi
-TTree *tree;
+// TTree *tree;
 Float_t positron_theta_hx=-99.,positron_theta_cs=-99.,positron_phi_hx=-99.,positron_phi_cs=-99.;
 Float_t electron_theta_hx=-99.,electron_theta_cs=-99.,electron_phi_hx=-99.,electron_phi_cs=-99.;
 Float_t pair_pt,pair_eta,pair_phi,pair_InvM;
@@ -1604,28 +1604,28 @@ void bookHistograms()
 	hPairCosThetaPhiPtCS->Sumw2();
 	hPairCosThetaPhiPtCSBG->Sumw2();
 
-	tree = new TTree("tree","J/psi polarization");
-	tree->SetAutoSave(100000);
-	tree->Branch("pair_pt",&pair_pt,"pair_pt/F");
-	tree->Branch("pair_eta",&pair_eta,"pair_eta/F");
-	tree->Branch("pair_phi",&pair_phi,"pair_phi/F");
-	tree->Branch("pair_InvM",&pair_InvM,"pair_InvM/F");
-	tree->Branch("lepton1_pt",&lepton1_pt,"lepton1_pt/F");
-	tree->Branch("lepton1_eta",&lepton1_eta,"lepton1_eta/F");
-	tree->Branch("lepton1_phi",&lepton1_phi,"lepton1_phi/F");
-	tree->Branch("lepton1_InvM",&lepton1_InvM,"lepton1_InvM/F");
-	tree->Branch("lepton2_pt",&lepton2_pt,"lepton2_pt/F");
-	tree->Branch("lepton2_eta",&lepton2_eta,"lepton2_eta/F");
-	tree->Branch("lepton2_phi",&lepton2_phi,"lepton2_phi/F");
-	tree->Branch("lepton2_InvM",&lepton2_InvM,"lepton2_InvM/F");
-	tree->Branch("positron_theta_hx",&positron_theta_hx,"positron_theta_hx/F");
-	tree->Branch("positron_theta_cs",&positron_theta_cs,"positron_theta_cs/F");
-	tree->Branch("positron_phi_hx",&positron_phi_hx,"positron_phi_hx/F");
-	tree->Branch("positron_phi_cs",&positron_phi_cs,"positron_phi_cs/F");
-	tree->Branch("electron_theta_hx",&electron_theta_hx,"electron_theta_hx/F");
-	tree->Branch("electron_theta_cs",&electron_theta_cs,"electron_theta_cs/F");
-	tree->Branch("electron_phi_hx",&electron_phi_hx,"electron_phi_hx/F");
-	tree->Branch("electron_phi_cs",&electron_phi_cs,"electron_phi_cs/F");
+	// tree = new TTree("tree","J/psi polarization");
+	// tree->SetAutoSave(100000);
+	// tree->Branch("pair_pt",&pair_pt,"pair_pt/F");
+	// tree->Branch("pair_eta",&pair_eta,"pair_eta/F");
+	// tree->Branch("pair_phi",&pair_phi,"pair_phi/F");
+	// tree->Branch("pair_InvM",&pair_InvM,"pair_InvM/F");
+	// tree->Branch("lepton1_pt",&lepton1_pt,"lepton1_pt/F");
+	// tree->Branch("lepton1_eta",&lepton1_eta,"lepton1_eta/F");
+	// tree->Branch("lepton1_phi",&lepton1_phi,"lepton1_phi/F");
+	// tree->Branch("lepton1_InvM",&lepton1_InvM,"lepton1_InvM/F");
+	// tree->Branch("lepton2_pt",&lepton2_pt,"lepton2_pt/F");
+	// tree->Branch("lepton2_eta",&lepton2_eta,"lepton2_eta/F");
+	// tree->Branch("lepton2_phi",&lepton2_phi,"lepton2_phi/F");
+	// tree->Branch("lepton2_InvM",&lepton2_InvM,"lepton2_InvM/F");
+	// tree->Branch("positron_theta_hx",&positron_theta_hx,"positron_theta_hx/F");
+	// tree->Branch("positron_theta_cs",&positron_theta_cs,"positron_theta_cs/F");
+	// tree->Branch("positron_phi_hx",&positron_phi_hx,"positron_phi_hx/F");
+	// tree->Branch("positron_phi_cs",&positron_phi_cs,"positron_phi_cs/F");
+	// tree->Branch("electron_theta_hx",&electron_theta_hx,"electron_theta_hx/F");
+	// tree->Branch("electron_theta_cs",&electron_theta_cs,"electron_theta_cs/F");
+	// tree->Branch("electron_phi_hx",&electron_phi_hx,"electron_phi_hx/F");
+	// tree->Branch("electron_phi_cs",&electron_phi_cs,"electron_phi_cs/F");
 }
 //=======================================================================================
 void writeHistograms(char* outFile)
