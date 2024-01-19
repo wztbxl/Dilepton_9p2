@@ -309,6 +309,7 @@ int main(int argc, char** argv)
 			if(!ftmp||!(ftmp->IsOpen())||!(ftmp->GetNkeys())) {
 				cout<<"something wrong"<<endl;
 			} else {
+				cout << filename << endl;
 				cout<<"read in "<<ifile<<"th file: "<<filename<<endl;
 				chain->Add(filename);
 				ifile++;
