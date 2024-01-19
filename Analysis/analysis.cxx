@@ -382,7 +382,7 @@ int main(int argc, char** argv)
 
 		if(!passEvent(event)) continue; 
 		EvtID = event->mEventId;
-    // cout << "EvtID = " << EvtID << endl;
+		if(mDebug) cout << "EvtID = " << EvtID << endl;
 		current_nE=0;
 		current_nEPlus=0;
 		current_nEMinus=0;
@@ -403,7 +403,7 @@ int main(int argc, char** argv)
 		
 
 		
-    
+		/*
 		//Zhen add it to test the extral electron and extra positions
 		if( current_nEPlus > 7 || current_nEMinus >7)//extra electron
 		// if( current_nEPlus <= 7 && current_nEMinus <=7)//remain electron
@@ -470,6 +470,7 @@ int main(int argc, char** argv)
 			}
 			// continue;
 		}
+		*/
 		
 
 		Double_t finalEventPlane = reCalEventPlane(event);
@@ -485,7 +486,7 @@ int main(int argc, char** argv)
 			current_ePlus_tags[i] = 1;
 			current_eMinus_tags[i] = 1;
 		}
-
+		if(mDebug) cout << "beforetags " << endl;
 		makeTags();
 		if(mDebug) cout << "after tags " << endl;
 		makeRealPairs();
