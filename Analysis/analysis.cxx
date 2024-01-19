@@ -61,6 +61,8 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron = kFALSE);
 Double_t phiVAngle(TLorentzVector e1, TLorentzVector e2, Int_t q1, Int_t q2);
 bool nPi_K_P_rejection(int refmult, int nPi_K_P );
 void Polarization(int icharge,int jcharge,TLorentzVector ivector,TLorentzVector jvector);
+void fillHistograms(std::string  unlikeOrlike,TLorentzVector JPSI);
+void fill3DHistograms(std::string unlikeOrlike,TLorentzVector JPSI,int i,int j,int pairs);
 
 int nPi_K_P_tof = 0;//used for pile rejection
 TF1* f_upper = new TF1("f_upper","pol5",0,350);
