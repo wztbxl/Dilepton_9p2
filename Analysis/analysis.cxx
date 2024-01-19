@@ -312,6 +312,7 @@ int main(int argc, char** argv)
 				cout<<"read in "<<ifile<<"th file: "<<filename<<endl;
 				chain->Add(filename);
 				ifile++;
+				if(mDebug) ftmp->Print();
 			}
 			delete ftmp;
 		}
@@ -343,6 +344,7 @@ int main(int argc, char** argv)
 	//+-------------+
 	//| loop events |
 	//+-------------+
+	if(mDebug) chain->Print();
 	miniDst *event = new miniDst(chain);
 	Int_t nEvts = chain->GetEntries();
 	cout<<nEvts<<" events"<<endl;
