@@ -64,6 +64,9 @@ void Polarization(int icharge,int jcharge,TLorentzVector ivector,TLorentzVector 
 void fillHistograms(std::string  unlikeOrlike,TLorentzVector JPSI);
 void fill3DHistograms(std::string unlikeOrlike,TLorentzVector JPSI,int i,int j,int pairs);
 
+// int mDebug = 0;
+int mDebug = 1;
+
 int nPi_K_P_tof = 0;//used for pile rejection
 TF1* f_upper = new TF1("f_upper","pol5",0,350);
 TF1* f_lower = new TF1("f_lower","pol5",0,350);
@@ -484,13 +487,13 @@ int main(int argc, char** argv)
 		}
 
 		makeTags();
-		// cout << "after tags " << endl;
+		if(mDebug) cout << "after tags " << endl;
 		makeRealPairs();
-		// cout << "after real pairs " << endl;
+		if(mDebug) cout << "after real pairs " << endl;
 		makeMixPairs();
-		// cout << "after mixed pairs " << endl;
+		if(mDebug) cout << "after mixed pairs " << endl;
 		copyCurrentToBuffer();
-		// cout << "after copy ro buffer " << endl;
+		if(mDebug) cout << "after copy ro buffer " << endl;
 	}
 
   cout << "start checking buffer full flag " << endl;
@@ -817,12 +820,17 @@ void makeRealPairs()
 				hULAngleVvsM->Fill(pair.M(),angleV,reWeight);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hULMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				hULMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+				if(mDebug) cout << "before polarization calcultion" << endl;
 				if (pair.M()>0.2 && pair.M() < 1.1 )
 				{
+				if(mDebug) cout << "before polarization calcultion" << endl;
 					Polarization(1,-1,current_ePlus[i],current_eMinus[j]);
+				if(mDebug) cout << "before Fill3D calcultion" << endl;
 					fill3DHistograms("unlike",pair,i,j,0);
+				if(mDebug) cout << "before Fillhis calcultion" << endl;
 					fillHistograms("unlike",pair);
 				}
+				if(mDebug) cout << "after polarization calcultion" << endl;
 				
 				if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 					hULMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
