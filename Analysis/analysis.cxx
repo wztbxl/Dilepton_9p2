@@ -331,11 +331,14 @@ int main(int argc, char** argv)
 		//+-------------------+
 		//| initialize buffer |
 		//+-------------------+
+		if(mDebug) cout<<"before memset events"<<endl;
 		memset(nEventsInBuffer,0,sizeof(nEventsInBuffer));
 		memset(bufferFullFlag,0,sizeof(bufferFullFlag));
 		memset(buffer_nEPlus,0,sizeof(buffer_nEPlus));
 		memset(buffer_nEMinus,0,sizeof(buffer_nEMinus));
+		if(mDebug) cout<<"after memset events"<<endl;
 	}
+
 
 	//+-------------+
 	//| loop events |
