@@ -822,7 +822,7 @@ void makeRealPairs()
 				Double_t angleV = phiVAngle(current_ePlus[i],current_eMinus[j],1,-1);
 				hULAngleVvsM->Fill(pair.M(),angleV,reWeight);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hULMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-				hULMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+				// hULMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				if(mDebug) cout << "before polarization calcultion" << endl;
 				if (pair.M()>0.2 && pair.M() < 1.1 )
 				{
@@ -883,7 +883,7 @@ void makeRealPairs()
 				Double_t angleV = phiVAngle(current_ePlus[i],current_ePlus[j],1,1);
 				hLPosAngleVvsM->Fill(pair.M(),angleV,reWeight);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-				hLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+				// hLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				if (pair.M()>0.2 && pair.M() < 1.1 )
 				{
 					Polarization(1,1,current_ePlus[i],current_ePlus[j]);
@@ -934,7 +934,7 @@ void makeRealPairs()
 				Double_t angleV = phiVAngle(current_eMinus[i],current_eMinus[j],-1,-1);
 				hLNegAngleVvsM->Fill(pair.M(),angleV,reWeight);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-				hLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+				// hLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				if (pair.M()>0.2 && pair.M() < 1.1 )
 				{
 					Polarization(-1,-1,current_eMinus[i],current_eMinus[j]);
@@ -1050,7 +1050,7 @@ void makeMixPairs()
 					Double_t angleVcut = phiVcut->Eval(pair.M());
 					Double_t angleV = phiVAngle(current_ePlus[i],buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j],1,1);
 					hMixLPosAngleVvsM->Fill(pair.M(),angleV,reWeight);
-					if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+					// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixLPosMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixLPosMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
@@ -1086,7 +1086,7 @@ void makeMixPairs()
 					Double_t angleVcut = phiVcut->Eval(pair.M());
 					Double_t angleV = phiVAngle(current_eMinus[i],buffer_eMinus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j],-1,-1);
 					hMixLNegAngleVvsM->Fill(pair.M(),angleV,reWeight);
-					if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+					// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixLNegMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixLNegMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
