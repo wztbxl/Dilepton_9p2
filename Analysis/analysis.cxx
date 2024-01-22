@@ -1733,6 +1733,29 @@ void writeHistograms(char* outFile)
 	hRefMultvsnPiKP_extraE->Write();
 	cout << "writing 3D done" << endl;
 
+	hPairPhiPt->Write();
+	hPairPhiPtBG->Write();
+	hPairCosThetaPt->Write();
+	hPairCosThetaPtBG->Write();
+	hPairPhiPtHX->Write();
+	hPairPhiPtHXBG->Write();
+	hPairCosThetaPtCS->Write();
+	hPairCosThetaPtCSBG->Write();
+	hPairPhiPtCS->Write();
+	hPairPhiPtCSBG->Write();
+	hPairCosThetaInvMPt->Write();
+	hPairCosThetaInvMPtBG->Write();
+	hPairCosThetaInvMPtCS->Write();
+	hPairCosThetaInvMPtCSBG->Write();
+	hPairPhiInvMPt->Write();
+	hPairPhiInvMPtBG->Write();
+	hPairPhiInvMPtCS->Write();
+	hPairPhiInvMPtCSBG->Write();
+	hPairCosThetaPhiPt->Write();
+	hPairCosThetaPhiPtBG->Write();
+	hPairCosThetaPhiPtCS->Write();
+	hPairCosThetaPhiPtCSBG->Write();
+
 	
 
 	// hULCosThetavsMvsCen->Write();
