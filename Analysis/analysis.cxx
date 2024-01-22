@@ -1571,15 +1571,15 @@ void bookHistograms()
 	hPairPhiPtCSBG = new TH2F("hPairPhiPtCSBG","Pair Pt vs #phi;#phi;Pair Pt",10,-TMath::Pi(),TMath::Pi(),120,0,30);
 	hPairPhiPtCSBG->Sumw2();
 
-	hPairCosThetaInvMPt = new TH3F("hPairCosThetaInvMPt","hPairCosThetaInvMPt",40,-1,1,40,2,4,120,0,30);
-	hPairCosThetaInvMPtBG= new TH3F("hPairCosThetaInvMPtBG","hPairCosThetaInvMPtBG",40,-1,1,40,2,4,120,0,30);
-	hPairCosThetaInvMPtCS= new TH3F("hPairCosThetaInvMPtCS","hPairCosThetaInvMPtCS",40,-1,1,40,2,4,120,0,30);
-	hPairCosThetaInvMPtCSBG= new TH3F("hPairCosThetaInvMPtCSBG","hPairCosThetaInvMPtCSBG",40,-1,1,40,2,4,120,0,30);
+	hPairCosThetaInvMPt = new TH3F("hPairCosThetaInvMPt","hPairCosThetaInvMPt",40,-1,1,25,0,2.5,120,0,30);
+	hPairCosThetaInvMPtBG= new TH3F("hPairCosThetaInvMPtBG","hPairCosThetaInvMPtBG",40,-1,1,25,0,2.5,120,0,30);
+	hPairCosThetaInvMPtCS= new TH3F("hPairCosThetaInvMPtCS","hPairCosThetaInvMPtCS",40,-1,1,25,0,2.5,120,0,30);
+	hPairCosThetaInvMPtCSBG= new TH3F("hPairCosThetaInvMPtCSBG","hPairCosThetaInvMPtCSBG",40,-1,1,25,0,2.5,120,0,30);
 
-	hPairPhiInvMPt = new TH3F("hPairPhiInvMPt","hPairPhiInvMPt",40,-TMath::Pi(),TMath::Pi(),40,2,4,120,0,30);
-	hPairPhiInvMPtBG = new TH3F("hPairPhiInvMPtBG","hPairPhiInvMPtBG",40,-TMath::Pi(),TMath::Pi(),40,2,4,120,0,30);
-	hPairPhiInvMPtCS = new TH3F("hPairPhiInvMPtCS","hPairPhiInvMPtCS",40,-TMath::Pi(),TMath::Pi(),40,2,4,120,0,30);
-	hPairPhiInvMPtCSBG = new TH3F("hPairPhiInvMPtCSBG","hPairPhiInvMPtCSBG",40,-TMath::Pi(),TMath::Pi(),40,2,4,120,0,30);
+	hPairPhiInvMPt = new TH3F("hPairPhiInvMPt","hPairPhiInvMPt",40,-TMath::Pi(),TMath::Pi(),25,0,2.5,120,0,30);
+	hPairPhiInvMPtBG = new TH3F("hPairPhiInvMPtBG","hPairPhiInvMPtBG",40,-TMath::Pi(),TMath::Pi(),25,0,2.5,120,0,30);
+	hPairPhiInvMPtCS = new TH3F("hPairPhiInvMPtCS","hPairPhiInvMPtCS",40,-TMath::Pi(),TMath::Pi(),25,0,2.5,120,0,30);
+	hPairPhiInvMPtCSBG = new TH3F("hPairPhiInvMPtCSBG","hPairPhiInvMPtCSBG",40,-TMath::Pi(),TMath::Pi(),25,0,2.5,120,0,30);
 
 	hPairCosThetaInvMPt->Sumw2();
 	hPairCosThetaInvMPtBG->Sumw2();
