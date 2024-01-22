@@ -313,31 +313,35 @@ int main(int argc, char** argv)
 			Float_t ratio = 0.;
 			if(rcDedx>0) ratio = rcNHitsFit*1./rcNHitsPoss;
 
-			// if(TMath::Abs(mcEta)<=1.0){
-			// 	if(q>0.){
-			// 	   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi);
-			// 		hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
-			// 	}else{
-			// 	   	hDenEMinusTpcEff->Fill(mcPt,mcEta,mcPhi); 
-			// 		hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
-			// 	}
+			//Fill the histograms of 
+			if(TMath::Abs(mcEta)<=1.0){
+				if(q>0.){
+				   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi);
+					hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
+				}else{
+				   	hDenEMinusTpcEff->Fill(mcPt,mcEta,mcPhi); 
+					hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
+				}
 
-			// 	if(rcNHitsFit>=mTpceNHitsFitCut//for systemiac uncentraity change this +/-5
-			// 	//if(rcNHitsFit>=20//for systemiac uncentraity change this +/-5
-			// 			&& ratio>=mTpceNHitsFitRatioCut
-			// 			&& rcDca<=mTpceDcaCut
-			// 			// && rcDca<=0.8
-			// 			&& rcNHitsDedx>=15){
-			// 			// && rcNHitsDedx>=20){
-			// 		if(q>0){
-			// 		   	hNumEPlusTpcEff->Fill(mcPt,mcEta,mcPhi);
-			// 			hNumEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
-			// 		}else{
-			// 		   	hNumEMinusTpcEff->Fill(mcPt,mcEta,mcPhi);
-			// 			hNumEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
-			// 		}
-			// 	}
-			// }
+				if(rcNHitsFit>=mTpceNHitsFitCut//for systemiac uncentraity change this +/-5
+				//if(rcNHitsFit>=20//for systemiac uncentraity change this +/-5
+						&& ratio>=mTpceNHitsFitRatioCut
+						&& rcDca<=mTpceDcaCut
+						// && rcDca<=0.8
+						&& rcNHitsDedx>=15){
+						// && rcNHitsDedx>=20){
+					if(q>0){
+					   	hNumEPlusTpcEff->Fill(mcPt,mcEta,mcPhi);
+						hNumEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
+					}else{
+					   	hNumEMinusTpcEff->Fill(mcPt,mcEta,mcPhi);
+						hNumEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
+					}
+				}
+			}
+
+			/*
+			//fill the num histograms with RC information 
 			if(TMath::Abs(mcEta)<=1.0){
 				if(q>0.){
 				   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi);
@@ -364,6 +368,7 @@ int main(int argc, char** argv)
 					}
 				}
 			}
+			*/
 
 			if(mcPhi>PI) mcPhi -= 2*PI;
 
