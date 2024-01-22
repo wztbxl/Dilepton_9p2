@@ -215,14 +215,9 @@ TH2F *hPositronCenvsPt;
 TH3F *hULMvsPtCen;
 TH3F *hLPosMvsPtCen;
 TH3F *hLNegMvsPtCen;
-TH3F *hULMvsPtCen_CutedbyPhiV;
-TH3F *hLPosMvsPtCen_CutedbyPhiV;
-TH3F *hLNegMvsPtCen_CutedbyPhiV;
 TH3F *hMixULMvsPtCen;
 TH3F *hMixLPosMvsPtCen;
 TH3F *hMixLNegMvsPtCen;
-TH3F *hMixLPosMvsPtCen_CutedbyPhiV;
-TH3F *hMixLNegMvsPtCen_CutedbyPhiV;
 TH3F *hULMvsPhiCen;
 TH3F *hLPosMvsPhiCen;
 TH3F *hLNegMvsPhiCen;
@@ -353,6 +348,7 @@ int main(int argc, char** argv)
 	for(int i=0;i<nEvts;i++){
 
 		if(i%(nEvts/10)==0) cout << "begin " << i << "th entry...." << endl;
+		// chain->GetEntry(i);
 		event->GetEntry(i);
 		 runId = event->mRunId;
 
@@ -1519,14 +1515,9 @@ void bookHistograms()
 	hMixULMvsPtCen = new TH3F("hMixULMvsPtCen","hMixULMvsPtCen;p_{T} (GeV/c);Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
 	hMixLPosMvsPtCen = new TH3F("hMixLPosMvsPtCen","hMixLPosMvsPtCen;p_{T} (GeV/c);Centrality;Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
 	hMixLNegMvsPtCen = new TH3F("hMixLNegMvsPtCen","hMixLNegMvsPtCen;p_{T} (GeV/c);Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hMixLPosMvsPtCen_CutedbyPhiV = new TH3F("hMixLPosMvsPtCen_CutedbyPhiV","hMixLPosMvsPtCen_CutedbyPhiV;p_{T} (GeV/c);Centrality;Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hMixLNegMvsPtCen_CutedbyPhiV = new TH3F("hMixLNegMvsPtCen_CutedbyPhiV","hMixLNegMvsPtCen_CutedbyPhiV;p_{T} (GeV/c);Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hULMvsPhiCen = new TH3F("hULMvsPhiCen","hULMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",600,-3.14-0.1,3.14+0.1,16,0,16,1000,massLow,massHi);
-	hLPosMvsPhiCen = new TH3F("hLPosMvsPhiCen","hLPosMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",600,-3.14-0.1,3.14+0.1,16,0,16,1000,massLow,massHi);
-	hLNegMvsPhiCen = new TH3F("hLNegMvsPhiCen","hLNegMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",600,-3.14-0.1,3.14+0.1,16,0,16,1000,massLow,massHi);
-	hULMvsPtCen_CutedbyPhiV = new TH3F("hULMvsPtCen_CutedbyPhiV","hULMvsPtCen;p_{T} (GeV/c^{2});Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hLPosMvsPtCen_CutedbyPhiV = new TH3F("hLPosMvsPtCen_CutedbyPhiV","hLPosMvsPtCen;p_{T} (GeV/c^{2});Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
-	hLNegMvsPtCen_CutedbyPhiV = new TH3F("hLNegMvsPtCen_CutedbyPhiV","hLNegMvsPtCen;p_{T} (GeV/c^{2});Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
+	hULMvsPhiCen = new TH3F("hULMvsPhiCen","hULMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",60,-3.14-0.1,3.14+0.1,16,0,16,500,massLow,massHi);
+	hLPosMvsPhiCen = new TH3F("hLPosMvsPhiCen","hLPosMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",60,-3.14-0.1,3.14+0.1,16,0,16,500,massLow,massHi);
+	hLNegMvsPhiCen = new TH3F("hLNegMvsPhiCen","hLNegMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",60,-3.14-0.1,3.14+0.1,16,0,16,500,massLow,massHi);
 	hCellIDDiff = new TH1D("hCellIDDiff","hCellIDDiff;ID Diff ;counts;",32,-16,16);
 	hVxvsVy_extraE = new TH2D("hVxvsVy_extraE",";V_{x} (cm);V_{y} (cm)",100,-5,5,100,-5,5);
 	hnTofHitsvsRefMult_extraE = new TH2D("hnTofHitsvsRefMult_extraE",";RefMult;nTofHits",500,0,500,500,0,500);
@@ -1715,11 +1706,6 @@ void writeHistograms(char* outFile)
 	hULMvsPhiCen->Write();
   	hLPosMvsPhiCen->Write();
   	hLNegMvsPhiCen->Write();
-	hULMvsPtCen_CutedbyPhiV->Write();
-	hLPosMvsPtCen_CutedbyPhiV->Write();
-	hLNegMvsPtCen_CutedbyPhiV->Write();
-	hMixLPosMvsPtCen_CutedbyPhiV->Write();
-	hMixLNegMvsPtCen_CutedbyPhiV->Write();
 	hElectronCenvsPt->Write();
 	hPositronCenvsPt->Write();
 	hCellIDDiff->Write();
