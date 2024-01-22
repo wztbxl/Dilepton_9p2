@@ -64,8 +64,8 @@ void Polarization(int icharge,int jcharge,TLorentzVector ivector,TLorentzVector 
 void fillHistograms(std::string  unlikeOrlike,TLorentzVector JPSI);
 void fill3DHistograms(std::string unlikeOrlike,TLorentzVector JPSI,int i,int j,int pairs);
 
-// int mDebug = 0;
-int mDebug = 1;
+int mDebug = 0;
+// int mDebug = 1;
 
 int nPi_K_P_tof = 0;//used for pile rejection
 TF1* f_upper = new TF1("f_upper","pol5",0,350);
@@ -1450,10 +1450,10 @@ void bookHistograms()
 	hRunID = new TH1D("hRunID",";RunID;nCounts",214990,21030025,21245015);
 	hTriggerID = new TH1D("hTriggerID",";Trigger ID;nCounts",4,780000-1,780040-1);
 
-	const Int_t    nPtBins   = 500;
+	const Int_t    nPtBins   = 100;
 	const Double_t ptLow     = 0;
 	const Double_t ptHi      = 5;
-	const Int_t    nMassBins = 800;
+	const Int_t    nMassBins = 400;
 	const Double_t massLow   = 0;
 	const Double_t massHi    = 4;
 
