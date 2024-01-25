@@ -1,0 +1,20 @@
+/GNUmakefile/1.1/Sat Jan  4 07:15:11 2020//
+/MINIEVENT.cxx/1.1/Sat Jan  4 07:15:11 2020//
+/MINIEVENT.h/1.1/Sat Jan  4 07:15:11 2020//
+/ReadMe_toyMc.txt/1.2/Wed Mar 18 09:13:38 2020//
+/ReadMe_track_signal.txt/1.2/Wed Mar 18 09:13:38 2020//
+/analysis/1.1/Sat Jan  4 07:15:11 2020//
+/analysis.cxx/1.1/Sat Jan  4 07:15:11 2020//
+/constant.h/1.1/Sat Jan  4 07:15:11 2020//
+/datalist.lis/1.1/Sat Jan  4 07:15:11 2020//
+/headers.h/1.1/Sat Jan  4 07:15:11 2020//
+/run.csh/1.1/Sat Jan  4 07:15:12 2020//
+/runAll.csh/1.1/Sat Jan  4 07:15:12 2020//
+/test.list/1.1/Sat Jan  4 07:15:12 2020//
+D/DataList////
+D/FinalResults////
+D/signalSys////
+D/submit////
+D/toyMcCorr////
+D/toyMcSys////
+D/trackSys////
