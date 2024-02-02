@@ -833,20 +833,20 @@ void makeRealPairs()
 				Double_t angleV = phiVAngle(current_ePlus[i],current_ePlus[j],1,1);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				// hLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-				if (pair.M()>0.2 && pair.M() < 1.1 )
-				{
-					Polarization(1,1,current_ePlus[i],current_ePlus[j]);
-					fill3DHistograms("like",pair,i,j,0);
-					fillHistograms("like",pair);
-					GetPtPhiCentBin(pair,current_ePlus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
-					hLSPlusM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-					hLSPlusYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-				}
 				if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 				// if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 					hLPosMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 					//hLPosMvsPt->Fill(pair.Pt(),pair.M());
 					hLPosMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+					if (pair.M()>0.2 && pair.M() < 1.1 )
+					{
+						Polarization(1,1,current_ePlus[i],current_ePlus[j]);
+						fill3DHistograms("like",pair,i,j,0);
+						fillHistograms("like",pair);
+					}
+					GetPtPhiCentBin(pair,current_ePlus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
+					hLSPlusM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+					hLSPlusYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
 					// hLPosMvsPhiCen->Fill(pair.Phi(),cenBufferPointer,pair.M(),reWeight);
 
 					if(pair.Pt()<pairPtCut){
@@ -886,20 +886,21 @@ void makeRealPairs()
 				Double_t angleV = phiVAngle(current_eMinus[i],current_eMinus[j],-1,-1);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				// hLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-				if (pair.M()>0.2 && pair.M() < 1.1 )
-				{
-					Polarization(-1,-1,current_eMinus[i],current_eMinus[j]);
-					fill3DHistograms("like",pair,i,j,0);
-					fillHistograms("like",pair);
-					GetPtPhiCentBin(pair,current_eMinus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
-					hLSMinusM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-					hLSMinusYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-				}
 				if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 					hLNegMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 					//hLNegMvsPt->Fill(pair.Pt(),pair.M());
 					hLNegMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 					// hLNegMvsPhiCen->Fill(pair.Phi(),cenBufferPointer,pair.M(),reWeight);
+
+					if (pair.M()>0.2 && pair.M() < 1.1 )
+					{
+						Polarization(-1,-1,current_eMinus[i],current_eMinus[j]);
+						fill3DHistograms("like",pair,i,j,0);
+						fillHistograms("like",pair);
+					}
+					GetPtPhiCentBin(pair,current_eMinus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
+					hLSMinusM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+					hLSMinusYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
 
 					if(pair.Pt()<pairPtCut){
 						Double_t costheta = calCosTheta(current_eMinus[i], pair);
@@ -942,13 +943,13 @@ void makeMixPairs()
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixULMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixULMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-						if (pair.M()>0.2 && pair.M() < 1.1 )
-						{
+
+						// if (pair.M()>0.2 && pair.M() < 1.1 )
+						// {
 							GetPtPhiCentBin(pair,current_ePlus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
 							hMixULM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
 							hMixULYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-						}
-
+						// }
 						if(pair.Pt()<pairPtCut){
 							Double_t costheta = calCosTheta(current_ePlus[i], pair);
 							//hMixULCosThetavsMvsCen->Fill(cenBufferPointer, pair.M(), TMath::Abs(costheta), reWeight);
@@ -981,12 +982,12 @@ void makeMixPairs()
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixULMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixULMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-						if (pair.M()>0.2 && pair.M() < 1.1 )
-						{
+						// if (pair.M()>0.2 && pair.M() < 1.1 )
+						// {
 							GetPtPhiCentBin(pair,buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
 							hMixULM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
 							hMixULYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-						}
+						// }
 
 						if(pair.Pt()<pairPtCut){
 							Double_t costheta = calCosTheta(buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j], pair);
@@ -1019,16 +1020,16 @@ void makeMixPairs()
 					Double_t angleVcut = phiVcut->Eval(pair.M());
 					Double_t angleV = phiVAngle(current_ePlus[i],buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j],1,1);
 					// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-					if (pair.M()>0.2 && pair.M() < 1.1 )
-					{
-						GetPtPhiCentBin(pair,current_ePlus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
-						hMixLSPosM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-						hMixLSPosYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-					}
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixLPosMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixLPosMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 
+					// if (pair.M()>0.2 && pair.M() < 1.1 )
+					// {
+						GetPtPhiCentBin(pair,current_ePlus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
+						hMixLSPosM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+						hMixLSPosYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+					// }
 						if(pair.Pt()<pairPtCut){
 							Double_t costheta = calCosTheta(current_ePlus[i], pair);
 							// hMixLPosCosThetavsMvsCen->Fill(cenBufferPointer, pair.M(), TMath::Abs(costheta), reWeight);
@@ -1060,15 +1061,15 @@ void makeMixPairs()
 					Double_t angleVcut = phiVcut->Eval(pair.M());
 					Double_t angleV = phiVAngle(current_eMinus[i],buffer_eMinus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j],-1,-1);
 					// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-					if (pair.M()>0.2 && pair.M() < 1.1 )
-					{
-						GetPtPhiCentBin(pair,current_eMinus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
-						hMixLSNegM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-						hMixLSMinusYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-					}
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixLNegMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixLNegMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+					// if (pair.M()>0.2 && pair.M() < 1.1 )
+					// {
+						GetPtPhiCentBin(pair,current_eMinus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
+						hMixLSNegM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+						hMixLSMinusYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+					// }
 
 						if(pair.Pt()<pairPtCut){
 							Double_t costheta = calCosTheta(current_eMinus[i], pair);
