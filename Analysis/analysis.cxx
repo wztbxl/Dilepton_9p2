@@ -780,11 +780,11 @@ void makeRealPairs()
 					if(mDebug) cout << "before polarization calcultion" << endl;
 					if (pair.M()>0.2 && pair.M() < 1.1 )
 					{
-					if(mDebug) cout << "before polarization calcultion" << endl;
+						if(mDebug) cout << "before polarization calcultion" << endl;
 						Polarization(1,-1,current_ePlus[i],current_eMinus[j]);
-					if(mDebug) cout << "before Fill3D calcultion" << endl;
+						if(mDebug) cout << "before Fill3D calcultion" << endl;
 						fill3DHistograms("unlike",pair,i,j,0);
-					if(mDebug) cout << "before Fillhis calcultion" << endl;
+						if(mDebug) cout << "before Fillhis calcultion" << endl;
 						fillHistograms("unlike",pair);
 					}
 					if(mDebug) cout << "after polarization calcultion" << endl;
@@ -1358,7 +1358,7 @@ void GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrali
 	if(mDebug){
 		cout<<"Centality:"<<_mCentrality<<endl;
 	}
-	float _mCent = 8 - _mCentrality;
+	float _mCent = _mCentrality;
 	CentIndex = CentAxis->FindBin(_mCent) -1;
 	if(mDebug){
 		cout<<"CentIndex:"<<CentIndex<<endl;
