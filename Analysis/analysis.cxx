@@ -410,10 +410,10 @@ int main(int argc, char** argv)
 		current_nEMinus=0;
 		Int_t npTrks = event->mNTrks;
 		nPi_K_P_tof = event->mnChargeParticle;
-		// cout << "npTrks = " << npTrks << endl;
+		if(mDebug) cout << "npTrks = " << npTrks << endl;
 		// nPi_K_P_tof = 0;
 		for(int j=0;j<npTrks;j++) passTrack(event,j); //Trk loop
-    // cout << "after passtrack" << endl;
+		if(mDebug) cout << "after passtrack" << endl;
 		hnEMinusvsEPlus->Fill(current_nEPlus,current_nEMinus);
 		// cout << "nPi_K_P_tof = " << nPi_K_P_tof << endl; 
 
@@ -424,6 +424,7 @@ int main(int argc, char** argv)
 		
 
 		finalEventPlane = reCalEventPlane(event, kTRUE);//reject the electron contribution
+		if(mDebug) cout << "after recal Event Plane" << endl;
 		if(finalEventPlane<0) continue;
 		eveBufferPointer = (Int_t)(finalEventPlane/TMath::Pi()*mEveBins);
 		// // cout<<"eveBufferPointer:"<<eveBufferPointer<<endl;
