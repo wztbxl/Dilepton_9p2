@@ -65,8 +65,8 @@ void fillHistograms(std::string  unlikeOrlike,TLorentzVector JPSI);
 void fill3DHistograms(std::string unlikeOrlike,TLorentzVector JPSI,int i,int j,int pairs);
 void GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrality,float eventphi,int &ptindex,int &yindex,int &phiindex,int &CentIndex,double &costhe,Bool_t tangent, Int_t Flag );
 
-// int mDebug = 0;
-int mDebug = 1;
+int mDebug = 0;
+// int mDebug = 1;
 
 int nPi_K_P_tof = 0;//used for pile rejection
 TF1* f_upper = new TF1("f_upper","pol5",0,350);
@@ -1568,7 +1568,7 @@ void bookHistograms()
 	//eventPlane
 	hRawEventPlane = new TH1F("hRawEventPlane","hRawEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
 	hNewEventPlane = new TH1F("hNewEventPlane","hNewEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
-	hNewEventPlaneEast = new TH1D("hNewEventPlaneEase","hNewEventPlaneEase;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
+	hNewEventPlaneEast = new TH1D("hNewEventPlaneEast","hNewEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
 	hNewEventPlaneWest = new TH1D("hNewEventPlaneWest","hNewEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
 	hReCenterEventPlane = new TH1F("hReCenterEventPlane","hReCenterEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
 	hReCenterEventPlaneEast = new TH1D("hReCenterEventPlaneEast","hReCenterEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
@@ -1819,6 +1819,7 @@ void writeHistograms(char* outFile)
 	hPairCosThetaPhiPtBG->Write();
 	hPairCosThetaPhiPtCS->Write();
 	hPairCosThetaPhiPtCSBG->Write();
+	cout << "writing loacl Polarization done" << endl;
 
 	hNewEventPlaneEast->Write();
 	hNewEventPlaneWest->Write();
@@ -1831,6 +1832,7 @@ void writeHistograms(char* outFile)
 	hMixCosthetastar->Write();
 	EventPlanRes->Write();
 
+	cout << "writing EP done" << endl;
 	for(int i=0; i<mCenBins;i++){
 		for(int j=0; j<mPtBins;j++){
 			for(int k=0; k<mPhiBins; k++){
@@ -1839,7 +1841,7 @@ void writeHistograms(char* outFile)
 				hLSMinusM[i][j][k]->Write();
 				hMixULM[i][j][k]->Write();
 				hMixLSPosM[i][j][k]->Write();
-				hMixLSPosM[i][j][k]->Write();
+				hMixLSNegM[i][j][k]->Write();
 			}
 		}
 		for(int j=0; j<mYBins;j++){
