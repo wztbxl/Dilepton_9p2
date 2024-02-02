@@ -65,8 +65,8 @@ void fillHistograms(std::string  unlikeOrlike,TLorentzVector JPSI);
 void fill3DHistograms(std::string unlikeOrlike,TLorentzVector JPSI,int i,int j,int pairs);
 void GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrality,float eventphi,int &ptindex,int &yindex,int &phiindex,int &CentIndex,double &costhe,Bool_t tangent, Int_t Flag );
 
-int mDebug = 0;
-// int mDebug = 1;
+// int mDebug = 0;
+int mDebug = 1;
 
 int nPi_K_P_tof = 0;//used for pile rejection
 TF1* f_upper = new TF1("f_upper","pol5",0,350);
@@ -1682,7 +1682,7 @@ void bookHistograms()
 				hLSMinusM[i][j][k] = new TH1F(Form("hLSMinusM_%d_%d_%d",i,j,k),"hLSMinusM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
 				hMixULM[i][j][k] = new TH1F(Form("hMixULM_%d_%d_%d",i,j,k),"hMixULM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
 				hMixLSPosM[i][j][k] = new TH1F(Form("hMixLSPosM_%d_%d_%d",i,j,k),"hMixLSPosM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
-				hMixLSPosM[i][j][k] = new TH1F(Form("hMixLSPosM_%d_%d_%d",i,j,k),"hMixLSPosM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
+				hMixLSNegM[i][j][k] = new TH1F(Form("hMixLSNegM_%d_%d_%d",i,j,k),"hMixLSNegM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
 			}
 		}
 		for(int j=0; j<mYBins;j++){
