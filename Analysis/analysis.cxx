@@ -1232,6 +1232,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 		mReCenterQxWest = mPlusQx - mEtaPlusNTrks*etapluszminusQx->GetBinContent(runIndex+1, mCentrality);
 		mReCenterQyWest = mPlusQy - mEtaPlusNTrks*etapluszminusQy->GetBinContent(runIndex+1, mCentrality);
 	}
+	if(mDebug) cout << "before cal recentred EP" << endl;
 
 	Double_t recenterEP_noFlat;
 	Double_t recenterEP;
