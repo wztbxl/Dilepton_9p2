@@ -1156,7 +1156,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 			cout<<"Can not find the dayId in the mTotalDayId list"<<endl;
 		}
 
-
+	if(mDebug) cout << "before get raw Q" << endl;
 	TVector2 mRawQ(Qx,Qy);
 	Double_t rawEP = 0.5*mRawQ.Phi();
 	if(rawEP<0.) rawEP += TMath::Pi();
@@ -1207,6 +1207,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 
 	if(eventPlane<0.) return eventPlane;
 
+	if(mDebug) cout << "before recenter" << endl;
 	//********* get recenter number and recenter *********
 	Double_t mReCenterQx, mReCenterQy;
 	Double_t mReCenterQxEast, mReCenterQyEast;
@@ -1260,6 +1261,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 
 	//for now just using the flat event plane to do the calculation
 	EventPlanRes->Fill(mCentrality, cos(2*(recenterEPEast-recenterEPWest)));
+	if(mDebug) cout << "before shift" << endl;
 	
 	//*********  get shift factor and add shift deltaPhi *********
 	Float_t shiftCorrcos[mArrayLength];
@@ -1292,6 +1294,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	hDelta_Psi2->Fill(recenterEP_2,deltaPhi_2);
 
 
+	if(mDebug) cout << "before final" << endl;
 	hDelta_Psi2_FitvsFactor->Fill(recenterEP_2,recenterEP);
 	hFinalEventPlane_Fit->Fill(recenterEP_2);
 	if (abs(recenterEP_2-recenterEP) > 0.02)
