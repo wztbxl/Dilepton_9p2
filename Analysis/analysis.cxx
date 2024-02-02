@@ -1207,6 +1207,14 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 
 	if(eventPlane<0.) return eventPlane;
 
+	etapluszplusQx->Print();
+	etaminuszplusQx->Print();
+	etapluszplusQy->Print();
+	etaminuszplusQy->Print();
+	etapluszminusQx->Print();
+	etaminuszminusQx->Print();
+	etapluszminusQy->Print();
+	etaminuszminusQy->Print();
 	if(mDebug) cout << "before recenter" << endl;
 	//********* get recenter number and recenter *********
 	Double_t mReCenterQx, mReCenterQy;
