@@ -1206,7 +1206,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	hNewEventPlaneWest->Fill(eventPlane_West);
 
 	if(eventPlane<0.) return eventPlane;
-	
+
 	if(mDebug) cout << "before recenter" << endl;
 	//********* get recenter number and recenter *********
 	Double_t mReCenterQx, mReCenterQy;
@@ -1261,6 +1261,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	recenterEP_noFlat = recenterEP;
 
 	//for now just using the flat event plane to do the calculation
+	hEventPlaneWestvsEast->Fill(recenterEPEast,recenterEPWest);
 	EventPlanRes->Fill(mCentrality, cos(2*(recenterEPEast-recenterEPWest)));
 	if(mDebug) cout << "before shift" << endl;
 	
@@ -1565,6 +1566,7 @@ void bookHistograms()
 	hReCenterEventPlane = new TH1F("hReCenterEventPlane","hReCenterEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
 	hReCenterEventPlaneEast = new TH1D("hReCenterEventPlaneEast","hReCenterEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
 	hReCenterEventPlaneWest = new TH1D("hReCenterEventPlaneWest","hReCenterEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
+	hEventPlaneWestvsEast = new TH1D("hEventPlaneWestvsEast","hEventPlaneWestvsEast; EP east; EP west",300,0,TMath::Pi(),300,0,TMath::Pi());
 	hFinalEventPlane = new TH1F("hFinalEventPlane","hFinalEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
 	hFinalEventPlaneEast = new TH1D("hFinalEventPlaneEast","hFinalEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
 	hFinalEventPlaneWest = new TH1D("hFinalEventPlaneWest","hFinalEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
