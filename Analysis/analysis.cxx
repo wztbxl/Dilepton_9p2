@@ -257,6 +257,7 @@ TH3F* hPairCosThetaPhiPtCS;
 TH3F* hPairCosThetaPhiPtCSBG;
 
 //M vs Pt
+TH1F *hRapdity;
 TH2F *hULMvsPtT;
 TH2F *hULMvsPtTW;
 TH1F *hULM[mCenBins][mPtBins][mPhiBins];
@@ -1554,14 +1555,14 @@ void bookHistograms()
 	//eventPlane
 	hRawEventPlane = new TH1F("hRawEventPlane","hRawEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
 	hNewEventPlane = new TH1F("hNewEventPlane","hNewEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
-	hNewEventPlaneEast = new TH1F("hNewEventPlaneEase","hNewEventPlaneEase;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
-	hNewEventPlaneWest = new TH1F("hNewEventPlaneWest","hNewEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
+	hNewEventPlaneEast = new TH1D("hNewEventPlaneEase","hNewEventPlaneEase;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
+	hNewEventPlaneWest = new TH1D("hNewEventPlaneWest","hNewEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
 	hReCenterEventPlane = new TH1F("hReCenterEventPlane","hReCenterEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
-	hReCenterEventPlaneEast = new TH1F("hReCenterEventPlaneEast","hReCenterEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
-	hReCenterEventPlaneWest = new TH1F("hReCenterEventPlaneWest","hReCenterEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
+	hReCenterEventPlaneEast = new TH1D("hReCenterEventPlaneEast","hReCenterEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
+	hReCenterEventPlaneWest = new TH1D("hReCenterEventPlaneWest","hReCenterEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
 	hFinalEventPlane = new TH1F("hFinalEventPlane","hFinalEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
-	hFinalEventPlaneEast = new TH1F("hFinalEventPlaneEast","hFinalEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
-	hFinalEventPlaneWest = new TH1F("hFinalEventPlaneWest","hFinalEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
+	hFinalEventPlaneEast = new TH1D("hFinalEventPlaneEast","hFinalEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
+	hFinalEventPlaneWest = new TH1D("hFinalEventPlaneWest","hFinalEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
 	hFinalEventPlane_Fit = new TH1F("hFinalEventPlane_Fit","hFinalEventPlane_Fit;Reaction Plane (rad); Counts",300,0,TMath::Pi());
 	hDelta_Psi2 = new TH2F("hDelta_Psi2","hDelta_Psi2;recenter #Psi_{2};#Delta#Psi_{2}",300,0,TMath::Pi(),600,-TMath::Pi()-0.1,TMath::Pi()+0.1);
 	hDelta_Psi2_FitvsFactor = new TH2F("hDelta_Psi2_FitvsFactor","hDelta_Psi2_FitvsFactor;Fit #Delta#Psi_{2};Factor #Delta#Psi_{2}",300,0-0.2,TMath::Pi()+0.2,300,0-0.2,TMath::Pi()+0.2);
@@ -1672,7 +1673,7 @@ void bookHistograms()
 	hULMvsPtT = new TH2F("hULMvsPtT","hULMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
 	hULMvsPtTW = new TH2F("hULMvsPtTW","hULMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
 	hRapdity = new TH1F("hRapdity","Rapdity",100,-2,2);
-	for(int i=0; i<mCentBins;i++){
+	for(int i=0; i<mCenBins;i++){
 		for(int j=0; j<mPtBins;j++){
 			for(int k=0; k<mPhiBins; k++){
 				hULM[i][j][k] = new TH1F(Form("hULM_%d_%d_%d",i,j,k),"hULM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);// cent, pT, costheta
@@ -1817,7 +1818,7 @@ void writeHistograms(char* outFile)
 	hMixCosthetastar->Write();
 	EventPlanRes->Write();
 
-	for(int i=0; i<mCentBins;i++){
+	for(int i=0; i<mCenBins;i++){
 		for(int j=0; j<mPtBins;j++){
 			for(int k=0; k<mPhiBins; k++){
 				hULM[i][j][k]->Write();
@@ -1915,7 +1916,7 @@ Bool_t Init()
 	PtAxis = new TAxis(mPtBins, mPairPtCut);
 	YAxis = new TAxis(mYBins, -1,1);
 	PhiAxis = new TAxis(mPhiBins, 0, 1);
-	CentAxis = new TAxis(mCentBins,mCentCut);
+	CentAxis = new TAxis(mCenBins,mCentCut);
 
 
 	cout<<"bad run for trigger 580001"<<endl;
