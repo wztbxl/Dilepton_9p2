@@ -63,6 +63,7 @@ bool nPi_K_P_rejection(int refmult, int nPi_K_P );
 void Polarization(int icharge,int jcharge,TLorentzVector ivector,TLorentzVector jvector);
 void fillHistograms(std::string  unlikeOrlike,TLorentzVector JPSI);
 void fill3DHistograms(std::string unlikeOrlike,TLorentzVector JPSI,int i,int j,int pairs);
+void GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrality,float eventphi,int &ptindex,int &yindex,int &phiindex,int &CentIndex,double &costhe,Bool_t tangent, Int_t Flag );
 
 int mDebug = 0;
 // int mDebug = 1;
@@ -104,6 +105,9 @@ const Float_t pairPtCut = 0.1;
 const Int_t mCenBins = 9; //16; //9;
 const Int_t mVzBins = 10; //10; //6;
 const Int_t mEveBins = 12; //24; //12;
+const Int_t mPtBins = 10;
+const Int_t mYBins = 20;
+const Int_t mPhiBins= 7;
 const Int_t mMaxEventsInBuffer = 350; //100; //50;
 const Int_t mMaxElectrons = 70;
 const Float_t mPhiVCutMRange = 0.2;
@@ -116,6 +120,7 @@ int current_nEPlus = 0;
 int current_nEMinus = 0;
 TLorentzVector current_ePlus[mMaxElectrons];
 TLorentzVector current_eMinus[mMaxElectrons];
+TLorentzVector current_e[mMaxElectrons];
 int current_ePlus_CellID[mMaxElectrons];
 int current_eMinus_CellID[mMaxElectrons];
 int current_ePlus_tags[mMaxElectrons];
@@ -173,27 +178,30 @@ TH2D* hVxvsVy;
 //eventPlane
 TH1F *hRawEventPlane;
 TH1F *hNewEventPlane;
-TH1F *hFinalEventPlane;
-TH1F *hFinalEventPlane_Fit;
+TH1D *hNewEventPlaneEast;//rejection electron
+TH1D *hNewEventPlaneWest;
 TH1F *hReCenterEventPlane;
+TH1D *hReCenterEventPlaneWest;
+TH1D *hReCenterEventPlaneEast;
+TH1F *hFinalEventPlane;
+TH1D *hFinalEventPlaneWest;
+TH1D *hFinalEventPlaneEast;
+TH1F *hFinalEventPlane_Fit;
+TH2D *hEventPlaneWestvsEast;
+TH1D *hCosthetastar;
+TH1D *hMixCosthetastar;
 TH2F *hDelta_Psi2;
 TH2F *hDelta_Psi2_FitvsFactor;
 TH1D* hLargeDiffEvt_Day;
 TH1D* hLargeDiffEvt_vz;
 TH1D* hLargeDiffEvt_vr;
+TProfile *EventPlanRes;
+
 TH2F *hInclusiveEPhivsPt;
 TH2F *hExclusiveEPhivsPt;
 TH2F *hCut3EPhivsPt;
-TH2F *hCut3EPhivsPt_extraE;
 TH2F *hnEMinusvsEPlus;
-TH2F *hnEMinusvsEPlus_extraE;
 //angleV 
-TH2F *hULAngleVvsM;
-TH2F *hLPosAngleVvsM;
-TH2F *hLNegAngleVvsM;
-TH2F *hMixULAngleVvsM;
-TH2F *hMixLPosAngleVvsM;
-TH2F *hMixLNegAngleVvsM;
 //without phiV cut
 // TH2F *hULMvsPtwophiV;
 // TH2F *hLPosMvsPtwophiV;
@@ -208,8 +216,6 @@ TH2F *hLNegMvsPt;
 TH2F *hMixULMvsPt;
 TH2F *hMixLPosMvsPt;
 TH2F *hMixLNegMvsPt;
-TH2F *hElectronCenvsPt;
-TH2F *hPositronCenvsPt;
 //**********************
 //add centrality dimension
 TH3F *hULMvsPtCen;
@@ -218,32 +224,13 @@ TH3F *hLNegMvsPtCen;
 TH3F *hMixULMvsPtCen;
 TH3F *hMixLPosMvsPtCen;
 TH3F *hMixLNegMvsPtCen;
-// TH3F *hULMvsPhiCen;
-// TH3F *hLPosMvsPhiCen;
-// TH3F *hLNegMvsPhiCen;
 
 TH1D* hCellIDDiff;
 TH2F* hnSigmaEvsP;
-TH2F* hnSigmaEvsP_extraE;
 //QA plot to dig the extra E issue;
-TH2D* hVxvsVy_extraE;
-TH2D* hnTofHitsvsRefMult_extraE;
-TH1D* hVz_extraE;
 TH2D* hdEdxvsP;
 TH1D* hPt_Electron;
 TH1D* hPt_Positron;
-TH1D* hPt_Electron_extraE;
-TH1D* hPt_Positron_extraE;
-TH2D* hnHitsFitvspT_Elec;
-TH2D* hnHitsdEdxvspT_Elec;
-TH2D* hnHitsFitvspT_Posi;
-TH2D* hnHitsdEdxvspT_Posi;
-TH2D* hnHitsFitvspT_Elec_extraE;
-TH2D* hnHitsdEdxvspT_Elec_extraE;
-TH2D* hnHitsFitvspT_Posi_extraE;
-TH2D* hnHitsdEdxvspT_Posi_extraE;
-TH2D* hRefMultvsnPiKP;
-TH2D* hRefMultvsnPiKP_extraE;
 
 //histograms for the polarization
 TH2F* hPairPhiPt;
@@ -269,8 +256,39 @@ TH3F* hPairCosThetaPhiPtBG;
 TH3F* hPairCosThetaPhiPtCS;
 TH3F* hPairCosThetaPhiPtCSBG;
 
+//M vs Pt
+TH2F *hULMvsPtT;
+TH2F *hULMvsPtTW;
+TH1F *hULM[mCentBins][mPtBins][mPhiBins];
+TH1F *hULYM[mCentBins][mYBins][mPhiBins];
+
+//LS event
+TH2F *hLSMvsPtT;
+TH2F *hLSMvsPtTW;
+TH1F *hLSPlusM[mCentBins][mPtBins][mPhiBins];
+TH1F *hLSPlusYM[mCentBins][mYBins][mPhiBins];
+TH1F *hLSMinusM[mCentBins][mPtBins][mPhiBins];
+TH1F *hLSMinusYM[mCentBins][mYBins][mPhiBins];
+
+//mix event
+TH2F *hMixULMvsPtT;
+TH2F *hMixULMvsPtTW;
+TH1F *hMixULM[mCentBins][mPtBins][mPhiBins];
+TH1F *hMixLSPosM[mCentBins][mPtBins][mPhiBins];
+TH1F *hMixLSNegM[mCentBins][mPtBins][mPhiBins];
+TH1F *hMixULYM[mCentBins][mYBins][mPhiBins];
+TH1F *hMixLSPosYM[mCentBins][mYBins][mPhiBins];
+TH1F *hMixLSMinusYM[mCentBins][mYBins][mPhiBins];
+
+
+TAxis *PtAxis;
+TAxis *YAxis;
+TAxis *PhiAxis;
+const Double_t mPairPtCut[11]= {0.3,0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,5.0,6.0};
+const Double_t mCentCut[10]= {-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,8.5,9.5};
 Int_t runId;
 Int_t EvtID;
+Double_t finalEventPlane;
 
 int main(int argc, char** argv)
 {
@@ -395,7 +413,6 @@ int main(int argc, char** argv)
 		for(int j=0;j<npTrks;j++) passTrack(event,j); //Trk loop
     // cout << "after passtrack" << endl;
 		hnEMinusvsEPlus->Fill(current_nEPlus,current_nEMinus);
-		hRefMultvsnPiKP->Fill(event->mRefMult,nPi_K_P_tof);
 		// cout << "nPi_K_P_tof = " << nPi_K_P_tof << endl; 
 
 		// if(!nPi_K_P_rejection(event->mRefMult,nPi_K_P_tof))
@@ -404,78 +421,7 @@ int main(int argc, char** argv)
 		// }
 		
 
-		
-		/*
-		//Zhen add it to test the extral electron and extra positions
-		if( current_nEPlus > 7 || current_nEMinus >7)//extra electron
-		// if( current_nEPlus <= 7 && current_nEMinus <=7)//remain electron
-		{
-			Int_t runId  = event->mRunId;
-			Float_t vx = event->mVertexX;
-			Float_t vy = event->mVertexY;
-			Float_t vz = event->mVertexZ;
-			Float_t vr = sqrt(vx*vx+vy*vy);
-			Float_t vpdVz = event->mVpdVz;
-			Float_t ZDCrate = event->mZDCRate;
-
-			Float_t vzDiff = vz - vpdVz;
-			Int_t mnTOFMatch = event->mnTOFMatch;
-			Int_t refMult = event->mRefMult;
-			int  nTrigs = event->mNTrigs;
-			hnEMinusvsEPlus_extraE->Fill(current_nEPlus,current_nEMinus);
-			hVxvsVy_extraE->Fill(vx,vy);
-			hnTofHitsvsRefMult_extraE->Fill(refMult,mnTOFMatch);
-			hVz_extraE->Fill(vz);
-			for(int j=0;j<npTrks;j++) 
-			{
-				Int_t charge = event->mCharge[j];
-				Int_t nHitsFit = event->mNHitsFit[j];
-				Int_t nHitsDedx = event->mNHitsDedx[j];
-				Int_t nHitsPoss = event->mNHitsPoss[j];
-				Float_t nSigmaE = event->mNSigmaE[j];
-				Float_t dca = event->mDca[j];
-				Float_t pt = event->mPt[j];
-				Float_t eta = event->mEta[j];
-				Float_t phi = event->mPhi[j];
-				Float_t beta2TOF = event->mBeta2TOF[j];
-				Float_t ratio = 1.0*nHitsFit/nHitsPoss;
-				int CellID = event->mTOFCellID[j];
-				TVector3 mom;
-				mom.SetPtEtaPhi(pt,eta,phi);
-				Float_t p = mom.Mag();
-
-				if(pt<mTpcePtCut[0] || pt>mTpcePtCut[1]) continue;
-				// if(nHitsFit<15) continue;
-				if(nHitsFit<mTpceNHitsFitCut) continue;
-				if(ratio<mTpceNHitsFitRatioCut) continue;
-				// if(nHitsDedx<20) continue;
-				if(nHitsDedx<mTpceNHitsDedxCut) continue;
-				// if(dca>0.8) continue;
-				if(dca>mTpceDcaCut) continue;
-				if(TMath::Abs(eta)>mTpceEtaCut) continue;
-				hInclusiveEPhivsPt->Fill(charge*pt,phi);
-				if(beta2TOF<=0. || TMath::Abs(1.-1./beta2TOF)>mTpceBeta2TOFCut) continue;
-			
-				Float_t mTpceNSigmaECutLow;
-				if(p<.8){
-					mTpceNSigmaECutLow = 3.0*p - 3.15; 
-				}else{
-					mTpceNSigmaECutLow = mTpceNSigmaECut[0];
-				}
-				if(nSigmaE<mTpceNSigmaECutLow+mNSigmaEShift || nSigmaE>mTpceNSigmaECut[1]+mNSigmaEShift) continue;
-
-				hnSigmaEvsP_extraE->Fill(p*charge, nSigmaE);
-				hCut3EPhivsPt_extraE->Fill(charge*pt,phi);
-				hRefMultvsnPiKP_extraE->Fill(event->mRefMult,nPi_K_P_tof);
-				if(charge < 0 ) {hPt_Electron_extraE->Fill(pt); hnHitsFitvspT_Elec_extraE->Fill(pt,nHitsFit); hnHitsdEdxvspT_Elec_extraE->Fill(pt,nHitsDedx);}
-				if(charge > 0 ) {hPt_Positron_extraE->Fill(pt); hnHitsFitvspT_Posi_extraE->Fill(pt,nHitsFit); hnHitsdEdxvspT_Posi_extraE->Fill(pt,nHitsDedx);}
-			}
-			// continue;
-		}
-		*/
-		
-
-		Double_t finalEventPlane = reCalEventPlane(event);
+		finalEventPlane = reCalEventPlane(event, kTRUE);//reject the electron contribution
 		if(finalEventPlane<0) continue;
 		eveBufferPointer = (Int_t)(finalEventPlane/TMath::Pi()*mEveBins);
 		// // cout<<"eveBufferPointer:"<<eveBufferPointer<<endl;
@@ -690,6 +636,7 @@ Bool_t passTrack(miniDst* event, Int_t i)
 	// cout << "current_nE = " << current_nE << " current_nEPlus = " << current_nEPlus << " current_nEMinus = " << current_nEMinus << endl;
 	current_EQx[current_nE] = pt*TMath::Cos(2*phi);
 	current_EQy[current_nE] = pt*TMath::Sin(2*phi);
+	current_e[current_nE].SetPtEtaPhiM(pt,eta,phi,Melectron);
 	// current_nE = vCurrent_eQx.size();
 	// cout << "after vector "<< endl;
 	current_nE++;
@@ -698,10 +645,7 @@ Bool_t passTrack(miniDst* event, Int_t i)
 	if(charge==1){
 		current_ePlus[current_nEPlus].SetPtEtaPhiM(pt,eta,phi,Melectron);
 		current_ePlus_CellID[current_nEPlus] = CellID;
-		hPositronCenvsPt->Fill(pt,cenBufferPointer);
 		hPt_Positron->Fill(pt);
-		hnHitsFitvspT_Posi->Fill(pt,nHitsFit);
-		hnHitsdEdxvspT_Posi->Fill(pt,nHitsDedx);
 		current_nEPlus++;
 		// cout << "eP "<< endl;
 
@@ -709,10 +653,7 @@ Bool_t passTrack(miniDst* event, Int_t i)
 	else if(charge==-1){
 		current_eMinus[current_nEMinus].SetPtEtaPhiM(pt,eta,phi,Melectron);
 		current_eMinus_CellID[current_nEMinus] = CellID;
-		hElectronCenvsPt->Fill(pt,cenBufferPointer);
 		hPt_Electron->Fill(pt);
-		hnHitsFitvspT_Elec->Fill(pt,nHitsFit);
-		hnHitsdEdxvspT_Elec->Fill(pt,nHitsDedx);
 		current_nEMinus++;
 		// cout << "eM "<< endl;
 	}
@@ -805,6 +746,11 @@ void makeTags()
 
 void makeRealPairs()
 {
+	Int_t _PtIndex = -999;
+	Int_t _YIndex = -999;
+	Int_t _PhiIndex = -999;
+	Int_t _CentIndex = -999;
+	double costhetastar =-999.;
 	//+--------------------------+
 	//| current e+  + current e- |
 	//+--------------------------+
@@ -820,31 +766,32 @@ void makeRealPairs()
 
 				Double_t angleVcut = phiVcut->Eval(pair.M());
 				Double_t angleV = phiVAngle(current_ePlus[i],current_eMinus[j],1,-1);
-				hULAngleVvsM->Fill(pair.M(),angleV,reWeight);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hULMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				// hULMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-				if(mDebug) cout << "before polarization calcultion" << endl;
-				if (pair.M()>0.2 && pair.M() < 1.1 )
-				{
-				if(mDebug) cout << "before polarization calcultion" << endl;
-					Polarization(1,-1,current_ePlus[i],current_eMinus[j]);
-				if(mDebug) cout << "before Fill3D calcultion" << endl;
-					fill3DHistograms("unlike",pair,i,j,0);
-				if(mDebug) cout << "before Fillhis calcultion" << endl;
-					fillHistograms("unlike",pair);
-				}
-				if(mDebug) cout << "after polarization calcultion" << endl;
 				
 				if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 					hULMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 					//hULMvsPt->Fill(pair.Pt(),pair.M());
 					hULMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
-					// hULMvsPhiCen->Fill(pair.Phi(),cenBufferPointer,pair.M(),reWeight);
-					// if( pair.M() > 1.3 && pair.M() < 2.8 )
-					// {
-						// cout<<"runNumber:"<<runId<<endl;
-						// cout<<"Event ID:"<<EvtID<<endl;
-					// }
+
+					if(mDebug) cout << "before polarization calcultion" << endl;
+					if (pair.M()>0.2 && pair.M() < 1.1 )
+					{
+					if(mDebug) cout << "before polarization calcultion" << endl;
+						Polarization(1,-1,current_ePlus[i],current_eMinus[j]);
+					if(mDebug) cout << "before Fill3D calcultion" << endl;
+						fill3DHistograms("unlike",pair,i,j,0);
+					if(mDebug) cout << "before Fillhis calcultion" << endl;
+						fillHistograms("unlike",pair);
+					}
+					if(mDebug) cout << "after polarization calcultion" << endl;
+
+					GetPtPhiCentBin(pair, current_ePlus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex,costhetastar, 0, 1);// 0 for how to calculate costheta* 1 for nonsense 
+					hCosthetastar->Fill(costhetastar);
+					if(_PtIndex > mPtBins-1 || _PtIndex<0 || _PhiIndex > mPhiBins-1 || _PhiIndex <0)continue; 
+
+					hULM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(),reWeight);
+					hULYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(),reWeight);
 
 					if(pair.Pt()<pairPtCut){
 						Double_t costheta = calCosTheta(current_ePlus[i], pair);
@@ -881,7 +828,6 @@ void makeRealPairs()
 
 				Double_t angleVcut = phiVcut->Eval(pair.M());
 				Double_t angleV = phiVAngle(current_ePlus[i],current_ePlus[j],1,1);
-				hLPosAngleVvsM->Fill(pair.M(),angleV,reWeight);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				// hLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				if (pair.M()>0.2 && pair.M() < 1.1 )
@@ -889,6 +835,9 @@ void makeRealPairs()
 					Polarization(1,1,current_ePlus[i],current_ePlus[j]);
 					fill3DHistograms("like",pair,i,j,0);
 					fillHistograms("like",pair);
+					GetPtPhiCentBin(pair,current_ePlus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
+					hLSPlusM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+					hLSPlusYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
 				}
 				if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 				// if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
@@ -932,7 +881,6 @@ void makeRealPairs()
 
 				Double_t angleVcut = phiVcut->Eval(pair.M());
 				Double_t angleV = phiVAngle(current_eMinus[i],current_eMinus[j],-1,-1);
-				hLNegAngleVvsM->Fill(pair.M(),angleV,reWeight);
 				// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				// hLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 				if (pair.M()>0.2 && pair.M() < 1.1 )
@@ -940,6 +888,9 @@ void makeRealPairs()
 					Polarization(-1,-1,current_eMinus[i],current_eMinus[j]);
 					fill3DHistograms("like",pair,i,j,0);
 					fillHistograms("like",pair);
+					GetPtPhiCentBin(pair,current_eMinus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
+					hLSMinusM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+					hLSMinusMY[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
 				}
 				if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 					hLNegMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
@@ -980,10 +931,15 @@ void makeMixPairs()
 					// hMixULMvsPtwophiV->Fill(pair.Pt(),pair.M(),reWeight);
 					Double_t angleVcut = phiVcut->Eval(pair.M());
 					Double_t angleV = phiVAngle(current_ePlus[i],buffer_eMinus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j],1,-1);
-					hMixULAngleVvsM->Fill(pair.M(),angleV,reWeight);
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixULMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixULMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+						if (pair.M()>0.2 && pair.M() < 1.1 )
+						{
+							GetPtPhiCentBin(pair,current_ePlus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
+							hMixULM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+							hMixULYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+						}
 
 						if(pair.Pt()<pairPtCut){
 							Double_t costheta = calCosTheta(current_ePlus[i], pair);
@@ -1014,10 +970,15 @@ void makeMixPairs()
 					
 					Double_t angleVcut = phiVcut->Eval(pair.M());
 					Double_t angleV = phiVAngle(current_eMinus[i],buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j],-1,1);
-					hMixULAngleVvsM->Fill(pair.M(),angleV,reWeight);
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixULMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixULMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+						if (pair.M()>0.2 && pair.M() < 1.1 )
+						{
+							GetPtPhiCentBin(pair,buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
+							hMixULM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+							hMixULYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+						}
 
 						if(pair.Pt()<pairPtCut){
 							Double_t costheta = calCosTheta(buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j], pair);
@@ -1049,8 +1010,13 @@ void makeMixPairs()
 					// hMixLPosMvsPtwophiV->Fill(pair.Pt(),pair.M(),reWeight);
 					Double_t angleVcut = phiVcut->Eval(pair.M());
 					Double_t angleV = phiVAngle(current_ePlus[i],buffer_ePlus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j],1,1);
-					hMixLPosAngleVvsM->Fill(pair.M(),angleV,reWeight);
 					// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLPosMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+					if (pair.M()>0.2 && pair.M() < 1.1 )
+					{
+						GetPtPhiCentBin(pair,current_ePlus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
+						hMixLSPosM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+						hMixLSPosYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+					}
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixLPosMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixLPosMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
@@ -1085,8 +1051,13 @@ void makeMixPairs()
 					// hMixLNegMvsPtwophiV->Fill(pair.Pt(),pair.M(),reWeight);
 					Double_t angleVcut = phiVcut->Eval(pair.M());
 					Double_t angleV = phiVAngle(current_eMinus[i],buffer_eMinus[cenBufferPointer][vzBufferPointer][eveBufferPointer][iBufferEvent][j],-1,-1);
-					hMixLNegAngleVvsM->Fill(pair.M(),angleV,reWeight);
 					// if( (angleV<angleVcut && pair.M()<mPhiVCutMRange) ) hMixLNegMvsPtCen_CutedbyPhiV->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
+					if (pair.M()>0.2 && pair.M() < 1.1 )
+					{
+						GetPtPhiCentBin(pair,current_eMinus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
+						hMixLSNegM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+						hMixLSMinusYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+					}
 					if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 						hMixLNegMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
 						hMixLNegMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
@@ -1158,8 +1129,10 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	Float_t vy = event->mVertexY;
 	Float_t vx = event->mVertexX;
 	Float_t vr = sqrt(vx*vx+vy*vy);
+	//west
 	Float_t mPlusQx = event->mEtaPlusQx;
 	Float_t mPlusQy = event->mEtaPlusQy;
+	//east
 	Float_t mMinusQx = event->mEtaMinusQx;
 	Float_t mMinusQy = event->mEtaMinusQy;
 	Int_t mEtaPlusNTrks = event->mEtaPlusNTrks;
@@ -1181,42 +1154,105 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	if(rawEP<0.) rawEP += TMath::Pi();
 	hRawEventPlane->Fill(rawEP);
 
+	//reject the electron for etaplus and etaminus
 	if(rejElectron){ //reject the contribution of electron
 		for(Int_t i=0;i<current_nE;i++){
+			if (current_e[i].Eta() < 0)
+			{
+				mMinusQx -= current_EQx[i];
+				mMinusQy -= current_EQy[i];
+				mEtaMinusNTrks = mEtaMinusNTrks-1;
+
+			} else if (current_e[i].Eta() > 0)
+			{
+				mPlusQx -= current_EQx[i];
+				mPlusQy -= current_EQy[i];
+				mEtaPlusNTrks = mEtaPlusNTrks-1;
+			}
 			Qx -= current_EQx[i];
 			Qy -= current_EQy[i];
 		}
 	}
+
 	Double_t eventPlane = -1;
+	Double_t eventPlane_East = -1;
+	Double_t eventPlane_West = -1;
 	TVector2 Q(Qx,Qy);
+	TVector2 QPlus(mPlusQx,mPlusQy);
+	TVector2 QMinus(mMinusQx,mMinusQy);
+
 	if((Q.Mod())!=0.){
 		eventPlane = 0.5*Q.Phi();
 		if(eventPlane<0.) eventPlane +=TMath::Pi();
 	}
-	hNewEventPlane->Fill(eventPlane);
+	if((QPlus.Mod())!=0.){
+		eventPlane_West = 0.5*QPlus.Phi();
+		if(eventPlane_West<0.) eventPlane_West +=TMath::Pi();
+	}
+	if((QMinus.Mod())!=0.){
+		eventPlane_East = 0.5*QMinus.Phi();
+		if(eventPlane_East<0.) eventPlane_East +=TMath::Pi();
+	}
+	hNewEventPlane->Fill(eventPlane);// with electron rejection
+	hNewEventPlaneEast->Fill(eventPlane_East);
+	hNewEventPlaneWest->Fill(eventPlane_West);
+
 	if(eventPlane<0.) return eventPlane;
 
 	//********* get recenter number and recenter *********
 	Double_t mReCenterQx, mReCenterQy;
+	Double_t mReCenterQxEast, mReCenterQyEast;
+	Double_t mReCenterQxWest, mReCenterQyWest;
 	if(vz>0){
 		mReCenterQx = Qx - mEtaPlusNTrks*etapluszplusQx->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszplusQx->GetBinContent(runIndex+1, mCentrality);
 		mReCenterQy = Qy - mEtaPlusNTrks*etapluszplusQy->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszplusQy->GetBinContent(runIndex+1, mCentrality);
+
+		mReCenterQxEast = mMinusQx - mEtaMinusNTrks*etaminuszplusQx->GetBinContent(runIndex+1, mCentrality);
+		mReCenterQyEast = mMinusQy - mEtaMinusNTrks*etaminuszplusQy->GetBinContent(runIndex+1, mCentrality);
+
+		mReCenterQxWest = mPlusQx - mEtaPlusNTrks*etapluszplusQx->GetBinContent(runIndex+1, mCentrality);
+		mReCenterQyWest = mPlusQy - mEtaPlusNTrks*etapluszplusQy->GetBinContent(runIndex+1, mCentrality);
 	}
 	else{
 		mReCenterQx = Qx - mEtaPlusNTrks*etapluszminusQx->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszminusQx->GetBinContent(runIndex+1, mCentrality);
 		mReCenterQy = Qy - mEtaPlusNTrks*etapluszminusQy->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszminusQy->GetBinContent(runIndex+1, mCentrality);
+
+		mReCenterQxEast = mMinusQx - mEtaMinusNTrks*etaminuszminusQx->GetBinContent(runIndex+1, mCentrality);
+		mReCenterQyEast = mMinusQy - mEtaMinusNTrks*etaminuszminusQy->GetBinContent(runIndex+1, mCentrality);
+
+		mReCenterQxWest = mPlusQx - mEtaPlusNTrks*etapluszminusQx->GetBinContent(runIndex+1, mCentrality);
+		mReCenterQyWest = mPlusQy - mEtaPlusNTrks*etapluszminusQy->GetBinContent(runIndex+1, mCentrality);
 	}
-  Double_t recenterEP_noFlat;
+
+	Double_t recenterEP_noFlat;
 	Double_t recenterEP;
+	Double_t recenterEPEast;
+	Double_t recenterEPWest;
 	Double_t recenterEP_2;
 	TVector2 *mReCenterQ = new TVector2(mReCenterQx, mReCenterQy);
+	TVector2 *mReCenterQWest = new TVector2(mReCenterQxWest, mReCenterQyWest);
+    TVector2 *mReCenterQEast = new TVector2(mReCenterQxEast, mReCenterQyEast);
+
 	if(mReCenterQ->Mod() > 0){
 		recenterEP = 0.5*mReCenterQ->Phi();
 		if(recenterEP<0.) recenterEP += TMath::Pi();
 		hReCenterEventPlane->Fill(recenterEP);
 	}
-  recenterEP_noFlat = recenterEP;
+	if(mReCenterQWest->Mod() > 0){
+		recenterEPWest = 0.5*mReCenterQWest->Phi();
+		if(recenterEPWest<0.) recenterEPWest += TMath::Pi();
+		hReCenterEventPlaneWest->Fill(recenterEPWest);
+	}
+	if(mReCenterQEast->Mod() > 0){
+		recenterEPEast = 0.5*mReCenterQEast->Phi();
+		if(recenterEPEast<0.) recenterEPEast += TMath::Pi();
+		hReCenterEventPlaneEast->Fill(recenterEPEast);
+	}
+	recenterEP_noFlat = recenterEP;
 
+	//for now just using the flat event plane to do the calculation
+	EventPlanRes->Fill(mCentrality, cos(2*(recenterEPEast-recenterEPWest)));
+	
 	//*********  get shift factor and add shift deltaPhi *********
 	Float_t shiftCorrcos[mArrayLength];
 	Float_t shiftCorrsin[mArrayLength];
@@ -1260,6 +1296,58 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	return recenterEP_noFlat;
 	// return recenterEP_2;
 	// return recenterEP;
+}
+//____________________________________________________________
+//get the costheta* of electron
+//Phi index is the costheta* bin
+void GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrality,float eventphi,int &ptindex,int &yindex,int &phiindex,int &CentIndex,double &costhe,Bool_t tangent, Int_t Flag ){
+	if(debug){
+		cout<<"in get pT phi bin"<<endl;
+	}
+	Int_t _PtIndex = -999;
+	Int_t _YIndex = -999;
+	Int_t _PhiIndex = -999;
+
+	_PtIndex = PtAxis->FindBin(pair.Pt()) - 1;
+
+	//get y
+	
+	_YIndex = YAxis->FindBin(pair.Rapidity()) -1;
+
+	//get phi
+	TVector3 vBetaPhi = -1.0*pair.BoostVector(); 
+	Positron.Boost(vBetaPhi);
+	TVector3 vPositronRest = Positron.Vect().Unit(); // positron momentum direction in J/psi rest frame	
+	if(debug){
+		cout<<"positron phi:"<<vPositronRest.Phi()<<endl;
+	}
+
+	Double_t CosThetaStar = -999.;
+	if(!tangent){
+		TVector3 Q2(TMath::Sin(eventphi),-1.0*TMath::Cos(eventphi),0.0);
+		TVector3 Q2_Unit = Q2.Unit();
+		CosThetaStar =  vPositronRest.Dot(Q2_Unit);
+	}else{
+		TVector3 Q2(TMath::Sin(eventphi),1.0*TMath::Cos(eventphi),0.0);
+		TVector3 Q2_Unit = Q2.Unit();
+		CosThetaStar =  vPositronRest.Dot(Q2_Unit);
+	}
+
+	_PhiIndex = PhiAxis->FindBin(TMath::Abs(CosThetaStar))-1;
+
+	if(debug){
+		cout<<"Centality:"<<_mCentrality<<endl;
+	}
+	float _mCent = 8 - _mCentrality;
+	CentIndex = CentAxis->FindBin(_mCent) -1;
+	if(debug){
+		cout<<"CentIndex:"<<CentIndex<<endl;
+	}
+
+	costhe = CosThetaStar;
+	ptindex = _PtIndex;
+	yindex = _YIndex;
+	phiindex = _PhiIndex;
 }
 //____________________________________________________________
 Double_t phiVAngle(TLorentzVector e1, TLorentzVector e2, Int_t q1, Int_t q2)
@@ -1460,43 +1548,30 @@ void bookHistograms()
 	//eventPlane
 	hRawEventPlane = new TH1F("hRawEventPlane","hRawEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
 	hNewEventPlane = new TH1F("hNewEventPlane","hNewEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
+	hNewEventPlaneEase = new TH1F("hNewEventPlaneEase","hNewEventPlaneEase;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
+	hNewEventPlaneWest = new TH1F("hNewEventPlaneWest","hNewEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
 	hReCenterEventPlane = new TH1F("hReCenterEventPlane","hReCenterEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
+	hReCenterEventPlaneEast = new TH1F("hReCenterEventPlaneEast","hReCenterEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
+	hReCenterEventPlaneWest = new TH1F("hReCenterEventPlaneWest","hReCenterEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
 	hFinalEventPlane = new TH1F("hFinalEventPlane","hFinalEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
+	hFinalEventPlaneEast = new TH1F("hFinalEventPlaneEast","hFinalEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
+	hFinalEventPlaneWest = new TH1F("hFinalEventPlaneWest","hFinalEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
 	hFinalEventPlane_Fit = new TH1F("hFinalEventPlane_Fit","hFinalEventPlane_Fit;Reaction Plane (rad); Counts",300,0,TMath::Pi());
 	hDelta_Psi2 = new TH2F("hDelta_Psi2","hDelta_Psi2;recenter #Psi_{2};#Delta#Psi_{2}",300,0,TMath::Pi(),600,-TMath::Pi()-0.1,TMath::Pi()+0.1);
 	hDelta_Psi2_FitvsFactor = new TH2F("hDelta_Psi2_FitvsFactor","hDelta_Psi2_FitvsFactor;Fit #Delta#Psi_{2};Factor #Delta#Psi_{2}",300,0-0.2,TMath::Pi()+0.2,300,0-0.2,TMath::Pi()+0.2);
 	hLargeDiffEvt_Day = new TH1D("hLargeDiffEvt_Day","hLargeDiffEvt_Day;Day Index; nCounts",mTotalDay+3,0,mTotalDay+3);
 	hLargeDiffEvt_vz = new TH1D("hLargeDiffEvt_vz","hLargeDiffEvt_vz;",1200,-60,60);
 	hLargeDiffEvt_vr = new TH1D("hLargeDiffEvt_vr","hLargeDiffEvt_vr;",500,0,5);
+	EventPlanRes = new TProfile("EventPlanRes","EventPlanRes",10,-0.5,9.5);
 	
 
 
 	hInclusiveEPhivsPt = new TH2F("hInclusiveEPhivsPt","hInclusiveEPhivsPt;q*p_{T} (GeV/c); #phi",200,-10,10,600,-TMath::Pi(),TMath::Pi());
 	hExclusiveEPhivsPt = new TH2F("hExclusiveEPhivsPt","hExclusiveEPhivsPt;q*p_{T} (GeV/c); #phi",200,-10,10,600,-TMath::Pi(),TMath::Pi());
 	hCut3EPhivsPt = new TH2F("hCut3EPhivsPt","hCut3EPhivsPt;q*p_{T} (GeV/c); #phi",2000,-10,10,1800,-TMath::Pi(),TMath::Pi());
-	hCut3EPhivsPt_extraE = new TH2F("hCut3EPhivsPt_extraE","hCut3EPhivsPt_extraE;q*p_{T} (GeV/c); #phi",2000,-10,10,1800,-TMath::Pi(),TMath::Pi());
 
 	hnEMinusvsEPlus = new TH2F("hnEMinusvsEPlus","hnEMinusvsEPlus;# e^{+};# e^{-}",30,0,30,30,0,30);
-	hnEMinusvsEPlus_extraE = new TH2F("hnEMinusvsEPlus_extraE","hnEMinusvsEPlus (#e+ > 7 || #e- > 7);# e^{+};# e^{-}",30,0,30,30,0,30);
 	hnSigmaEvsP = new TH2F("hnSigmaEvsP","; P (GeV/c); n#sigma_{e}",600,0,6,1000,-5,5);
-	hnSigmaEvsP_extraE = new TH2F("hnSigmaEvsP_extraE","; P (GeV/c); n#sigma_{e}",2000,-10,10,1000,-5,5);
-
-
-	//angleV 
-	hULAngleVvsM = new TH2F("hULAngleVvsM","hULAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
-	hLPosAngleVvsM = new TH2F("hLPosAngleVvsM","hLPosAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
-	hLNegAngleVvsM = new TH2F("hLNegAngleVvsM","hLNegAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
-	hMixULAngleVvsM = new TH2F("hMixULAngleVvsM","hMixULAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
-	hMixLPosAngleVvsM = new TH2F("hMixLPosAngleVvsM","hMixLPosAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
-	hMixLNegAngleVvsM = new TH2F("hMixLNegAngleVvsM","hMixLNegAngleVvsM;M_{ee} (GeV/c^{2});#phi_{V} (rad)",1000,0,1.,300,0,TMath::Pi());
-
-	//without phiV cut
-	// hULMvsPtwophiV = new TH2F("hULMvsPtwophiV","hULMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	// hLPosMvsPtwophiV = new TH2F("hLPosMvsPtwophiV","hLPosMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	// hLNegMvsPtwophiV = new TH2F("hLNegMvsPtwophiV","hLNegMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	// hMixULMvsPtwophiV = new TH2F("hMixULMvsPtwophiV","hMixULMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	// hMixLPosMvsPtwophiV = new TH2F("hMixLPosMvsPtwophiV","hMixLPosMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	// hMixLNegMvsPtwophiV = new TH2F("hMixLNegMvsPtwophiV","hMixLNegMvsPtwophiV;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
 
 	//with phiV cut
 	hULMvsPt = new TH2F("hULMvsPt","hULMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
@@ -1505,8 +1580,6 @@ void bookHistograms()
 	hMixULMvsPt = new TH2F("hMixULMvsPt","hMixULMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
 	hMixLPosMvsPt = new TH2F("hMixLPosMvsPt","hMixLPosMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
 	hMixLNegMvsPt = new TH2F("hMixLNegMvsPt","hMixLNegMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
-	hElectronCenvsPt = new TH2F("hElectronCenvsPt","hElectronCenvsPt;p_{T} (GeV/c);Centrality",nPtBins,ptLow,ptHi,16,0,16);
-	hPositronCenvsPt = new TH2F("hPositronCenvsPt","hPositronCenvsPt;p_{T} (GeV/c);Centrality",nPtBins,ptLow,ptHi,16,0,16);
 
 	//add centrality dimension
 	hULMvsPtCen = new TH3F("hULMvsPtCen","hULMvsPtCen;p_{T} (GeV/c);Centrality;M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,16,0,16,nMassBins,massLow,massHi);
@@ -1519,24 +1592,9 @@ void bookHistograms()
 	// hLPosMvsPhiCen = new TH3F("hLPosMvsPhiCen","hLPosMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",60,-3.14-0.1,3.14+0.1,16,0,16,500,massLow,massHi);
 	// hLNegMvsPhiCen = new TH3F("hLNegMvsPhiCen","hLNegMvsPhiCen;Phi;Centrality;M_{ee} (GeV/c^{2})",60,-3.14-0.1,3.14+0.1,16,0,16,500,massLow,massHi);
 	hCellIDDiff = new TH1D("hCellIDDiff","hCellIDDiff;ID Diff ;counts;",32,-16,16);
-	hVxvsVy_extraE = new TH2D("hVxvsVy_extraE",";V_{x} (cm);V_{y} (cm)",100,-5,5,100,-5,5);
-	hnTofHitsvsRefMult_extraE = new TH2D("hnTofHitsvsRefMult_extraE",";RefMult;nTofHits",500,0,500,500,0,500);
-	hVz_extraE = new TH1D("hVz_extraE",";TPC VertexZ (cm);Counts",2000,-100,100);
 	hdEdxvsP = new TH2D();
 	hPt_Electron = new TH1D("hPt_Electron",";p_{T};Counts",1000,0,10);
 	hPt_Positron = new TH1D("hPt_Positron",";p_{T};Counts",1000,0,10);
-	hPt_Electron_extraE = new TH1D("hPt_Electron_extraE",";p_{T};Counts",1000,0,10);
-	hPt_Positron_extraE = new TH1D("hPt_Positron_extraE",";p_{T};Counts",1000,0,10);
-	hnHitsFitvspT_Elec = new TH2D("hnHitsFitvspT_Elec",";p_{T} (GeV/c^{2});nHitsFit",1200,0,6,100,0,100);
-	hnHitsdEdxvspT_Elec = new TH2D("hnHitsdEdxvspT_Elec",";p_{T} (GeV/c^{2});nHisdEdx",1200,0,6,100,0,100);
-	hnHitsFitvspT_Posi = new TH2D("hnHitsFitvspT_Posi",";p_{T} (GeV/c^{2});nHitsFit",1200,0,6,100,0,100);
-	hnHitsdEdxvspT_Posi = new TH2D("hnHitsdEdxvspT_Posi",";p_{T} (GeV/c^{2});nHisdEdx",1200,0,6,100,0,100);
-	hnHitsFitvspT_Elec_extraE = new TH2D("hnHitsFitvspT_Elec_extraE",";p_{T} (GeV/c^{2});nHitsFit",1200,0,6,100,0,100);
-	hnHitsdEdxvspT_Elec_extraE = new TH2D("hnHitsdEdxvspT_Elec_extraE",";p_{T} (GeV/c^{2});nHisdEdx",1200,0,6,100,0,100);
-	hnHitsFitvspT_Posi_extraE = new TH2D("hnHitsFitvspT_Posi_extraE",";p_{T} (GeV/c^{2});nHitsFit",1200,0,6,100,0,100);
-	hnHitsdEdxvspT_Posi_extraE = new TH2D("hnHitsdEdxvspT_Posi_extraE",";p_{T} (GeV/c^{2});nHisdEdx",1200,0,6,100,0,100);
-	hRefMultvsnPiKP = new TH2D("hRefMultvsnPiKP",";RefMult;nPi+K+P",500,0,500,500,0,500);
-	hRefMultvsnPiKP_extraE = new TH2D("hRefMultvsnPiKP_extraE",";RefMult;nPi+K+P",500,0,500,500,0,500);
 
 	hULMvsPtCen->Sumw2();
 	hLPosMvsPtCen->Sumw2();
@@ -1601,28 +1659,40 @@ void bookHistograms()
 	hPairCosThetaPhiPtCS->Sumw2();
 	hPairCosThetaPhiPtCSBG->Sumw2();
 
-	// tree = new TTree("tree","J/psi polarization");
-	// tree->SetAutoSave(100000);
-	// tree->Branch("pair_pt",&pair_pt,"pair_pt/F");
-	// tree->Branch("pair_eta",&pair_eta,"pair_eta/F");
-	// tree->Branch("pair_phi",&pair_phi,"pair_phi/F");
-	// tree->Branch("pair_InvM",&pair_InvM,"pair_InvM/F");
-	// tree->Branch("lepton1_pt",&lepton1_pt,"lepton1_pt/F");
-	// tree->Branch("lepton1_eta",&lepton1_eta,"lepton1_eta/F");
-	// tree->Branch("lepton1_phi",&lepton1_phi,"lepton1_phi/F");
-	// tree->Branch("lepton1_InvM",&lepton1_InvM,"lepton1_InvM/F");
-	// tree->Branch("lepton2_pt",&lepton2_pt,"lepton2_pt/F");
-	// tree->Branch("lepton2_eta",&lepton2_eta,"lepton2_eta/F");
-	// tree->Branch("lepton2_phi",&lepton2_phi,"lepton2_phi/F");
-	// tree->Branch("lepton2_InvM",&lepton2_InvM,"lepton2_InvM/F");
-	// tree->Branch("positron_theta_hx",&positron_theta_hx,"positron_theta_hx/F");
-	// tree->Branch("positron_theta_cs",&positron_theta_cs,"positron_theta_cs/F");
-	// tree->Branch("positron_phi_hx",&positron_phi_hx,"positron_phi_hx/F");
-	// tree->Branch("positron_phi_cs",&positron_phi_cs,"positron_phi_cs/F");
-	// tree->Branch("electron_theta_hx",&electron_theta_hx,"electron_theta_hx/F");
-	// tree->Branch("electron_theta_cs",&electron_theta_cs,"electron_theta_cs/F");
-	// tree->Branch("electron_phi_hx",&electron_phi_hx,"electron_phi_hx/F");
-	// tree->Branch("electron_phi_cs",&electron_phi_cs,"electron_phi_cs/F");
+	hCosthetastar = new TH1D("hCosthetastar","costhetastar; cos(#theta^{*});coutns",200,-1,1);
+	hMixCosthetastar = new TH1D("hMixCosthetastar","costhetastar; cos(#theta^{*});coutns",200,-1,1);
+
+	//Mass vs Pt
+	hULMvsPtT = new TH2F("hULMvsPtT","hULMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
+	hULMvsPtTW = new TH2F("hULMvsPtTW","hULMvsPt;p_{T} (GeV/c);M_{ee} (GeV/c^{2})",nPtBins,ptLow,ptHi,nMassBins,massLow,massHi);
+	hRapdity = new TH1F("hRapdity","Rapdity",100,-2,2);
+	for(int i=0; i<mCentBins;i++){
+		for(int j=0; j<mPtBins;j++){
+			for(int k=0; k<mPhiBins; k++){
+				hULM[i][j][k] = new TH1F(Form("hULM_%d_%d_%d",i,j,k),"hULM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);// cent, pT, costheta
+				hLSPlusM[i][j][k] = new TH1F(Form("hLSPlusM_%d_$d_%d",i, j, k), "hLSPlus;M_{ee} (GeV/c^{2})", nMassBins, massLow, massHi);
+				hLSMinusM[i][j][k] = new TH1F(Form("hLSMinusM_%d_%d_%d",i,j,k),"hLSMinusM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
+				hMixULM[i][j][k] = new TH1F(Form("hMixULM_%d_%d_%d",i,j,k),"hMixULM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
+				hMixLSPosM[i][j][k] = new TH1F(Form("hMixLSPosM_%d_%d_%d",i,j,k),"hMixLSPosM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
+				hMixLSPosM[i][j][k] = new TH1F(Form("hMixLSPosM_%d_%d_%d",i,j,k),"hMixLSPosM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
+			}
+		}
+		for(int j=0; j<mYBins;j++){
+			for(int k=0; k<mPhiBins; k++){
+				hULYM[i][j][k] = new TH1F(Form("hULYM_%d_%d_%d",i,j,k),"hULM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);// cent, rapidity, costheta
+				hLSPlusYM[i][j][k] = new TH1F(Form("hLSPlusYM_%d_%d_%d",i,j,k),"hLSPlusYM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);// cent, rapidity, costheta
+				hLSMinusYM[i][j][k] = new TH1F(Form("hLSMinusYM_%d_%d_%d",i,j,k),"hLSMinusYM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);// cent, rapidity, costheta
+				hMixULYM[i][j][k] = new TH1F(Form("hMixULYM_%d_%d_%d",i,j,k),"hMixULYM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);// cent, rapidity, costheta
+				hMixLSPosYM[i][j][k] = new TH1F(Form("hMixLSPosYM_%d_%d_%d",i,j,k),"hMixLSPosYM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);// cent, rapidity, costheta
+				hMixLSMinusYM[i][j][k] = new TH1F(Form("hMixLSMinusYM_%d_%d_%d",i,j,k),"hMixLSMinusYM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);// cent, rapidity, costheta
+
+
+			}
+		}
+	}
+
+
+
 }
 //=======================================================================================
 void writeHistograms(char* outFile)
@@ -1664,18 +1734,11 @@ void writeHistograms(char* outFile)
 	hInclusiveEPhivsPt->Write();
 	hExclusiveEPhivsPt->Write();
 	hCut3EPhivsPt->Write();
-	hCut3EPhivsPt_extraE->Write();
 
 	hnEMinusvsEPlus->Write();
 	cout << "writing electron done" << endl;
 
 	//angleV 
-	hULAngleVvsM->Write();
-	hLPosAngleVvsM->Write();
-	hLNegAngleVvsM->Write();
-	hMixULAngleVvsM->Write();
-	hMixLPosAngleVvsM->Write();
-	hMixLNegAngleVvsM->Write();
 
 	//without phiV cut
 	// hULMvsPtwophiV->Write();
@@ -1706,31 +1769,12 @@ void writeHistograms(char* outFile)
 	// hULMvsPhiCen->Write();
   	// hLPosMvsPhiCen->Write();
   	// hLNegMvsPhiCen->Write();
-	hElectronCenvsPt->Write();
-	hPositronCenvsPt->Write();
 	hCellIDDiff->Write();
   	hnSigmaEvsP->Write();
-  	hnSigmaEvsP_extraE->Write();
-  	hnEMinusvsEPlus_extraE->Write();
-	hVxvsVy_extraE->Write();
 	hVxvsVy->Write();
-	hnTofHitsvsRefMult_extraE->Write();
-	hVz_extraE->Write();
 	hdEdxvsP->Write();
 	hPt_Electron->Write();
 	hPt_Positron->Write();
-	hPt_Electron_extraE->Write();
-	hPt_Positron_extraE->Write();
-	hnHitsFitvspT_Elec->Write();
-	hnHitsdEdxvspT_Elec->Write();
-	hnHitsFitvspT_Posi->Write();
-	hnHitsdEdxvspT_Posi->Write();
-	hnHitsFitvspT_Elec_extraE->Write();
-	hnHitsdEdxvspT_Elec_extraE->Write();
-	hnHitsFitvspT_Posi_extraE->Write();
-	hnHitsdEdxvspT_Posi_extraE->Write();
-	hRefMultvsnPiKP->Write();
-	hRefMultvsnPiKP_extraE->Write();
 	cout << "writing 3D done" << endl;
 
 	hPairPhiPt->Write();
@@ -1756,7 +1800,39 @@ void writeHistograms(char* outFile)
 	hPairCosThetaPhiPtCS->Write();
 	hPairCosThetaPhiPtCSBG->Write();
 
-	
+	hNewEventPlaneEast->Write();
+	hNewEventPlaneWest->Write();
+	hReCenterEventPlaneWest->Write();
+	hReCenterEventPlaneEast->Write();
+	hFinalEventPlaneWest->Write();
+	hFinalEventPlaneEast->Write();
+	hEventPlaneWestvsEast->Write();
+	hCosthetastar->Write();
+	hMixCosthetastar->Write();
+	EventPlanRes->Write();
+
+	for(int i=0; i<mCentBins;i++){
+		for(int j=0; j<mPtBins;j++){
+			for(int k=0; k<mPhiBins; k++){
+				hULM[i][j][k]->Write();
+				hLSPlusM[i][j][k]->Write();
+				hLSMinusM[i][j][k]->Write();
+				hMixULM[i][j][k]->Write();
+				hMixLSPosM[i][j][k]->Write();
+				hMixLSPosM[i][j][k]->Write();
+			}
+		}
+		for(int j=0; j<mYBins;j++){
+			for(int k=0; k<mPhiBins; k++){
+				hULYM[i][j][k]->Write();
+				hLSPlusYM[i][j][k]->Write();
+				hLSMinusYM[i][j][k]->Write();
+				hMixULYM[i][j][k]->Write();
+				hMixLSPosYM[i][j][k]->Write();
+				hMixLSMinusYM[i][j][k]->Write();
+			}
+		}
+	}
 
 	// hULCosThetavsMvsCen->Write();
 	// hLPosCosThetavsMvsCen->Write();
@@ -1829,6 +1905,11 @@ Bool_t Init()
 		return kFALSE;
 	}
 	indata_001.close();
+
+	PtAxis = new TAxis(mPtBins, mPairPtCut);
+	YAxis = new TAxis(mYBins, -1,1);
+	PhiAxis = new TAxis(mPhiBins, 0, 1);
+	CentAxis = new TAxis(mCentBins,mCentCut);
 
 
 	cout<<"bad run for trigger 580001"<<endl;
