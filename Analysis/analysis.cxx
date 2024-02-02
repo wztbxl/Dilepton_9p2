@@ -892,7 +892,7 @@ void makeRealPairs()
 					fillHistograms("like",pair);
 					GetPtPhiCentBin(pair,current_eMinus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex, costhetastar, 0, 1);
 					hLSMinusM[_CentIndex][_PtIndex][_PhiIndex]->Fill(pair.M(), reWeight);
-					hLSMinusMY[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
+					hLSMinusYM[_CentIndex][_YIndex][_PhiIndex]->Fill(pair.M(), reWeight);
 				}
 				if( (angleV>angleVcut && pair.M()<mPhiVCutMRange) || pair.M()>=mPhiVCutMRange ){
 					hLNegMvsPt->Fill(pair.Pt(),pair.M(),reWeight);
