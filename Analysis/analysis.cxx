@@ -259,31 +259,32 @@ TH3F* hPairCosThetaPhiPtCSBG;
 //M vs Pt
 TH2F *hULMvsPtT;
 TH2F *hULMvsPtTW;
-TH1F *hULM[mCentBins][mPtBins][mPhiBins];
-TH1F *hULYM[mCentBins][mYBins][mPhiBins];
+TH1F *hULM[mCenBins][mPtBins][mPhiBins];
+TH1F *hULYM[mCenBins][mYBins][mPhiBins];
 
 //LS event
 TH2F *hLSMvsPtT;
 TH2F *hLSMvsPtTW;
-TH1F *hLSPlusM[mCentBins][mPtBins][mPhiBins];
-TH1F *hLSPlusYM[mCentBins][mYBins][mPhiBins];
-TH1F *hLSMinusM[mCentBins][mPtBins][mPhiBins];
-TH1F *hLSMinusYM[mCentBins][mYBins][mPhiBins];
+TH1F *hLSPlusM[mCenBins][mPtBins][mPhiBins];
+TH1F *hLSPlusYM[mCenBins][mYBins][mPhiBins];
+TH1F *hLSMinusM[mCenBins][mPtBins][mPhiBins];
+TH1F *hLSMinusYM[mCenBins][mYBins][mPhiBins];
 
 //mix event
 TH2F *hMixULMvsPtT;
 TH2F *hMixULMvsPtTW;
-TH1F *hMixULM[mCentBins][mPtBins][mPhiBins];
-TH1F *hMixLSPosM[mCentBins][mPtBins][mPhiBins];
-TH1F *hMixLSNegM[mCentBins][mPtBins][mPhiBins];
-TH1F *hMixULYM[mCentBins][mYBins][mPhiBins];
-TH1F *hMixLSPosYM[mCentBins][mYBins][mPhiBins];
-TH1F *hMixLSMinusYM[mCentBins][mYBins][mPhiBins];
+TH1F *hMixULM[mCenBins][mPtBins][mPhiBins];
+TH1F *hMixLSPosM[mCenBins][mPtBins][mPhiBins];
+TH1F *hMixLSNegM[mCenBins][mPtBins][mPhiBins];
+TH1F *hMixULYM[mCenBins][mYBins][mPhiBins];
+TH1F *hMixLSPosYM[mCenBins][mYBins][mPhiBins];
+TH1F *hMixLSMinusYM[mCenBins][mYBins][mPhiBins];
 
 
 TAxis *PtAxis;
 TAxis *YAxis;
 TAxis *PhiAxis;
+TAxis *CentAxis;
 const Double_t mPairPtCut[11]= {0.3,0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,5.0,6.0};
 const Double_t mCentCut[10]= {-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,8.5,9.5};
 Int_t runId;
@@ -916,6 +917,11 @@ void makeRealPairs()
 //_____________________________________________________________________________
 void makeMixPairs()
 {
+	Int_t _PtIndex = -999;
+	Int_t _YIndex = -999;
+	Int_t _PhiIndex = -999;
+	Int_t _CentIndex = -999;
+	double costhetastar =-999.;
 	TLorentzVector pair(0,0,0,0);
 	for(Int_t iBufferEvent=0;iBufferEvent<nEventsInBuffer[cenBufferPointer][vzBufferPointer][eveBufferPointer];iBufferEvent++){
 		//+-------------------------+
@@ -1301,7 +1307,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 //get the costheta* of electron
 //Phi index is the costheta* bin
 void GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrality,float eventphi,int &ptindex,int &yindex,int &phiindex,int &CentIndex,double &costhe,Bool_t tangent, Int_t Flag ){
-	if(debug){
+	if(mDebug){
 		cout<<"in get pT phi bin"<<endl;
 	}
 	Int_t _PtIndex = -999;
@@ -1318,7 +1324,7 @@ void GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrali
 	TVector3 vBetaPhi = -1.0*pair.BoostVector(); 
 	Positron.Boost(vBetaPhi);
 	TVector3 vPositronRest = Positron.Vect().Unit(); // positron momentum direction in J/psi rest frame	
-	if(debug){
+	if(mDebug){
 		cout<<"positron phi:"<<vPositronRest.Phi()<<endl;
 	}
 
@@ -1335,12 +1341,12 @@ void GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrali
 
 	_PhiIndex = PhiAxis->FindBin(TMath::Abs(CosThetaStar))-1;
 
-	if(debug){
+	if(mDebug){
 		cout<<"Centality:"<<_mCentrality<<endl;
 	}
 	float _mCent = 8 - _mCentrality;
 	CentIndex = CentAxis->FindBin(_mCent) -1;
-	if(debug){
+	if(mDebug){
 		cout<<"CentIndex:"<<CentIndex<<endl;
 	}
 
@@ -1548,7 +1554,7 @@ void bookHistograms()
 	//eventPlane
 	hRawEventPlane = new TH1F("hRawEventPlane","hRawEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
 	hNewEventPlane = new TH1F("hNewEventPlane","hNewEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
-	hNewEventPlaneEase = new TH1F("hNewEventPlaneEase","hNewEventPlaneEase;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
+	hNewEventPlaneEast = new TH1F("hNewEventPlaneEase","hNewEventPlaneEase;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
 	hNewEventPlaneWest = new TH1F("hNewEventPlaneWest","hNewEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
 	hReCenterEventPlane = new TH1F("hReCenterEventPlane","hReCenterEventPlane;Reaction Plane (rad); Counts",300,0,TMath::Pi());
 	hReCenterEventPlaneEast = new TH1F("hReCenterEventPlaneEast","hReCenterEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
