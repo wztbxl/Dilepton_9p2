@@ -1677,7 +1677,7 @@ void bookHistograms()
 		for(int j=0; j<mPtBins;j++){
 			for(int k=0; k<mPhiBins; k++){
 				hULM[i][j][k] = new TH1F(Form("hULM_%d_%d_%d",i,j,k),"hULM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);// cent, pT, costheta
-				hLSPlusM[i][j][k] = new TH1F(Form("hLSPlusM_%d_$d_%d",i, j, k), "hLSPlus;M_{ee} (GeV/c^{2})", nMassBins, massLow, massHi);
+				hLSPlusM[i][j][k] = new TH1F(Form("hLSPlusM_%d_%d_%d",i, j, k), "hLSPlus;M_{ee} (GeV/c^{2})", nMassBins, massLow, massHi);
 				hLSMinusM[i][j][k] = new TH1F(Form("hLSMinusM_%d_%d_%d",i,j,k),"hLSMinusM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
 				hMixULM[i][j][k] = new TH1F(Form("hMixULM_%d_%d_%d",i,j,k),"hMixULM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
 				hMixLSPosM[i][j][k] = new TH1F(Form("hMixLSPosM_%d_%d_%d",i,j,k),"hMixLSPosM;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
