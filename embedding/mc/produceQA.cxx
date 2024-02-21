@@ -313,6 +313,7 @@ int main(int argc, char** argv)
 			Float_t ratio = 0.;
 			if(rcDedx>0) ratio = rcNHitsFit*1./rcNHitsPoss;
 
+			/*
 			//Fill the histograms of 
 			if(TMath::Abs(mcEta)<=1.0){
 				if(q>0.){
@@ -339,16 +340,19 @@ int main(int argc, char** argv)
 					}
 				}
 			}
+			*/
 
-			/*
+			
 			//fill the num histograms with RC information 
 			if(TMath::Abs(mcEta)<=1.0){
 				if(q>0.){
 				   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi);
-					hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
+					hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
+					// hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
 				}else{
 				   	hDenEMinusTpcEff->Fill(mcPt,mcEta,mcPhi); 
-					hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
+					hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
+					// hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
 				}
 
 				if(rcNHitsFit>=mTpceNHitsFitCut//for systemiac uncentraity change this +/-5, origin is 20
@@ -361,14 +365,16 @@ int main(int argc, char** argv)
 						//&& rcNHitsDedx>=1){
 					if(q>0){
 					   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi);
-						hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
+						hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi);
+						// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
 					}else{
 					   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi);
-						hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
+						hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi);
+						// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
 					}
 				}
 			}
-			*/
+			
 
 			if(mcPhi>PI) mcPhi -= 2*PI;
 
@@ -558,16 +564,20 @@ void bookHistograms()
     hPEDcavsPtvsPhiMinus = new TH3F("hPEDcavsPtvsPhiMinus","hPEDcavsPtvsPhiMinus;p_{T};#phi;Dca(cm)",500,0,10,360,-TMath::Pi(),TMath::Pi(),400,0,10);
     hPEDcavsPtvsPhiPlus = new TH3F("hPEDcavsPtvsPhiPlus","hPEDcavsPtvsPhiPlus;p_{T};#phi;Dca(cm)",500,0,10,360,-TMath::Pi(),TMath::Pi(),400,0,10);
 
-	hDenEPlusTpcEff = new TH3F("hDenEPlusTpcEff","hDenEPlusTpcEff;p_{T} (GeV/c); #eta; #phi",200,0,10,100,-1,1,120,-PI-PI/12,PI+PI/12);
-	hNumEPlusTpcEff = new TH3F("hNumEPlusTpcEff","hNumEPlusTpcEff;p_{T} (GeV/c); #eta; #phi",200,0,10,100,-1,1,120,-PI-PI/12,PI+PI/12);
-	hDenEMinusTpcEff = new TH3F("hDenEMinusTpcEff","hDenEMinusTpcEff;p_{T} (GeV/c); #eta; #phi",200,0,10,100,-1,1,120,-PI-PI/12,PI+PI/12);
-	hNumEMinusTpcEff = new TH3F("hNumEMinusTpcEff","hNumEMinusTpcEff;p_{T} (GeV/c); #eta; #phi",200,0,10,100,-1,1,120,-PI-PI/12,PI+PI/12);
+	int nPhiBins = 360;
+	int nEtaBins = 200;
+	int npTBins = 500;
+
+	hDenEPlusTpcEff = new TH3F("hDenEPlusTpcEff","hDenEPlusTpcEff;p_{T} (GeV/c); #eta; #phi",npTBins,0,10,nEtaBins,-1,1,nPhiBins,-PI-PI/12,PI+PI/12);
+	hNumEPlusTpcEff = new TH3F("hNumEPlusTpcEff","hNumEPlusTpcEff;p_{T} (GeV/c); #eta; #phi",npTBins,0,10,nEtaBins,-1,1,nPhiBins,-PI-PI/12,PI+PI/12);
+	hDenEMinusTpcEff = new TH3F("hDenEMinusTpcEff","hDenEMinusTpcEff;p_{T} (GeV/c); #eta; #phi",npTBins,0,10,nEtaBins,-1,1,nPhiBins,-PI-PI/12,PI+PI/12);
+	hNumEMinusTpcEff = new TH3F("hNumEMinusTpcEff","hNumEMinusTpcEff;p_{T} (GeV/c); #eta; #phi",npTBins,0,10,nEtaBins,-1,1,nPhiBins,-PI-PI/12,PI+PI/12);
 
 	for(Int_t i=0;i<9;i++){
-		hDenEPlusTpcEffCen[i] = new TH3F(Form("hDenEPlusTpcEffCenBin%d",i),"hDenEPlusTpcEffCen;p_{T} (GeV/c); #eta; #phi",200,0,10,100,-1,1,120,-PI-PI/12,PI+PI/12);
-		hNumEPlusTpcEffCen[i] = new TH3F(Form("hNumEPlusTpcEffCenBin%d",i),"hNumEPlusTpcEffCen;p_{T} (GeV/c); #eta; #phi",200,0,10,100,-1,1,120,-PI-PI/12,PI+PI/12);
-		hDenEMinusTpcEffCen[i] = new TH3F(Form("hDenEMinusTpcEffCenBin%d",i),"hDenEMinusTpcEffCen;p_{T} (GeV/c); #eta; #phi",200,0,10,100,-1,1,120,-PI-PI/12,PI+PI/12);
-		hNumEMinusTpcEffCen[i] = new TH3F(Form("hNumEMinusTpcEffCenBin%d",i),"hNumEMinusTpcEffCen;p_{T} (GeV/c); #eta; #phi",200,0,10,100,-1,1,120,-PI-PI/12,PI+PI/12);
+		hDenEPlusTpcEffCen[i] = new TH3F(Form("hDenEPlusTpcEffCenBin%d",i),"hDenEPlusTpcEffCen;p_{T} (GeV/c); #eta; #phi",npTBins,0,10,nEtaBins,-1,1,nPhiBins,-PI-PI/12,PI+PI/12);
+		hNumEPlusTpcEffCen[i] = new TH3F(Form("hNumEPlusTpcEffCenBin%d",i),"hNumEPlusTpcEffCen;p_{T} (GeV/c); #eta; #phi",npTBins,0,10,nEtaBins,-1,1,nPhiBins,-PI-PI/12,PI+PI/12);
+		hDenEMinusTpcEffCen[i] = new TH3F(Form("hDenEMinusTpcEffCenBin%d",i),"hDenEMinusTpcEffCen;p_{T} (GeV/c); #eta; #phi",npTBins,0,10,nEtaBins,-1,1,nPhiBins,-PI-PI/12,PI+PI/12);
+		hNumEMinusTpcEffCen[i] = new TH3F(Form("hNumEMinusTpcEffCenBin%d",i),"hNumEMinusTpcEffCen;p_{T} (GeV/c); #eta; #phi",npTBins,0,10,nEtaBins,-1,1,nPhiBins,-PI-PI/12,PI+PI/12);
 	}
 
 	hMinusOriginZ = new TH1F("hMinusOriginZ","hMinusOriginZ",600,-30,30);
