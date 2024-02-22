@@ -241,13 +241,17 @@ int main(int argc, char** argv)
 				&& TMath::Abs(rcVertexZ)<1.e-5 ) continue;
 		if(rcVertexR>=mVrCut) continue;
 		if(TMath::Abs(rcVertexZ)>=mVzCut) continue;
-		if(TMath::Abs(vzDiff)>=mVzDiffCut) continue;
+		// if(TMath::Abs(vzDiff)>=mVzDiffCut) continue;
 
 		Int_t runId = event->runId;
 		Int_t zdcRate = event->zdcX;
 		Int_t refMult = event->muRefMult;
+		Int_t nTofMatch = event->munBtofMatch;
 		refMultCorrUtil->init(runId);
 		refMultCorrUtil->initEvent(refMult,rcVertexZ,zdcRate);
+		if (refMultCorrUtil->isPileUpEvent(refMult,nTofMatch,rcVertexZ)) continue; // low energy pile-up cut
+
+
 		//mCentrality = refMultCorrUtil->getCentralityBin16();
 		hRefMult->Fill(refMult);
 		Double_t RefMultCorr = refMultCorrUtil->getRefMultCorr();
