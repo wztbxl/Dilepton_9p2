@@ -500,7 +500,7 @@ int main(int argc, char** argv)
 		//Int_t nMcTrks = event->nMcTrks;
 		Int_t nMcTrks = event->nMcE;
 		hNMatchTrksvsInputTrks->Fill(nMcTrks,nMatchedE);
-		hRefMultvsnMCTrk->Fill(RefMult,nMcTrks);
+		hRefMultvsnMCTrk->Fill(refMult,nMcTrks);
 		hRefMultCorrvsnMCTrk->Fill(RefMultCorr,nMcTrks);
 		hRefMultCorrvsRefMult->Fill(RefMultCorr,refMult);
 	}
