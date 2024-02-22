@@ -599,7 +599,7 @@ void bookHistograms()
 	hRefMult = new TH1F("hRefMult","hRefMult;refmult;counts",600,0,600);
     hRefMultCorr = new TH1F("hRefMultCorr","hRefMultCorr;refmultcorr;counts",600,0,600);
 	hRefMultvsnMCTrk = new TH2D("hRefMultvsnMCTrk",";RefMult;nMc Electrons",600,0,600,30,0,30);
-	hRefMultCorrvsnMCTrk = new TH2D("hRefMultvsnMCTrk",";RefMult;nMc Electrons",600,0,600,30,0,30);
+	hRefMultCorrvsnMCTrk = new TH2D("hRefMultCorrvsnMCTrk",";RefMult;nMc Electrons",600,0,600,30,0,30);
 	hRefMultCorrvsRefMult = new TH2D("hRefMultCorrvsRefMult",";RefMultCorr;RefMult",600,0,600,600,0,600);
     hCentrality9 = new TH1F("hCentrality9","hCentrality9",10,0,10);
 }
