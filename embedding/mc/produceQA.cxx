@@ -140,6 +140,9 @@ TH1F *hPlusOriginPhi;
 TH1F *hCentrality9;
 TH1F *hRefMult;
 TH1F* hRefMultCorr;
+TH2D* hRefMultCorrvsRefMult;
+TH2D* hRefMultvsnMCTrk;
+TH2D* hRefMultCorrvsnMCTrk;
 //for pTEtaWeight
 TH2D* pTEtaWeight[2];
 
@@ -250,6 +253,7 @@ int main(int argc, char** argv)
 		Double_t RefMultCorr = refMultCorrUtil->getRefMultCorr();
     	mCentrality = refMultCorrUtil->getCentralityBin9();//Centrality defined by offical, 0 is 70-80%,8 is 0-5%,0 is refMult<7 
     	Double_t weight = refMultCorrUtil->getWeight();
+		cout << weight << endl;
     // mCentrality = mCentrality + 1;
 		hRefMultCorr->Fill(RefMultCorr);
 		hCentrality9->Fill(mCentrality,weight);
@@ -496,6 +500,9 @@ int main(int argc, char** argv)
 		//Int_t nMcTrks = event->nMcTrks;
 		Int_t nMcTrks = event->nMcE;
 		hNMatchTrksvsInputTrks->Fill(nMcTrks,nMatchedE);
+		hRefMultvsnMCTrk->Fill(RefMult,nMcTrks);
+		hRefMultCorrvsnMCTrk->Fill(RefMultCorr,nMcTrks);
+		hRefMultCorrvsRefMult->Fill(RefMultCorr,refMult);
 	}
 
 	writeHistograms(outFile);
@@ -587,6 +594,9 @@ void bookHistograms()
 
 	hRefMult = new TH1F("hRefMult","hRefMult;refmult;counts",600,0,600);
     hRefMultCorr = new TH1F("hRefMultCorr","hRefMultCorr;refmultcorr;counts",600,0,600);
+	hRefMultvsnMCTrk = new TH2D("hRefMultvsnMCTrk",";RefMult;nMc Electrons",600,0,600,30,0,30);
+	hRefMultCorrvsnMCTrk = new TH2D("hRefMultvsnMCTrk",";RefMult;nMc Electrons",600,0,600,30,0,30);
+	hRefMultCorrvsRefMult = new TH2D("hRefMultCorrvsRefMult",";RefMultCorr;RefMult",600,0,600,600,0,600);
     hCentrality9 = new TH1F("hCentrality9","hCentrality9",10,0,10);
 }
 //____________________________________________________________
@@ -606,6 +616,9 @@ void writeHistograms(char* outFile)
 	hRcMcVzDiffvsMcVz->Write();
 	hRefMultvsRefMultCorr->Write();
 	hNMatchTrksvsInputTrks->Write();
+	hRefMultvsnMCTrk->Write();
+	hRefMultCorrvsnMCTrk->Write();
+	hRefMultCorrvsRefMult->Write();
 
 	hMcEtavsPtQ->Write();
 	hMcPhivsPtQ->Write();
