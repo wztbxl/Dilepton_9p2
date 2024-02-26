@@ -268,6 +268,8 @@ int main(int argc, char** argv)
 		if(mCentrality<0 || mCentrality>8) continue;
 
 		Int_t nMatchedE = 0;
+		Int_t nMcTrks = event->nMcE;
+		double McEWeight = refMult*0.05/nMcTrks;
 		for(Int_t i=0;i<event->nMcE;i++){
 			Int_t geantId = event->geantId[i];
 			Float_t q;
@@ -354,12 +356,12 @@ int main(int argc, char** argv)
 			//fill the num histograms with RC information 
 			if(TMath::Abs(mcEta)<=1.0){
 				if(q>0.){
-				   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi);
-					hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
+				   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi,McEWeight);
+					hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,McEWeight);
 					// hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
 				}else{
-				   	hDenEMinusTpcEff->Fill(mcPt,mcEta,mcPhi); 
-					hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi);
+				   	hDenEMinusTpcEff->Fill(mcPt,mcEta,mcPhi,McEWeight); 
+					hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,McEWeight);
 					// hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
 				}
 
@@ -372,12 +374,12 @@ int main(int argc, char** argv)
 						&& rcNHitsDedx>mTpceNHitsDedxCut){ //for sys. uncent. is 20, origin is 15
 						//&& rcNHitsDedx>=1){
 					if(q>0){
-					   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi);
-						hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi);
+					   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight);
+						hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight);
 						// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
 					}else{
-					   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi);
-						hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi);
+					   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight);
+						hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight);
 						// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
 					}
 				}
@@ -502,10 +504,9 @@ int main(int argc, char** argv)
 		}
 
 		//Int_t nMcTrks = event->nMcTrks;
-		Int_t nMcTrks = event->nMcE;
 		hNMatchTrksvsInputTrks->Fill(nMcTrks,nMatchedE);
 		hRefMultvsnMCTrk->Fill(refMult,nMcTrks);
-		hRefMultCorrvsnMCTrk->Fill(RefMultCorr,nMcTrks);
+		hRefMultCorrvsnMCTrk->Fill(RefMultCorr,nMcTrks*McEWeight);
 		hRefMultCorrvsRefMult->Fill(RefMultCorr,refMult);
 	}
 
