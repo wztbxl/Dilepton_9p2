@@ -274,6 +274,7 @@ int main(int argc, char** argv)
 		double McEWeight = refMult*0.05/nMcTrks;
 		for(Int_t i=0;i<event->nMcE;i++){
 			Int_t geantId = event->geantId[i];
+			Int_t mcTrackId = event->mcTrackId[i];
 			Float_t q;
 			if(geantId==2) q=0.5;
 			else if(geantId==3) q=-0.5;
@@ -286,6 +287,7 @@ int main(int argc, char** argv)
 			mcFourMom.SetPtEtaPhiM(mcPt,mcEta,mcPhi,Melectron);
 			Float_t mcY = mcFourMom.Rapidity();
 			Float_t mcP = mcFourMom.P();
+			Short_t mcCharge = event->mcCharge[i];
 			hMcEtavsPtQ->Fill(q,mcPt,mcEta);
 			hMcPhivsPtQ->Fill(q,mcPt,mcPhi);
 			hMcYvsPtQ->Fill(q,mcPt,mcY);
@@ -295,12 +297,12 @@ int main(int argc, char** argv)
 
 			if(q>0.)
 			{
-				   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi,reweight);
-					//hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,reweight);
+				   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi,weight);
+					//hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
 					//hDenPlusZdcRatevsPtCen[mCentrality]->Fill(mcPt,1.*zdcRate/1000);//tpc eff check
 				}else{
-				   	hDenEMinusTpcEff->Fill(mcPt,mcEta,mcPhi,reweight); 
-					//hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,reweight);
+				   	hDenEMinusTpcEff->Fill(mcPt,mcEta,mcPhi,weight); 
+					//hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
 					//hDenMinusZdcRatevsPtCen[mCentrality]->Fill(mcPt,1.*zdcRate/1000);//tpc eff check
 			}
 			Int_t RCtrkId = findPartner(mcTrackId,event);
@@ -390,12 +392,12 @@ int main(int argc, char** argv)
 					&& rcNHitsDedx>mTpceNHitsDedxCut){ //for sys. uncent. is 20, origin is 15
 					//&& rcNHitsDedx>=1){
 				if(q>0){
-				   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight);
-					hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight);
+				   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
+					hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
 					// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
 				}else{
-				   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight);
-					hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight);
+				   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
+					hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
 					// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
 				}
 			}
