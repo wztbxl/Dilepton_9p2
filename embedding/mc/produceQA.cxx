@@ -298,11 +298,11 @@ int main(int argc, char** argv)
 			if(q>0.)
 			{
 				   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi,weight);
-					//hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
+					hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
 					//hDenPlusZdcRatevsPtCen[mCentrality]->Fill(mcPt,1.*zdcRate/1000);//tpc eff check
 				}else{
 				   	hDenEMinusTpcEff->Fill(mcPt,mcEta,mcPhi,weight); 
-					//hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
+					hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
 					//hDenMinusZdcRatevsPtCen[mCentrality]->Fill(mcPt,1.*zdcRate/1000);//tpc eff check
 			}
 			Int_t RCtrkId = findPartner(mcTrackId,event);
