@@ -51,6 +51,8 @@ Int_t mCentrality;
 
 const Double_t PI = TMath::Pi();
 
+Int_t findPartner(Int_t mcid, MCEVENT *event);
+Bool_t isTPCTrackOK(Double_t pt, Double_t eta, Int_t nHitsFit, Int_t nHitsMax, Int_t nHitsDedx, Double_t dca);
 void bookHistograms();
 void writeHistograms(char* outFile);
 bool Init();
@@ -279,32 +281,59 @@ int main(int argc, char** argv)
 			Float_t mcPt = event->mcPt[i];
 			Float_t mcEta = event->mcEta[i];
 			Float_t mcPhi = event->mcPhi[i];
+			if(mcPhi<-PI) mcPhi += 2*PI;
 			TLorentzVector mcFourMom(0.,0.,0.,0.);
 			mcFourMom.SetPtEtaPhiM(mcPt,mcEta,mcPhi,Melectron);
 			Float_t mcY = mcFourMom.Rapidity();
 			Float_t mcP = mcFourMom.P();
-			Float_t rcPt = event->rcPt[i];
-			Float_t rcEta = event->rcEta[i];
-			Float_t rcPhi = event->rcPhi[i];
+			hMcEtavsPtQ->Fill(q,mcPt,mcEta);
+			hMcPhivsPtQ->Fill(q,mcPt,mcPhi);
+			hMcYvsPtQ->Fill(q,mcPt,mcY);
+
+			if(fabs(mcEta) > 1.0) continue;
+			if(!mcCharge) continue;    
+
+			if(q>0.)
+			{
+				   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi,reweight);
+					//hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,reweight);
+					//hDenPlusZdcRatevsPtCen[mCentrality]->Fill(mcPt,1.*zdcRate/1000);//tpc eff check
+				}else{
+				   	hDenEMinusTpcEff->Fill(mcPt,mcEta,mcPhi,reweight); 
+					//hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,reweight);
+					//hDenMinusZdcRatevsPtCen[mCentrality]->Fill(mcPt,1.*zdcRate/1000);//tpc eff check
+			}
+			Int_t RCtrkId = findPartner(mcTrackId,event);
+			if(RCtrkId==-999) continue;
+			
+			if(event->rcQaTruth[RCtrkId]<50) continue;			
+			//if(event->rcflag[RCtrkId]<=0) continue;			
+			if(event->rcflag[RCtrkId]<100) continue;			
+			if(event->rcflag[RCtrkId]%100 == 11) continue;			
+			if(event->rcflag[RCtrkId] > 1000) continue;			
+
+			Short_t rcCharge = event->rcCharge[RCtrkId];
+			if(!rcCharge) continue;    
+			nMatchedE++;
+
+			Float_t rcPt = event->rcPt[RCtrkId];
+			Float_t rcEta = event->rcEta[RCtrkId];
+			Float_t rcPhi = event->rcPhi[RCtrkId];
 			TLorentzVector rcFourMom(0.,0.,0.,0.);
 			rcFourMom.SetPtEtaPhiM(rcPt,rcEta,rcPhi,Melectron);
 			Float_t rcY = rcFourMom.Rapidity();
 			Float_t rcP = rcFourMom.P();
-			Int_t rcNHitsFit = event->rcNHitsFit[i];
-			Int_t rcNHitsPoss = event->rcNHitsPoss[i];
-			Int_t rcNHitsDedx = event->rcNHitsDedx[i];
+			Int_t rcNHitsFit = event->rcNHitsFit[RCtrkId];
+			Int_t rcNHitsPoss = event->rcNHitsPoss[RCtrkId];
+			Int_t rcNHitsDedx = event->rcNHitsDedx[RCtrkId];
 			// Int_t rcNHitsCommon = event->rcNHitsCommon[i];
-			Float_t rcDedx = event->rcDedx[i];
-			Float_t rcNSigmaE = event->rcNSigmaE[i];
-			Float_t rcNSigmaPi = event->rcNSigmaPi[i];
-			Float_t rcNSigmaK = event->rcNSigmaK[i];
-			Float_t rcNSigmaP = event->rcNSigmaP[i];
-			Float_t rcDca = event->rcDca[i];
-			Float_t rcPhiFirst = event->rcPhi[i];
-
-			hMcEtavsPtQ->Fill(q,mcPt,mcEta);
-			hMcPhivsPtQ->Fill(q,mcPt,mcPhi);
-			hMcYvsPtQ->Fill(q,mcPt,mcY);
+			Float_t rcDedx = event->rcDedx[RCtrkId];
+			Float_t rcNSigmaE = event->rcNSigmaE[RCtrkId];
+			Float_t rcNSigmaPi = event->rcNSigmaPi[RCtrkId];
+			Float_t rcNSigmaK = event->rcNSigmaK[RCtrkId];
+			Float_t rcNSigmaP = event->rcNSigmaP[RCtrkId];
+			Float_t rcDca = event->rcDca[RCtrkId];
+			Float_t rcPhiFirst = event->rcPhi[RCtrkId];
 
 			/*if(q>0. && mcEta>0. 
 					&& mcPhi<=funPosHi->Eval(mcPt)
@@ -317,8 +346,6 @@ int main(int argc, char** argv)
 					){
 				continue;
 			}**/
-
-			if(mcPhi<-PI) mcPhi += 2*PI;
 
 			Float_t ratio = 0.;
 			if(rcDedx>0) ratio = rcNHitsFit*1./rcNHitsPoss;
@@ -354,34 +381,22 @@ int main(int argc, char** argv)
 
 			
 			//fill the num histograms with RC information 
-			if(TMath::Abs(mcEta)<=1.0){
-				if(q>0.){
-				   	hDenEPlusTpcEff->Fill(mcPt,mcEta,mcPhi,McEWeight);
-					hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,McEWeight);
-					// hDenEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
+			if(rcNHitsFit>=mTpceNHitsFitCut//for systemiac uncentraity change this +/-5, origin is 20
+			 // if(rcNHitsFit>=1//for systemiac uncentraity change this +/-5
+					&& ratio>=mTpceNHitsFitRatioCut
+					&& rcDca<=mTpceDcaCut // for sys. uncent. is 1.2, origin is 1
+					// && rcDca<=3
+					// ){
+					&& rcNHitsDedx>mTpceNHitsDedxCut){ //for sys. uncent. is 20, origin is 15
+					//&& rcNHitsDedx>=1){
+				if(q>0){
+				   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight);
+					hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight);
+					// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
 				}else{
-				   	hDenEMinusTpcEff->Fill(mcPt,mcEta,mcPhi,McEWeight); 
-					hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,McEWeight);
-					// hDenEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
-				}
-
-				if(rcNHitsFit>=mTpceNHitsFitCut//for systemiac uncentraity change this +/-5, origin is 20
-				 // if(rcNHitsFit>=1//for systemiac uncentraity change this +/-5
-						&& ratio>=mTpceNHitsFitRatioCut
-						&& rcDca<=mTpceDcaCut // for sys. uncent. is 1.2, origin is 1
-						// && rcDca<=3
-						// ){
-						&& rcNHitsDedx>mTpceNHitsDedxCut){ //for sys. uncent. is 20, origin is 15
-						//&& rcNHitsDedx>=1){
-					if(q>0){
-					   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight);
-						hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight);
-						// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
-					}else{
-					   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight);
-						hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight);
-						// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
-					}
+				   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight);
+					hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight);
+					// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
 				}
 			}
 			
@@ -396,7 +411,6 @@ int main(int argc, char** argv)
 			if(rcDca>3) continue;
 			if(TMath::Abs(rcEta)> 1.3) continue;
 
-			nMatchedE++;
 
 			int pTEtaBinMinus = pTEtaWeight[0]->FindBin(rcPt,rcEta);
 			int pTEtaBinPlus = pTEtaWeight[1]->FindBin(rcPt,rcEta);
@@ -515,6 +529,67 @@ int main(int argc, char** argv)
 
 	cout<<"end of program"<<endl;
 	return 0;
+}
+
+//____________________________________________________________
+Bool_t isTPCTrackOK(Double_t pt, Double_t eta, Int_t nHitsFit, Int_t nHitsMax, Int_t nHitsDedx, Double_t dca)
+{
+    if(
+            //pt > 0.2  &&
+            //(float) nHitsFit/nHitsMax  > 0.52  &&
+            //nHitsFit  > 20  &&
+            //nHitsDedx > 15 &&
+            //fabs(dca) < 1.0 &&
+            fabs(eta) < 1.0 
+      )
+	  return true;
+    else 
+		return false;
+}
+
+Int_t findPartner( Int_t mcid, MCEVENT *event)
+{    
+	Int_t nrcTracks = event->nRcE;
+
+    float maxTruth = -1;
+    int iTrack = -1;
+    for(int i=0;i<nrcTracks;i++) 
+	{
+        if(event->rcidtruth[i] == mcid) 
+		{
+            if(event->rcQaTruth[i]>maxTruth)  //quality of this information (percentage of hits coming the above MC track)
+            {
+				iTrack = i;
+                maxTruth = event->rcQaTruth[i];
+            }
+        }
+    }
+
+    //if(maxTruth)
+    
+    if(iTrack != -1) 
+	{
+		Int_t nHitsFit1 = event->rcNHitsFit[iTrack];
+        Int_t nHitsPoss1 = event->rcNHitsPoss[iTrack];
+        Int_t nHitsDedx1 = event->rcNHitsDedx[iTrack];
+        Double_t nSigmaPion1 = event->rcNSigmaPi[iTrack];
+        Double_t pt1 = event->rcPt[iTrack];
+        Double_t eta1 = event->rcEta[iTrack];
+        Double_t phi1 = event->rcPhi[iTrack];
+        Double_t dca1 = event->rcDca[iTrack];
+        Int_t charge1 = event->rcCharge[iTrack];
+		if(!isTPCTrackOK(pt1,eta1,nHitsFit1,nHitsPoss1,nHitsDedx1,dca1)) return -999;
+		// if(!passTrack_Pico(gTrk)) return NULL;
+        // if(gTrk->id()<0 || gTrk->id()>=50000) {
+            // LOG_WARN << " This global track has a track id out of the range : " << gTrk->id() << endm;
+            // return NULL;
+        // }
+        // if(gTrk->index2Cov()<0) return NULL;
+        
+        // return gTrk;
+		return iTrack;
+    }
+    return -999;
 }
 //____________________________________________________________
 void bookHistograms()
