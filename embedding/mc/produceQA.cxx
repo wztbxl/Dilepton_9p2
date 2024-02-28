@@ -392,12 +392,16 @@ int main(int argc, char** argv)
 					&& rcNHitsDedx>mTpceNHitsDedxCut){ //for sys. uncent. is 20, origin is 15
 					//&& rcNHitsDedx>=1){
 				if(q>0){
-				   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
-					hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
+				   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,weight);
+					hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
+				   	// hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
+					// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
 					// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
 				}else{
-				   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
-					hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
+				   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,weight);
+					hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
+				   	// hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
+					// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
 					// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
 				}
 			}
