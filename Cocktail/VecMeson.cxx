@@ -285,8 +285,7 @@ Int_t VecMeson::Init()
 	momShape->SetNpx(10000);
 
 	//****** Efficiency for single track ******
-	InitializeEffFun(mCenIdx);
-	InitialzeEffHist();
+	InitialzeEffHist(mCenIdx);
 
 	//NA49
 	//fRapidity = new TF1("fRapidity","[0]*(exp(-pow(x-[1],2)/2./[2]/[2])+exp(-pow(x+[1],2)/2./[2]/[2]))",-5,5);
@@ -589,7 +588,8 @@ void VecMeson::GenerateDecay()
 {
 	TTimer *timer = new TTimer();
 
-	for(int i=0;i<mNTrks;i++){
+	for(int i=0;i<mNTrks;i++)
+	{
 		if(i%(mNTrks/10)==0) cout<<"processing "<<i<<" tracks..."<<endl;
 		//cout << i << endl;
 
@@ -804,57 +804,50 @@ void VecMeson::GenerateDecay()
 			}
 		}
 
-    RapiditywoSTARAcc->Fill(rceepair.Rapidity());
-	if(rceepair.M()>mMass) 
-	{
-		CutRecorder->Fill(0.5);
-		PtMVsPtPLargeMass->Fill(smempt,smeppt);
-		EtaMVsEtaPLargeMass->Fill(smemeta,smepeta);
-		if( smeppt<0.2 || smempt<0.2 || fabs(smepeta)>1. || fabs(smemeta)>1. ) CutRecorder->Fill(1.5);
-		if( smeppt<0.2 ) CutRecorder->Fill(3.5);
-		if( smempt<0.2 ) CutRecorder->Fill(4.5); 
-		if( smepeta > 1. ) CutRecorder->Fill(5.5);
-		if( smemeta > 1. ) CutRecorder->Fill(6.5); 
-	}
-	if(fabs(rceepair.Rapidity())>1)
-          {
-            MeePtRapidityOver1->Fill(rceepair.Pt(),rceepair.M());
-          }
-    // cout << "Mee = " <<  rceepair.M() << endl;
-    // cout << "Rapidity = " << rceepair.Rapidity() <<endl;
+    	RapiditywoSTARAcc->Fill(rceepair.Rapidity());
+		if(rceepair.M()>mMass) 
+		{
+			CutRecorder->Fill(0.5);
+			PtMVsPtPLargeMass->Fill(smempt,smeppt);
+			EtaMVsEtaPLargeMass->Fill(smemeta,smepeta);
+			if( smeppt<0.2 || smempt<0.2 || fabs(smepeta)>1. || fabs(smemeta)>1. ) 	CutRecorder->Fill(1.5);
+			if( smeppt<0.2 ) CutRecorder->Fill(3.5);
+			if( smempt<0.2 ) CutRecorder->Fill(4.5); 
+			if( smepeta > 1. ) CutRecorder->Fill(5.5);
+			if( smemeta > 1. ) CutRecorder->Fill(6.5); 
+		}
+		if(fabs(rceepair.Rapidity())>1)
+    	      {
+    	        MeePtRapidityOver1->Fill(rceepair.Pt(),rceepair.M());
+    	      }
+    	// cout << "Mee = " <<  rceepair.M() << endl;
+    	// cout << "Rapidity = " << rceepair.Rapidity() <<endl;
 
-    if (smeppt>=0.2 && smempt>=0.2 && fabs(smepeta)<=1. && fabs(smemeta)<=1.)
-    {  
-      RapiditySTARAcc->Fill(rceepair.Rapidity());
-	  MeeFullRapidity->Fill(rceepair.M());
-	  if (fabs(rceepair.Rapidity()) <= 1) MeeWpTEtaWRapidity->Fill(rceepair.M());
-	  else MeeWpTEtaWoRapidity->Fill(rceepair.M());
-    }
-	else
-	{
-		RapidityOutSTARAcc->Fill(rceepair.Rapidity());
-	}
+    	if (smeppt>=0.2 && smempt>=0.2 && fabs(smepeta)<=1. && fabs(smemeta)<=1.)
+    	{  
+			MeeFullRapidity->Fill(rceepair.M());// w.o any rapidity cut
+			if (rceepair.Rapidity()<=1)
+			{
+				RapiditySTARAcc->Fill(rceepair.Rapidity());
+			}//STAR rapidity cut
+
+		  if (fabs(rceepair.Rapidity()) <= 1) MeeWpTEtaWRapidity->Fill(rceepair.M());
+		  else MeeWpTEtaWoRapidity->Fill(rceepair.M());
+    	}
+		else
+		{
+			RapidityOutSTARAcc->Fill(rceepair.Rapidity());
+		}
 	
-	if (fabs(rceepair.Rapidity()) <= 1)
-	{
-		if(smeppt>=0.2 && smempt>=0.2) MeeWoEtaCut->Fill(rceepair.M());
-		if(fabs(smepeta)<=1. && fabs(smemeta)<=1.) MeeWopTCut->Fill(rceepair.M());
-	}
-	// if(eppt>=0.2 && empt>=0.2) MeeWoEtaCut->Fill(rceepair.M());
-	// if(fabs(smepeta)<=1. && fabs(smemeta)<=1.) MeeWopTCut->Fill(rceepair.M());
-	if(fabs(rceepair.Rapidity()) <= 1) MeeWopTEtaCut->Fill(rceepair.M());
+		if (fabs(rceepair.Rapidity()) <= 1)
+		{
+			if(smeppt>=0.2 && smempt>=0.2) MeeWoEtaCut->Fill(rceepair.M());
+			if(fabs(smepeta)<=1. && fabs(smemeta)<=1.) MeeWopTCut->Fill(rceepair.M());
+		}
+		// if(eppt>=0.2 && empt>=0.2) MeeWoEtaCut->Fill(rceepair.M());
+		// if(fabs(smepeta)<=1. && fabs(smemeta)<=1.) MeeWopTCut->Fill(rceepair.M());
+		if(fabs(rceepair.Rapidity()) <= 1) MeeWopTEtaCut->Fill(rceepair.M());
 
-
-
-		Double_t vz = 0;
-		//Double_t vz = myRandom->Gaus(0,15);
-
-		if(kPosPassFlag>=0&&kNegPassFlag>=0) {
-			hMCAcc2MvsPt->Fill(rceepair.M(),rceepair.Pt());
-			hRCAcc2MvsPt3D->Fill(rceepair.M(),rceepair.Pt(),epeff3d*emeff3d);
-			// hMCAcc2MvsPt->Fill(rceepair.M(),rceepair.Pt());
-			// hRCAcc2MvsPt3D->Fill(rceepair.M(),rceepair.Pt(),epeff3d*emeff3d); // exchange the pT and mass 
-		} //PHENIX acceptance
 	}
 	cout << "after All"<<endl;
 

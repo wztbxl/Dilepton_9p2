@@ -90,7 +90,7 @@ double BES_II_EffRatio(double *x, double *par)
 }
 
 //Zhen add it to read the efficiency histograms
-void InitialzeEffHist()
+void InitialzeEffHist(int CenIdx = -999)
 {
 	//TOF efficiency : load histograms for pion efficiency of each eta and phi bin, and set the function of e/pi ratio
 	TString Flag[2] = {"Plus","Minus"};
@@ -138,7 +138,7 @@ void InitialzeEffHist()
 	else cout<<"Fail to read TPC match efficiency file"<<endl;
 	for (int i = 0;i<nEta_TPC;i++)
 	{
-		for (int j = 0; j < count; j++)
+		for (int j = 0; j < nPhi_TPC; j++)
 		{
 			hMBEff_Tpc_Pos[i][j] = (TH1D*)f2->Get(Form("TPCEFFPlusEta%dPhi%d",i,j));
 			hMBEff_Tpc_Neg[i][j] = (TH1D*)f2->Get(Form("TPCEFFMinusEta%dPhi%d",i,j));
@@ -193,7 +193,7 @@ void InitialzeEffHist()
 		f_nSigmaEEff_HigpT->SetParameters(0,0);//40-80%
 		break;
 	
-	default: cout << "you need to select a centraility index!!!!!!!!"
+	default: cout << "you need to select a centraility index!!!!!!!!"<< endl;
 		break;
 	}	
 	cout<<"read nSigmaE cut efficiency ok"<<endl;
