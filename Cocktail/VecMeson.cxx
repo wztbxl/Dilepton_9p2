@@ -203,8 +203,10 @@ Int_t VecMeson::Init()
 	if(mParIndex==7) funMeson = (TF1 *)psi; //psi
 	if(mParIndex==8) funMeson = (TF1 *)virtualphotonpt; //virtual photon, flat pt
 
+	//-------------------------- now work at here, you need to think about how to change it for different energy -----------------------------//
 	// load inv.yields pt spectra fit parameters
 	//TFile *FTS  = new TFile(Form("inputFile/AuAu200_inputpT_Cen%d_%d.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx])); 
+	// 2024.03.12 now using the some of 54GeV files as input
 	//inputFile is my path to cocktail
 	TFile *FTS;
 	if(mCenIdx>=6) {
@@ -253,7 +255,7 @@ Int_t VecMeson::Init()
 	funSmearPt->SetParameters(mPtSmearPar);
 	funSmearPtEmb = new TF1("funSmearPtEmb","sqrt([0]*[0]*x*x+[1]*[1])",0,10);
 	// funSmearPtEmb->SetParameters(0.005690,0.007473);
-	funSmearPtEmb->SetParameters(0.002918,0.007473);
+	funSmearPtEmb->SetParameters(0.00700,0.007473);
 	//how to do the smear? and why we should do the smear?
 	//****** pT Res From embedding ********
 	TFile *pTResInput = new TFile("/star/u/wangzhen/QA/wangzhen/Cocktail/pTresFromEmbedding.root");
@@ -292,7 +294,7 @@ Int_t VecMeson::Init()
 
 	//CERES Pb+Au
 	fRapidity = new TF1("fRapidity","pow(cosh(3*x/4./sqrt(log([0]/2./[1]))/(1-pow(x,2)/2./[0]*[2])),-2.)",-5,5);
-	fRapidity->SetParameter(0,54.4);//sqrt(s)//set as my energy
+	fRapidity->SetParameter(0,9.2);//sqrt(s)//set as my energy
 	fRapidity->SetParameter(1,0.938); // nucleon mass
 	fRapidity->SetParameter(2,mMass); // meson mass
 	if(mParIndex==8) fRapidity->SetParameter(2,Masspi0);
@@ -547,12 +549,26 @@ Double_t VecMeson::EvalEff3D(TLorentzVector electron,int ipttpc,int ietatpc,int 
 	*/
 	if (charge == 1)
 	{
-	eff = getEff(pt,hTOFMatchEff[0],ptl_Tof,pth_Tof)*getEff(pt,hElecPionRatio[0],ptl_Tof,pth_Tof);//cout<<"TOF"<<endl;
-	eff = eff*getEff(pt,hTPCTrackingEffPlus[ietatpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
-	eff = eff*getEff(pt,hBetaCutEff[0],ptl_Tpc,pth_Tpc);//cout<<"beta"<<endl;
-	eff = eff*getEff(p,hNSigmaECutEff[0],ptl_Tpc,pth_Tpc);//cout<<"sigma"<<endl;//TOF*TPC*Beta*nSigmaE
+	eff = getEff(pt,hMBEff_Tof_Pos[ietatof][iphitof],ptl_Tof,pth_Tof)*f_ElecPoionRatio->Eval(pt);//cout<<"TOF"<<endl;
+	eff = eff*getEff(pt,hMBEff_Tpc_Pos[ietatpc][iphitpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
+	eff = eff*f_betaCutEff->Eval(pt);//cout<<"beta"<<endl;
+	if (pT > 0.8)
+	{
+		eff = eff*f_nSigmaEEff_HigpT->Eval(pt);
+	} else eff = eff*f_nSigmaEEff_lowpT->Eval(pt);
+	//cout<<"sigma"<<endl;//TOF*TPC*Beta*nSigmaE
 	}
-	else eff = getEff(pt,hTOFMatchEff[1],ptl_Tof,pth_Tof)*getEff(pt,hElecPionRatio[1],ptl_Tof,pth_Tof)*getEff(pt,hTPCTrackingEffMinus[ietatpc],ptl_Tpc,pth_Tpc)*getEff(pt,hBetaCutEff[1],ptl_Tpc,pth_Tpc)*getEff(p,hNSigmaECutEff[1],ptl_Tpc,pth_Tpc);//TOF*TPC*Beta*nSigmaE
+	else {
+		eff = getEff(pt,hMBEff_Tof_Neg[ietatof][iphitof],ptl_Tof,pth_Tof)*f_ElecPoionRatio->Eval(pt);//cout<<"TOF"<<endl;
+		eff = eff*getEff(pt,hMBEff_Tpc_Neg[ietatpc][iphitpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
+		eff = eff*f_betaCutEff->Eval(pt);//cout<<"beta"<<endl;
+		if (pT > 0.8)
+		{
+			eff = eff*f_nSigmaEEff_HigpT->Eval(pt);
+		} else eff = eff*f_nSigmaEEff_lowpT->Eval(pt);
+		//cout<<"sigma"<<endl;//TOF*TPC*Beta*nSigmaE
+
+	}
 	return eff;
 }
 
