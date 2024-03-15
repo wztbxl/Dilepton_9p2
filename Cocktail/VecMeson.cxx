@@ -552,7 +552,7 @@ Double_t VecMeson::EvalEff3D(TLorentzVector electron,int ipttpc,int ietatpc,int 
 	eff = getEff(pt,hMBEff_Tof_Pos[ietatof][iphitof],ptl_Tof,pth_Tof)*f_ElecPoionRatio->Eval(pt);//cout<<"TOF"<<endl;
 	eff = eff*getEff(pt,hMBEff_Tpc_Pos[ietatpc][iphitpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
 	eff = eff*f_betaCutEff->Eval(pt);//cout<<"beta"<<endl;
-	if (pT > 0.8)
+	if (pt > 0.8)
 	{
 		eff = eff*f_nSigmaEEff_HigpT->Eval(pt);
 	} else eff = eff*f_nSigmaEEff_lowpT->Eval(pt);
@@ -562,7 +562,7 @@ Double_t VecMeson::EvalEff3D(TLorentzVector electron,int ipttpc,int ietatpc,int 
 		eff = getEff(pt,hMBEff_Tof_Neg[ietatof][iphitof],ptl_Tof,pth_Tof)*f_ElecPoionRatio->Eval(pt);//cout<<"TOF"<<endl;
 		eff = eff*getEff(pt,hMBEff_Tpc_Neg[ietatpc][iphitpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
 		eff = eff*f_betaCutEff->Eval(pt);//cout<<"beta"<<endl;
-		if (pT > 0.8)
+		if (pt > 0.8)
 		{
 			eff = eff*f_nSigmaEEff_HigpT->Eval(pt);
 		} else eff = eff*f_nSigmaEEff_lowpT->Eval(pt);
@@ -711,19 +711,19 @@ void VecMeson::GenerateDecay()
 		int ietatof,iphitof,ipttof; 
 		Double_t epeff3d, emeff3d;
 		if(mUseScaleEff){
-			tpcPtEtaPhi2Bin(0, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttpc,&ietatpc,&iphitpc); // MB tpc binning
-			tofPtEtaPhi2Bin(0, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttof,&ietatof,&iphitof); // MB tof binning
-			epeff3d = EvalScaleEff3D(smdaughterP,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,1);
+			// tpcPtEtaPhi2Bin(0, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttpc,&ietatpc,&iphitpc); // MB tpc binning
+			// tofPtEtaPhi2Bin(0, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttof,&ietatof,&iphitof); // MB tof binning
+			// epeff3d = EvalScaleEff3D(smdaughterP,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,1);
 
-			tpcPtEtaPhi2Bin(0, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttpc,&ietatpc,&iphitpc); // MB tpc binning
-			tofPtEtaPhi2Bin(0, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttof,&ietatof,&iphitof); // MB tof binning
-			emeff3d = EvalScaleEff3D(smdaughterN,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,-1);
+			// tpcPtEtaPhi2Bin(0, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttpc,&ietatpc,&iphitpc); // MB tpc binning
+			// tofPtEtaPhi2Bin(0, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttof,&ietatof,&iphitof); // MB tof binning
+			// emeff3d = EvalScaleEff3D(smdaughterN,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,-1);
 		}
 		else{
 			//tpcPtEtaPhi2Bin(mCenIdx, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttpc,&ietatpc,&iphitpc);
 			//tofPtEtaPhi2Bin(mCenIdx, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttof,&ietatof,&iphitof);
-			getEtaPhiBin(smdaughterP.Eta(),smdaughterP.Phi(),&ietatpc,&iphitpc);
-			getEtaPhiBin(smdaughterP.Eta(),smdaughterP.Phi(),&ietatof,&iphitof);
+			getEtaPhiBin_TPC(smdaughterP.Eta(),smdaughterP.Phi(),&ietatpc,&iphitpc);
+			getEtaPhiBin_TOF(smdaughterP.Eta(),smdaughterP.Phi(),&ietatof,&iphitof);
 			//cout << "getEtaPhiBin posi"<<endl;
 			//cout << "eta = "<<smdaughterP.Eta()<<endl;
 			//cout<< "ieta = "<< ietatpc<<"\n iphi = "<<iphitpc<<endl;
@@ -732,8 +732,8 @@ void VecMeson::GenerateDecay()
 			//tpcPtEtaPhi2Bin(mCenIdx, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttpc,&ietatpc,&iphitpc);
 			//tofPtEtaPhi2Bin(mCenIdx, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttof,&ietatof,&iphitof);
 			//cout<<"get Eff posi"<<endl;
-			getEtaPhiBin(smdaughterN.Eta(),smdaughterN.Phi(),&ietatpc,&iphitpc);
-			getEtaPhiBin(smdaughterN.Eta(),smdaughterN.Phi(),&ietatof,&iphitof);
+			getEtaPhiBin_TPC(smdaughterN.Eta(),smdaughterN.Phi(),&ietatpc,&iphitpc);
+			getEtaPhiBin_TOF(smdaughterN.Eta(),smdaughterN.Phi(),&ietatof,&iphitof);
 			//cout << "getEtaPhiBin elec"<<endl;
 			//cout << "eta = "<<smdaughterN.Eta()<<endl;
 			//cout<< "ieta = "<< ietatpc<<"\niphi = "<<iphitpc<<endl;
@@ -849,8 +849,6 @@ void VecMeson::GenerateDecay()
 		Double_t vz = 0;
 		//Double_t vz = myRandom->Gaus(0,15);
 
-		int kPosPassFlag = PHENIXFilter(1,smdaughterP.Px(),smdaughterP.Py(),smdaughterP.Pz(),vz);
-		int kNegPassFlag = PHENIXFilter(-1,smdaughterN.Px(),smdaughterN.Py(),smdaughterN.Pz(),vz);
 		if(kPosPassFlag>=0&&kNegPassFlag>=0) {
 			hMCAcc2MvsPt->Fill(rceepair.M(),rceepair.Pt());
 			hRCAcc2MvsPt3D->Fill(rceepair.M(),rceepair.Pt(),epeff3d*emeff3d);

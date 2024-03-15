@@ -127,7 +127,7 @@ void InitialzeEffHist()
 		f_ElecPoionRatio->SetParameters( 3.42168, 0.830217, 0.153163,-3.09743, 2.68287, 1.03397);//40-80%
 		break;
 	
-	default: cout << "you need to select a centraility index!!!!!!!!"
+	default: cout << "you need to select a centraility index!!!!!!!!" << endl;
 		break;
 	}	
 	//next step: reading a text file to get the parameters
@@ -152,19 +152,19 @@ void InitialzeEffHist()
 	switch (CenIdx)
 	{
 	case 0:
-		f_betaCutEff->SetParameters(0.9689);//0-80%
+		f_betaCutEff->SetParameter(0,0.9689);//0-80%
 		break;
 	case 1:
-		f_betaCutEff->SetParameters(0.9688);//0-10%
+		f_betaCutEff->SetParameter(0,0.9688);//0-10%
 		break;
 	case 2:
-		f_betaCutEff->SetParameters(0.9690);//10-40%
+		f_betaCutEff->SetParameter(0,0.9690);//10-40%
 		break;
 	case 3:
-		f_betaCutEff->SetParameters(0.9681);//40-80%
+		f_betaCutEff->SetParameter(0,0.9681);//40-80%
 		break;
 	
-	default: cout << "you need to select a centraility index!!!!!!!!"
+	default: cout << "you need to select a centraility index!!!!!!!!"<< endl;
 		break;
 	}	
 	cout<<"read beta cut efficiency ok"<<endl;
