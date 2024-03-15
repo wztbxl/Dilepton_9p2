@@ -219,7 +219,7 @@ void getEtaPhiBin_TPC(double Eta, double Phi, int *EtaBin, int *PhiBin)//phi ran
     if (*EtaBin<0.) *EtaBin = 0;
     if (*EtaBin>=nEta_TPC) *EtaBin = nEta_TPC-1;
     if (*PhiBin<0.) *PhiBin = 0;
-    if (*PhiBin>=nEta_TPC) *PhiBin = nPhi_TPC-1;
+    if (*PhiBin>=nPhi_TPC) *PhiBin = nPhi_TPC-1;
     return;
 }
 
@@ -231,7 +231,7 @@ void getEtaPhiBin_TOF(double Eta, double Phi, int *EtaBin, int *PhiBin)//phi ran
     if (*EtaBin<0.) *EtaBin = 0;
     if (*EtaBin>=nEta_TOF) *EtaBin = nEta_TOF-1;
     if (*PhiBin<0.) *PhiBin = 0;
-    if (*PhiBin>=nEta_TOF) *PhiBin = nPhi_TOF-1;
+    if (*PhiBin>=nPhi_TOF) *PhiBin = nPhi_TOF-1;
     return;
 }
 //-----------------------Zhen add this for BES-II Dielectron analysis--------------------------//
