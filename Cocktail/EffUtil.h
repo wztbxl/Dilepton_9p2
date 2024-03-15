@@ -93,11 +93,12 @@ double BES_II_EffRatio(double *x, double *par)
 //Zhen add it to read the efficiency histograms
 void InitialzeEffHist(int CenIdx = -999)
 {
+	cout << "nEta_TOF = " << nEta_TOF << " nPhi_TOF = " << nPhi_TOF << " nEta_TPC  =" << nEta_TPC << "nPhi_TPC = " << nPhi_TPC << endl; 
 	//TOF efficiency : load histograms for pion efficiency of each eta and phi bin, and set the function of e/pi ratio
 	TString Flag[2] = {"Plus","Minus"};
 	//read TOF match efficiency
 	// TFile *f1 = new TFile("/star/u/wangzhen/QA/wangzhen/Cocktail/Effinput/TOFMatchEffhis.root");
-	TFile *f1 = new TFile(Form("./Effinput/TOFMatchEffhis%d%d.root",CentralityLow[CenIdx],CentralityHi[CenIdx]));
+	TFile *f1 = new TFile(Form("./Effinput/TOFMatchEffhis%d%d.new.root",CentralityLow[CenIdx],CentralityHi[CenIdx]));
 	if(f1->IsOpen()) cout<<"TOF match efficiency file is open "<<endl;
 	else cout<<"Fail to read TOF match efficiency file"<<endl;
 	TString name;
@@ -134,7 +135,7 @@ void InitialzeEffHist(int CenIdx = -999)
 	//next step: reading a text file to get the parameters
 
 	//get TPC tracking 
-	TFile* f2 = new TFile(Form("./Effinput/TPCEffHisto%d%d.root",CentralityLow[CenIdx],CentralityHi[CenIdx]));
+	TFile* f2 = new TFile(Form("./Effinput/TPCEffHistoCen%d%d.root",CentralityLow[CenIdx],CentralityHi[CenIdx]));
 	if(f1->IsOpen()) cout<<"TPC match efficiency file is open "<<endl;
 	else cout<<"Fail to read TPC match efficiency file"<<endl;
 	for (int i = 0;i<nEta_TPC;i++)
