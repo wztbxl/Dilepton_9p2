@@ -593,7 +593,7 @@ void VecMeson::GenerateDecay()
 	{
 		if(i%(mNTrks/10)==0) cout<<"processing "<<i<<" tracks..."<<endl;
 		if(mDebug) cout << i << endl;
-		cout << i << endl;
+		// cout << i << endl;
 
 		if((i%10000)==0){
 			long long tmp = (long long)timer->GetAbsTime();
@@ -728,21 +728,22 @@ void VecMeson::GenerateDecay()
 			//tofPtEtaPhi2Bin(mCenIdx, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttof,&ietatof,&iphitof);
 			getEtaPhiBin_TPC(smdaughterP.Eta(),smdaughterP.Phi(),&ietatpc,&iphitpc);
 			getEtaPhiBin_TOF(smdaughterP.Eta(),smdaughterP.Phi(),&ietatof,&iphitof);
-			//cout << "getEtaPhiBin posi"<<endl;
-			//cout << "eta = "<<smdaughterP.Eta()<<endl;
-			//cout<< "ieta = "<< ietatpc<<"\n iphi = "<<iphitpc<<endl;
+			if(mDebug) cout << "getEtaPhiBin posi"<<endl;
+			if(mDebug) cout << "eta = "<<smdaughterP.Eta()<<endl;
+			if(mDebug) cout<< "ieta = "<< ietatpc<<"\n iphi = "<<iphitpc<<endl;
 			epeff3d = EvalEff3D(smdaughterP,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,1);
+			if(mDebug) cout<<"get Eff posi"<<endl;
 
 			//tpcPtEtaPhi2Bin(mCenIdx, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttpc,&ietatpc,&iphitpc);
 			//tofPtEtaPhi2Bin(mCenIdx, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttof,&ietatof,&iphitof);
 			//cout<<"get Eff posi"<<endl;
 			getEtaPhiBin_TPC(smdaughterN.Eta(),smdaughterN.Phi(),&ietatpc,&iphitpc);
 			getEtaPhiBin_TOF(smdaughterN.Eta(),smdaughterN.Phi(),&ietatof,&iphitof);
-			//cout << "getEtaPhiBin elec"<<endl;
-			//cout << "eta = "<<smdaughterN.Eta()<<endl;
-			//cout<< "ieta = "<< ietatpc<<"\niphi = "<<iphitpc<<endl;
+			if(mDebug) cout << "getEtaPhiBin elec"<<endl;
+			if(mDebug) cout << "eta = "<<smdaughterN.Eta()<<endl;
+			if(mDebug) cout<< "ieta = "<< ietatpc<<"\niphi = "<<iphitpc<<endl;
 			emeff3d = EvalEff3D(smdaughterN,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,-1);
-			//cout<<"get Eff elec"<<endl;
+			if(mDebug) cout<<"get Eff elec"<<endl;
 		}
 		if(mDebug) cout<<"after Eff"<<endl;
 
