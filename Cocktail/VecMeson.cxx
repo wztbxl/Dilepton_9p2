@@ -650,7 +650,7 @@ void VecMeson::GenerateDecay()
 			daughterP = fProducts[0];
 			daughterN = fProducts[1];
 		}
-		if(mDebug) cout<<"pt: "<<pt<<"   \tdaughter_pt:"<<.Pt()<<"  "<<daughterP.X()<<"  "<<daughterP.Y()<<"  "<<daughterP.Z()<<endl;
+		if(mDebug) cout<<"pt: "<<pt<<"   \tdaughter_pt:"<<daughterP.X()<<"  "<<daughterP.Y()<<"  "<<daughterP.Z()<<endl;
 
 		if(mDebug) cout<<1<<endl;
 		Double_t eppt  = daughterP.Pt();
