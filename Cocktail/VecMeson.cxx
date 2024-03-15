@@ -248,7 +248,7 @@ Int_t VecMeson::Init()
 	if (!histMeson) cout << " Fail to get histogram " << endl;
 	//histMeson->Print();
 	cout << "mCenIdx = " << mCenIdx << " CentralityLow[mCenIdx] = " <<CentralityLow[mCenIdx] << " CentralityHi[mCenIdx] = " << CentralityHi[mCenIdx] << endl;
-	TFile *fcocktail = TFile::Open(Form("/star/u/wangzhen/QA/wangzhen/Cocktail/genCocktail/output_old/Cen%d%d/cen%d%d_cocktail_withoutRho.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx],CentralityLow[mCenIdx],CentralityHi[mCenIdx]));
+	TFile *fcocktail = TFile::Open(Form("/star/u/wangzhen/QA/wangzhen/Cocktail/genCocktail/output_old/cen%d%d_cocktail_withoutRho.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx]));
 	hCocktail = (TH2D *)fcocktail->Get("hMCAcc0MvsPt");// |Y_{ee}|<1
 
 	//****** Smear for MC ******
