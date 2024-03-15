@@ -210,18 +210,18 @@ Int_t VecMeson::Init()
 	//inputFile is my path to cocktail
 	TFile *FTS;
 	if(mCenIdx>=6) {
-		FTS = TFile::Open("inputFile/pTTBW4Cocktail_54.root");  //temporary use 60-80% pt shape for 60-70%, 70-80%
+		FTS = TFile::Open("./inputFile/pTTBW4Cocktail_54.root");  //temporary use 60-80% pt shape for 60-70%, 70-80%
 																//because 62 GeV data is not divide the Centrality so use minbias data  temporary
 	}
 	else {
-		FTS = TFile::Open("inputFile/pTTBW4Cocktail_54.root"); 
+		FTS = TFile::Open("./inputFile/pTTBW4Cocktail_54.root"); 
 	}
 	FTS->Print();
 	if (!FTS) cout << "Fail to open pT file" << endl;
 
-	TFile *ftsa = TFile::Open("inputFile/mesons_baryons_noOmega_080.root");
-	TFile *phoInput  = TFile::Open("inputFile/AuAu200_inputpT_Cen60_80.root");
-	TFile *JpsiInput = TFile::Open("inputFile/JPsiPtSpectra_62.root");
+	TFile *ftsa = TFile::Open("./inputFile/mesons_baryons_noOmega_080.root");
+	TFile *phoInput  = TFile::Open("./inputFile/AuAu200_inputpT_Cen60_80.root");
+	TFile *JpsiInput = TFile::Open("./inputFile/JPsiPtSpectra_62.root");
 
 	//tsallis input
 	//use 62.4 GeV input now and there only have the minbias data
