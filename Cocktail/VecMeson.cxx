@@ -601,6 +601,7 @@ void VecMeson::GenerateDecay()
 			gRandom->SetSeed(stime);
 		}
 
+		if(mDebug) cout << "before pass sample rho phi" << endl;
 		//Double_t rap = fRapidity->GetRandom();
 		Double_t rap = myRandom->Uniform(mMinRap, mMaxRap);
 		Double_t phi = myRandom->Uniform(0.,2.*TMath::Pi());//for the mother particle?
