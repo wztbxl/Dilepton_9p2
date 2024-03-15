@@ -605,7 +605,7 @@ void VecMeson::GenerateDecay()
 		Double_t rap = myRandom->Uniform(mMinRap, mMaxRap);
 		Double_t phi = myRandom->Uniform(0.,2.*TMath::Pi());//for the mother particle?
 
-		//cout << "pass sample rho phi" << endl;
+		if(mDebug) cout << "pass sample rho phi" << endl;
 		Double_t pt;
 		if(mUseTsaPtSpectra == 1)      pt = histMeson->GetRandom();
 		else if(mUseTsaPtSpectra == 0) pt = funMeson->GetRandom();
@@ -650,9 +650,9 @@ void VecMeson::GenerateDecay()
 			daughterP = fProducts[0];
 			daughterN = fProducts[1];
 		}
-		//cout<<"pt: "<<pt<<"   \tdaughter_pt:"<<.Pt()<<"  "<<daughterP.X()<<"  "<<daughterP.Y()<<"  "<<daughterP.Z()<<endl;
+		if(mDebug) cout<<"pt: "<<pt<<"   \tdaughter_pt:"<<.Pt()<<"  "<<daughterP.X()<<"  "<<daughterP.Y()<<"  "<<daughterP.Z()<<endl;
 
-		//cout<<1<<endl;
+		if(mDebug) cout<<1<<endl;
 		Double_t eppt  = daughterP.Pt();
 		Double_t epeta = daughterP.Eta();
 		Double_t epphi = daughterP.Phi();
@@ -670,7 +670,7 @@ void VecMeson::GenerateDecay()
 		double delatpT = smeppt-eP.Pt();
 		hPlusSmearvsPt->Fill(smeppt, delatpT/smeppt);
 		
-		//cout<<smeppt1<<"/"<<smeppt<<endl;
+		if(mDebug) cout<<smeppt1<<"/"<<smeppt<<endl;
 		//eP.SetPtEtaPhi(smeppt,epeta,epphi);
 		Double_t smepeta = eP.Eta();
 		Double_t smepphi = eP.Phi();
@@ -686,14 +686,14 @@ void VecMeson::GenerateDecay()
 		
  		// smear = GetSmear(eN.Pt()); 
 		smear = GetSmear2(eN.Pt()); // new Smear for Function
-		//cout << smear <<endl;
+		if(mDebug) cout << smear <<endl;
 		//cout<<emsig/emsigEmb<<endl;
 		Double_t smempt = eN.Pt()*(1.+smear*emsig/emsigEmb);
 		// Double_t smempt = eN.Pt();// try to remove the pT smear
 		delatpT = smempt-eN.Pt();
     // cout << delatpT <<endl;
 		hMinusSmearvsPt->Fill(smempt,delatpT/smempt);
-		//cout<<smempt1<<"/"<<smempt<<endl;
+		if(mDebug) cout<<smempt1<<"/"<<smempt<<endl;
 		//eN.SetPtEtaPhi(smempt,emeta,emphi);
 		Double_t smemeta = eN.Eta();
 		Double_t smemphi = eN.Phi();
@@ -708,6 +708,7 @@ void VecMeson::GenerateDecay()
 		smdaughterPwoSM.SetPtEtaPhiM(eppt,smepeta,smepphi,Masselectron);
 		smdaughterNwoSM.SetPtEtaPhiM(empt,smemeta,smemphi,Masselectron);
 
+		if(mDebug) cout << "before eff" << endl;
 		int ietatpc,iphitpc,ipttpc; 
 		int ietatof,iphitof,ipttof; 
 		Double_t epeff3d, emeff3d;
@@ -741,7 +742,7 @@ void VecMeson::GenerateDecay()
 			emeff3d = EvalEff3D(smdaughterN,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,-1);
 			//cout<<"get Eff elec"<<endl;
 		}
-		//cout<<"after Eff"<<endl;
+		if(mDebug) cout<<"after Eff"<<endl;
 
 		TLorentzVector eepair(0,0,0,0);
 		eepair = daughterP + daughterN;
@@ -804,6 +805,7 @@ void VecMeson::GenerateDecay()
         }*/
 			}
 		}
+		if(mDebug) cout << "after sample eff" << endl;
 
     	RapiditywoSTARAcc->Fill(rceepair.Rapidity());
 		if(rceepair.M()>mMass) 
