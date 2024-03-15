@@ -593,6 +593,7 @@ void VecMeson::GenerateDecay()
 	{
 		if(i%(mNTrks/10)==0) cout<<"processing "<<i<<" tracks..."<<endl;
 		if(mDebug) cout << i << endl;
+		cout << i << endl;
 
 		if((i%10000)==0){
 			long long tmp = (long long)timer->GetAbsTime();
