@@ -52,7 +52,7 @@ int main(int argc, char** argv){
 		vm = new VecMeson(virtualphoton,twobody);
 		//vm = new VecMeson(pi0,dalitz);
 		vm->SetNumberOfTracks(1.e4);
-		vm->SetCentralityIdx(5);
+		vm->SetCentralityIdx(0);
 		//vm->SetUseCocktailInput(0);
 		cout<<"Input meson:"<<vm->MesonType<<endl;
 		system("mkdir -p output/test");
