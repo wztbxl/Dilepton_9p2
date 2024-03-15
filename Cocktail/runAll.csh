@@ -1,7 +1,7 @@
 #!/bin/bash
 date
 #$1 = meson code $2 = decay model $3 = meson name
- dir="/star/u/wangzhen/QA/wangzhen/Cocktail"
+ dir="/star/u/wangzhen/run20/Dielectron/Cocktail"
  echo $dir
  echo $1
  echo $2

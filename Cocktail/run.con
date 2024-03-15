@@ -1,9 +1,9 @@
 Universe     = vanilla
 Notification = never
-Requirements = (CPU_Type != "crs") && (CPU_Experiment == "star")
-Initialdir   = /star/u/wangzhen/QA/wangzhen/Cocktail
+Requirements = Mips>21000
+Initialdir   = /star/u/wangzhen/run20/Dielectron/Cocktail
+ request_memory = 5000M
 GetEnv       = True
-+Experiment  = "star"
 +Job_Type    = "cas"
 
 
