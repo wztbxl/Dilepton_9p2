@@ -29,7 +29,7 @@ const Int_t NPt_TOF[nCenBins]  = {80, 40, 40, 40}; //0~4 GeV/c
 const Int_t NEta_TOF[nCenBins] = {10, 10, 10, 10};
 const Int_t NPhi_TOF[nCenBins] = {36, 36, 36, 36};
 int CenIdx = -999;
-int mDebug = 1;
+int mDebug = 0;
 
 TF1    *funndEdxEffPt;
 TF1    *funnSigEffP;
