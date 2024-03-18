@@ -180,7 +180,6 @@ void InitialzeEffHist(int CenIdx = -999)
 	//get nSigmaE cut Eff
 	f_nSigmaEEff_lowpT = new TF1("f_nSigmaEEff_lowpT","pol3",0.2,0.8);
 	f_nSigmaEEff_HigpT = new TF1("f_nSigmaEEff_HigpT","pol1",0.8,2);
-	f_betaCutEff = new TF1("f_betaCutEff","pol0",0.2,6);
 	//for different centrality, now do not have result
 	switch (CenIdx)
 	{
