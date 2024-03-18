@@ -213,7 +213,7 @@ double getEff(double pt, TH1D* histo , double ptLLimit, double ptHLimit)
 	if (pt>ptHLimit) pt = ptHLimit;
 	int Bin = histo->GetXaxis()->FindBin(pt+1.e-8);
 	if (Bin<0) return 0;
-	if (Bin>histo->GetNbinsX()) return histo->GetBinContent(histo->GetNbinsX()) ;
+	if (Bin>histo->GetNbinsX()) return histo->GetBinContent(histo->FindBin(ptHLimit)) ;
 	return histo->GetBinContent(Bin);
 }
 
