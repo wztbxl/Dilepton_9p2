@@ -553,7 +553,7 @@ Double_t VecMeson::EvalEff3D(TLorentzVector electron,int ipttpc,int ietatpc,int 
 	if(mDebug) cout << "Tof eff = " << eff << endl;
 	eff = eff*getEff(pt,hMBEff_Tpc_Pos[ietatpc][iphitpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
 	if(mDebug) cout << "Tof*TPC eff = " << eff << endl;
-	eff = eff*f_betaCutEff->Eval(pt);//cout<<"beta"<<endl;
+	eff = eff*->GetParameter(0);//cout<<"beta"<<endl;
 	if(mDebug) cout << "Tof*TPC*beta eff = " << eff << endl;
 	if (pt > 0.8)
 	{
@@ -568,7 +568,7 @@ Double_t VecMeson::EvalEff3D(TLorentzVector electron,int ipttpc,int ietatpc,int 
 		if(mDebug) cout << "Tof eff = " << eff << endl;
 		eff = eff*getEff(pt,hMBEff_Tpc_Neg[ietatpc][iphitpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
 		if(mDebug) cout << "Tof*TPC eff = " << eff << endl;
-		eff = eff*f_betaCutEff->Eval(pt);//cout<<"beta"<<endl;
+		eff = eff*f_betaCutEff->GetParameter(0);//cout<<"beta"<<endl;
 		if(mDebug) cout << "Tof*TPC*beta eff = " << eff << endl;
 		if (pt > 0.8)
 		{
