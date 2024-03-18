@@ -93,6 +93,7 @@ double BES_II_EffRatio(double *x, double *par)
 //Zhen add it to read the efficiency histograms
 void InitialzeEffHist(int CenIdx = -999)
 {
+	cout << "CenIdx = " << CenIdx << endl;
 	cout << "nEta_TOF = " << nEta_TOF << " nPhi_TOF = " << nPhi_TOF << " nEta_TPC  =" << nEta_TPC << "nPhi_TPC = " << nPhi_TPC << endl; 
 	//TOF efficiency : load histograms for pion efficiency of each eta and phi bin, and set the function of e/pi ratio
 	TString Flag[2] = {"Plus","Minus"};
@@ -108,8 +109,10 @@ void InitialzeEffHist(int CenIdx = -999)
 		{
 			name = Form("PionEff%sEta%dPhi%d",Flag[0].Data(),i,j);
 			hMBEff_Tof_Pos[i][j] = (TH1D*)f1->Get(name);
+			if(mDebug) hMBEff_Tof_Pos[i][j]->Print();
 			name = Form("PionEff%sEta%dPhi%d",Flag[1].Data(),i,j);
 			hMBEff_Tof_Neg[i][j] = (TH1D*)f1->Get(name);
+			if(mDebug) hMBEff_Tof_Neg[i][j]->Print();
 		}
 	}
 	cout<<"read TOF match efficiency ok"<<endl;
@@ -143,7 +146,9 @@ void InitialzeEffHist(int CenIdx = -999)
 		for (int j = 0; j < nPhi_TPC; j++)
 		{
 			hMBEff_Tpc_Pos[i][j] = (TH1D*)f2->Get(Form("TPCEFFPlusEta%dPhi%d",i,j));
+			if(mDebug) hMBEff_Tpc_Pos[i][j]->Print();
 			hMBEff_Tpc_Neg[i][j] = (TH1D*)f2->Get(Form("TPCEFFMinusEta%dPhi%d",i,j));
+			if(mDebug) hMBEff_Tpc_Neg[i][j]->Print();
 		}
 	}
 	cout<<"read TPC match efficiency ok"<<endl;
@@ -169,6 +174,7 @@ void InitialzeEffHist(int CenIdx = -999)
 	default: cout << "you need to select a centraility index!!!!!!!!"<< endl;
 		break;
 	}	
+	f_betaCutEff->Print();
 	cout<<"read beta cut efficiency ok"<<endl;
 
 	//get nSigmaE cut Eff
