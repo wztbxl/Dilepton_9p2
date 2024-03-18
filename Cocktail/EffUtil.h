@@ -49,9 +49,9 @@ const Int_t nEta_TOF = 10;//3
 const Int_t nPhi_TOF = 36;//4
 const Int_t mPHENIX = 0;
 const double ptl_Tpc = 0.2;
-const double pth_Tpc = 2.5;
+const double pth_Tpc = 2.49;
 const double ptl_Tof = 0.2;
-const double pth_Tof = 3;//pt limit in tof eff
+const double pth_Tof = 2.99;//pt limit in tof eff
 TH1D   *hEff_Tpc_Pos[maxEtaBins][maxPhiBins];
 TH1D   *hEff_Tpc_Neg[maxEtaBins][maxPhiBins];
 TH1D   *hEff_Tof_Pos[maxEtaBins][maxPhiBins];
