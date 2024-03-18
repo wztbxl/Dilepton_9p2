@@ -549,23 +549,33 @@ Double_t VecMeson::EvalEff3D(TLorentzVector electron,int ipttpc,int ietatpc,int 
 	*/
 	if (charge == 1)
 	{
-	eff = getEff(pt,hMBEff_Tof_Pos[ietatof][iphitof],ptl_Tof,pth_Tof)*f_ElecPoionRatio->Eval(pt);//cout<<"TOF"<<endl;
+	eff = getEff(pt,hMBEff_Tof_Pos[ietatof][iphitof],ptl_Tof,pth_Tof)*f_ElecPoionRatio->Eval(pt);
+	if(mDebug) cout << "Tof eff = " << eff << endl;
 	eff = eff*getEff(pt,hMBEff_Tpc_Pos[ietatpc][iphitpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
+	if(mDebug) cout << "Tof*TPC eff = " << eff << endl;
 	eff = eff*f_betaCutEff->Eval(pt);//cout<<"beta"<<endl;
+	if(mDebug) cout << "Tof*TPC*beta eff = " << eff << endl;
 	if (pt > 0.8)
 	{
 		eff = eff*f_nSigmaEEff_HigpT->Eval(pt);
+	if(mDebug) cout << "Tof*TPC*beta*nSigmaE eff = " << eff << endl;
 	} else eff = eff*f_nSigmaEEff_lowpT->Eval(pt);
+	if(mDebug) cout << "Tof*TPC*beta*nSigmaE eff = " << eff << endl;
 	//cout<<"sigma"<<endl;//TOF*TPC*Beta*nSigmaE
 	}
 	else {
-		eff = getEff(pt,hMBEff_Tof_Neg[ietatof][iphitof],ptl_Tof,pth_Tof)*f_ElecPoionRatio->Eval(pt);//cout<<"TOF"<<endl;
+		eff = getEff(pt,hMBEff_Tof_Neg[ietatof][iphitof],ptl_Tof,pth_Tof)*f_ElecPoionRatio->Eval(pt);
+		if(mDebug) cout << "Tof eff = " << eff << endl;
 		eff = eff*getEff(pt,hMBEff_Tpc_Neg[ietatpc][iphitpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
+		if(mDebug) cout << "Tof*TPC eff = " << eff << endl;
 		eff = eff*f_betaCutEff->Eval(pt);//cout<<"beta"<<endl;
+		if(mDebug) cout << "Tof*TPC*beta eff = " << eff << endl;
 		if (pt > 0.8)
 		{
 			eff = eff*f_nSigmaEEff_HigpT->Eval(pt);
+			if(mDebug) cout << "Tof*TPC*beta*nSigmaE eff = " << eff << endl;
 		} else eff = eff*f_nSigmaEEff_lowpT->Eval(pt);
+		if(mDebug) cout << "Tof*TPC*beta*nSigmaE eff = " << eff << endl;
 		//cout<<"sigma"<<endl;//TOF*TPC*Beta*nSigmaE
 
 	}
