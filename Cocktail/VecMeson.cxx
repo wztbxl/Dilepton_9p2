@@ -732,7 +732,7 @@ void VecMeson::GenerateDecay()
 			if(mDebug) cout << "eta = "<<smdaughterP.Eta()<<endl;
 			if(mDebug) cout<< "ieta = "<< ietatpc<<"\n iphi = "<<iphitpc<<endl;
 			epeff3d = EvalEff3D(smdaughterP,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,1);
-			if(mDebug) cout<<"get Eff posi"<<endl;
+			if(mDebug) cout<<"get Eff posi, eff = "<<epeff3d<<endl;
 
 			//tpcPtEtaPhi2Bin(mCenIdx, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttpc,&ietatpc,&iphitpc);
 			//tofPtEtaPhi2Bin(mCenIdx, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttof,&ietatof,&iphitof);
@@ -743,7 +743,7 @@ void VecMeson::GenerateDecay()
 			if(mDebug) cout << "eta = "<<smdaughterN.Eta()<<endl;
 			if(mDebug) cout<< "ieta = "<< ietatpc<<"\niphi = "<<iphitpc<<endl;
 			emeff3d = EvalEff3D(smdaughterN,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,-1);
-			if(mDebug) cout<<"get Eff elec"<<endl;
+			if(mDebug) cout<<"get Eff elec, eff = "<<emeff3d<<endl;
 		}
 		if(mDebug) cout<<"after Eff"<<endl;
 
