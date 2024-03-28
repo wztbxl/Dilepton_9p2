@@ -259,12 +259,12 @@ int main(int argc, char** argv)
 		Double_t RefMultCorr = refMultCorrUtil->getRefMultCorr();
     	mCentrality = refMultCorrUtil->getCentralityBin9();//Centrality defined by offical, 0 is 70-80%,8 is 0-5%,0 is refMult<7 
     	Double_t weight = refMultCorrUtil->getWeight();
-		cout << weight << endl;
+		// cout << weight << endl;
     // mCentrality = mCentrality + 1;
 		hRefMultCorr->Fill(RefMultCorr);
 		hCentrality9->Fill(mCentrality,weight);
 		// mCentrality = mCentrality - 1;
-		printf("Centrality is %d \n",mCentrality);
+		// printf("Centrality is %d \n",mCentrality);
 		//cout<<refMult<<"   "<<rcRefMultCorr<<"   read:"<<refMultCorrUtil->getRefMultCorr()<<endl;
 
 		if(mCentrality<0 || mCentrality>8) continue;
