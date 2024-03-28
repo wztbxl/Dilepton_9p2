@@ -381,30 +381,46 @@ int main(int argc, char** argv)
 			}
 			*/
 
-			
-			//fill the num histograms with RC information 
-			if(rcNHitsFit>=mTpceNHitsFitCut//for systemiac uncentraity change this +/-5, origin is 20
-			 // if(rcNHitsFit>=1//for systemiac uncentraity change this +/-5
+			if(rcNHitsFit>=mTpceNHitsFitCut//for systemiac uncentraity change this +/-5
+			//if(rcNHitsFit>=20//for systemiac uncentraity change this +/-5
 					&& ratio>=mTpceNHitsFitRatioCut
-					&& rcDca<=mTpceDcaCut // for sys. uncent. is 1.2, origin is 1
-					// && rcDca<=3
-					// ){
-					&& rcNHitsDedx>mTpceNHitsDedxCut){ //for sys. uncent. is 20, origin is 15
-					//&& rcNHitsDedx>=1){
+					&& rcDca<=mTpceDcaCut
+					// && rcDca<=0.8
+					&& rcNHitsDedx>=15){
+					// && rcNHitsDedx>=20){
 				if(q>0){
-				   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,weight);
-					hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
-				   	// hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
-					// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
-					// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
+				   	hNumEPlusTpcEff->Fill(mcPt,mcEta,mcPhi,weight);
+					hNumEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
 				}else{
-				   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,weight);
-					hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
-				   	// hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
-					// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
-					// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
+				   	hNumEMinusTpcEff->Fill(mcPt,mcEta,mcPhi,weight);
+					hNumEMinusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);
 				}
 			}
+
+			
+			// //fill the num histograms with RC information 
+			// if(rcNHitsFit>=mTpceNHitsFitCut//for systemiac uncentraity change this +/-5, origin is 20
+			//  // if(rcNHitsFit>=1//for systemiac uncentraity change this +/-5
+			// 		&& ratio>=mTpceNHitsFitRatioCut
+			// 		&& rcDca<=mTpceDcaCut // for sys. uncent. is 1.2, origin is 1
+			// 		// && rcDca<=3
+			// 		// ){
+			// 		&& rcNHitsDedx>mTpceNHitsDedxCut){ //for sys. uncent. is 20, origin is 15
+			// 		//&& rcNHitsDedx>=1){
+			// 	if(q>0){
+			// 	   	hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,weight);
+			// 		hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
+			// 	   	// hNumEPlusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
+			// 		// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
+			// 		// hNumEPlusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
+			// 	}else{
+			// 	   	hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,weight);
+			// 		hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
+			// 	   	// hNumEMinusTpcEff->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
+			// 		// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,McEWeight*weight);
+			// 		// hNumEMinusTpcEffCen[mCentrality]->Fill(rcPt,rcEta,rcPhi,weight);
+			// 	}
+			// }
 			
 
 			if(mcPhi>PI) mcPhi -= 2*PI;
