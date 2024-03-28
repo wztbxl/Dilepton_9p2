@@ -208,35 +208,36 @@ Int_t VecMeson::Init()
 	//TFile *FTS  = new TFile(Form("inputFile/AuAu200_inputpT_Cen%d_%d.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx])); 
 	// 2024.03.12 now using the some of 54GeV files as input
 	//inputFile is my path to cocktail
+	// 2024.03.28 change to 7.7 GeV results
 	TFile *FTS;
-	if(mCenIdx>=6) {
-		FTS = TFile::Open("./inputFile/pTTBW4Cocktail_54.root");  //temporary use 60-80% pt shape for 60-70%, 70-80%
+	if(mCenIdx>=4) {
+		FTS = TFile::Open("./inputFile/AuAu7.7_inputpT_Cen40_80.root");  //temporary use 40-80% pt shape index after 4
 																//because 62 GeV data is not divide the Centrality so use minbias data  temporary
 	}
 	else {
-		FTS = TFile::Open("./inputFile/pTTBW4Cocktail_54.root"); 
+		FTS = TFile::Open(Form("./inputFile/AuAu7.7_inputpT_Cen%d_%d.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx])); // 0-80%  
 	}
 	FTS->Print();
 	if (!FTS) cout << "Fail to open pT file" << endl;
 
 	TFile *ftsa = TFile::Open("./inputFile/mesons_baryons_noOmega_080.root");
 	TFile *phoInput  = TFile::Open("./inputFile/AuAu200_inputpT_Cen60_80.root");
-	TFile *JpsiInput = TFile::Open("./inputFile/JPsiPtSpectra_62.root");
+	TFile *JpsiInput = TFile::Open("./inputFile/JPsiPtSpectra_62.root"); // need to change to 9.2 GeV
 
 	//tsallis input
 	//use 62.4 GeV input now and there only have the minbias data
 	if(mParIndex==0) {//use same distribution in different centrality ,how to get the different distrinbution in different centriality use Qian`s method in different centrality 
 		if(mCenIdx>=4) histMeson = (TH1D *)FTS->Get("pi0_to_gamma_eepT"); //40-60%, 60-80% pi0
-		else 	       histMeson = (TH1D *)FTS->Get("His54GeV_pi0_to_gamma_eepT_Func"); //0-80%, 0-10%, 10-40%, and 40-80% pi0
+		else 	       histMeson = (TH1D *)FTS->Get("His7.7GeV_pi0_to_gamma_eepT_Func"); //0-80%, 0-10%, 10-40%, and 40-80% pi0
 	}
-	if(mParIndex==1)   histMeson = (TH1D *)FTS->Get("His54GeV_eta_to_gamma_eepT_Func"); //eta
+	if(mParIndex==1)   histMeson = (TH1D *)FTS->Get("His7.7GeV_eta_to_gamma_eepT_Func"); //eta
 	if(mParIndex==2) {
 		if(mCenIdx>=4) histMeson = (TH1D *)phoInput->Get("pT_rho"); //40-60%, 60-80% rho
 		else           histMeson = (TH1D *)ftsa->Get("hFit22"); // 0-80% rho; For other centrality which has no rho spectrum, using the MB rho pT distribution
 	}
-	if(mParIndex==3)   histMeson = (TH1D *)FTS->Get("His54GeV_omega_to_eepT_Func"); //omega
-	if(mParIndex==4)   histMeson = (TH1D *)FTS->Get("His54GeV_phi_to_eepT_Func"); //phi
-	if(mParIndex==5)   histMeson = (TH1D *)FTS->Get("His54GeV_etaprime_to_gamma_eepT_Func"); //etaprim
+	if(mParIndex==3)   histMeson = (TH1D *)FTS->Get("His7.7GeV_omega_to_eepT_Func"); //omega
+	if(mParIndex==4)   histMeson = (TH1D *)FTS->Get("His7.7GeV_phi_to_eepT_Func"); //phi
+	if(mParIndex==5)   histMeson = (TH1D *)FTS->Get("His7.7GeV_etaprime_to_gamma_eepT_Func"); //etaprim
 	if(mParIndex==6)   histMeson = (TH1D *)JpsiInput->Get("hJPsidNdpT"); //jpsi//in Yi`s code what`s different in two file Jpsi spectra ?
 	if(mParIndex==7){
 		if(mCenIdx==0) histMeson = (TH1D *)phoInput->Get("pT_Psi"); //0-80% psi //use 200 GeV data
@@ -256,7 +257,8 @@ Int_t VecMeson::Init()
 	funSmearPt->SetParameters(mPtSmearPar);
 	funSmearPtEmb = new TF1("funSmearPtEmb","sqrt([0]*[0]*x*x+[1]*[1])",0,10);
 	// funSmearPtEmb->SetParameters(0.005690,0.007473);
-	funSmearPtEmb->SetParameters(0.00700,0.007473);
+	//19.6 : (best a = 5.713e-3, b= 7.92e-3)
+	funSmearPtEmb->SetParameters(5.713e-3,7.92e-3);
 	//how to do the smear? and why we should do the smear?
 	//****** pT Res From embedding ********
 	TFile *pTResInput = new TFile("/star/u/wangzhen/QA/wangzhen/Cocktail/pTresFromEmbedding.root");
