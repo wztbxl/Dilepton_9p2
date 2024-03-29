@@ -258,11 +258,12 @@ Int_t VecMeson::Init()
 	funSmearPtEmb = new TF1("funSmearPtEmb","sqrt([0]*[0]*x*x+[1]*[1])",0,10);
 	// funSmearPtEmb->SetParameters(0.005690,0.007473);
 	//19.6 : (best a = 5.713e-3, b= 7.92e-3)
-	funSmearPtEmb->SetParameters(5.713e-3,7.92e-3);
+	funSmearPtEmb->SetParameters(2.065e-3,7.503e-3);
 	//how to do the smear? and why we should do the smear?
 	//****** pT Res From embedding ********
 	TFile *pTResInput = new TFile("/star/u/wangzhen/QA/wangzhen/Cocktail/pTresFromEmbedding.root");
-	TFile *pTResFunInput = new TFile("/star/u/wangzhen/QA/wangzhen/Cocktail/DCBFunction.root");
+	// TFile *pTResFunInput = new TFile("/star/u/wangzhen/QA/wangzhen/Cocktail/DCBFunction.root");
+	TFile *pTResFunInput = new TFile(Form("/star/u/wangzhen/QA/wangzhen/Cocktail/DCBFunction_%d_%d.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx]));
 	PtRes2D = (TH2D*)pTResInput->Get("hPtResvsPtQ_zy");
 	PtRes2D->Print();
 	for(int i = 0;i<19;i++)
@@ -370,10 +371,11 @@ Double_t VecMeson::GetSmear2(Double_t pT)
         int pTBin = int(pT/0.2);
         //cout <<"pT = "<<pT<<" pTBin = "<<pTBin<<endl;
         pTBin = pTBin-1;
-        if (pTBin>0 && pTBin <=19)
+        if (pTBin>0 && pTBin <=10) // 7.7 the maximum pT is 2.5. totally 11 bins
+        // if (pTBin>0 && pTBin <=19)
                 smear = pTResFun[pTBin-1]->GetRandom();
         else if (pTBin <= 0) smear = pTResFun[0]->GetRandom();
-        else if (pTBin >=20) smear = pTResFun[18]->GetRandom();
+        else if (pTBin >=11) smear = pTResFun[11]->GetRandom();
 
         return smear;
 }
