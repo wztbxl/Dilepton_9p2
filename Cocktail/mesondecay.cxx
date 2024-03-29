@@ -63,7 +63,7 @@ int main(int argc, char** argv){
 		cout << ptype <<endl;
 		DecayMode dmode = DecayMode(atoi(argv[3]));
 		//from 19.6 GeV data
-		ptSmearParameters[0] = 5.713e-3,;
+		ptSmearParameters[0] = 5.713e-3;
 		// ptSmearParameters[1] = 0.007473;
 		ptSmearParameters[1] = 7.92e-3;
 		int step = atoi(argv[5]);
