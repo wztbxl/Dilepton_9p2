@@ -5,8 +5,8 @@
 // found on file: /star/u/wangzhen/run20/Dielectron/miniTree/output/addnCharge/85F750D096773521C6D629B41588D1E8_118.root
 //////////////////////////////////////////////////////////
 
-#ifndef miniDst_h
-#define miniDst_h
+#ifndef EVENT_h
+#define EVENT_h
 
 #include <TROOT.h>
 #include <TChain.h>
@@ -129,8 +129,8 @@ public :
    TBranch        *b_mTOFLocalY;   //!
    TBranch        *b_mBeta2TOF;   //!
 
-   miniDst(TTree *tree=0);
-   virtual ~miniDst();
+   EVENT(TTree *tree=0);
+   virtual ~EVENT();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
@@ -142,8 +142,8 @@ public :
 
 #endif
 
-#ifdef miniDst_cxx
-miniDst::miniDst(TTree *tree) : fChain(0) 
+#ifdef EVENT_cxx
+EVENT::EVENT(TTree *tree) : fChain(0) 
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
@@ -152,25 +152,25 @@ miniDst::miniDst(TTree *tree) : fChain(0)
       if (!f || !f->IsOpen()) {
          f = new TFile("/star/u/wangzhen/run20/Dielectron/miniTree/output/addnCharge/85F750D096773521C6D629B41588D1E8_118.root");
       }
-      f->GetObject("miniDst",tree);
+      f->GetObject("EVENT",tree);
 
    }
    Init(tree);
 }
 
-miniDst::~miniDst()
+EVENT::~EVENT()
 {
    if (!fChain) return;
    delete fChain->GetCurrentFile();
 }
 
-Int_t miniDst::GetEntry(Long64_t entry)
+Int_t EVENT::GetEntry(Long64_t entry)
 {
 // Read contents of entry.
    if (!fChain) return 0;
    return fChain->GetEntry(entry);
 }
-Long64_t miniDst::LoadTree(Long64_t entry)
+Long64_t EVENT::LoadTree(Long64_t entry)
 {
 // Set the environment to read one entry
    if (!fChain) return -5;
@@ -183,7 +183,7 @@ Long64_t miniDst::LoadTree(Long64_t entry)
    return centry;
 }
 
-void miniDst::Init(TTree *tree)
+void EVENT::Init(TTree *tree)
 {
    // The Init() function is called when the selector needs to initialize
    // a new tree or chain. Typically here the branch addresses and branch
@@ -254,7 +254,7 @@ void miniDst::Init(TTree *tree)
    Notify();
 }
 
-Bool_t miniDst::Notify()
+Bool_t EVENT::Notify()
 {
    // The Notify() function is called when a new file is opened. This
    // can be either for a new TTree in a TChain or when when a new TTree
@@ -265,14 +265,14 @@ Bool_t miniDst::Notify()
    return kTRUE;
 }
 
-void miniDst::Show(Long64_t entry)
+void EVENT::Show(Long64_t entry)
 {
 // Print contents of entry.
 // If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
 }
-Int_t miniDst::Cut(Long64_t entry)
+Int_t EVENT::Cut(Long64_t entry)
 {
 // This function may be called from Loop.
 // returns  1 if entry is accepted.
