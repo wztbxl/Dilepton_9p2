@@ -302,7 +302,8 @@ Int_t StElectronMcMaker::Make()
 	 //vertex is not selected
      if ( ! selectedVertex ) return kStOk;
      //trigger
-     if ( ! mMuEvent->triggerIdCollection().nominal().isTrigger(810010) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810020) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810030) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810040) ) return kStOK ; //7.7 GeV trigger
+     if ( ! mMuEvent->triggerIdCollection().nominal().isTrigger(780010) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(780020) ) return kStOK ; //7.7 GeV trigger
+    //  if ( ! mMuEvent->triggerIdCollection().nominal().isTrigger(810010) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810020) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810030) && ! mMuEvent->triggerIdCollection().nominal().isTrigger(810040) ) return kStOK ; //7.7 GeV trigger
      //Vz
      if ( fabs(mMuEvent->primaryVertexPosition().z()) > 70.0 ) return kStOk ;
      //Vr
