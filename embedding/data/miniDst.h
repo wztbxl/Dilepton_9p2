@@ -27,7 +27,7 @@ public :
    Int_t           mEventId;
    Char_t          mShouldHaveRejectEvent;
    Int_t           mNTrigs;
-   Int_t           mTrigId[1];   //[mNTrigs]
+   Int_t           mTrigId[3];   //[mNTrigs]
    Short_t         mnTOFMatch;
    Int_t           mnChargeParticle;
    Short_t         mRefMult;
@@ -52,28 +52,28 @@ public :
    Float_t         mEtaMinusPtWeight;
    Short_t         mEtaMinusNTrks;
    Short_t         mNTrks;
-   Short_t         mTrkId[14];   //[mNTrks]
-   Bool_t          mTPCeTrkFlag[14];   //[mNTrks]
-   Int_t           mCharge[14];   //[mNTrks]
-   Float_t         mPt[14];   //[mNTrks]
-   Float_t         mEta[14];   //[mNTrks]
-   Float_t         mPhi[14];   //[mNTrks]
-   Float_t         mgPt[14];   //[mNTrks]
-   Float_t         mgEta[14];   //[mNTrks]
-   Float_t         mgPhi[14];   //[mNTrks]
-   Float_t         mgOriginX[14];   //[mNTrks]
-   Float_t         mgOriginY[14];   //[mNTrks]
-   Float_t         mgOriginZ[14];   //[mNTrks]
-   Int_t           mNHitsFit[14];   //[mNTrks]
-   Int_t           mNHitsPoss[14];   //[mNTrks]
-   Int_t           mNHitsDedx[14];   //[mNTrks]
-   Float_t         mDedx[14];   //[mNTrks]
-   Float_t         mNSigmaE[14];   //[mNTrks]
-   Float_t         mDca[14];   //[mNTrks]
-   Int_t           mTOFMatchFlag[14];   //[mNTrks]
-   Int_t           mTOFCellID[14];   //[mNTrks]
-   Float_t         mTOFLocalY[14];   //[mNTrks]
-   Float_t         mBeta2TOF[14];   //[mNTrks]
+   Short_t         mTrkId[500];   //[mNTrks]
+   Bool_t          mTPCeTrkFlag[500];   //[mNTrks]
+   Int_t           mCharge[500];   //[mNTrks]
+   Float_t         mPt[500];   //[mNTrks]
+   Float_t         mEta[500];   //[mNTrks]
+   Float_t         mPhi[500];   //[mNTrks]
+   Float_t         mgPt[500];   //[mNTrks]
+   Float_t         mgEta[500];   //[mNTrks]
+   Float_t         mgPhi[500];   //[mNTrks]
+   Float_t         mgOriginX[500];   //[mNTrks]
+   Float_t         mgOriginY[500];   //[mNTrks]
+   Float_t         mgOriginZ[500];   //[mNTrks]
+   Int_t           mNHitsFit[500];   //[mNTrks]
+   Int_t           mNHitsPoss[500];   //[mNTrks]
+   Int_t           mNHitsDedx[500];   //[mNTrks]
+   Float_t         mDedx[500];   //[mNTrks]
+   Float_t         mNSigmaE[500];   //[mNTrks]
+   Float_t         mDca[500];   //[mNTrks]
+   Int_t           mTOFMatchFlag[500];   //[mNTrks]
+   Int_t           mTOFCellID[500];   //[mNTrks]
+   Float_t         mTOFLocalY[500];   //[mNTrks]
+   Float_t         mBeta2TOF[500];   //[mNTrks]
 
    // List of branches
    TBranch        *b_mRunId;   //!
