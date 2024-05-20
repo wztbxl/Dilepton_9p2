@@ -1,22 +1,24 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Wed May 11 04:30:52 2022 by ROOT version 5.34/30
+// Sun Nov 19 22:07:54 2023 by ROOT version 5.34/38
 // from TTree miniDst/miniDst
-// found on file: /star/u/xwang1/54GeV_AuAu/pair/generate_minitree/Minitree/SL18c/rootfiles/BC77A15EC35F3DB43706E976D4AC2D90_8714.root
+// found on file: 85F750D096773521C6D629B41588D1E8_1289.root
 //////////////////////////////////////////////////////////
 
-#ifndef EVENT_h
-#define EVENT_h
+#ifndef miniDst_h
+#define miniDst_h
 
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
 
+const int nMaxTrk = 1000;
+
 // Header file for the classes stored in the TTree if any.
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
-class EVENT {
+class miniDst {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
    Int_t           fCurrent; //!current Tree number in a TChain
@@ -27,7 +29,9 @@ public :
    Int_t           mEventId;
    Char_t          mShouldHaveRejectEvent;
    Int_t           mNTrigs;
-   Int_t           mTrigId[1];   //[mNTrigs]
+   Int_t           mTrigId[3];   //[mNTrigs]
+   Short_t         mnTOFMatch;
+   Int_t           mnChargeParticle;
    Short_t         mRefMult;
    Short_t         mGRefMult;
    Float_t         mGRefMultCorr;
@@ -50,28 +54,28 @@ public :
    Float_t         mEtaMinusPtWeight;
    Short_t         mEtaMinusNTrks;
    Short_t         mNTrks;
-   Short_t         mTrkId[100];   //[mNTrks]
-   Bool_t          mTPCeTrkFlag[100];   //[mNTrks]
-   Int_t           mCharge[100];   //[mNTrks]
-   Float_t         mPt[100];   //[mNTrks]
-   Float_t         mEta[100];   //[mNTrks]
-   Float_t         mPhi[100];   //[mNTrks]
-   Float_t         mgPt[100];   //[mNTrks]
-   Float_t         mgEta[100];   //[mNTrks]
-   Float_t         mgPhi[100];   //[mNTrks]
-   Float_t         mgOriginX[100];   //[mNTrks]
-   Float_t         mgOriginY[100];   //[mNTrks]
-   Float_t         mgOriginZ[100];   //[mNTrks]
-   Int_t           mNHitsFit[100];   //[mNTrks]
-   Int_t           mNHitsPoss[100];   //[mNTrks]
-   Int_t           mNHitsDedx[100];   //[mNTrks]
-   Float_t         mDedx[100];   //[mNTrks]
-   Float_t         mNSigmaE[100];   //[mNTrks]
-   Float_t         mDca[100];   //[mNTrks]
-   Int_t           mTOFMatchFlag[100];   //[mNTrks]
-   Int_t           mTOFCellID[100];   //[mNTrks]
-   Float_t         mTOFLocalY[100];   //[mNTrks]
-   Float_t         mBeta2TOF[100];   //[mNTrks]
+   Short_t         mTrkId[nMaxTrk];   //[mNTrks]
+   Bool_t          mTPCeTrkFlag[nMaxTrk];   //[mNTrks]
+   Int_t           mCharge[nMaxTrk];   //[mNTrks]
+   Float_t         mPt[nMaxTrk];   //[mNTrks]
+   Float_t         mEta[nMaxTrk];   //[mNTrks]
+   Float_t         mPhi[nMaxTrk];   //[mNTrks]
+   Float_t         mgPt[nMaxTrk];   //[mNTrks]
+   Float_t         mgEta[nMaxTrk];   //[mNTrks]
+   Float_t         mgPhi[nMaxTrk];   //[mNTrks]
+   Float_t         mgOriginX[nMaxTrk];   //[mNTrks]
+   Float_t         mgOriginY[nMaxTrk];   //[mNTrks]
+   Float_t         mgOriginZ[nMaxTrk];   //[mNTrks]
+   Int_t           mNHitsFit[nMaxTrk];   //[mNTrks]
+   Int_t           mNHitsPoss[nMaxTrk];   //[mNTrks]
+   Int_t           mNHitsDedx[nMaxTrk];   //[mNTrks]
+   Float_t         mDedx[nMaxTrk];   //[mNTrks]
+   Float_t         mNSigmaE[nMaxTrk];   //[mNTrks]
+   Float_t         mDca[nMaxTrk];   //[mNTrks]
+   Int_t           mTOFMatchFlag[nMaxTrk];   //[mNTrks]
+   Int_t           mTOFCellID[nMaxTrk];   //[mNTrks]
+   Float_t         mTOFLocalY[nMaxTrk];   //[mNTrks]
+   Float_t         mBeta2TOF[nMaxTrk];   //[mNTrks]
 
    // List of branches
    TBranch        *b_mRunId;   //!
@@ -80,6 +84,8 @@ public :
    TBranch        *b_mShouldHaveRejectEvent;   //!
    TBranch        *b_mNTrigs;   //!
    TBranch        *b_mTrigId;   //!
+   TBranch        *b_mnTOFMatch;   //!
+   TBranch        *b_mnChargeParticle;   //!
    TBranch        *b_mRefMult;   //!
    TBranch        *b_mGRefMult;   //!
    TBranch        *b_mGRefMultCorr;   //!
@@ -125,8 +131,8 @@ public :
    TBranch        *b_mTOFLocalY;   //!
    TBranch        *b_mBeta2TOF;   //!
 
-   EVENT(TTree *tree=0);
-   virtual ~EVENT();
+   miniDst(TTree *tree=0);
+   virtual ~miniDst();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
@@ -138,15 +144,15 @@ public :
 
 #endif
 
-#ifdef EVENT_cxx
-EVENT::EVENT(TTree *tree) : fChain(0) 
+#ifdef miniDst_cxx
+miniDst::miniDst(TTree *tree) : fChain(0) 
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/star/u/xwang1/54GeV_AuAu/pair/generate_minitree/Minitree/SL18c/rootfiles/BC77A15EC35F3DB43706E976D4AC2D90_8714.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("85F750D096773521C6D629B41588D1E8_1289.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/star/u/xwang1/54GeV_AuAu/pair/generate_minitree/Minitree/SL18c/rootfiles/BC77A15EC35F3DB43706E976D4AC2D90_8714.root");
+         f = new TFile("85F750D096773521C6D629B41588D1E8_1289.root");
       }
       f->GetObject("miniDst",tree);
 
@@ -154,19 +160,19 @@ EVENT::EVENT(TTree *tree) : fChain(0)
    Init(tree);
 }
 
-EVENT::~EVENT()
+miniDst::~miniDst()
 {
    if (!fChain) return;
    delete fChain->GetCurrentFile();
 }
 
-Int_t EVENT::GetEntry(Long64_t entry)
+Int_t miniDst::GetEntry(Long64_t entry)
 {
 // Read contents of entry.
    if (!fChain) return 0;
    return fChain->GetEntry(entry);
 }
-Long64_t EVENT::LoadTree(Long64_t entry)
+Long64_t miniDst::LoadTree(Long64_t entry)
 {
 // Set the environment to read one entry
    if (!fChain) return -5;
@@ -179,7 +185,7 @@ Long64_t EVENT::LoadTree(Long64_t entry)
    return centry;
 }
 
-void EVENT::Init(TTree *tree)
+void miniDst::Init(TTree *tree)
 {
    // The Init() function is called when the selector needs to initialize
    // a new tree or chain. Typically here the branch addresses and branch
@@ -201,6 +207,8 @@ void EVENT::Init(TTree *tree)
    fChain->SetBranchAddress("mShouldHaveRejectEvent", &mShouldHaveRejectEvent, &b_mShouldHaveRejectEvent);
    fChain->SetBranchAddress("mNTrigs", &mNTrigs, &b_mNTrigs);
    fChain->SetBranchAddress("mTrigId", mTrigId, &b_mTrigId);
+   fChain->SetBranchAddress("mnTOFMatch", &mnTOFMatch, &b_mnTOFMatch);
+   fChain->SetBranchAddress("mnChargeParticle", &mnChargeParticle, &b_mnChargeParticle);
    fChain->SetBranchAddress("mRefMult", &mRefMult, &b_mRefMult);
    fChain->SetBranchAddress("mGRefMult", &mGRefMult, &b_mGRefMult);
    fChain->SetBranchAddress("mGRefMultCorr", &mGRefMultCorr, &b_mGRefMultCorr);
@@ -248,7 +256,7 @@ void EVENT::Init(TTree *tree)
    Notify();
 }
 
-Bool_t EVENT::Notify()
+Bool_t miniDst::Notify()
 {
    // The Notify() function is called when a new file is opened. This
    // can be either for a new TTree in a TChain or when when a new TTree
@@ -259,18 +267,18 @@ Bool_t EVENT::Notify()
    return kTRUE;
 }
 
-void EVENT::Show(Long64_t entry)
+void miniDst::Show(Long64_t entry)
 {
 // Print contents of entry.
 // If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
 }
-Int_t EVENT::Cut(Long64_t entry)
+Int_t miniDst::Cut(Long64_t entry)
 {
 // This function may be called from Loop.
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
    return 1;
 }
-#endif // #ifdef EVENT_cxx
+#endif // #ifdef miniDst_cxx

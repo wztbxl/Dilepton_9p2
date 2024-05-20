@@ -1,14 +1,14 @@
-#define EVENT_cxx
-#include "EVENT.h"
+#define miniDst_cxx
+#include "miniDst.h"
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
 
-void EVENT::Loop()
+void miniDst::Loop()
 {
 //   In a ROOT session, you can do:
-//      Root > .L EVENT.C
-//      Root > EVENT t
+//      Root > .L miniDst.C
+//      Root > miniDst t
 //      Root > t.GetEntry(12); // Fill t data members with entry number 12
 //      Root > t.Show();       // Show values of entry 12
 //      Root > t.Show(16);     // Read and show values of entry 16

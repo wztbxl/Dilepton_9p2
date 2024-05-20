@@ -382,12 +382,12 @@ int main(int argc, char** argv)
 			*/
 
 			if(rcNHitsFit>=mTpceNHitsFitCut//for systemiac uncentraity change this +/-5
-			//if(rcNHitsFit>=20//for systemiac uncentraity change this +/-5
+			// if(rcNHitsFit>=25//for systemiac uncentraity change this +/-5
 					&& ratio>=mTpceNHitsFitRatioCut
 					&& rcDca<=mTpceDcaCut
-					// && rcDca<=0.8
-					&& rcNHitsDedx>=15){
-					// && rcNHitsDedx>=20){
+					// && rcDca<=1.2
+					// && rcNHitsDedx>=mTpceNHitsDedxCut){
+					&& rcNHitsDedx>=20){
 				if(q>0){
 				   	hNumEPlusTpcEff->Fill(mcPt,mcEta,mcPhi,weight);
 					hNumEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);

@@ -9,7 +9,7 @@ Int_t iEvt = 0, istat = 0, nEvents = 0;
 
 // ------------------ Here is the actual method -----------------------------------------
 void doEvent(const Int_t nEvents = 2000,
-			 const char *fMcFile = "/star/data105/embedding/production_7p7GeV_2021/Electron_100_20224105/P22ib.SL22b/2021/056/22056005/st_physics_adc_22056005_raw_0000000.MuDst.root",
+			 const char *fMcFile = "/star/data105/embedding/production_9p2GeV_2020/Electron_100_20233801/P23ia.SL23a/2020/219/21219011/st_physics_adc_21219011_raw_7000003.MuDst.root",
 			 // const char *fMcFile = "/star/embed/embedding/production_isobar_2018/ElectronHighPt_200_20214218/P20ic.SL20c/2018/129/19129013/st_physics_adc_19129013_raw_2500008.MuDst.root",
 			 // const char *fMcFile = "/star/embed/embedding/production_isobar_2018/JpsiMB_200_20215101/P20ic.SL20c/2018/129/19129013/st_physics_adc_19129013_raw_2500008.MuDst.root",
 			 // const char *fMcFile = "/star/data09/reco/production_pp500_2022/ReversedFullField/dev/2022/063/23063039/st_fwd_adc_23063039_raw_1000008.MuDst.root",
@@ -122,9 +122,9 @@ void doEvent(const Int_t nEvents = 2000,
 	///star/data105/embedding/production_7p7GeV_2021/Electron_100_20224105/P22ib.SL22b/2021/056/22056005/st_physics_adc_22056005_raw_0000000.MuDst.root
 	TString outputname = fMcFile;
 	TString embedrun = fMcFile;
-	int embedRunIndex = embedrun.Index("production_7p7GeV_2021", 0);
+	int embedRunIndex = embedrun.Index("production_9p2GeV_2020", 0);
 	embedrun.Remove(0, embedRunIndex);
-	embedRunIndex = embedrun.Index("P20ic", 0);
+	embedRunIndex = embedrun.Index("P23ia", 0);
 	embedrun.Remove(embedRunIndex);
 	cout << "embedrun:   " << embedrun << endl;
 	int fileBeginIndex = outputname.Index("st_physics_adc", 0);
