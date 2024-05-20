@@ -15,7 +15,7 @@ INCFLAGS = -I$(ROOTSYS)/include
 LDFLAGS = -L$(ROOTSYS)/lib
 
 CXX = g++
-FLAGS = -m32 -fno-inline -Wall -g $(INCFLAGS) $(LDFLAGS)
+FLAGS = -m32 -std=c++11 -fno-inline -Wall -g $(INCFLAGS) $(LDFLAGS)
 
 COMPILE = $(CXX) $(FLAGS) -c 
 
