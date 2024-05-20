@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Sun Nov 19 22:07:54 2023 by ROOT version 5.34/38
+// Mon May 20 02:56:13 2024 by ROOT version 5.34/30
 // from TTree miniDst/miniDst
-// found on file: 85F750D096773521C6D629B41588D1E8_1289.root
+// found on file: /star/u/wangzhen/run20/Dielectron/miniTree/output/addnCharge/85F750D096773521C6D629B41588D1E8_118.root
 //////////////////////////////////////////////////////////
 
 #ifndef miniDst_h
@@ -12,13 +12,11 @@
 #include <TChain.h>
 #include <TFile.h>
 
-const int nMaxTrk = 1000;
-
 // Header file for the classes stored in the TTree if any.
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
-class miniDst {
+class EVENT {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
    Int_t           fCurrent; //!current Tree number in a TChain
@@ -54,28 +52,28 @@ public :
    Float_t         mEtaMinusPtWeight;
    Short_t         mEtaMinusNTrks;
    Short_t         mNTrks;
-   Short_t         mTrkId[nMaxTrk];   //[mNTrks]
-   Bool_t          mTPCeTrkFlag[nMaxTrk];   //[mNTrks]
-   Int_t           mCharge[nMaxTrk];   //[mNTrks]
-   Float_t         mPt[nMaxTrk];   //[mNTrks]
-   Float_t         mEta[nMaxTrk];   //[mNTrks]
-   Float_t         mPhi[nMaxTrk];   //[mNTrks]
-   Float_t         mgPt[nMaxTrk];   //[mNTrks]
-   Float_t         mgEta[nMaxTrk];   //[mNTrks]
-   Float_t         mgPhi[nMaxTrk];   //[mNTrks]
-   Float_t         mgOriginX[nMaxTrk];   //[mNTrks]
-   Float_t         mgOriginY[nMaxTrk];   //[mNTrks]
-   Float_t         mgOriginZ[nMaxTrk];   //[mNTrks]
-   Int_t           mNHitsFit[nMaxTrk];   //[mNTrks]
-   Int_t           mNHitsPoss[nMaxTrk];   //[mNTrks]
-   Int_t           mNHitsDedx[nMaxTrk];   //[mNTrks]
-   Float_t         mDedx[nMaxTrk];   //[mNTrks]
-   Float_t         mNSigmaE[nMaxTrk];   //[mNTrks]
-   Float_t         mDca[nMaxTrk];   //[mNTrks]
-   Int_t           mTOFMatchFlag[nMaxTrk];   //[mNTrks]
-   Int_t           mTOFCellID[nMaxTrk];   //[mNTrks]
-   Float_t         mTOFLocalY[nMaxTrk];   //[mNTrks]
-   Float_t         mBeta2TOF[nMaxTrk];   //[mNTrks]
+   Short_t         mTrkId[500];   //[mNTrks]
+   Bool_t          mTPCeTrkFlag[500];   //[mNTrks]
+   Int_t           mCharge[500];   //[mNTrks]
+   Float_t         mPt[500];   //[mNTrks]
+   Float_t         mEta[500];   //[mNTrks]
+   Float_t         mPhi[500];   //[mNTrks]
+   Float_t         mgPt[500];   //[mNTrks]
+   Float_t         mgEta[500];   //[mNTrks]
+   Float_t         mgPhi[500];   //[mNTrks]
+   Float_t         mgOriginX[500];   //[mNTrks]
+   Float_t         mgOriginY[500];   //[mNTrks]
+   Float_t         mgOriginZ[500];   //[mNTrks]
+   Int_t           mNHitsFit[500];   //[mNTrks]
+   Int_t           mNHitsPoss[500];   //[mNTrks]
+   Int_t           mNHitsDedx[500];   //[mNTrks]
+   Float_t         mDedx[500];   //[mNTrks]
+   Float_t         mNSigmaE[500];   //[mNTrks]
+   Float_t         mDca[500];   //[mNTrks]
+   Int_t           mTOFMatchFlag[500];   //[mNTrks]
+   Int_t           mTOFCellID[500];   //[mNTrks]
+   Float_t         mTOFLocalY[500];   //[mNTrks]
+   Float_t         mBeta2TOF[500];   //[mNTrks]
 
    // List of branches
    TBranch        *b_mRunId;   //!
@@ -150,9 +148,9 @@ miniDst::miniDst(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("85F750D096773521C6D629B41588D1E8_1289.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/star/u/wangzhen/run20/Dielectron/miniTree/output/addnCharge/85F750D096773521C6D629B41588D1E8_118.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("85F750D096773521C6D629B41588D1E8_1289.root");
+         f = new TFile("/star/u/wangzhen/run20/Dielectron/miniTree/output/addnCharge/85F750D096773521C6D629B41588D1E8_118.root");
       }
       f->GetObject("miniDst",tree);
 
