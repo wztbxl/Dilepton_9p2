@@ -265,7 +265,7 @@ Int_t StElectronMcMaker::Init()
 //_________________________________________________
 Int_t StElectronMcMaker::Make()
 {
-   
+   LOG_INFO << "StElectronMcMaker Make!!!!!!" << endm;
     memset(&mElectron,0,sizeof(mElectron)); 
      StMuDstMaker * mMuDstMaker = (StMuDstMaker* )GetMaker("MuDst");
     if(!mMuDstMaker) {
