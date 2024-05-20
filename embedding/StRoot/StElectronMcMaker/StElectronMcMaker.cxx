@@ -314,10 +314,10 @@ Int_t StElectronMcMaker::Make()
 	 }
 	 
 	 
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(810010)) mElectron.triggerId[0] =810010;
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(810020)) mElectron.triggerId[1] =810020;
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(810030)) mElectron.triggerId[2] =810030;
-	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(810040)) mElectron.triggerId[3] =810040;
+	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(780010)) mElectron.triggerId[0] =780010;
+	 if(mMuEvent->triggerIdCollection().nominal().isTrigger(780020)) mElectron.triggerId[1] =780020;
+	//  if(mMuEvent->triggerIdCollection().nominal().isTrigger(810030)) mElectron.triggerId[2] =810030;
+	//  if(mMuEvent->triggerIdCollection().nominal().isTrigger(810040)) mElectron.triggerId[3] =810040;
 	 
 	 
 	 mElectron.runId = -999;
