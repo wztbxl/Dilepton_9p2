@@ -36,7 +36,7 @@
 #include "TLorentzVector.h"
 
 #include "EVENT.h"
-#include "StRefMultCorr.h"
+#include "./StRefMultCorr/StRefMultCorr.h"
 #include "cuts.h"
 
 using namespace std;
@@ -233,26 +233,29 @@ bool passEvent(EVENT* event)
 {
 	bool eventflag=kFALSE;
 	for(Int_t i=0;i<event->mNTrigs;i++){
-		if(event->mTrigId[i] == 580001) eventflag=kTRUE; //vpd-zdce-tac-protected
-		if(event->mTrigId[i] == 580011) eventflag=kTRUE; //vpd-zdce-tac-protected
-		if(event->mTrigId[i] == 580021) eventflag=kTRUE; //vpd-zdce-tac-protected
+		if(event->mTrigId[i] == 810010) eventflag=kTRUE; //vpd-zdce-tac-protected
+		if(event->mTrigId[i] == 810020) eventflag=kTRUE; //vpd-zdce-tac-protected
+		if(event->mTrigId[i] == 810030) eventflag=kTRUE; //vpd-zdce-tac-protected
+		if(event->mTrigId[i] == 810040) eventflag=kTRUE; //vpd-zdce-tac-protected
 	}
 	if(!eventflag) return kFALSE;
 
 	Float_t runId = event->mRunId;
 	Float_t zdcRate = event->mZDCRate;
 	Int_t   refMult = event->mRefMult;
-	Float_t vx = event->mVertexX;
+	Int_t mnTOFMatch = event->mnTOFMatch;
+  Float_t vx = event->mVertexX;
 	Float_t vy = event->mVertexY;
 	Float_t vz = event->mVertexZ;
 	Float_t vr = sqrt(vx*vx+vy*vy);
 	Float_t vpdVz = event->mVpdVz;
 	Float_t vzDiff = vz - vpdVz;
+  mCentrality = event->mCentrality;
 
 	if(TMath::Abs(vx)<1.e-5 && TMath::Abs(vy)<1.e-5 && TMath::Abs(vz)<1.e-5) return kFALSE;
 	if(vr>=mVrCut) return kFALSE;
-	if(TMath::Abs(vz)>=60) return kFALSE;//vz should also be in the range listed in the parameters file to do the refMult correction
-	if(TMath::Abs(vzDiff)>=mVzDiffCut) return kFALSE;
+	if(TMath::Abs(vz)>=35) return kFALSE;//vz should also be in the range listed in the parameters file to do the refMult correction
+	// if(TMath::Abs(vzDiff)>=mVzDiffCut) return kFALSE;
 	
 
 	//refMultCorrUtil->init(runId);
@@ -296,8 +299,8 @@ bool passTrack(EVENT* event, Int_t i)
 
 	if(pt<mTpcePtCut[0] || pt>mTpcePtCut[1]) return kFALSE;
 	if(pt<mTpcePtCut[0]) return kFALSE;
-	if(nHitsFit<15) return kFALSE;
-	// if(nHitsFit<mTpceNHitsFitCut) return kFALSE;
+	// if(nHitsFit<15) return kFALSE;
+	if(nHitsFit<mTpceNHitsFitCut) return kFALSE;
 	if(ratio<mTpceNHitsFitRatioCut) return kFALSE;
 	if(nHitsDedx<10) return kFALSE;
 	// if(nHitsDedx<mTpceNHitsDedxCut) return kFALSE;
