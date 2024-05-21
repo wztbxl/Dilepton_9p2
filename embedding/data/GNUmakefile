@@ -1,4 +1,4 @@
-OBJS = StRefMultCorr.o EVENT.o produceQA.o
+OBJS = EVENT.o StRefMultCorr.o Param.o CentralityMaker.o produceQA.o
 EXE =  produceQA
 
 #OBJS = MuDst.o createphiwgt.o

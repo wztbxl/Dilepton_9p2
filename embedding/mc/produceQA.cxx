@@ -386,8 +386,8 @@ int main(int argc, char** argv)
 					&& ratio>=mTpceNHitsFitRatioCut
 					&& rcDca<=mTpceDcaCut
 					// && rcDca<=1.2
-					// && rcNHitsDedx>=mTpceNHitsDedxCut){
-					&& rcNHitsDedx>=20){
+					&& rcNHitsDedx>=mTpceNHitsDedxCut){
+					// && rcNHitsDedx>=20){
 				if(q>0){
 				   	hNumEPlusTpcEff->Fill(mcPt,mcEta,mcPhi,weight);
 					hNumEPlusTpcEffCen[mCentrality]->Fill(mcPt,mcEta,mcPhi,weight);

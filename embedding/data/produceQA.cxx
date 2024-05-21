@@ -37,6 +37,7 @@
 
 #include "EVENT.h"
 #include "./StRefMultCorr/StRefMultCorr.h"
+#include "./StRefMultCorr/CentralityMaker.h"
 #include "cuts.h"
 
 using namespace std;
@@ -250,7 +251,7 @@ bool passEvent(EVENT* event)
 	Float_t vr = sqrt(vx*vx+vy*vy);
 	Float_t vpdVz = event->mVpdVz;
 	Float_t vzDiff = vz - vpdVz;
-  mCentrality = event->mCentrality;
+  int mCentrality = event->mCentrality;
 
 	if(TMath::Abs(vx)<1.e-5 && TMath::Abs(vy)<1.e-5 && TMath::Abs(vz)<1.e-5) return kFALSE;
 	if(vr>=mVrCut) return kFALSE;
@@ -258,10 +259,10 @@ bool passEvent(EVENT* event)
 	// if(TMath::Abs(vzDiff)>=mVzDiffCut) return kFALSE;
 	
 
-  refmultCorrUtil = CentralityMaker::instance()->getRefMultCorr();
+  refMultCorrUtil = CentralityMaker::instance()->getRefMultCorr();
 	refMultCorrUtil->init(runId);
-  Bool_t isPileUpEvt_Cen = !refmultCorrUtil->passnTofMatchRefmultCut(refMult*1.0,mnTOFMatch*1.0);
-  if(isPileUpEvt_Cen) return kStOk;
+  Bool_t isPileUpEvt_Cen = !refMultCorrUtil->passnTofMatchRefmultCut(refMult*1.0,mnTOFMatch*1.0);
+  if(isPileUpEvt_Cen) return kFALSE;
 	refMultCorrUtil->initEvent(refMult,vz,zdcRate);
 	Double_t refMultCor = refMultCorrUtil->getRefMultCorr();//if you want to call the getRefMultCorr() with no argument, it must be called after initEvent()
 
