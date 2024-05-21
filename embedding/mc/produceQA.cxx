@@ -623,7 +623,7 @@ void bookHistograms()
 	hRcMcVyDiffvsMcVy = new TH2F("hRcMcVyDiffvsMcVy","hRcMcVyDiffvsMcVy; McV_{y}; RcV_{y} - McV_{y}",150,-1.5,1.5,200,-1.,1.);
 	hRcMcVzDiffvsMcVz = new TH2F("hRcMcVzDiffvsMcVz","hRcMcVzDiffvsMcVz; McV_{z}; RcV_{z} - McV_{z}",240,-60,60,500,-5.,5.);
 	hRefMultvsRefMultCorr = new TH2F("hRefMultvsRefMultCorr","hRefMultvsRefMultCorr; refMultCorr; refMult",1000,0,1000,1000,0,1000);
-	hNMatchTrksvsInputTrks = new TH2F("hNMatchTrksvsInputTrks","hNMatchTrksvsInputTrks; # of InputTrks(pGeantID==0); # of MatchedTrks",50,0,50,50,0,50);
+	hNMatchTrksvsInputTrks = new TH2F("hNMatchTrksvsInputTrks","hNMatchTrksvsInputTrks; # of InputTrks(pGeantID==0); # of MatchedTrks",80,0,80,80,0,80);
 
 	hMcEtavsPtQ = new TH3F("hMcEtavsPtQ","hMcEtavsPtQ;q;p_{T} (GeV/c);#eta",2,-1,1,500,0,10,200,-2,2);
 	hMcPhivsPtQ = new TH3F("hMcPhivsPtQ","hMcPhivsPtQ;q;p_{T} (GeV/c);#phi",2,-1,1,500,0,10,360,-PI,PI);
@@ -639,16 +639,16 @@ void bookHistograms()
 	hPResvsPQ = new TH3F("hPResvsPQ","hPResvsPQ;q;p_{MC} (GeV/c);(p_{RC}-p_{MC})/p_{MC}",2,-1,1,500,0,10,4000,-2,2);
   hPtResvsPtCen = new TH3F("hPtResvsPtCen","hPtResvsPtCen;Centrality;p_{T}^{MC} (GeV/c);(p_{T}^{RC}-p_{T}^{MC})/p_{T}^{MC}",13,-1,12,500,0,10,4000,-2,2);
 
-	hRcNHitsFitvsPtQ = new TH3F("hRcNHitsFitvsPtQ","hRcNHitsFitvsPtQ;q;p_{T} (GeV/c);nHitsFit",2,-1,1,500,0,10,50,0,50);
-	hRcNHitsFitvsEtaQ = new TH3F("hRcNHitsFitvsEtaQ","hRcNHitsFitvsEtaQ;q;#eta;nHitsFit",2,-1,1,200,-2,2,50,0,50);
-	hRcNHitsFitvsPhiQ = new TH3F("hRcNHitsFitvsPhiQ","hRcNHitsFitvsPhiQ;q;#phi;nHitsFit",2,-1,1,360,-PI,PI,50,0,50);
-	hRcNHitsPossvsPtQ = new TH3F("hRcNHitsPossvsPtQ","hRcNHitsPossvsPtQ;q;p_{T} (GeV/c);nHitsPoss",2,-1,1,500,0,10,50,0,50);
-	hRcNHitsPossvsEtaQ = new TH3F("hRcNHitsPossvsEtaQ","hRcNHitsPossvsEtaQ;q;#eta;nHitsPoss",2,-1,1,200,-2,2,50,0,50);
-	hRcNHitsPossvsPhiQ = new TH3F("hRcNHitsPossvsPhiQ","hRcNHitsPossvsPhiQ;q;#phi;nHitsPoss",2,-1,1,360,-PI,PI,50,0,50);
-	hRcNHitsDedxvsPtQ = new TH3F("hRcNHitsDedxvsPtQ","hRcNHitsDedxvsPtQ;q;p_{T} (GeV/c);nHitsDedx",2,-1,1,500,0,10,50,0,50);
-	hRcNHitsCommonvsPtQ = new TH3F("hRcNHitsCommonvsPtQ","hRcNHitsCommonvsPtQ;q;p_{T} (GeV/c);nHitsCommon",2,-1,1,500,0,10,50,0,50);
-	hRcNHitsCommonvsEtaQ = new TH3F("hRcNHitsCommonvsEtaQ","hRcNHitsCommonvsEtaQ;q;#eta;nHitsCommon",2,-1,1,200,-2,2,50,0,50);
-	hRcNHitsCommonvsPhiQ = new TH3F("hRcNHitsCommonvsPhiQ","hRcNHitsCommonvsPhiQ;q;#phi;nHitsCommon",2,-1,1,360,-PI,PI,50,0,50);
+	hRcNHitsFitvsPtQ = new TH3F("hRcNHitsFitvsPtQ","hRcNHitsFitvsPtQ;q;p_{T} (GeV/c);nHitsFit",2,-1,1,500,0,10,80,0,80);
+	hRcNHitsFitvsEtaQ = new TH3F("hRcNHitsFitvsEtaQ","hRcNHitsFitvsEtaQ;q;#eta;nHitsFit",2,-1,1,200,-2,2,80,0,80);
+	hRcNHitsFitvsPhiQ = new TH3F("hRcNHitsFitvsPhiQ","hRcNHitsFitvsPhiQ;q;#phi;nHitsFit",2,-1,1,360,-PI,PI,80,0,80);
+	hRcNHitsPossvsPtQ = new TH3F("hRcNHitsPossvsPtQ","hRcNHitsPossvsPtQ;q;p_{T} (GeV/c);nHitsPoss",2,-1,1,500,0,10,80,0,80);
+	hRcNHitsPossvsEtaQ = new TH3F("hRcNHitsPossvsEtaQ","hRcNHitsPossvsEtaQ;q;#eta;nHitsPoss",2,-1,1,200,-2,2,80,0,80);
+	hRcNHitsPossvsPhiQ = new TH3F("hRcNHitsPossvsPhiQ","hRcNHitsPossvsPhiQ;q;#phi;nHitsPoss",2,-1,1,360,-PI,PI,80,0,80);
+	hRcNHitsDedxvsPtQ = new TH3F("hRcNHitsDedxvsPtQ","hRcNHitsDedxvsPtQ;q;p_{T} (GeV/c);nHitsDedx",2,-1,1,500,0,10,80,0,80);
+	hRcNHitsCommonvsPtQ = new TH3F("hRcNHitsCommonvsPtQ","hRcNHitsCommonvsPtQ;q;p_{T} (GeV/c);nHitsCommon",2,-1,1,500,0,10,80,0,80);
+	hRcNHitsCommonvsEtaQ = new TH3F("hRcNHitsCommonvsEtaQ","hRcNHitsCommonvsEtaQ;q;#eta;nHitsCommon",2,-1,1,200,-2,2,80,0,80);
+	hRcNHitsCommonvsPhiQ = new TH3F("hRcNHitsCommonvsPhiQ","hRcNHitsCommonvsPhiQ;q;#phi;nHitsCommon",2,-1,1,360,-PI,PI,80,0,80);
 	hRcDcavsPtQ = new TH3F("hRcDcavsPtQ","hRcDcavsPtQ;q;p_{T} (GeV/c);dca (cm)",2,-1,1,500,0,10,2000,-1.e-6,4-1.e-6);
 	hRcDedxvsPQ = new TH3F("hRcDedxvsPQ","hRcDedxvsPQ;q;p (GeV/c);dE/dx (KeV/cm)",2,-1,1,500,0,10,300,-1.e-6,15-1.e-6);
 	hRcDedxvsEtaQ = new TH3F("hRcDedxvsEtaQ","hRcDedxvsEtaQ;q;#eta;dE/dx (KeV/cm)",2,-1,1,200,-2,2,300,-1.e-6,15-1.e-6);
@@ -660,14 +660,14 @@ void bookHistograms()
 	hRcNSigmaKvsPQ = new TH3F("hRcNSigmaKvsPQ","hRcNSigmaKvsPQ;q;p (GeV/c);n#sigma_{k}",2,-1,1,500,0,10,600,-15-1.e-6,15-1.e-6);
 	hRcNSigmaPvsPQ = new TH3F("hRcNSigmaPvsPQ","hRcNSigmaPvsPQ;q;p (GeV/c);n#sigma_{p}",2,-1,1,500,0,10,600,-15-1.e-6,15-1.e-6);
 
-    hPENHitsFitsvsPtvsEtaMinus = new TH3F("hPENitsFitsvsPtvsEtaMinus","hPENitsFitsvsPtvsEtaMinus;p_{T};#eta;nHitsFit",500,0,10,200,-2,2,50,0,50);
-    hPENHitsFitsvsPtvsEtaPlus = new TH3F("hPENitsFitsvsPtvsEtaPlus","hPENitsFitsvsPtvsEtaPlus;p_{T};#eta;nHitsFit",500,0,10,200,-2,2,50,0,50);
-    hPENHitsFitsvsPtvsPhiMinus = new TH3F("hPENitsFitsvsPtvsPhiMinus","hPENitsFitsvsPtvsPhiMinus;p_{T};#phi;nHitsFit",500,0,10,360,-TMath::Pi(),TMath::Pi(),50,0,50);
-    hPENHitsFitsvsPtvsPhiPlus = new TH3F("hPENitsFitsvsPtvsPhiPlus","hPENitsFitsvsPtvsPhiPlus;p_{T};#phi;nHitsFit",500,0,10,360,-TMath::Pi(),TMath::Pi(),50,0,50);
-	hPENHitsDedxvsPtvsEtaMinus = new TH3F("hPENHitsDedxvsPtvsEtaMinus","hPENHitsDedxvsPtvsEtaMinus;p_{T};#eta;nHitsDedx",500,0,10,200,-2,2,50,0,50);
-    hPENHitsDedxvsPtvsEtaPlus = new TH3F("hPENHitsDedxvsPtvsEtaPlus","hPENHitsDedxvsPtvsEtaPlus;p_{T};#eta;nHitsDedx",500,0,10,200,-2,2,50,0,50);
-    hPENHitsDedxvsPtvsPhiMinus = new TH3F("hPENHitsDedxvsPtvsPhiMinus","hPENHitsDedxvsPtvsPhiMinus;p_{T};#phi;nHitsDedx",500,0,10,360,-TMath::Pi(),TMath::Pi(),50,0,50);
-    hPENHitsDedxvsPtvsPhiPlus = new TH3F("hPENHitsDedxvsPtvsPhiPlus","hPENHitsDedxvsPtvsPhiPlus;p_{T};#phi;nHitsDedx",500,0,10,360,-TMath::Pi(),TMath::Pi(),50,0,50);
+    hPENHitsFitsvsPtvsEtaMinus = new TH3F("hPENitsFitsvsPtvsEtaMinus","hPENitsFitsvsPtvsEtaMinus;p_{T};#eta;nHitsFit",500,0,10,200,-2,2,80,0,80);
+    hPENHitsFitsvsPtvsEtaPlus = new TH3F("hPENitsFitsvsPtvsEtaPlus","hPENitsFitsvsPtvsEtaPlus;p_{T};#eta;nHitsFit",500,0,10,200,-2,2,80,0,80);
+    hPENHitsFitsvsPtvsPhiMinus = new TH3F("hPENitsFitsvsPtvsPhiMinus","hPENitsFitsvsPtvsPhiMinus;p_{T};#phi;nHitsFit",500,0,10,360,-TMath::Pi(),TMath::Pi(),80,0,80);
+    hPENHitsFitsvsPtvsPhiPlus = new TH3F("hPENitsFitsvsPtvsPhiPlus","hPENitsFitsvsPtvsPhiPlus;p_{T};#phi;nHitsFit",500,0,10,360,-TMath::Pi(),TMath::Pi(),80,0,80);
+	hPENHitsDedxvsPtvsEtaMinus = new TH3F("hPENHitsDedxvsPtvsEtaMinus","hPENHitsDedxvsPtvsEtaMinus;p_{T};#eta;nHitsDedx",500,0,10,200,-2,2,80,0,80);
+    hPENHitsDedxvsPtvsEtaPlus = new TH3F("hPENHitsDedxvsPtvsEtaPlus","hPENHitsDedxvsPtvsEtaPlus;p_{T};#eta;nHitsDedx",500,0,10,200,-2,2,80,0,80);
+    hPENHitsDedxvsPtvsPhiMinus = new TH3F("hPENHitsDedxvsPtvsPhiMinus","hPENHitsDedxvsPtvsPhiMinus;p_{T};#phi;nHitsDedx",500,0,10,360,-TMath::Pi(),TMath::Pi(),80,0,80);
+    hPENHitsDedxvsPtvsPhiPlus = new TH3F("hPENHitsDedxvsPtvsPhiPlus","hPENHitsDedxvsPtvsPhiPlus;p_{T};#phi;nHitsDedx",500,0,10,360,-TMath::Pi(),TMath::Pi(),80,0,80);
 	hPEDcavsPtvsEtaMinus = new TH3F("hPEDcavsPtvsEtaMinus","hPEDcavsPtvsEtaMinus;p_{T};#eta;Dca(cm)",500,0,10,360,-2,2,400,0,10);
     hPEDcavsPtvsEtaPlus = new TH3F("hPEDcavsPtvsEtaPlus","hPEDcavsPtvsEtaPlus;p_{T};#eta;Dca(cm)",500,0,10,360,-2,2,400,0,10);
     hPEDcavsPtvsPhiMinus = new TH3F("hPEDcavsPtvsPhiMinus","hPEDcavsPtvsPhiMinus;p_{T};#phi;Dca(cm)",500,0,10,360,-TMath::Pi(),TMath::Pi(),400,0,10);
