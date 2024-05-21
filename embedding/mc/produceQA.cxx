@@ -227,7 +227,7 @@ int main(int argc, char** argv)
 		if(event->triggerId[1] > 0) triggerID = event->triggerId[1];
 		if(event->triggerId[2] > 0) triggerID = event->triggerId[2];
 		if(event->triggerId[3] > 0) triggerID = event->triggerId[3];
-		if (triggerID != 810010 && triggerID != 810020 && triggerID != 810030 && triggerID != 810040) continue;
+		if (triggerID != 780010 && triggerID != 780020 ) continue;
 
 		hVyvsVx->Fill(rcVertexX,rcVertexY);
 		hVyvsVz->Fill(rcVertexZ,rcVertexY);
