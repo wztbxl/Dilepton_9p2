@@ -68,8 +68,8 @@ void plotQA(TString inFile="minibias"){
 	Int_t textColor = 1;
 
 	//const Int_t nMomBins = 18;
-	const int nMomBins = 18;
-	Float_t mom[nMomBins+1] = {0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.8,2.0,2.5,4.0};
+	const int nMomBins = 14;
+	Float_t mom[nMomBins+1] = {0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.5,2.5,4.0};
 	//const Int_t nPiMomBins = 27;
 	const int nPiMomBins = 27;
 	Float_t pimom[nPiMomBins+1] = {0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.0,2.2,2.4,2.6,2.8,3.0,3.2,3.4,3.6,4.0};
