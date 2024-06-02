@@ -227,7 +227,8 @@ int main(int argc, char** argv)
 		if(event->triggerId[1] > 0) triggerID = event->triggerId[1];
 		if(event->triggerId[2] > 0) triggerID = event->triggerId[2];
 		if(event->triggerId[3] > 0) triggerID = event->triggerId[3];
-		if (triggerID != 780010 && triggerID != 780020 ) continue;
+		if (triggerID != 710010 && triggerID != 710020 && triggerID != 710000 ) continue;
+		// if (triggerID != 780010 && triggerID != 780020 ) continue;
 
 		hVyvsVx->Fill(rcVertexX,rcVertexY);
 		hVyvsVz->Fill(rcVertexZ,rcVertexY);
@@ -384,8 +385,8 @@ int main(int argc, char** argv)
 			if(rcNHitsFit>=mTpceNHitsFitCut//for systemiac uncentraity change this +/-5
 			// if(rcNHitsFit>=25//for systemiac uncentraity change this +/-5
 					&& ratio>=mTpceNHitsFitRatioCut
-					&& rcDca<=mTpceDcaCut
-					// && rcDca<=1.2
+					// && rcDca<=mTpceDcaCut
+					&& rcDca<=1.2
 					&& rcNHitsDedx>=mTpceNHitsDedxCut){
 					// && rcNHitsDedx>=20){
 				if(q>0){
