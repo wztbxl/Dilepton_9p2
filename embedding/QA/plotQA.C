@@ -68,8 +68,8 @@ void plotQA(TString inFile="minibias"){
 	Int_t textColor = 1;
 
 	//const Int_t nMomBins = 18;
-	const int nMomBins = 13;
-	Float_t mom[nMomBins+1] = {0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.5,2.5,4.0};
+	const int nMomBins = 12;
+	Float_t mom[nMomBins+1] = {0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.5,2.5};
 	//const Int_t nPiMomBins = 27;
 	const int nPiMomBins = 27;
 	Float_t pimom[nPiMomBins+1] = {0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.0,2.2,2.4,2.6,2.8,3.0,3.2,3.4,3.6,4.0};
@@ -85,7 +85,8 @@ void plotQA(TString inFile="minibias"){
 	Int_t momBinLow,momBinHi;
 
 	//TFile *fMc = new TFile( "./mc/test/test.QAhisto.root" );
-	TFile *fMc = new TFile( Form("./%sMC.QAhistoFullsample.root",inFile.Data()) );
+	TFile *fMc = new TFile( Form("./%sMC_11p5_59.QAhistoFullsample.root",inFile.Data()) );
+	// TFile *fMc = new TFile( Form("./%sMC.QAhistoFullsample.root",inFile.Data()) );
 	if(!fMc->IsOpen()){
 		cout<<"Fail to open the MC QA root file!";
 		return;
@@ -235,6 +236,19 @@ void plotQA(TString inFile="minibias"){
 	hDataPiDedxvsPQ->Sumw2();
 	TH3F *hDataPiNSigmaEvsPQ = (TH3F *)fData->Get("hPiNSigmaEvsPQ");
 	hDataPiNSigmaEvsPQ->Sumw2();
+
+	TH1D* nHitsFitRatio_1 = new TH1D("nHitsFitRatio_1","25;p_{T};",nMomBins,mom);
+	TH1D* nHitsFitRatio_2 = new TH1D("nHitsFitRatio_2","20;p_{T};",nMomBins,mom);
+	TH1D* nHitsFitYield_1 = new TH1D("nHitsFitYield_1","25;p_{T};",nMomBins,mom);
+	TH1D* nHitsFitYield_2 = new TH1D("nHitsFitYield_2","20;p_{T};",nMomBins,mom);
+	TH1D* nHitsDedxRatio_1 = new TH1D("nHitsDedxRatio_1","20;p_{T};",nMomBins,mom);
+	TH1D* nHitsDedxRatio_2 = new TH1D("nHitsDedxRatio_2","15;p_{T};",nMomBins,mom);
+	TH1D* nHitsDedxYield_1 = new TH1D("nHitsDedxYield_1","20;p_{T};",nMomBins,mom);
+	TH1D* nHitsDedxYield_2 = new TH1D("nHitsDedxYield_2","15;p_{T};",nMomBins,mom);
+	TH1D* nDcaRatio_1 = new TH1D("nDcaRatio_1","1.2;p_{T};",nMomBins,mom);
+	TH1D* nDcaRatio_2 = new TH1D("nDcaRatio_2","1;p_{T};",nMomBins,mom);
+	TH1D* nDcaYield_1 = new TH1D("nDcaYield_1","1.2;p_{T};",nMomBins,mom);
+	TH1D* nDcaYield_2 = new TH1D("nDcaYield_2","1;p_{T};",nMomBins,mom);
 
 	TCanvas *c = new TCanvas("c", "c",0,0,800,600);
 
@@ -759,17 +773,17 @@ void plotQA(TString inFile="minibias"){
 	hRcPhivsPtQ->GetYaxis()->SetRangeUser(0,5.0);
 	hRcPhivsPtQ->GetXaxis()->SetRange(1,1);
 	TH2F *hRcPhivsPtE = (TH2F *)hRcPhivsPtQ->Project3D("ZY"); 
-	hRcPhivsPtE->SetNameTitle("hRcPhivsPtE","hRcPhivsPtE");
+	hRcPhivsPtE->SetNameTitle("hRcPhivsPtE","");
 	hRcPhivsPtQ->GetXaxis()->SetRange(2,2);
 	TH2F *hRcPhivsPtP = (TH2F *)hRcPhivsPtQ->Project3D("ZY");
-	hRcPhivsPtP->SetNameTitle("hRcPhivsPtP","hRcPhivsPtP");
+	hRcPhivsPtP->SetNameTitle("hRcPhivsPtP","");
 	hDataPhivsPtQ->GetYaxis()->SetRangeUser(0.,5.);
 	hDataPhivsPtQ->GetXaxis()->SetRange(1,1);
 	TH2F *hDataPhivsPtE = (TH2F *)hDataPhivsPtQ->Project3D("ZY"); 
-	hDataPhivsPtE->SetNameTitle("hDataPhivsPtE","hDataPhivsPtE");
+	hDataPhivsPtE->SetNameTitle("hDataPhivsPtE","");
 	hDataPhivsPtQ->GetXaxis()->SetRange(2,2);
 	TH2F *hDataPhivsPtP = (TH2F *)hDataPhivsPtQ->Project3D("ZY");
-	hDataPhivsPtP->SetNameTitle("hDataPhivsPtP","hDataPhivsPtP");
+	hDataPhivsPtP->SetNameTitle("hDataPhivsPtP","");
 	hDataPiPhivsPtQ->GetYaxis()->SetRangeUser(0.,5.);
 	hDataPiPhivsPtQ->GetXaxis()->SetRange(1,1);
 	TH2F *hDataPiPhivsPtM = (TH2F *)hDataPiPhivsPtQ->Project3D("ZY"); 
@@ -863,8 +877,10 @@ void plotQA(TString inFile="minibias"){
 		binHi1 = hDataPhiE[i]->GetXaxis()->FindBin(3.);
 		//cout<<binLow<<"  "<<binHi<<endl;
 		//cout<<binLow1<<"  "<<binHi1<<endl;
-		hDataPhiE[i]->Scale(rebY/3.*hRcPhiE[i]->Integral(binLow,binHi)*1./hDataPhiE[i]->Integral(binLow1,binHi1));
-		hDataPhiP[i]->Scale(rebY/3.*hRcPhiP[i]->Integral(binLow,binHi)*1./hDataPhiP[i]->Integral(binLow1,binHi1));
+		hRcPhiE[i]->Scale(1./hRcPhiE[i]->Integral());
+		hRcPhiP[i]->Scale(1./hRcPhiP[i]->Integral());
+		hDataPhiE[i]->Scale(1./hDataPhiE[i]->Integral());
+		hDataPhiP[i]->Scale(1./hDataPhiP[i]->Integral());
 		c1->cd(i%nPads+1);
 		hDataPhiP[i]->SetMinimum(1.);
 		hDataPhiE[i]->Draw("pe");
@@ -1100,10 +1116,10 @@ void plotQA(TString inFile="minibias"){
 
 	hRcNHitsFitvsPtQ->GetXaxis()->SetRange(1,1);
 	TH2F *hRcNHitsFitvsPtE = (TH2F *)hRcNHitsFitvsPtQ->Project3D("ZY");
-	hRcNHitsFitvsPtE->SetNameTitle("hRcNHitsFitvsPtE","hRcNHitsFitvsPtE");
+	hRcNHitsFitvsPtE->SetNameTitle("hRcNHitsFitvsPtE","");
 	hRcNHitsFitvsPtQ->GetXaxis()->SetRange(2,2);
 	TH2F *hRcNHitsFitvsPtP = (TH2F *)hRcNHitsFitvsPtQ->Project3D("ZY");
-	hRcNHitsFitvsPtP->SetNameTitle("hRcNHitsFitvsPtP","hRcNHitsFitvsPtP");
+	hRcNHitsFitvsPtP->SetNameTitle("hRcNHitsFitvsPtP","");
 	hDataNHitsFitvsPtQ->GetXaxis()->SetRange(1,1);
 	TH2F *hDataNHitsFitvsPtE = (TH2F *)hDataNHitsFitvsPtQ->Project3D("ZY");
 	hDataNHitsFitvsPtE->SetNameTitle("hDataNHitsFitvsPtE","hDataNHitsFitvsPtE");
@@ -1167,6 +1183,7 @@ void plotQA(TString inFile="minibias"){
 	TH1F *hRcNHitsFitP[nMomBins];
 	TH1F *hDataNHitsFitE[nMomBins];
 	TH1F *hDataNHitsFitP[nMomBins];
+	double hRcNHitsFitDoubleRatio[nMomBins];
 	for(Int_t i=0;i<nMomBins;i++){
 		momBinLow = hRcNHitsFitvsPtE->GetXaxis()->FindBin(mom[i]);
 		momBinHi = hRcNHitsFitvsPtE->GetXaxis()->FindBin(mom[i+1]);
@@ -1178,14 +1195,42 @@ void plotQA(TString inFile="minibias"){
 		hRcNHitsFitP[i]->SetLineColor(2);
 		setHisto(hDataNHitsFitE[i],20,0.8,4,4);
 		setHisto(hDataNHitsFitP[i],20,0.8,kViolet,kViolet);
-		binLow = hDataNHitsFitE[i]->GetXaxis()->FindBin(30);
-		binHi = hDataNHitsFitE[i]->GetXaxis()->FindBin(40);
-		// hDataNHitsFitE[i]->Scale(hRcNHitsFitE[i]->Integral(binLow,binHi)*1./hDataNHitsFitE[i]->Integral(binLow,binHi));
-		// hDataNHitsFitP[i]->Scale(hRcNHitsFitP[i]->Integral(binLow,binHi)*1./hDataNHitsFitP[i]->Integral(binLow,binHi));
+		binLow = hDataNHitsFitE[i]->GetXaxis()->FindBin(25);
+		binHi = hDataNHitsFitE[i]->GetXaxis()->FindBin(75);
+		int binLow_RC = hRcNHitsFitE[i]->GetXaxis()->FindBin(25);
+		int binHi_RC = hRcNHitsFitE[i]->GetXaxis()->FindBin(75);
 		hDataNHitsFitE[i]->Scale(1./hDataNHitsFitE[i]->Integral());
 		hDataNHitsFitP[i]->Scale(1./hDataNHitsFitP[i]->Integral());
 		hRcNHitsFitE[i]->Scale(1./hRcNHitsFitE[i]->Integral());
 		hRcNHitsFitP[i]->Scale(1./hRcNHitsFitP[i]->Integral());
+		binLow = hDataNHitsFitE[i]->GetXaxis()->FindBin(25);
+		binHi = hDataNHitsFitE[i]->GetXaxis()->FindBin(75);
+		binLow_RC = hRcNHitsFitE[i]->GetXaxis()->FindBin(25);
+		binHi_RC = hRcNHitsFitE[i]->GetXaxis()->FindBin(75);
+		double yield, error;
+		yield = hDataNHitsFitE[i]->IntegralAndError(binLow,binHi,error);
+		cout << "yield = " << yield << " error =  " << error << endl;
+		nHitsFitYield_1->SetBinContent(i+1,yield);
+		nHitsFitYield_1->SetBinError(i+1,error);
+		yield = hRcNHitsFitE[i]->IntegralAndError(binLow_RC,binHi_RC,error);
+		nHitsFitYield_2->SetBinContent(i+1,yield);
+		nHitsFitYield_2->SetBinError(i+1,error);
+		binLow = hDataNHitsFitE[i]->GetXaxis()->FindBin(20);
+		binHi = hDataNHitsFitE[i]->GetXaxis()->FindBin(75);
+		binLow_RC = hRcNHitsFitE[i]->GetXaxis()->FindBin(20);
+		binHi_RC = hRcNHitsFitE[i]->GetXaxis()->FindBin(75);
+		yield = hDataNHitsFitE[i]->IntegralAndError(binLow,binHi,error);
+		nHitsFitYield_1->SetBinContent(i+1,yield);
+		nHitsFitYield_1->SetBinError(i+1,error);
+		yield = hRcNHitsFitE[i]->IntegralAndError(binLow_RC,binHi_RC,error);
+		nHitsFitYield_2->SetBinContent(i+1,yield);
+		nHitsFitYield_2->SetBinError(i+1,error);
+
+
+		// hDataNHitsFitE[i]->Scale(hRcNHitsFitE[i]->Integral(binLow,binHi)*1./hDataNHitsFitE[i]->Integral(binLow,binHi));
+		// hDataNHitsFitP[i]->Scale(hRcNHitsFitP[i]->Integral(binLow,binHi)*1./hDataNHitsFitP[i]->Integral(binLow,binHi));
+
+
 		c1->cd(i%nPads+1);
 		hRcNHitsFitP[i]->SetMinimum(1.);;
 		hRcNHitsFitE[i]->Draw("histe");
@@ -1206,6 +1251,8 @@ void plotQA(TString inFile="minibias"){
 		if(i%nPads==nPads-1)
 			pdfAction(c1,ps);
 	}
+	nHitsFitRatio_1->Divide(nHitsFitYield_1,nHitsFitRatio_2,1,1);
+	nHitsFitRatio_2->Divide(nHitsFitYield_1,nHitsFitRatio_2,1,1);
 	if(nMomBins%nPads!=0)
 		pdfAction(c1,ps);
 
@@ -2193,14 +2240,35 @@ void plotQA(TString inFile="minibias"){
 		hRcNHitsDedxP[i]->SetLineColor(2);
 		setHisto(hDataNHitsDedxE[i],20,0.8,4,4);
 		setHisto(hDataNHitsDedxP[i],20,0.8,kViolet,kViolet);
-		binLow = hDataNHitsDedxE[i]->GetXaxis()->FindBin(20);
-		binHi = hDataNHitsDedxE[i]->GetXaxis()->FindBin(30);
 		// hDataNHitsDedxE[i]->Scale(hRcNHitsDedxE[i]->Integral(binLow,binHi)*1./hDataNHitsDedxE[i]->Integral(binLow,binHi));
 		// hDataNHitsDedxP[i]->Scale(hRcNHitsDedxP[i]->Integral(binLow,binHi)*1./hDataNHitsDedxP[i]->Integral(binLow,binHi));
 		hDataNHitsDedxE[i]->Scale(1./hDataNHitsDedxE[i]->Integral());
 		hDataNHitsDedxP[i]->Scale(1./hDataNHitsDedxP[i]->Integral());
 		hRcNHitsDedxE[i]->Scale(1./hRcNHitsDedxE[i]->Integral());
 		hRcNHitsDedxP[i]->Scale(1./hRcNHitsDedxP[i]->Integral());
+		int binLow_RC, binHi_RC;
+		binLow = hDataNHitsDedxE[i]->GetXaxis()->FindBin(20);
+		binHi = hDataNHitsDedxE[i]->GetXaxis()->FindBin(75);
+		binLow_RC = hRcNHitsDedxE[i]->GetXaxis()->FindBin(20);
+		binHi_RC = hRcNHitsDedxE[i]->GetXaxis()->FindBin(75);
+		double yield, error;
+		yield = hDataNHitsDedxE[i]->IntegralAndError(binLow,binHi,error);
+		nHitsDedxYield_1->SetBinContent(i+1,yield);
+		nHitsDedxYield_1->SetBinError(i+1,error);
+		yield = hRcNHitsDedxE[i]->IntegralAndError(binLow_RC,binHi_RC,error);
+		nHitsDedxYield_2->SetBinContent(i+1,yield);
+		nHitsDedxYield_2->SetBinError(i+1,error);
+		binLow = hDataNHitsDedxE[i]->GetXaxis()->FindBin(15);
+		binHi = hDataNHitsDedxE[i]->GetXaxis()->FindBin(75);
+		binLow_RC = hRcNHitsDedxE[i]->GetXaxis()->FindBin(15);
+		binHi_RC = hRcNHitsDedxE[i]->GetXaxis()->FindBin(75);
+		yield = hDataNHitsDedxE[i]->IntegralAndError(binLow,binHi,error);
+		nHitsDedxYield_1->SetBinContent(i+1,yield);
+		nHitsDedxYield_1->SetBinError(i+1,error);
+		yield = hRcNHitsDedxE[i]->IntegralAndError(binLow_RC,binHi_RC,error);
+		nHitsDedxYield_2->SetBinContent(i+1,yield);
+		nHitsDedxYield_2->SetBinError(i+1,error);
+
 		c1->cd(i%nPads+1);
 		gPad->SetLogy(0);
 		hDataNHitsDedxP[i]->SetMinimum(1.);
@@ -2222,6 +2290,8 @@ void plotQA(TString inFile="minibias"){
 		if(i%nPads==nPads-1)
 			pdfAction(c1,ps);
 	}
+	nHitsDedxRatio_1->Divide(nHitsDedxYield_1,nHitsDedxRatio_2,1,1);
+	nHitsDedxRatio_2->Divide(nHitsDedxYield_1,nHitsDedxRatio_2,1,1);
 	if(nMomBins%nPads!=0)
 		pdfAction(c1,ps);
 
@@ -2361,6 +2431,29 @@ void plotQA(TString inFile="minibias"){
 		hDataDcaP[i]->Scale(1./hDataDcaP[i]->Integral());
 		hRcDcaE[i]->Scale(1./hRcDcaE[i]->Integral());
 		hRcDcaP[i]->Scale(1./hRcDcaP[i]->Integral());
+		int binLow_RC, binHi_RC;
+		binLow = hDataDcaE[i]->GetXaxis()->FindBin(0.);
+		binHi = hDataDcaE[i]->GetXaxis()->FindBin(0.8);
+		binLow_RC = hRcDcaE[i]->GetXaxis()->FindBin(0.);
+		binHi_RC = hRcDcaE[i]->GetXaxis()->FindBin(0.8);
+		double yield, error;
+		yield = hDataDcaE[i]->IntegralAndError(binLow,binHi,error);
+		nDcaYield_1->SetBinContent(i+1,yield);
+		nDcaYield_1->SetBinError(i+1,error);
+		yield = hRcDcaE[i]->IntegralAndError(binLow_RC,binHi_RC,error);
+		nDcaYield_2->SetBinContent(i+1,yield);
+		nDcaYield_2->SetBinError(i+1,error);
+		binLow = hDataDcaE[i]->GetXaxis()->FindBin(0.);
+		binHi = hDataDcaE[i]->GetXaxis()->FindBin(1.0);
+		binLow_RC = hRcDcaE[i]->GetXaxis()->FindBin(0.);
+		binHi_RC = hRcDcaE[i]->GetXaxis()->FindBin(1.0);
+		yield = hDataDcaE[i]->IntegralAndError(binLow,binHi,error);
+		nDcaYield_1->SetBinContent(i+1,yield);
+		nDcaYield_1->SetBinError(i+1,error);
+		yield = hRcDcaE[i]->IntegralAndError(binLow_RC,binHi_RC,error);
+		nDcaYield_2->SetBinContent(i+1,yield);
+		nDcaYield_2->SetBinError(i+1,error);
+
 		c1->cd(i%nPads+1);
 		gPad->SetLogy(0);
 		hRcDcaP[i]->SetMinimum(1.);
@@ -2385,6 +2478,8 @@ void plotQA(TString inFile="minibias"){
 	}
 	if(nMomBins%nPads!=0)
 		pdfAction(c1,ps);
+		nDcaRatio_1->Divide(nDcaYield_1,nDcaRatio_2,1,1);
+		nDcaRatio_2->Divide(nDcaYield_1,nDcaRatio_2,1,1);
 
 	TH1F *hRcDcaE1[nPiMomBins];
 	TH1F *hRcDcaP1[nPiMomBins];
@@ -2757,6 +2852,30 @@ void plotQA(TString inFile="minibias"){
 	}
 	/*if(nPiMomBins%nPads!=0)
 		pdfAction(c1,ps);*/
+	c1->Clear();
+	// nHitsFitRatio_1->Divide(nHitsFitRatio_1,nHitsFitRatio_2);
+	nHitsFitYield_1->Divide(nHitsFitYield_1,nHitsFitYield_2);
+	setHisto(nHitsFitYield_1,8,1,1,1);
+	setHisto(nHitsFitYield_2,8,1,2,2);
+	nHitsFitYield_1->GetYaxis()->SetRangeUser(0.8,1.2);
+	nHitsFitYield_1->Fit("pol0");
+	nHitsFitYield_1->Draw("pe");
+	// nHitsFitYield_2->Draw("pesame");
+	pdfAction(c1,ps);
+	nHitsDedxYield_1->Divide(nHitsDedxYield_1,nHitsDedxYield_2);
+	setHisto(nHitsDedxYield_1,8,1,1,1);
+	setHisto(nHitsDedxYield_2,8,1,2,2);
+	nHitsDedxYield_1->GetYaxis()->SetRangeUser(0.8,1.2);
+	nHitsDedxYield_1->Fit("pol0");
+	nHitsDedxYield_1->Draw("pe");
+	pdfAction(c1,ps);
+	nDcaYield_1->Divide(nDcaYield_1,nDcaYield_2);
+	setHisto(nDcaYield_1,8,1,1,1);
+	setHisto(nDcaYield_2,8,1,2,2);
+	nDcaYield_1->GetYaxis()->SetRangeUser(0.8,1.2);
+	nDcaYield_1->Fit("pol0");
+	nDcaYield_1->Draw("pe");
+	pdfAction(c1,ps);
 
 	ps->On();
 	ps->Close();
