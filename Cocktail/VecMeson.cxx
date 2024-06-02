@@ -52,7 +52,7 @@ VecMeson::VecMeson(ParticleTypes particle, DecayMode dmode)
 	for(int i=0;i<nSmearFac;i++){
 		mPtSmearPar[i]=0.;
 	}
-	mPtSmearPar[0] = 0.009440;mPtSmearPar[1] = 0.01;mPtSmearPar[2]=0.000511; //from 54 GeV cocktail 
+	mPtSmearPar[0] = 5.713e-3;mPtSmearPar[1] = 7.92e-3;mPtSmearPar[2]=0.000511; //from 54 GeV cocktail 
 }
 
 VecMeson::~VecMeson(){}
@@ -249,16 +249,19 @@ Int_t VecMeson::Init()
 	if (!histMeson) cout << " Fail to get histogram " << endl;
 	//histMeson->Print();
 	cout << "mCenIdx = " << mCenIdx << " CentralityLow[mCenIdx] = " <<CentralityLow[mCenIdx] << " CentralityHi[mCenIdx] = " << CentralityHi[mCenIdx] << endl;
-	TFile *fcocktail = TFile::Open(Form("/star/u/wangzhen/QA/wangzhen/Cocktail/genCocktail/output_old/cen%d%d_cocktail_withoutRho.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx]));
+	TFile *fcocktail = TFile::Open(Form("./Effinput/cen%d%d_cocktail_withoutRho.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx]));
 	hCocktail = (TH2D *)fcocktail->Get("hMCAcc0MvsPt");// |Y_{ee}|<1
 
 	//****** Smear for MC ******
 	funSmearPt = new TF1("funSmearPt","sqrt([0]*[0]*x*x+[1]*[1])",0.,10.);
 	funSmearPt->SetParameters(mPtSmearPar);
+  funSmearPt->SetNpx(10000); 
+  funSmearPt->Print("all");
 	funSmearPtEmb = new TF1("funSmearPtEmb","sqrt([0]*[0]*x*x+[1]*[1])",0,10);
 	// funSmearPtEmb->SetParameters(0.005690,0.007473);
 	//19.6 : (best a = 5.713e-3, b= 7.92e-3)
 	funSmearPtEmb->SetParameters(2.065e-3,7.503e-3);
+  funSmearPtEmb->SetNpx(10000);
 	//how to do the smear? and why we should do the smear?
 	//****** pT Res From embedding ********
 	TFile *pTResInput = new TFile("/star/u/wangzhen/QA/wangzhen/Cocktail/pTresFromEmbedding.root");
@@ -279,6 +282,7 @@ Int_t VecMeson::Init()
 				}
 		
 		//cout<<1<<endl;
+    pTResFun[i]->SetNpx(10000);
 		pTRes1D[i]->Print();
 		pTResFun[i]->Print();
         }//0.2 step is beacuse the embedding data is a small sample;
