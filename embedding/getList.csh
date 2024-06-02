@@ -4,7 +4,7 @@ ifile=100
 
 echo "datalist" > data.list
 
-for ((ifil0=100;ifile<101;ifile++))
+for ((ifil0=100;ifile<119;ifile++))
 do
     echo "open /star/u/wangzhen/run20/Dielectron/embedding/output/out_Electron_$ifile"
     cd /star/u/wangzhen/run20/Dielectron/embedding/output/out_Electron_$ifile

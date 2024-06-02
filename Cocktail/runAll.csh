@@ -29,7 +29,7 @@ date
 
 
  ifile=0
- for ((ifile=0;ifile<300;ifile++)) 
+ for ((ifile=0;ifile<400;ifile++)) 
  do
      cp ./run.csh script/runT$3_$2_$ifile.csh
      chmod +x script/runT$3_$2_$ifile.csh
