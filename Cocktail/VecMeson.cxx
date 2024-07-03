@@ -33,6 +33,11 @@ VecMeson::VecMeson(ParticleTypes particle, DecayMode dmode)
 	mDmode = dmode;
 	mNTrks=100;
 
+	PtAxis = new TAxis(mPtBins, mPairPtCut);
+	YAxis = new TAxis(mYBins, -1,1);
+	PhiAxis = new TAxis(mPhiBins, 0, 1);
+	CentAxis = new TAxis(mCenBins,mCentCut);
+
 	/*
 	 * Centrality Sequence:
 	 * 0 - 0-80%
@@ -188,6 +193,34 @@ Int_t VecMeson::Init()
 
 	TF1 *rho = new TF1("rho","x*[0]*pow((exp(-([1]*sqrt(pow(0.7755,2)-pow(0.1350,2)+x*x)+[2]*pow(sqrt(pow(0.7755,2)-pow(0.1350,2)+x*x),2)))+sqrt(pow(0.7755,2)-pow(0.1350,2)+x*x)/[3]),-[4])",0,10);
 	rho->SetParameters(504.5,0.52,0.16,0.7,8.27);
+
+	//for the polarization part
+	const Double_t massLow   = 0;
+	const Double_t massHi    = 4;
+	for(int i=0; i<mCenBins;i++){
+		for(int j=0; j<mPtBins;j++){
+			for(int k=0; k<mPhiBins; k++){
+				hMCAcc0Mass[i][j][k] = new TH1D(Form("hMCAcc0Mass_%d_%d_%d",i,j,k),"hMCAcc0Mass;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);// cent, pT, costheta
+				hMCAcc1Mass[i][j][k] = new TH1D(Form("hMCAcc1Mass_%d_%d_%d",i,j,k), "hMCAcc1Mass;M_{ee} (GeV/c^{2})", nMassBins, massLow, massHi);
+				hRCAcc1Mass[i][j][k] = new TH1D(Form("hRCAcc1Mass_%d_%d_%d",i,j,k),"hRCAcc1Mass;M_{ee} (GeV/c^{2})",nMassBins,massLow,massHi);
+			}
+		}
+	}
+	hMCAcc0_CosthetapT = new TH2D("hMCAcc0_CosthetapT","hMCAcc0_CosthetapT;p_{T} (GeV/c); cos(#theta^{*})",500,0,5,200,0,1);
+	hMCAcc1_CosthetapT = new TH2D("hMCAcc1_CosthetapT","hMCAcc1_CosthetapT;p_{T} (GeV/c); cos(#theta^{*})",500,0,5,200,0,1);
+	hRCAcc1_CosthetapT = new TH2D("hRCAcc1_CosthetapT","hRCAcc1_CosthetapT;p_{T} (GeV/c); cos(#theta^{*})",500,0,5,200,0,1);
+	hMCAcc0PairCosThetaPt_HX = new TH2D("hMCAcc0PairCosThetaPt_HX","hMCAcc0PairCosThetaPt_HX;p_{T} (GeV/c); cos(#theta)",500,0,5,400,-1,1);
+	hMCAcc1PairCosThetaPt_HX = new TH2D("hMCAcc1PairCosThetaPt_HX","hMCAcc1PairCosThetaPt_HX;p_{T} (GeV/c); cos(#theta)",500,0,5,400,-1,1);
+	hRCAcc1PairCosThetaPt_HX = new TH2D("hRCAcc1PairCosThetaPt_HX","hRCAcc1PairCosThetaPt_HX;p_{T} (GeV/c); cos(#theta)",500,0,5,400,-1,1);
+	hMCAcc0PairCosThetaPt_CS = new TH2D("hMCAcc0PairCosThetaPt_CS","hMCAcc0PairCosThetaPt_CS;p_{T} (GeV/c); cos(#theta)",500,0,5,400,-1,1);
+	hMCAcc1PairCosThetaPt_CS = new TH2D("hMCAcc1PairCosThetaPt_CS","hMCAcc1PairCosThetaPt_CS;p_{T} (GeV/c); cos(#theta)",500,0,5,400,-1,1);
+	hRCAcc1PairCosThetaPt_CS = new TH2D("hRCAcc1PairCosThetaPt_CS","hRCAcc1PairCosThetaPt_CS;p_{T} (GeV/c); cos(#theta)",500,0,5,400,-1,1);
+	hMCAcc0PairPhiPt_HX = new TH2D("hMCAcc0PairPhiPt_HX","hMCAcc0PairPhiPt_HX; p_{T} (GeV/c); #phi",500,0,5,500,-PI,PI);
+	hMCAcc1PairPhiPt_HX = new TH2D("hMCAcc1PairPhiPt_HX","hMCAcc1PairPhiPt_HX; p_{T} (GeV/c); #phi",500,0,5,500,-PI,PI);
+	hRCAcc1PairPhiPt_HX = new TH2D("hRCAcc1PairPhiPt_HX","hRCAcc1PairPhiPt_HX; p_{T} (GeV/c); #phi",500,0,5,500,-PI,PI);
+	hMCAcc0PairPhiPt_CS = new TH2D("hMCAcc0PairPhiPt_CS","hMCAcc0PairPhiPt_CS; p_{T} (GeV/c); #phi",500,0,5,500,-PI,PI);
+	hMCAcc1PairPhiPt_CS = new TH2D("hMCAcc1PairPhiPt_CS","hMCAcc1PairPhiPt_CS; p_{T} (GeV/c); #phi",500,0,5,500,-PI,PI);
+	hRCAcc1PairPhiPt_CS = new TH2D("hRCAcc1PairPhiPt_CS","hRCAcc1PairPhiPt_CS; p_{T} (GeV/c); #phi",500,0,5,500,-PI,PI);
 
 	TF1 *virtualphotonpt = new TF1("virtualphotonpt","[0]",0,10.); //inv.yield*pt
 	virtualphotonpt->SetParameter(0,1.);
@@ -372,6 +405,116 @@ Double_t VecMeson::GetSmear2(Double_t pT)
         else if (pTBin >=20) smear = pTResFun[18]->GetRandom();
 
         return smear;
+}
+
+//-------------------------------------------------------
+//for pair itself polarization
+void VecMeson::Polarization(int icharge,int jcharge,TLorentzVector ivector,TLorentzVector jvector){
+	TLorentzVector mpositron,melectron,JPSI;
+	TLorentzVector Proton1(0.,0.,100.,100.),Proton2(0.,0.,-100.,100.);
+	TVector3 XX,YY,ZZ;
+	JPSI = ivector+jvector;
+	mpositron = icharge>=jcharge? ivector:jvector;
+	melectron = jcharge<=icharge? jvector:ivector;
+	Int_t NFRAME =4;
+	Double_t theta[NFRAME];
+	Double_t phi[NFRAME];
+	TVector3 XXHX,YYHX,ZZHX;
+	ZZHX = JPSI.Vect();
+	YYHX = JPSI.Vect().Cross(Proton1.Vect());
+	XXHX = YYHX.Cross(ZZHX);
+
+	mpositron.Boost(-JPSI.Px()/JPSI.E(),-JPSI.Py()/JPSI.E(),-JPSI.Pz()/JPSI.E());
+	melectron.Boost(-JPSI.Px()/JPSI.E(),-JPSI.Py()/JPSI.E(),-JPSI.Pz()/JPSI.E());
+	Proton1.Boost(-JPSI.Px()/JPSI.E(),-JPSI.Py()/JPSI.E(),-JPSI.Pz()/JPSI.E());
+	Proton2.Boost(-JPSI.Px()/JPSI.E(),-JPSI.Py()/JPSI.E(),-JPSI.Pz()/JPSI.E());
+
+	theta[0]= mpositron.Angle(JPSI.Vect());
+	phi[0] = TMath::ATan2(mpositron.Vect().Dot(YYHX.Unit()),mpositron.Vect().Dot(XXHX.Unit()));
+	electron_theta_hx = melectron.Angle(JPSI.Vect());
+	electron_phi_hx = TMath::ATan2(melectron.Vect().Dot(YYHX.Unit()),(melectron.Vect().Dot(XXHX.Unit())));
+
+	ZZ = Proton1.Vect()*(1/(Proton1.Vect()).Mag())-Proton2.Vect()*(1/(Proton2.Vect()).Mag());
+	YY = Proton1.Vect().Cross(Proton2.Vect());
+	XX = Proton1.Vect()*(1/(Proton1.Vect()).Mag())+Proton2.Vect()*(1/(Proton2.Vect()).Mag());
+
+	theta[1] = mpositron.Angle(ZZ);
+	phi[1] = TMath::ATan2(mpositron.Vect().Dot(YY.Unit()),mpositron.Vect().Dot(XX.Unit()));
+
+	positron_theta_hx = theta[0];
+	positron_theta_cs = theta[1];
+	positron_phi_hx = phi[0];
+	positron_phi_cs = phi[1];
+
+	electron_theta_cs = melectron.Angle(ZZ);
+	electron_phi_cs = TMath::ATan2(melectron.Vect().Dot(YY.Unit()),melectron.Vect().Dot(XX.Unit()));
+
+	pair_pt = JPSI.Pt();
+	pair_eta = JPSI.Eta();
+	pair_phi = JPSI.Phi();
+	pair_InvM = JPSI.M();
+
+	lepton1_pt = mpositron.Pt();
+	lepton1_eta = mpositron.Eta();
+	lepton1_phi = mpositron.Phi();
+	lepton1_InvM = mpositron.M();
+
+	lepton2_pt = melectron.Pt();
+	lepton2_eta = melectron.Eta();
+	lepton2_phi = melectron.Phi();
+	lepton2_InvM = melectron.M();
+}
+
+//-------------------------------------------------------
+//for costheta* calculation
+void VecMeson::GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrality,float eventphi,int &ptindex,int &yindex,int &phiindex,int &CentIndex,double &costhe,Bool_t tangent, Int_t Flag ){
+	if(mDebug){
+		cout<<"in get pT phi bin"<<endl;
+	}
+	Int_t _PtIndex = -999;
+	Int_t _YIndex = -999;
+	Int_t _PhiIndex = -999;
+
+	_PtIndex = PtAxis->FindBin(pair.Pt()) - 1;
+
+	//get y
+	
+	_YIndex = YAxis->FindBin(pair.Rapidity()) -1;
+
+	//get phi
+	TVector3 vBetaPhi = -1.0*pair.BoostVector(); 
+	Positron.Boost(vBetaPhi);
+	TVector3 vPositronRest = Positron.Vect().Unit(); // positron momentum direction in J/psi rest frame	
+	if(mDebug){
+		cout<<"positron phi:"<<vPositronRest.Phi()<<endl;
+	}
+
+	Double_t CosThetaStar = -999.;
+	if(!tangent){
+		TVector3 Q2(TMath::Sin(eventphi),-1.0*TMath::Cos(eventphi),0.0);
+		TVector3 Q2_Unit = Q2.Unit();
+		CosThetaStar =  vPositronRest.Dot(Q2_Unit);
+	}else{
+		TVector3 Q2(TMath::Sin(eventphi),1.0*TMath::Cos(eventphi),0.0);
+		TVector3 Q2_Unit = Q2.Unit();
+		CosThetaStar =  vPositronRest.Dot(Q2_Unit);
+	}
+
+	_PhiIndex = PhiAxis->FindBin(TMath::Abs(CosThetaStar))-1;
+
+	if(mDebug){
+		cout<<"Centality:"<<_mCentrality<<endl;
+	}
+	float _mCent = _mCentrality;
+	CentIndex = CentAxis->FindBin(_mCent) -1;
+	if(mDebug){
+		cout<<"CentIndex:"<<CentIndex<<endl;
+	}
+
+	costhe = CosThetaStar;
+	ptindex = _PtIndex;
+	yindex = _YIndex;
+	phiindex = _PhiIndex;
 }
 
 
@@ -691,6 +834,7 @@ void VecMeson::GenerateDecay()
 		smdaughterPwoSM.SetPtEtaPhiM(eppt,smepeta,smepphi,Masselectron);
 		smdaughterNwoSM.SetPtEtaPhiM(empt,smemeta,smemphi,Masselectron);
 
+
 		int ietatpc,iphitpc,ipttpc; 
 		int ietatof,iphitof,ipttof; 
 		Double_t epeff3d, emeff3d;
@@ -728,13 +872,20 @@ void VecMeson::GenerateDecay()
 
 		TLorentzVector eepair(0,0,0,0);
 		eepair = daughterP + daughterN;
-
+		
 		TLorentzVector rceepair(0,0,0,0);
 		rceepair = smdaughterP + smdaughterN;
 		hEPSingleTrkEffvsPt->Fill(smdaughterP.Pt(),epeff3d);
 		hEMSingleTrkEffvsPt->Fill(smdaughterN.Pt(),emeff3d);
 		TLorentzVector rceepair2(0,0,0,0);
 		rceepair2 = smdaughterNwoSM+smdaughterPwoSM;
+
+		float EventPlane = myRandom->Uniform(-3.14/2.,3.14/2);
+		int ptindex, yindex, phiindex,centindex;
+		double costhetastar;
+		GetPtPhiCentBin(rceepair,smdaughterP, 0, EventPlane,ptindex, yindex, phiindex,centindex,costhetastar,0,1);
+		if(ptindex > mPtBins-1 || ptindex<0 || phiindex > mPhiBins-1 || phiindex <0)continue; 
+		Polarization(1,-1,smdaughterP,smdaughterN);
 
 		hRCPairRapidityvsParentRapidity->Fill(parent.Rapidity(), rceepair.Rapidity());
 
@@ -747,9 +898,22 @@ void VecMeson::GenerateDecay()
 		if(fabs(rceepair.Rapidity())<=1.){ 
 			// hMCAcc0MvsPt->Fill(rceepair.M(),rceepair.Pt());
 			hMCAcc0MvsPt->Fill(rceepair.Pt(),rceepair.M());
+			hMCAcc0Mass[centindex][ptindex][phiindex]->Fill(rceepair.M());
+			hMCAcc0PairCosThetaPt_HX->Fill(rceepair.Pt(),TMath::Cos(positron_theta_hx));
+			hMCAcc0PairCosThetaPt_CS->Fill(rceepair.Pt(),TMath::Cos(positron_theta_cs));
+			hMCAcc0PairPhiPt_HX->Fill(rceepair.Pt(),positron_phi_hx);
+			hMCAcc0PairPhiPt_CS->Fill(rceepair.Pt(),positron_phi_cs);
+			hMCAcc0_CosthetapT->Fill(rceepair.Pt(),costhetastar);
 			hMCAcc0PairPtvsParentPt->Fill(parent.Pt(),rceepair.Pt());
 			if(smeppt>=0.2 && smempt>=0.2
 					&&fabs(smepeta)<=1. && fabs(smemeta)<=1.){
+				hMCAcc1Mass[centindex][ptindex][phiindex]->Fill(rceepair.M());
+				hMCAcc1_CosthetapT->Fill(rceepair.Pt(),costhetastar);
+				hMCAcc1PairCosThetaPt_HX->Fill(rceepair.Pt(),TMath::Cos(positron_theta_hx));
+				hMCAcc1PairCosThetaPt_CS->Fill(rceepair.Pt(),TMath::Cos(positron_theta_cs));
+				hMCAcc1PairPhiPt_HX->Fill(rceepair.Pt(),positron_phi_hx);
+				hMCAcc1PairPhiPt_CS->Fill(rceepair.Pt(),positron_phi_cs);
+
 				hMCAcc1PairEMPtvsEPPt->Fill(smeppt,smempt);
 				hMCAcc1PairPtvsParentPt->Fill(parent.Pt(),rceepair.Pt());
 				hMCAcc1PairRapidity->Fill(rceepair.Rapidity());
@@ -758,6 +922,13 @@ void VecMeson::GenerateDecay()
 				// hRCAcc1MvsPt3D->Fill(rceepair.M(),rceepair.Pt(),epeff3d*emeff3d);
 				hMCAcc1MvsPt->Fill(rceepair.Pt(),rceepair.M());
 				hRCAcc1MvsPt3D->Fill(rceepair.Pt(),rceepair.M(),epeff3d*emeff3d);
+				hMCAcc1Mass[centindex][ptindex][phiindex]->Fill(rceepair.M(),epeff3d*emeff3d);
+				hMCAcc1_CosthetapT->Fill(rceepair.Pt(),costhetastar,epeff3d*emeff3d);
+				hRCAcc1PairCosThetaPt_HX->Fill(rceepair.Pt(),TMath::Cos(positron_theta_hx),epeff3d*emeff3d);
+				hRCAcc1PairCosThetaPt_CS->Fill(rceepair.Pt(),TMath::Cos(positron_theta_cs),epeff3d*emeff3d);
+				hRCAcc1PairPhiPt_HX->Fill(rceepair.Pt(),positron_phi_hx,epeff3d*emeff3d);
+				hRCAcc1PairPhiPt_CS->Fill(rceepair.Pt(),positron_phi_cs,epeff3d*emeff3d);
+
         		/*if(mParIndex==6) 
         		{
         		  hMCAcc1PairEMPtvsEPPt->Fill(smeppt,smempt,1./1.19);

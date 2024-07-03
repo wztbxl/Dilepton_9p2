@@ -40,6 +40,9 @@ class VecMeson
 		Double_t 	GetSmear2(Double_t pT);
 		TLorentzVector myBoost(TLorentzVector parent, TLorentzVector daughter);
 		TLorentzVector twoBodyDecay(TLorentzVector parent, Double_t dmass);
+		void Polarization(int icharge,int jcharge,TLorentzVector ivector,TLorentzVector jvector);
+		void GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrality,float eventphi,int &ptindex,int &yindex,int &phiindex,int &CentIndex,double &costhe,Bool_t tangent, Int_t Flag );
+
 
 		Double_t	SampleMesonMass();
 		Double_t 	EvalEff3D(TLorentzVector electron,int ipttpc,int ietatpc,int iphitpc,int ipttof,int ietatof,int iphitof,int charge);
@@ -49,6 +52,8 @@ class VecMeson
 		void 		DalitzDecay(TLorentzVector parent);
 		void 		GenerateDecay();
 
+		int mDebug = 0;
+
 		TF1         *funMeson;
 		TH1D        *histMeson;
 
@@ -57,6 +62,7 @@ class VecMeson
 		TF1 		*massfunrho;
 		TF1 		*massfunee;
 		TH1D 		*hmassfunee;
+
 
 		TH2D        *hCocktail;
 
@@ -125,6 +131,51 @@ class VecMeson
 		TH1D*		CutRecorder;
 		
 
+		static const Int_t mPtBins = 10;
+		static const Int_t mYBins = 20;
+		static const Int_t mPhiBins= 7;
+		static const Int_t mCenBins = 9; //16; //9;
+		const Double_t mPairPtCut[11]= {0.3,0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,5.0,6.0};
+		const Double_t mCentCut[10]= {-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,8.5,9.5};
+		TAxis *PtAxis;
+		TAxis *YAxis;
+		TAxis *PhiAxis;
+		TAxis *CentAxis;
+
+		// for the polarization, not only Jpsi, pair itself polarization
+		// TTree *tree;
+		Float_t positron_theta_hx=-99.,positron_theta_cs=-99.,positron_phi_hx=-99.,positron_phi_cs=-99.;
+		Float_t electron_theta_hx=-99.,electron_theta_cs=-99.,electron_phi_hx=-99.,electron_phi_cs=-99.;
+		Float_t pair_pt,pair_eta,pair_phi,pair_InvM;
+		Float_t lepton1_pt,lepton1_eta,lepton1_phi,lepton1_InvM;
+		Float_t lepton2_pt,lepton2_eta,lepton2_phi,lepton2_InvM;
+		TLorentzVector lepton1,lepton2;
+
+		//Efficiency histograms for the polarization calculations
+		TH1D* hMCAcc0Mass[mCenBins][mPtBins][mPhiBins];
+		TH1D* hMCAcc1Mass[mCenBins][mPtBins][mPhiBins];
+		TH1D* hRCAcc1Mass[mCenBins][mPtBins][mPhiBins];
+		TH2D* hMCAcc0_CosthetapT;
+		TH2D* hMCAcc1_CosthetapT;
+		TH2D* hRCAcc1_CosthetapT;
+		// TH3D* hMCAcc0PairCosThetaInvMPt;
+		// TH3D* hMCAcc1PairCosThetaInvMPt;
+		// TH3D* hRCAcc0PairCosThetaInvMPt;
+		// TH3D* hMCAcc0PairCosThetaInvMPt_CS;
+		// TH3D* hMCAcc1PairCosThetaInvMPt_CS;
+		// TH3D* hRCAcc0PairCosThetaInvMPt_CS;
+		TH2D* hMCAcc0PairCosThetaPt_HX;
+		TH2D* hMCAcc1PairCosThetaPt_HX;
+		TH2D* hRCAcc1PairCosThetaPt_HX;
+		TH2D* hMCAcc0PairCosThetaPt_CS;
+		TH2D* hMCAcc1PairCosThetaPt_CS;
+		TH2D* hRCAcc1PairCosThetaPt_CS;
+		TH2D* hMCAcc0PairPhiPt_HX;
+		TH2D* hMCAcc1PairPhiPt_HX;
+		TH2D* hRCAcc1PairPhiPt_HX;
+		TH2D* hMCAcc0PairPhiPt_CS;
+		TH2D* hMCAcc1PairPhiPt_CS;
+		TH2D* hRCAcc1PairPhiPt_CS;
 
 		Char_t  	MesonType[256];
 

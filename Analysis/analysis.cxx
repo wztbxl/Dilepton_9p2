@@ -778,6 +778,7 @@ void makeRealPairs()
 					hULMvsPtCen->Fill(pair.Pt(),cenBufferPointer,pair.M(),reWeight);
 
 					if(mDebug) cout << "before polarization calcultion" << endl;
+					//this for the pair polarization it self
 					if (pair.M()>0.2 && pair.M() < 1.1 )
 					{
 						if(mDebug) cout << "before polarization calcultion" << endl;
