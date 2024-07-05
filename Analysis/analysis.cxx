@@ -78,7 +78,7 @@ TRandom3 *myRandom;
 //variables 
 Int_t dayIndex;
 Int_t runIndex;
-Int_t mCentrality;
+Short_t mCentrality;
 map<Int_t,Int_t> mTotalDayId;
 map<Int_t,Int_t> mTotalRunId;
 map<Int_t,Int_t> mBadRunId_001;
@@ -368,6 +368,7 @@ int main(int argc, char** argv)
 	for(int i=0;i<nEvts;i++){
 
 		if(i%(nEvts/10)==0) cout << "begin " << i << "th entry...." << endl;
+		if(mDebug) cout << "begin " << i << "th entry...." << endl;
 		// chain->GetEntry(i);
 		event->GetEntry(i);
 		 runId = event->mRunId;
@@ -381,6 +382,7 @@ int main(int argc, char** argv)
 			continue;
 		}
     // cout << "begin " << i << "th entry...." << endl;
+		if(mDebug) cout << "Day index =  " << dayIndex << endl;
 
 		if(dayIndex<0) continue;
 
@@ -402,6 +404,7 @@ int main(int argc, char** argv)
 			//cout<<"random number:"<<myRandom->Uniform(-1,1)<<endl;
 		}
 
+		if(mDebug) cout << "Before pass Event = " << endl;
 		if(!passEvent(event)) continue; 
 		EvtID = event->mEventId;
 		if(mDebug) cout << "EvtID = " << EvtID << endl;
@@ -480,6 +483,7 @@ bool nPi_K_P_rejection(int refmult, int nPi_K_P )
 Bool_t passEvent(miniDst* event)
 {
 	Int_t runId  = event->mRunId;
+
 	Float_t vx = event->mVertexX;
 	Float_t vy = event->mVertexY;
 	Float_t vz = event->mVertexZ;
@@ -490,6 +494,7 @@ Bool_t passEvent(miniDst* event)
 	Float_t vzDiff = vz - vpdVz;
 	Int_t mnTOFMatch = event->mnTOFMatch;
 	Int_t refMult = event->mRefMult;
+	if(mDebug) cout << "refMult = " << refMult <<endl;
 	int  nTrigs = event->mNTrigs;
 	bool fireTrigger = kFALSE;
 	bool RefMVzCorFlag = kFALSE;
@@ -506,17 +511,17 @@ Bool_t passEvent(miniDst* event)
 	}
 	if(!fireTrigger) return kFALSE;
 	bField = event->mBField;
-	mCentrality = event->mCentrality;
+	// mCentrality = event->mCentrality;
 
 	map<Int_t, Int_t>::iterator iter_001 = mBadRunId_001.find(runId);
 	if(iter_001 != mBadRunId_001.end() && is001Trigger){
-		//cout<<"bad run, continue"<<endl;
+		if(mDebug) cout<<"bad run, continue"<<endl;
 		return kFALSE;
 	}
 
 	map<Int_t, Int_t>::iterator iter_021 = mBadRunId_001.find(runId);
 	if(iter_021 != mBadRunId_001.end() && is021Trigger){ // using same bad runlist for the test
-		//cout<<"bad run, continue"<<endl;
+		if(mDebug) cout<<"bad run, continue"<<endl;
 		return kFALSE;
 	}
 
@@ -524,7 +529,8 @@ Bool_t passEvent(miniDst* event)
 	hRunID->Fill(runId);
 	// reWeight = 1.;
 	Double_t RefMultCorr = refMult;
-	mCentrality = event->mCentrality;
+	mCentrality = (int)event->mCentrality;
+	if(mDebug) cout << "mCentrality = " << mCentrality <<endl;
   // mCentrality = mCentrality+1;
   cenBufferPointer = mCentrality;
   RefMultCorr = event->mGRefMultCorr;
@@ -535,7 +541,6 @@ Bool_t passEvent(miniDst* event)
 	// mCentrality = GetCentrality(RefMultCorr);
 	cenBufferPointer = mCentrality-1;
 	if (cenBufferPointer <0 || cenBufferPointer >8) return kFALSE;// 0-8 for 70-80% - 0-5%
-	//cout << cenBufferPointer<<endl;
 	
 	
 	// refMultCorrUtil->init(runId);
@@ -563,6 +568,7 @@ Bool_t passEvent(miniDst* event)
 	hnTofHitsvsRefMult_Vz35->Fill(refMult,mnTOFMatch);
 	hnEvts->Fill(4);
 	// if (mnTOFMatch < Pileuplimit->Eval(refMult)) return kFALSE;
+	if (mDebug) cout << "after pileup" << endl;
 
 	hBField->Fill(bField);
 	hVertexZ->Fill(vz);
@@ -579,6 +585,8 @@ Bool_t passEvent(miniDst* event)
 
 	vzBufferPointer = (Int_t)((vz+mVzCut)/(2*mVzCut)*mVzBins);
 	if(vzBufferPointer<0 || vzBufferPointer>=mVzBins) return kFALSE;
+	if (mDebug) cout << "after Vz" << endl;
+
 
 	return kTRUE;
 }
