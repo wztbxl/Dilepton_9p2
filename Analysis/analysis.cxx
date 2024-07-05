@@ -65,8 +65,8 @@ void fillHistograms(std::string  unlikeOrlike,TLorentzVector JPSI);
 void fill3DHistograms(std::string unlikeOrlike,TLorentzVector JPSI,int i,int j,int pairs);
 void GetPtPhiCentBin(TLorentzVector pair,TLorentzVector Positron, int _mCentrality,float eventphi,int &ptindex,int &yindex,int &phiindex,int &CentIndex,double &costhe,Bool_t tangent, Int_t Flag );
 
-// int mDebug = 0;
-int mDebug = 1;
+int mDebug = 0;
+// int mDebug = 1;
 
 int nPi_K_P_tof = 0;//used for pile rejection
 TF1* f_upper = new TF1("f_upper","pol5",0,350);
