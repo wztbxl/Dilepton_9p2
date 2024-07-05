@@ -1,7 +1,7 @@
 #!/bin/bash
 date
 #$1 = meson code $2 = decay model $3 = meson name
- dir="/star/u/wangzhen/QA/wangzhen/Cocktail"
+ dir="/star/u/wangzhen/run20/Dielectron/Cocktail"
  echo $dir
  echo $1
  echo $2
@@ -29,7 +29,7 @@ date
 
 
  ifile=0
- for ((ifile=0;ifile<300;ifile++)) 
+ for ((ifile=0;ifile<400;ifile++)) 
  do
      cp ./run.csh script/runT$3_$2_$ifile.csh
      chmod +x script/runT$3_$2_$ifile.csh

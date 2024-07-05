@@ -57,7 +57,7 @@ VecMeson::VecMeson(ParticleTypes particle, DecayMode dmode)
 	for(int i=0;i<nSmearFac;i++){
 		mPtSmearPar[i]=0.;
 	}
-	mPtSmearPar[0] = 0.009440;mPtSmearPar[1] = 0.01;mPtSmearPar[2]=0.000511; //from 54 GeV cocktail 
+	mPtSmearPar[0] = 5.713e-3;mPtSmearPar[1] = 7.92e-3;mPtSmearPar[2]=0.000511; //from 54 GeV cocktail 
 }
 
 VecMeson::~VecMeson(){}
@@ -206,6 +206,18 @@ Int_t VecMeson::Init()
 			}
 		}
 	}
+	hMCAcc0PairCosThetaInvMPt_HX = new TH3D("hMCAcc0PairCosThetaInvMPt_HX","hMCAcc0PairCosThetaInvMPt_HX;M_{ee} (GeV/c^{2}); p_{T} (GeV/c); cos(#theta)",800,0,4,100,0,5,200,-1,1);
+	hMCAcc1PairCosThetaInvMPt_HX = new TH3D("hMCAcc1PairCosThetaInvMPt_HX","hMCAcc1PairCosThetaInvMPt_HX;M_{ee} (GeV/c^{2}); p_{T} (GeV/c); cos(#theta)",800,0,4,100,0,5,200,-1,1);
+	hRCAcc1PairCosThetaInvMPt_HX = new TH3D("hRCAcc1PairCosThetaInvMPt_HX","hRCAcc1PairCosThetaInvMPt_HX;M_{ee} (GeV/c^{2}); p_{T} (GeV/c); cos(#theta)",800,0,4,100,0,5,200,-1,1);
+	hMCAcc0PairCosThetaInvMPt_CS = new TH3D("hMCAcc0PairCosThetaInvMPt_CS","hMCAcc0PairCosThetaInvMPt_CS;M_{ee} (GeV/c^{2}); p_{T} (GeV/c); cos(#theta)",800,0,4,100,0,5,200,-1,1);
+	hMCAcc1PairCosThetaInvMPt_CS = new TH3D("hMCAcc1PairCosThetaInvMPt_CS","hMCAcc1PairCosThetaInvMPt_CS;M_{ee} (GeV/c^{2}); p_{T} (GeV/c); cos(#theta)",800,0,4,100,0,5,200,-1,1);
+	hRCAcc1PairCosThetaInvMPt_CS = new TH3D("hRCAcc1PairCosThetaInvMPt_CS","hRCAcc1PairCosThetaInvMPt_CS;M_{ee} (GeV/c^{2}); p_{T} (GeV/c); cos(#theta)",800,0,4,100,0,5,200,-1,1);
+	hMCAcc0PairPhiInvMPt_HX = new TH3D("hMCAcc0PairPhiInvMPt_HX","hMCAcc0PairPhiInvMPt_HX;M_{ee} (GeV/c^{2}; p_{T} (GeV/c); )",800,0,4,100,0,5,200,-PI,PI);
+	hMCAcc1PairPhiInvMPt_HX = new TH3D("hMCAcc1PairPhiInvMPt_HX","hMCAcc1PairPhiInvMPt_HX;M_{ee} (GeV/c^{2}; p_{T} (GeV/c); )",800,0,4,100,0,5,200,-PI,PI);
+	hRCAcc1PairPhiInvMPt_HX = new TH3D("hRCAcc1PairPhiInvMPt_HX","hRCAcc1PairPhiInvMPt_HX;M_{ee} (GeV/c^{2}; p_{T} (GeV/c); )",800,0,4,100,0,5,200,-PI,PI);
+	hMCAcc0PairPhiInvMPt_CS = new TH3D("hMCAcc0PairPhiInvMPt_CS","hMCAcc0PairPhiInvMPt_CS;M_{ee} (GeV/c^{2}; p_{T} (GeV/c); )",800,0,4,100,0,5,200,-PI,PI);
+	hMCAcc1PairPhiInvMPt_CS = new TH3D("hMCAcc1PairPhiInvMPt_CS","hMCAcc1PairPhiInvMPt_CS;M_{ee} (GeV/c^{2}; p_{T} (GeV/c); )",800,0,4,100,0,5,200,-PI,PI);
+	hRCAcc1PairPhiInvMPt_CS = new TH3D("hRCAcc1PairPhiInvMPt_CS","hRCAcc1PairPhiInvMPt_CS;M_{ee} (GeV/c^{2}; p_{T} (GeV/c); )",800,0,4,100,0,5,200,-PI,PI);
 	hMCAcc0_CosthetapT = new TH2D("hMCAcc0_CosthetapT","hMCAcc0_CosthetapT;p_{T} (GeV/c); cos(#theta^{*})",500,0,5,200,0,1);
 	hMCAcc1_CosthetapT = new TH2D("hMCAcc1_CosthetapT","hMCAcc1_CosthetapT;p_{T} (GeV/c); cos(#theta^{*})",500,0,5,200,0,1);
 	hRCAcc1_CosthetapT = new TH2D("hRCAcc1_CosthetapT","hRCAcc1_CosthetapT;p_{T} (GeV/c); cos(#theta^{*})",500,0,5,200,0,1);
@@ -240,34 +252,34 @@ Int_t VecMeson::Init()
 	//TFile *FTS  = new TFile(Form("inputFile/AuAu200_inputpT_Cen%d_%d.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx])); 
 	//inputFile is my path to cocktail
 	TFile *FTS;
-	if(mCenIdx>=6) {
-		FTS = TFile::Open("inputFile/pTTBW4Cocktail_54.root");  //temporary use 60-80% pt shape for 60-70%, 70-80%
+	if(mCenIdx>=4) {
+		FTS = TFile::Open("./inputFile/AuAu7.7_inputpT_Cen40_80.root");  //temporary use 40-80% pt shape index after 4
 																//because 62 GeV data is not divide the Centrality so use minbias data  temporary
 	}
 	else {
-		FTS = TFile::Open("inputFile/pTTBW4Cocktail_54.root"); 
+		FTS = TFile::Open(Form("./inputFile/AuAu7.7_inputpT_Cen%d_%d.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx])); // 0-80% 
 	}
 	FTS->Print();
 	if (!FTS) cout << "Fail to open pT file" << endl;
 
-	TFile *ftsa = TFile::Open("inputFile/mesons_baryons_noOmega_080.root");
-	TFile *phoInput  = TFile::Open("inputFile/AuAu200_inputpT_Cen60_80.root");
-	TFile *JpsiInput = TFile::Open("inputFile/JPsiPtSpectra_62.root");
+	TFile *ftsa = TFile::Open("./inputFile/mesons_baryons_noOmega_080.root");
+	TFile *phoInput  = TFile::Open("./inputFile/AuAu200_inputpT_Cen60_80.root");
+	TFile *JpsiInput = TFile::Open("./inputFile/JPsiPtSpectra_62.root"); // need to change to 9.2 GeV
 
 	//tsallis input
 	//use 62.4 GeV input now and there only have the minbias data
 	if(mParIndex==0) {//use same distribution in different centrality ,how to get the different distrinbution in different centriality use Qian`s method in different centrality 
 		if(mCenIdx>=4) histMeson = (TH1D *)FTS->Get("pi0_to_gamma_eepT"); //40-60%, 60-80% pi0
-		else 	       histMeson = (TH1D *)FTS->Get("His54GeV_pi0_to_gamma_eepT_Func"); //0-80%, 0-10%, 10-40%, and 40-80% pi0
+		else 	       histMeson = (TH1D *)FTS->Get("His7.7GeV_pi0_to_gamma_eepT_Func"); //0-80%, 0-10%, 10-40%, and 40-80% pi0
 	}
-	if(mParIndex==1)   histMeson = (TH1D *)FTS->Get("His54GeV_eta_to_gamma_eepT_Func"); //eta
+	if(mParIndex==1)   histMeson = (TH1D *)FTS->Get("His7.7GeV_eta_to_gamma_eepT_Func"); //eta
 	if(mParIndex==2) {
 		if(mCenIdx>=4) histMeson = (TH1D *)phoInput->Get("pT_rho"); //40-60%, 60-80% rho
 		else           histMeson = (TH1D *)ftsa->Get("hFit22"); // 0-80% rho; For other centrality which has no rho spectrum, using the MB rho pT distribution
 	}
-	if(mParIndex==3)   histMeson = (TH1D *)FTS->Get("His54GeV_omega_to_eepT_Func"); //omega
-	if(mParIndex==4)   histMeson = (TH1D *)FTS->Get("His54GeV_phi_to_eepT_Func"); //phi
-	if(mParIndex==5)   histMeson = (TH1D *)FTS->Get("His54GeV_etaprime_to_gamma_eepT_Func"); //etaprim
+	if(mParIndex==3)   histMeson = (TH1D *)FTS->Get("His7.7GeV_omega_to_eepT_Func"); //omega
+	if(mParIndex==4)   histMeson = (TH1D *)FTS->Get("His7.7GeV_phi_to_eepT_Func"); //phi
+	if(mParIndex==5)   histMeson = (TH1D *)FTS->Get("His7.7GeV_etaprime_to_gamma_eepT_Func"); //etaprim
 	if(mParIndex==6)   histMeson = (TH1D *)JpsiInput->Get("hJPsidNdpT"); //jpsi//in Yi`s code what`s different in two file Jpsi spectra ?
 	if(mParIndex==7){
 		if(mCenIdx==0) histMeson = (TH1D *)phoInput->Get("pT_Psi"); //0-80% psi //use 200 GeV data
@@ -278,19 +290,23 @@ Int_t VecMeson::Init()
 
 	if (!histMeson) cout << " Fail to get histogram " << endl;
 	//histMeson->Print();
-	TFile *fcocktail = TFile::Open(Form("/star/u/wangzhen/QA/wangzhen/Cocktail/genCocktail/output_old/Cen%d%d/cen%d%d_cocktail_withoutRho.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx],CentralityLow[mCenIdx],CentralityHi[mCenIdx]));
+	cout << "mCenIdx = " << mCenIdx << " CentralityLow[mCenIdx] = " <<CentralityLow[mCenIdx] << " CentralityHi[mCenIdx] = " << CentralityHi[mCenIdx] << endl;
+	TFile *fcocktail = TFile::Open(Form("./Effinput/cen%d%d_cocktail_withoutRho.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx]));
 	hCocktail = (TH2D *)fcocktail->Get("hMCAcc0MvsPt");// |Y_{ee}|<1
 
 	//****** Smear for MC ******
 	funSmearPt = new TF1("funSmearPt","sqrt([0]*[0]*x*x+[1]*[1])",0.,10.);
 	funSmearPt->SetParameters(mPtSmearPar);
+	funSmearPt->SetNpx(10000); 
+	funSmearPt->Print("all");
 	funSmearPtEmb = new TF1("funSmearPtEmb","sqrt([0]*[0]*x*x+[1]*[1])",0,10);
 	// funSmearPtEmb->SetParameters(0.005690,0.007473);
-	funSmearPtEmb->SetParameters(0.002918,0.007473);
+	funSmearPtEmb->SetParameters(2.065e-3,7.503e-3);
+	funSmearPtEmb->SetNpx(10000);
 	//how to do the smear? and why we should do the smear?
 	//****** pT Res From embedding ********
 	TFile *pTResInput = new TFile("/star/u/wangzhen/QA/wangzhen/Cocktail/pTresFromEmbedding.root");
-	TFile *pTResFunInput = new TFile("/star/u/wangzhen/QA/wangzhen/Cocktail/DCBFunction.root");
+	TFile *pTResFunInput = new TFile(Form("/star/u/wangzhen/QA/wangzhen/Cocktail/DCBFunction_%d_%d.root",CentralityLow[mCenIdx],CentralityHi[mCenIdx]));
 	PtRes2D = (TH2D*)pTResInput->Get("hPtResvsPtQ_zy");
 	PtRes2D->Print();
 	for(int i = 0;i<19;i++)
@@ -316,8 +332,9 @@ Int_t VecMeson::Init()
 	momShape->SetNpx(10000);
 
 	//****** Efficiency for single track ******
-	InitializeEffFun(mCenIdx);
-	InitialzeEffHist();
+	// InitializeEffFun(mCenIdx);
+	// InitialzeEffHist();
+	InitialzeEffHist(mCenIdx);
 
 	//NA49
 	//fRapidity = new TF1("fRapidity","[0]*(exp(-pow(x-[1],2)/2./[2]/[2])+exp(-pow(x+[1],2)/2./[2]/[2]))",-5,5);
@@ -325,7 +342,7 @@ Int_t VecMeson::Init()
 
 	//CERES Pb+Au
 	fRapidity = new TF1("fRapidity","pow(cosh(3*x/4./sqrt(log([0]/2./[1]))/(1-pow(x,2)/2./[0]*[2])),-2.)",-5,5);
-	fRapidity->SetParameter(0,54.4);//sqrt(s)//set as my energy
+	fRapidity->SetParameter(0,9.2);//sqrt(s)//set as my energy
 	fRapidity->SetParameter(1,0.938); // nucleon mass
 	fRapidity->SetParameter(2,mMass); // meson mass
 	if(mParIndex==8) fRapidity->SetParameter(2,Masspi0);
@@ -399,10 +416,11 @@ Double_t VecMeson::GetSmear2(Double_t pT)
         int pTBin = int(pT/0.2);
         //cout <<"pT = "<<pT<<" pTBin = "<<pTBin<<endl;
         pTBin = pTBin-1;
-        if (pTBin>0 && pTBin <=19)
+        if (pTBin>0 && pTBin <=10) // 7.7 the maximum pT is 2.5. totally 11 bins
+        // if (pTBin>0 && pTBin <=19)
                 smear = pTResFun[pTBin-1]->GetRandom();
         else if (pTBin <= 0) smear = pTResFun[0]->GetRandom();
-        else if (pTBin >=20) smear = pTResFun[18]->GetRandom();
+        else if (pTBin >=11) smear = pTResFun[11]->GetRandom();
 
         return smear;
 }
@@ -690,12 +708,35 @@ Double_t VecMeson::EvalEff3D(TLorentzVector electron,int ipttpc,int ietatpc,int 
 	*/
 	if (charge == 1)
 	{
-	eff = getEff(pt,hTOFMatchEff[0],ptl_Tof,pth_Tof)*getEff(pt,hElecPionRatio[0],ptl_Tof,pth_Tof);//cout<<"TOF"<<endl;
-	eff = eff*getEff(pt,hTPCTrackingEffPlus[ietatpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
-	eff = eff*getEff(pt,hBetaCutEff[0],ptl_Tpc,pth_Tpc);//cout<<"beta"<<endl;
-	eff = eff*getEff(p,hNSigmaECutEff[0],ptl_Tpc,pth_Tpc);//cout<<"sigma"<<endl;//TOF*TPC*Beta*nSigmaE
+	eff = getEff(pt,hMBEff_Tof_Pos[ietatof][iphitof],ptl_Tof,pth_Tof)*f_ElecPoionRatio->Eval(pt);
+	if(mDebug) cout << "Tof eff = " << eff << endl;
+	eff = eff*getEff(pt,hMBEff_Tpc_Pos[ietatpc][iphitpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
+	if(mDebug) cout << "Tof*TPC eff = " << eff << endl;
+	eff = eff*f_betaCutEff->GetParameter(0);//cout<<"beta"<<endl;
+	if(mDebug) cout << "Tof*TPC*beta eff = " << eff << endl;
+	if (pt > 0.8)
+	{
+		eff = eff*f_nSigmaEEff_HigpT->Eval(pt);
+	if(mDebug) cout << "Tof*TPC*beta*nSigmaE eff = " << eff << endl;
+	} else eff = eff*f_nSigmaEEff_lowpT->Eval(pt);
+	if(mDebug) cout << "Tof*TPC*beta*nSigmaE eff = " << eff << endl;
+	//cout<<"sigma"<<endl;//TOF*TPC*Beta*nSigmaE
 	}
-	else eff = getEff(pt,hTOFMatchEff[1],ptl_Tof,pth_Tof)*getEff(pt,hElecPionRatio[1],ptl_Tof,pth_Tof)*getEff(pt,hTPCTrackingEffMinus[ietatpc],ptl_Tpc,pth_Tpc)*getEff(pt,hBetaCutEff[1],ptl_Tpc,pth_Tpc)*getEff(p,hNSigmaECutEff[1],ptl_Tpc,pth_Tpc);//TOF*TPC*Beta*nSigmaE
+	else {
+		eff = getEff(pt,hMBEff_Tof_Neg[ietatof][iphitof],ptl_Tof,pth_Tof)*f_ElecPoionRatio->Eval(pt);
+		if(mDebug) cout << "Tof eff = " << eff << endl;
+		eff = eff*getEff(pt,hMBEff_Tpc_Neg[ietatpc][iphitpc],ptl_Tpc,pth_Tpc);//cout<<"TPC"<<endl;
+		if(mDebug) cout << "Tof*TPC eff = " << eff << endl;
+		eff = eff*f_betaCutEff->GetParameter(0);//cout<<"beta"<<endl;
+		if(mDebug) cout << "Tof*TPC*beta eff = " << eff << endl;
+		if (pt > 0.8)
+		{
+			eff = eff*f_nSigmaEEff_HigpT->Eval(pt);
+			if(mDebug) cout << "Tof*TPC*beta*nSigmaE eff = " << eff << endl;
+		} else eff = eff*f_nSigmaEEff_lowpT->Eval(pt);
+		if(mDebug) cout << "Tof*TPC*beta*nSigmaE eff = " << eff << endl;
+		//cout<<"sigma"<<endl;//TOF*TPC*Beta*nSigmaE
+	}	
 	return eff;
 }
 
@@ -716,8 +757,10 @@ void VecMeson::GenerateDecay()
 {
 	TTimer *timer = new TTimer();
 
-	for(int i=0;i<mNTrks;i++){
+	for(int i=0;i<mNTrks;i++)
+	{
 		if(i%(mNTrks/10)==0) cout<<"processing "<<i<<" tracks..."<<endl;
+		if(mDebug) cout << i << endl;
 		//cout << i << endl;
 
 		if((i%10000)==0){
@@ -727,11 +770,13 @@ void VecMeson::GenerateDecay()
 			gRandom->SetSeed(stime);
 		}
 
+		if(mDebug) cout << "before pass sample rho phi" << endl;
 		//Double_t rap = fRapidity->GetRandom();
 		Double_t rap = myRandom->Uniform(mMinRap, mMaxRap);
 		Double_t phi = myRandom->Uniform(0.,2.*TMath::Pi());//for the mother particle?
 
 		//cout << "pass sample rho phi" << endl;
+		if(mDebug) cout << "pass sample rho phi" << endl;
 		Double_t pt;
 		if(mUseTsaPtSpectra == 1)      pt = histMeson->GetRandom();
 		else if(mUseTsaPtSpectra == 0) pt = funMeson->GetRandom();
@@ -776,9 +821,9 @@ void VecMeson::GenerateDecay()
 			daughterP = fProducts[0];
 			daughterN = fProducts[1];
 		}
-		//cout<<"pt: "<<pt<<"   \tdaughter_pt:"<<.Pt()<<"  "<<daughterP.X()<<"  "<<daughterP.Y()<<"  "<<daughterP.Z()<<endl;
+		if(mDebug) cout<<"pt: "<<pt<<"   \tdaughter_pt:"<<daughterP.X()<<"  "<<daughterP.Y()<<"  "<<daughterP.Z()<<endl;
 
-		//cout<<1<<endl;
+		if(mDebug) cout<<1<<endl;
 		Double_t eppt  = daughterP.Pt();
 		Double_t epeta = daughterP.Eta();
 		Double_t epphi = daughterP.Phi();
@@ -796,7 +841,7 @@ void VecMeson::GenerateDecay()
 		double delatpT = smeppt-eP.Pt();
 		hPlusSmearvsPt->Fill(smeppt, delatpT/smeppt);
 		
-		//cout<<smeppt1<<"/"<<smeppt<<endl;
+		if(mDebug) cout<<smeppt1<<"/"<<smeppt<<endl;
 		//eP.SetPtEtaPhi(smeppt,epeta,epphi);
 		Double_t smepeta = eP.Eta();
 		Double_t smepphi = eP.Phi();
@@ -812,14 +857,14 @@ void VecMeson::GenerateDecay()
 		
  		// smear = GetSmear(eN.Pt()); 
 		smear = GetSmear2(eN.Pt()); // new Smear for Function
-		//cout << smear <<endl;
+		if(mDebug) cout << smear <<endl;
 		//cout<<emsig/emsigEmb<<endl;
 		Double_t smempt = eN.Pt()*(1.+smear*emsig/emsigEmb);
 		// Double_t smempt = eN.Pt();// try to remove the pT smear
 		delatpT = smempt-eN.Pt();
     // cout << delatpT <<endl;
 		hMinusSmearvsPt->Fill(smempt,delatpT/smempt);
-		//cout<<smempt1<<"/"<<smempt<<endl;
+		if(mDebug) cout<<smempt1<<"/"<<smempt<<endl;
 		//eN.SetPtEtaPhi(smempt,emeta,emphi);
 		Double_t smemeta = eN.Eta();
 		Double_t smemphi = eN.Phi();
@@ -834,41 +879,42 @@ void VecMeson::GenerateDecay()
 		smdaughterPwoSM.SetPtEtaPhiM(eppt,smepeta,smepphi,Masselectron);
 		smdaughterNwoSM.SetPtEtaPhiM(empt,smemeta,smemphi,Masselectron);
 
-
+		if(mDebug) cout << "before eff" << endl;
 		int ietatpc,iphitpc,ipttpc; 
 		int ietatof,iphitof,ipttof; 
 		Double_t epeff3d, emeff3d;
 		if(mUseScaleEff){
-			tpcPtEtaPhi2Bin(0, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttpc,&ietatpc,&iphitpc); // MB tpc binning
-			tofPtEtaPhi2Bin(0, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttof,&ietatof,&iphitof); // MB tof binning
-			epeff3d = EvalScaleEff3D(smdaughterP,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,1);
+			// tpcPtEtaPhi2Bin(0, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttpc,&ietatpc,&iphitpc); // MB tpc binning
+			// tofPtEtaPhi2Bin(0, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttof,&ietatof,&iphitof); // MB tof binning
+			// epeff3d = EvalScaleEff3D(smdaughterP,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,1);
 
-			tpcPtEtaPhi2Bin(0, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttpc,&ietatpc,&iphitpc); // MB tpc binning
-			tofPtEtaPhi2Bin(0, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttof,&ietatof,&iphitof); // MB tof binning
-			emeff3d = EvalScaleEff3D(smdaughterN,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,-1);
+			// tpcPtEtaPhi2Bin(0, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttpc,&ietatpc,&iphitpc); // MB tpc binning
+			// tofPtEtaPhi2Bin(0, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttof,&ietatof,&iphitof); // MB tof binning
+			// emeff3d = EvalScaleEff3D(smdaughterN,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,-1);
 		}
 		else{
 			//tpcPtEtaPhi2Bin(mCenIdx, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttpc,&ietatpc,&iphitpc);
 			//tofPtEtaPhi2Bin(mCenIdx, smdaughterP.Pt(),smdaughterP.Eta(),smdaughterP.Phi(), &ipttof,&ietatof,&iphitof);
-			getEtaPhiBin(smdaughterP.Eta(),smdaughterP.Phi(),&ietatpc,&iphitpc);
-			getEtaPhiBin(smdaughterP.Eta(),smdaughterP.Phi(),&ietatof,&iphitof);
-			//cout << "getEtaPhiBin posi"<<endl;
-			//cout << "eta = "<<smdaughterP.Eta()<<endl;
-			//cout<< "ieta = "<< ietatpc<<"\n iphi = "<<iphitpc<<endl;
+			getEtaPhiBin_TPC(smdaughterP.Eta(),smdaughterP.Phi(),&ietatpc,&iphitpc);
+			getEtaPhiBin_TOF(smdaughterP.Eta(),smdaughterP.Phi(),&ietatof,&iphitof);
+			if(mDebug) cout << "getEtaPhiBin posi"<<endl;
+			if(mDebug) cout << "eta = "<<smdaughterP.Eta()<<endl;
+			if(mDebug) cout<< "ieta = "<< ietatpc<<"\n iphi = "<<iphitpc<<endl;
 			epeff3d = EvalEff3D(smdaughterP,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,1);
+			if(mDebug) cout<<"get Eff posi, eff = "<<epeff3d<<endl;
 
 			//tpcPtEtaPhi2Bin(mCenIdx, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttpc,&ietatpc,&iphitpc);
 			//tofPtEtaPhi2Bin(mCenIdx, smdaughterN.Pt(),smdaughterN.Eta(),smdaughterN.Phi(), &ipttof,&ietatof,&iphitof);
 			//cout<<"get Eff posi"<<endl;
-			getEtaPhiBin(smdaughterN.Eta(),smdaughterN.Phi(),&ietatpc,&iphitpc);
-			getEtaPhiBin(smdaughterN.Eta(),smdaughterN.Phi(),&ietatof,&iphitof);
-			//cout << "getEtaPhiBin elec"<<endl;
-			//cout << "eta = "<<smdaughterN.Eta()<<endl;
-			//cout<< "ieta = "<< ietatpc<<"\niphi = "<<iphitpc<<endl;
+			getEtaPhiBin_TPC(smdaughterN.Eta(),smdaughterN.Phi(),&ietatpc,&iphitpc);
+			getEtaPhiBin_TOF(smdaughterN.Eta(),smdaughterN.Phi(),&ietatof,&iphitof);
+			if(mDebug) cout << "getEtaPhiBin elec"<<endl;
+			if(mDebug) cout << "eta = "<<smdaughterN.Eta()<<endl;
+			if(mDebug) cout<< "ieta = "<< ietatpc<<"\niphi = "<<iphitpc<<endl;
 			emeff3d = EvalEff3D(smdaughterN,ipttpc,ietatpc,iphitpc,ipttof,ietatof,iphitof,-1);
-			//cout<<"get Eff elec"<<endl;
+			if(mDebug) cout<<"get Eff elec, eff = "<<emeff3d<<endl;
 		}
-		//cout<<"after Eff"<<endl;
+		if(mDebug) cout<<"after Eff"<<endl;
 
 		TLorentzVector eepair(0,0,0,0);
 		eepair = daughterP + daughterN;
@@ -904,7 +950,13 @@ void VecMeson::GenerateDecay()
 			hMCAcc0PairPhiPt_HX->Fill(rceepair.Pt(),positron_phi_hx);
 			hMCAcc0PairPhiPt_CS->Fill(rceepair.Pt(),positron_phi_cs);
 			hMCAcc0_CosthetapT->Fill(rceepair.Pt(),costhetastar);
+			hMCAcc0PairCosThetaInvMPt_HX->Fill(rceepair.M(),rceepair.Pt(),TMath::Cos(positron_theta_hx));
+			hMCAcc0PairCosThetaInvMPt_CS->Fill(rceepair.M(),rceepair.Pt(),TMath::Cos(positron_theta_cs));
+			hMCAcc0PairPhiInvMPt_HX->Fill(rceepair.M(),rceepair.Pt(),positron_phi_hx);
+			hMCAcc0PairPhiInvMPt_CS->Fill(rceepair.M(),rceepair.Pt(),positron_phi_cs);
 			hMCAcc0PairPtvsParentPt->Fill(parent.Pt(),rceepair.Pt());
+
+
 			if(smeppt>=0.2 && smempt>=0.2
 					&&fabs(smepeta)<=1. && fabs(smemeta)<=1.){
 				hMCAcc1Mass[centindex][ptindex][phiindex]->Fill(rceepair.M());
@@ -913,6 +965,10 @@ void VecMeson::GenerateDecay()
 				hMCAcc1PairCosThetaPt_CS->Fill(rceepair.Pt(),TMath::Cos(positron_theta_cs));
 				hMCAcc1PairPhiPt_HX->Fill(rceepair.Pt(),positron_phi_hx);
 				hMCAcc1PairPhiPt_CS->Fill(rceepair.Pt(),positron_phi_cs);
+				hMCAcc1PairCosThetaInvMPt_HX->Fill(rceepair.M(),rceepair.Pt(),TMath::Cos(positron_theta_hx));
+				hMCAcc1PairCosThetaInvMPt_CS->Fill(rceepair.M(),rceepair.Pt(),TMath::Cos(positron_theta_cs));
+				hMCAcc1PairPhiInvMPt_HX->Fill(rceepair.M(),rceepair.Pt(),positron_phi_hx);
+				hMCAcc1PairPhiInvMPt_CS->Fill(rceepair.M(),rceepair.Pt(),positron_phi_cs);
 
 				hMCAcc1PairEMPtvsEPPt->Fill(smeppt,smempt);
 				hMCAcc1PairPtvsParentPt->Fill(parent.Pt(),rceepair.Pt());
@@ -922,12 +978,16 @@ void VecMeson::GenerateDecay()
 				// hRCAcc1MvsPt3D->Fill(rceepair.M(),rceepair.Pt(),epeff3d*emeff3d);
 				hMCAcc1MvsPt->Fill(rceepair.Pt(),rceepair.M());
 				hRCAcc1MvsPt3D->Fill(rceepair.Pt(),rceepair.M(),epeff3d*emeff3d);
-				hMCAcc1Mass[centindex][ptindex][phiindex]->Fill(rceepair.M(),epeff3d*emeff3d);
+				hRCAcc1Mass[centindex][ptindex][phiindex]->Fill(rceepair.M(),epeff3d*emeff3d);
 				hMCAcc1_CosthetapT->Fill(rceepair.Pt(),costhetastar,epeff3d*emeff3d);
 				hRCAcc1PairCosThetaPt_HX->Fill(rceepair.Pt(),TMath::Cos(positron_theta_hx),epeff3d*emeff3d);
 				hRCAcc1PairCosThetaPt_CS->Fill(rceepair.Pt(),TMath::Cos(positron_theta_cs),epeff3d*emeff3d);
 				hRCAcc1PairPhiPt_HX->Fill(rceepair.Pt(),positron_phi_hx,epeff3d*emeff3d);
 				hRCAcc1PairPhiPt_CS->Fill(rceepair.Pt(),positron_phi_cs,epeff3d*emeff3d);
+				hRCAcc1PairCosThetaInvMPt_HX->Fill(rceepair.M(),rceepair.Pt(),TMath::Cos(positron_theta_hx),epeff3d*emeff3d);
+				hRCAcc1PairCosThetaInvMPt_CS->Fill(rceepair.M(),rceepair.Pt(),TMath::Cos(positron_theta_cs),epeff3d*emeff3d);
+				hRCAcc1PairPhiInvMPt_HX->Fill(rceepair.M(),rceepair.Pt(),positron_phi_hx,epeff3d*emeff3d);
+				hRCAcc1PairPhiInvMPt_CS->Fill(rceepair.M(),rceepair.Pt(),positron_phi_cs,epeff3d*emeff3d);
 
         		/*if(mParIndex==6) 
         		{
@@ -958,6 +1018,7 @@ void VecMeson::GenerateDecay()
         }*/
 			}
 		}
+		if(mDebug) cout << "after sample eff" << endl;
 
     RapiditywoSTARAcc->Fill(rceepair.Rapidity());
 	if(rceepair.M()>mMass) 
@@ -965,7 +1026,7 @@ void VecMeson::GenerateDecay()
 		CutRecorder->Fill(0.5);
 		PtMVsPtPLargeMass->Fill(smempt,smeppt);
 		EtaMVsEtaPLargeMass->Fill(smemeta,smepeta);
-		if( smeppt<0.2 || smempt<0.2 || fabs(smepeta)>1. || fabs(smemeta)>1. ) CutRecorder->Fill(1.5);
+		if( smeppt<0.2 || smempt<0.2 || fabs(smepeta)>1. || fabs(smemeta)>1. ) 	CutRecorder->Fill(1.5);
 		if( smeppt<0.2 ) CutRecorder->Fill(3.5);
 		if( smempt<0.2 ) CutRecorder->Fill(4.5); 
 		if( smepeta > 1. ) CutRecorder->Fill(5.5);
@@ -980,8 +1041,12 @@ void VecMeson::GenerateDecay()
 
     if (smeppt>=0.2 && smempt>=0.2 && fabs(smepeta)<=1. && fabs(smemeta)<=1.)
     {  
-      RapiditySTARAcc->Fill(rceepair.Rapidity());
-	  MeeFullRapidity->Fill(rceepair.M());
+		MeeFullRapidity->Fill(rceepair.M());// w.o any rapidity cut
+			if (rceepair.Rapidity()<=1)
+			{
+				RapiditySTARAcc->Fill(rceepair.Rapidity());
+			}//STAR rapidity cut
+
 	  if (fabs(rceepair.Rapidity()) <= 1) MeeWpTEtaWRapidity->Fill(rceepair.M());
 	  else MeeWpTEtaWoRapidity->Fill(rceepair.M());
     }
@@ -1004,14 +1069,14 @@ void VecMeson::GenerateDecay()
 		Double_t vz = 0;
 		//Double_t vz = myRandom->Gaus(0,15);
 
-		int kPosPassFlag = PHENIXFilter(1,smdaughterP.Px(),smdaughterP.Py(),smdaughterP.Pz(),vz);
-		int kNegPassFlag = PHENIXFilter(-1,smdaughterN.Px(),smdaughterN.Py(),smdaughterN.Pz(),vz);
-		if(kPosPassFlag>=0&&kNegPassFlag>=0) {
-			hMCAcc2MvsPt->Fill(rceepair.M(),rceepair.Pt());
-			hRCAcc2MvsPt3D->Fill(rceepair.M(),rceepair.Pt(),epeff3d*emeff3d);
-			// hMCAcc2MvsPt->Fill(rceepair.M(),rceepair.Pt());
-			// hRCAcc2MvsPt3D->Fill(rceepair.M(),rceepair.Pt(),epeff3d*emeff3d); // exchange the pT and mass 
-		} //PHENIX acceptance
+		// int kPosPassFlag = PHENIXFilter(1,smdaughterP.Px(),smdaughterP.Py(),smdaughterP.Pz(),vz);
+		// int kNegPassFlag = PHENIXFilter(-1,smdaughterN.Px(),smdaughterN.Py(),smdaughterN.Pz(),vz);
+		// if(kPosPassFlag>=0&&kNegPassFlag>=0) {
+		// 	hMCAcc2MvsPt->Fill(rceepair.M(),rceepair.Pt());
+		// 	hRCAcc2MvsPt3D->Fill(rceepair.M(),rceepair.Pt(),epeff3d*emeff3d);
+		// 	// hMCAcc2MvsPt->Fill(rceepair.M(),rceepair.Pt());
+		// 	// hRCAcc2MvsPt3D->Fill(rceepair.M(),rceepair.Pt(),epeff3d*emeff3d); // exchange the pT and mass 
+		// } //PHENIX acceptance
 	}
 	cout << "after All"<<endl;
 

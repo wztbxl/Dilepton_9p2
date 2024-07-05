@@ -52,7 +52,7 @@ int main(int argc, char** argv){
 		vm = new VecMeson(virtualphoton,twobody);
 		//vm = new VecMeson(pi0,dalitz);
 		vm->SetNumberOfTracks(1.e4);
-		vm->SetCentralityIdx(5);
+		vm->SetCentralityIdx(0);
 		//vm->SetUseCocktailInput(0);
 		cout<<"Input meson:"<<vm->MesonType<<endl;
 		system("mkdir -p output/test");
@@ -62,9 +62,10 @@ int main(int argc, char** argv){
 		ParticleTypes ptype = ParticleTypes(atoi(argv[2]));
 		cout << ptype <<endl;
 		DecayMode dmode = DecayMode(atoi(argv[3]));
-		ptSmearParameters[0] = 0.009440;
+		//from 19.6 GeV data
+		ptSmearParameters[0] = 5.713e-3;
 		// ptSmearParameters[1] = 0.007473;
-		ptSmearParameters[1] = 0.1;
+		ptSmearParameters[1] = 7.92e-3;
 		int step = atoi(argv[5]);
 		//ptSmearParameters[0] = 0.008000+step*0.00004;//used to produce the pt smear scan
 		//ptSmearParameters[1] = 0.007473;
@@ -165,6 +166,50 @@ int main(int argc, char** argv){
 	vm->EtaMVsEtaPLargeMass->Write();
 	vm->CutRecorder->Write();
 	vm->hMCAcc1MvsPtwoSmear->Write();
+	static const Int_t mPtBins = 10;
+	static const Int_t mYBins = 20;
+	static const Int_t mPhiBins= 7;
+	static const Int_t mCenBins = 9; //16; //9;
+	for (int i = 0; i < mCenBins; i++)
+	{
+		for( int j = 0; j < mPtBins; j++)
+		{
+			for (int k = 0; k < mPhiBins; k++)
+			{
+				vm->hMCAcc0Mass[i][j][k]->Write();
+				vm->hMCAcc1Mass[i][j][k]->Write();
+				vm->hRCAcc1Mass[i][j][k]->Write();
+			}
+		}
+	}
+	vm->hMCAcc0_CosthetapT->Write();
+	vm->hMCAcc1_CosthetapT->Write();
+	vm->hRCAcc1_CosthetapT->Write();
+	vm->hMCAcc0PairCosThetaPt_HX->Write();
+	vm->hMCAcc1PairCosThetaPt_HX->Write();
+	vm->hRCAcc1PairCosThetaPt_HX->Write();
+	vm->hMCAcc0PairCosThetaPt_CS->Write();
+	vm->hMCAcc1PairCosThetaPt_CS->Write();
+	vm->hRCAcc1PairCosThetaPt_CS->Write();
+	vm->hMCAcc0PairPhiPt_HX->Write();
+	vm->hMCAcc1PairPhiPt_HX->Write();
+	vm->hRCAcc1PairPhiPt_HX->Write();
+	vm->hMCAcc0PairPhiPt_CS->Write();
+	vm->hMCAcc1PairPhiPt_CS->Write();
+	vm->hRCAcc1PairPhiPt_CS->Write();
+	vm->hMCAcc0PairCosThetaInvMPt_HX->Write();
+	vm->hMCAcc1PairCosThetaInvMPt_HX->Write();
+	vm->hRCAcc1PairCosThetaInvMPt_HX->Write();
+	vm->hMCAcc0PairCosThetaInvMPt_CS->Write();
+	vm->hMCAcc1PairCosThetaInvMPt_CS->Write();
+	vm->hRCAcc1PairCosThetaInvMPt_CS->Write();
+	vm->hMCAcc0PairPhiInvMPt_HX->Write();
+	vm->hMCAcc1PairPhiInvMPt_HX->Write();
+	vm->hRCAcc1PairPhiInvMPt_HX->Write();
+	vm->hMCAcc0PairPhiInvMPt_CS->Write();
+	vm->hMCAcc1PairPhiInvMPt_CS->Write();
+	vm->hRCAcc1PairPhiInvMPt_CS->Write();
+	
 
 	//fout->Write();
 	fout->Close();
