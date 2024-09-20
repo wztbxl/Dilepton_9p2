@@ -27,11 +27,26 @@ TProfile2D *etapluszplusQy;
 TProfile2D *etapluszminusQy;
 TProfile2D *etaminuszplusQy;
 TProfile2D *etaminuszminusQy;
+TProfile2D *etaplusQx;
+TProfile2D *etaminusQx;
+TProfile2D *etaplusQy;
+TProfile2D *etaminusQy;
+TProfile *etaplusQx_cent;
+TProfile *etaminusQx_cent;
+TProfile *etaplusQy_cent;
+TProfile *etaminusQy_cent;
 TH1F *hRefMult;
 TH1F *hRefMultCorZ;
 TH1F *hRefMultCor;
 TH1F *hCentrality;
 TH1F *hCentralityCor;
+TH3F *hQXvsQYvsRunIndex;
+TH3F *hQXvsQYvsRunIndex_runindex;
+TH3F *hQXvsQYvsRunIndex_east;
+TH3F *hQXvsQYvsRunIndex_west;
+TH3F *hQXvsQYvsCent_east;
+TH3F *hQXvsQYvsCent_west;
+
 TH2D *hnTofHitsvsRefMult;
 TH2D* hnTofHitsvsRefMult_noCut;
 TH2D* hnTofHitsvsRefMult_Vz35;
@@ -167,48 +182,114 @@ bool passEvent(miniDst const* const event)
 
 	Float_t  mEtaPlusQx        = event->mEtaPlusQx;
 	Float_t  mEtaPlusQy        = event->mEtaPlusQy;
-	//Float_t  mEtaPlusPtWeight  = event->mEtaPlusPtWeight;
+	Float_t  mEtaPlusPtWeight  = event->mEtaPlusPtWeight;
 	Short_t  mEtaPlusNTrks     = event->mEtaPlusNTrks;
 	Float_t  mEtaMinusQx       = event->mEtaMinusQx;
 	Float_t  mEtaMinusQy       = event->mEtaMinusQy;
-	//Float_t  mEtaMinusPtWeight = event->mEtaMinusPtWeight;
+	Float_t  mEtaMinusPtWeight = event->mEtaMinusPtWeight;
 	Short_t  mEtaMinusNTrks    = event->mEtaMinusNTrks;
+
+	//for the electron rejection
+	Float_t  mEtaPlusQx_rejectE        = event->mEtaPlusQx;
+	Float_t  mEtaPlusQy_rejectE        = event->mEtaPlusQy;
+	Float_t  mEtaPlusPtWeight_rejectE  = event->mEtaPlusPtWeight;
+	Float_t  mEtaMinusQx_rejectE       = event->mEtaMinusQx;
+	Float_t  mEtaMinusQy_rejectE       = event->mEtaMinusQy;
+	Float_t  mEtaMinusPtWeight_rejectE = event->mEtaMinusPtWeight;
+
 
   hnTofHitsvsRefMult_noCut->Fill(refMult,mnTOFMatch);
 	if(vr>mVrCut)                     return kFALSE;
 	if(TMath::Abs(vz)>mVzCut)         return kFALSE;
 	// if(TMath::Abs(vzDiff)>mVzDiffCut) return kFALSE;
 	if (mnTOFMatch < Pileuplimit->Eval(refMult)) return kFALSE;
-  hnTofHitsvsRefMult->Fill(refMult,mnTOFMatch);
-  if(mCentrality<0)                 return kFALSE;
+ 	 hnTofHitsvsRefMult->Fill(refMult,mnTOFMatch);
+	  if(mCentrality<0)                 return kFALSE;
 	hRefMult->Fill(refMult);
 	hRefMultCorZ->Fill(RefMultCorr);
 	hRefMultCor->Fill(RefMultCorr, reweight);
 	hCentrality->Fill(mCentrality);
 	hCentralityCor->Fill(mCentrality,reweight);
+	if(mCentrality < 1 || mCentrality > 9 ) return kFALSE;
 
+	// if(vz>0){
+	// 	if(mEtaPlusNTrks>0){
+	// 		etapluszplusQx->Fill(runIndex, mCentrality, mEtaPlusQx/mEtaPlusNTrks, mEtaPlusNTrks);
+	// 		etapluszplusQy->Fill(runIndex, mCentrality, mEtaPlusQy/mEtaPlusNTrks, mEtaPlusNTrks);
+	// 	}
+
+	// 	if(mEtaMinusNTrks>0){
+	// 		etaminuszplusQx->Fill(runIndex, mCentrality, mEtaMinusQx/mEtaMinusNTrks, mEtaMinusNTrks);
+	// 		etaminuszplusQy->Fill(runIndex, mCentrality, mEtaMinusQy/mEtaMinusNTrks, mEtaMinusNTrks);
+	// 	}
+	// }
+	// else{
+	// 	if(mEtaPlusNTrks>0){
+	// 		etapluszminusQx->Fill(runIndex, mCentrality, mEtaPlusQx/mEtaPlusNTrks, mEtaPlusNTrks);
+	// 		etapluszminusQy->Fill(runIndex, mCentrality, mEtaPlusQy/mEtaPlusNTrks, mEtaPlusNTrks);
+	// 	}
+
+	// 	if(mEtaMinusNTrks>0){
+	// 		etaminuszminusQx->Fill(runIndex, mCentrality, mEtaMinusQx/mEtaMinusNTrks, mEtaMinusNTrks);
+	// 		etaminuszminusQy->Fill(runIndex, mCentrality, mEtaMinusQy/mEtaMinusNTrks, mEtaMinusNTrks);
+	// 	}
+	// }
+
+	//pT weight
 	if(vz>0){
 		if(mEtaPlusNTrks>0){
-			etapluszplusQx->Fill(runIndex, mCentrality, mEtaPlusQx/mEtaPlusNTrks, mEtaPlusNTrks);
-			etapluszplusQy->Fill(runIndex, mCentrality, mEtaPlusQy/mEtaPlusNTrks, mEtaPlusNTrks);
+			etapluszplusQx->Fill(runIndex, mCentrality, mEtaPlusQx/mEtaPlusPtWeight);
+			etapluszplusQy->Fill(runIndex, mCentrality, mEtaPlusQy/mEtaPlusPtWeight);
+			hQXvsQYvsRunIndex_west->Fill(mEtaPlusQx/mEtaPlusPtWeight,mEtaPlusQy/mEtaPlusPtWeight,runIndex);
+			etaplusQx->Fill(runIndex,mCentrality,mEtaPlusQx/mEtaPlusPtWeight);
+			etaplusQy->Fill(runIndex,mCentrality,mEtaPlusQy/mEtaPlusPtWeight);
+			etaplusQx_cent->Fill(mCentrality,mEtaPlusQx/mEtaPlusPtWeight);
+			etaplusQy_cent->Fill(mCentrality,mEtaPlusQy/mEtaPlusPtWeight);
+			hQXvsQYvsCent_west->Fill(mEtaPlusQx/mEtaPlusPtWeight,mEtaPlusQy/mEtaPlusPtWeight,mCentrality);
+			
 		}
 
 		if(mEtaMinusNTrks>0){
-			etaminuszplusQx->Fill(runIndex, mCentrality, mEtaMinusQx/mEtaMinusNTrks, mEtaMinusNTrks);
-			etaminuszplusQy->Fill(runIndex, mCentrality, mEtaMinusQy/mEtaMinusNTrks, mEtaMinusNTrks);
+			etaminuszplusQx->Fill(runIndex, mCentrality, mEtaMinusQx/mEtaMinusPtWeight);
+			etaminuszplusQy->Fill(runIndex, mCentrality, mEtaMinusQy/mEtaMinusPtWeight);
+			hQXvsQYvsRunIndex_east->Fill(mEtaMinusQx/mEtaMinusPtWeight,mEtaMinusQy/mEtaMinusPtWeight,runIndex);
+			etaminusQx->Fill(runIndex,mCentrality,mEtaMinusQx/mEtaMinusPtWeight);
+			etaminusQy->Fill(runIndex,mCentrality,mEtaMinusQy/mEtaMinusPtWeight);
+			etaminusQx_cent->Fill(mCentrality,mEtaMinusQx/mEtaMinusPtWeight);
+			etaminusQy_cent->Fill(mCentrality,mEtaMinusQy/mEtaMinusPtWeight);
+			hQXvsQYvsCent_east->Fill(mEtaMinusQx/mEtaMinusPtWeight,mEtaMinusQy/mEtaMinusPtWeight,mCentrality);
+			
 		}
 	}
 	else{
 		if(mEtaPlusNTrks>0){
-			etapluszminusQx->Fill(runIndex, mCentrality, mEtaPlusQx/mEtaPlusNTrks, mEtaPlusNTrks);
-			etapluszminusQy->Fill(runIndex, mCentrality, mEtaPlusQy/mEtaPlusNTrks, mEtaPlusNTrks);
+			etapluszminusQx->Fill(runIndex, mCentrality, mEtaPlusQx/mEtaPlusPtWeight);
+			etapluszminusQy->Fill(runIndex, mCentrality, mEtaPlusQy/mEtaPlusPtWeight);
+			hQXvsQYvsRunIndex_west->Fill(mEtaPlusQx/mEtaPlusPtWeight,mEtaPlusQy/mEtaPlusPtWeight,runIndex);
+			etaplusQx->Fill(runIndex,mCentrality,mEtaPlusQx/mEtaPlusPtWeight);
+			etaplusQy->Fill(runIndex,mCentrality,mEtaPlusQy/mEtaPlusPtWeight);
+			etaplusQx_cent->Fill(mCentrality,mEtaPlusQx/mEtaPlusPtWeight);
+			etaplusQy_cent->Fill(mCentrality,mEtaPlusQy/mEtaPlusPtWeight);
+			hQXvsQYvsCent_west->Fill(mEtaPlusQx/mEtaPlusPtWeight,mEtaPlusQy/mEtaPlusPtWeight,mCentrality);
 		}
 
 		if(mEtaMinusNTrks>0){
-			etaminuszminusQx->Fill(runIndex, mCentrality, mEtaMinusQx/mEtaMinusNTrks, mEtaMinusNTrks);
-			etaminuszminusQy->Fill(runIndex, mCentrality, mEtaMinusQy/mEtaMinusNTrks, mEtaMinusNTrks);
+			etaminuszminusQx->Fill(runIndex, mCentrality, mEtaMinusQx/mEtaMinusPtWeight);
+			etaminuszminusQy->Fill(runIndex, mCentrality, mEtaMinusQy/mEtaMinusPtWeight);
+			hQXvsQYvsRunIndex_east->Fill(mEtaMinusQx/mEtaMinusPtWeight,mEtaMinusQy/mEtaMinusPtWeight,runIndex);
+			etaminusQx->Fill(runIndex,mCentrality,mEtaMinusQx/mEtaMinusPtWeight);
+			etaminusQy->Fill(runIndex,mCentrality,mEtaMinusQy/mEtaMinusPtWeight);
+			etaminusQx_cent->Fill(mCentrality,mEtaMinusQx/mEtaMinusPtWeight);
+			etaminusQy_cent->Fill(mCentrality,mEtaMinusQy/mEtaMinusPtWeight);
+			hQXvsQYvsCent_east->Fill(mEtaMinusQx/mEtaMinusPtWeight,mEtaMinusQy/mEtaMinusPtWeight,mCentrality);
 		}
 	}
+	
+	double Qx = mEtaPlusQx/mEtaPlusPtWeight+mEtaMinusQx/mEtaMinusPtWeight;
+	double Qy = mEtaPlusQy/mEtaPlusPtWeight+mEtaMinusQy/mEtaMinusPtWeight;
+
+	hQXvsQYvsRunIndex->Fill(Qx,Qy,mCentrality);
+	hQXvsQYvsRunIndex_runindex->Fill(Qx,Qy,runIndex);
 
 	return kTRUE;
 }
@@ -233,6 +314,24 @@ void bookHistograms(char* outFile)
 	etapluszminusQy = new TProfile2D("etapluszminusQy","etapluszminusQy;runIndex;Centrality",mTotalRun,0,mTotalRun,mTotalCentrality,0,mTotalCentrality);
 	etaminuszplusQy = new TProfile2D("etaminuszplusQy","etaminuszplusQy;runIndex;Centrality",mTotalRun,0,mTotalRun,mTotalCentrality,0,mTotalCentrality);
 	etaminuszminusQy = new TProfile2D("etaminuszminusQy","etaminuszminusQy;runIndex;Centrality",mTotalRun,0,mTotalRun,mTotalCentrality,0,mTotalCentrality);
+
+	etaplusQx = new TProfile2D("etaplusQx","etaplusQx;runIndex;Centrality",mTotalRun,0,mTotalRun,mTotalCentrality,0,mTotalCentrality);
+	etaminusQx = new TProfile2D("etaminusQx","etaminusQx;runIndex;Centrality",mTotalRun,0,mTotalRun,mTotalCentrality,0,mTotalCentrality);
+	etaplusQy = new TProfile2D("etaplusQy","etaplusQy;runIndex;Centrality",mTotalRun,0,mTotalRun,mTotalCentrality,0,mTotalCentrality);
+	etaminusQy = new TProfile2D("etaminusQy","etaminusQy;runIndex;Centrality",mTotalRun,0,mTotalRun,mTotalCentrality,0,mTotalCentrality);
+
+	etaplusQx_cent = new TProfile("etaplusQx_cent","etaplusQx_cent;Centrality;Q_{x}^{#eta>0} ",mTotalCentrality,0,mTotalCentrality);
+	etaminusQx_cent = new TProfile("etaminusQx_cent","etaminusQx_cent;Centrality;Q_{x}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
+	etaplusQy_cent = new TProfile("etaplusQy_cent","etaplusQy_cent;Centrality;Q_{y}^{#eta>0} ",mTotalCentrality,0,mTotalCentrality);
+	etaminusQy_cent = new TProfile("etaminusQy_cent","etaminusQy_cent;Centrality;Q_{y}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
+
+	hQXvsQYvsRunIndex = new TH3F("hQXvsQYvsRunIndex","; Qx; Qy; Centrality",200,-10,10,200,-10,10,10,0,10);
+	hQXvsQYvsRunIndex_runindex = new TH3F("hQXvsQYvsRunIndex_runindex","; Qx; Qy; runindex",200,-10,10,200,-10,10,mTotalRun,0,mTotalRun);
+	hQXvsQYvsRunIndex_east = new TH3F("hQXvsQYvsRunIndex_east","; Qx; Qy; runindex",200,-10,10,200,-10,10,mTotalRun,0,mTotalRun);
+	hQXvsQYvsRunIndex_west = new TH3F("hQXvsQYvsRunIndex_west","; Qx; Qy; runindex",200,-10,10,200,-10,10,mTotalRun,0,mTotalRun);
+	hQXvsQYvsCent_east = new TH3F("hQXvsQYvsCent_east","; Qx; Qy; Centrality",400,-10,10,400,-10,10,mTotalCentrality,0,mTotalCentrality);
+	hQXvsQYvsCent_west = new TH3F("hQXvsQYvsCent_west","; Qx; Qy; Centrality",400,-10,10,400,-10,10,mTotalCentrality,0,mTotalCentrality);
+
 	hRefMult  = new TH1F("RefMult","RefMult;RefMult",600,0,600);
 	hRefMultCorZ  = new TH1F("RefMultCorZ","RefMult corrected for z dependence ;RefMult",600,0,600);
 	hRefMultCor  = new TH1F("RefMultCor","RefMult corrected for z and weight ;Mult",600,0,600);
@@ -241,6 +340,7 @@ void bookHistograms(char* outFile)
   hnTofHitsvsRefMult = new TH2D("hnTofHitsvsRefMult",";RefMult;nTofHits",500,0,500,500,0,500);
   hnTofHitsvsRefMult_noCut = new TH2D("hnTofHitsvsRefMult_noCut",";RefMult;nTofHits",500,0,500,500,0,500); 
   hnTofHitsvsRefMult_Vz35 = new TH2D("hnTofHitsvsRefMult_Vz35",";RefMult;nTofHits",500,0,500,500,0,500);
+  Pileuplimit = new TF1("Pileuplimit","0.7*x-10",0,1000);
 
 }
 //____________________________________________________________
@@ -257,6 +357,7 @@ bool Init()
 		Int_t newId=0;
 		while(indata>>oldId){
 			mTotalRunId[oldId] = newId;
+			cout << "Run " << oldId << " index is " << newId << endl;
 			newId++;
 		}
 		cout<<" [OK]"<<endl;

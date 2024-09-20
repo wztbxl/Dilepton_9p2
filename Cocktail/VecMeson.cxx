@@ -196,7 +196,7 @@ Int_t VecMeson::Init()
 
 	//for the polarization part
 	const Double_t massLow   = 0;
-	const Double_t massHi    = 4;
+	const Double_t massHi    = 3.6;
 	for(int i=0; i<mCenBins;i++){
 		for(int j=0; j<mPtBins;j++){
 			for(int k=0; k<mPhiBins; k++){

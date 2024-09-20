@@ -313,3 +313,9 @@ Error            = log_all/all_50.err
 Log              = log_all/all_50.olog
 Queue
      
+Executable       = script_all/all_51.csh
+Output           = log_all/all_51.out
+Error            = log_all/all_51.err
+Log              = log_all/all_51.olog
+Queue
+     
