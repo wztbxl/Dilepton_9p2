@@ -3,6 +3,9 @@
 #include "/star/u/wangzhen/run20/Dielectron/Analysis/cuts.h"
 #include "/star/u/wangzhen/run20/Dielectron/Analysis/RefMfun.h"
 
+#include "CentralityMaker.h"
+#include "StRefMultCorr.h"
+
 #include "miniDst.h"
 
 TFile *fOutFile;
@@ -35,6 +38,10 @@ TProfile *etaplusQx_cent;
 TProfile *etaminusQx_cent;
 TProfile *etaplusQy_cent;
 TProfile *etaminusQy_cent;
+TProfile *etaplusQx_cent_RejectE;
+TProfile *etaminusQx_cent_RejectE;
+TProfile *etaplusQy_cent_RejectE;
+TProfile *etaminusQy_cent_RejectE;
 TH1F *hRefMult;
 TH1F *hRefMultCorZ;
 TH1F *hRefMultCor;
@@ -42,6 +49,8 @@ TH1F *hCentrality;
 TH1F *hCentralityCor;
 TH3F *hQXvsQYvsRunIndex;
 TH3F *hQXvsQYvsRunIndex_runindex;
+TH3F* hQXvsQYvsCentrality_east;
+TH3F* hQXvsQYvsCentrality_west; 
 TH3F *hQXvsQYvsRunIndex_east;
 TH3F *hQXvsQYvsRunIndex_west;
 TH3F *hQXvsQYvsCent_east;
@@ -166,6 +175,7 @@ bool passEvent(miniDst const* const event)
 	Int_t   mCentrality  = event->mCentrality;
 	Int_t	refMult 	 = event->mRefMult;
   Int_t mnTOFMatch = event->mnTOFMatch;
+  Float_t zdcRate = event->mZDCRate; 
 	Float_t vx           = event->mVertexX;
 	Float_t vy           = event->mVertexY;
 	Float_t vz           = event->mVertexZ;
@@ -173,11 +183,37 @@ bool passEvent(miniDst const* const event)
 	Float_t vr           = sqrt(vx*vx + vy*vy);    
 	Float_t vzDiff       = vz - vpdVz;
 
-    Double_t RefMultCorr = refMult;
+   //for  the official centrality defination
+   StRefMultCorr* mRefMultCorr = CentralityMaker::instance()->getRefMultCorr(); 
+   // cout << "after refMultCorr defination" << endl;
+    //using offical badrun list
+    mRefMultCorr->init((Int_t)runId);
+    // cout << "after refMultCorr init" << endl;
+   mRefMultCorr->initEvent(refMult,vz,zdcRate); 
+   // cout << "after refMultCorr init" << endl;
+   mRefMultCorr->initEvent(refMult,vz,zdcRate); 
+   // cout << "after refMultCorr initEvent" << endl; 
+    if (mRefMultCorr->isBadRun(runId)) 
+    {
+      return kFALSE;
+    }
+     // cout << "after refMultCorr isBadRun" << endl;
+     Double_t RefMultCorr  = mRefMultCorr->getRefMultCorr();
+    // cout << "after refMultCorr getRefMultCorr " << endl; 
+    Double_t reweight  = mRefMultCorr->getWeight(); 
+    // cout << "after refMultCorr getWeight" << endl;
+    mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin 
+     // cout << "after refMultCorr getCentralityBin9" << endl;
+    //offical pile up pileupRejection
+    if  ( mRefMultCorr->isPileUpEvent(refMult,mnTOFMatch,vz ) ) return kFALSE
+
+
+    
+    // Double_t RefMultCorr = refMult;
 	// if(RefMVzCorFlag)RefMultCorr = GetRefMultCorr(refMult, vz);	
-    Double_t reweight = 1.;// no RefMultCorr!!!!	
+    // Double_t reweight = 1.;// no RefMultCorr!!!!	
     // Double_t reweight = GetWeight(RefMultCorr);	
-	mCentrality = GetCentrality(RefMultCorr);
+	// mCentrality = GetCentrality(RefMultCorr);
 
 
 	Float_t  mEtaPlusQx        = event->mEtaPlusQx;
@@ -202,7 +238,7 @@ bool passEvent(miniDst const* const event)
 	if(vr>mVrCut)                     return kFALSE;
 	if(TMath::Abs(vz)>mVzCut)         return kFALSE;
 	// if(TMath::Abs(vzDiff)>mVzDiffCut) return kFALSE;
-	if (mnTOFMatch < Pileuplimit->Eval(refMult)) return kFALSE;
+	// if (mnTOFMatch < Pileuplimit->Eval(refMult)) return kFALSE;
  	 hnTofHitsvsRefMult->Fill(refMult,mnTOFMatch);
 	  if(mCentrality<0)                 return kFALSE;
 	hRefMult->Fill(refMult);
@@ -210,7 +246,7 @@ bool passEvent(miniDst const* const event)
 	hRefMultCor->Fill(RefMultCorr, reweight);
 	hCentrality->Fill(mCentrality);
 	hCentralityCor->Fill(mCentrality,reweight);
-	if(mCentrality < 1 || mCentrality > 9 ) return kFALSE;
+	// if(mCentrality < 1 || mCentrality > 9 ) return kFALSE;
 
 	// if(vz>0){
 	// 	if(mEtaPlusNTrks>0){
@@ -349,7 +385,7 @@ bool Init()
 	cout<<endl;
 
 	ifstream indata;
-	indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList.dat");
+	indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList_noPeriodA.dat");
 	mTotalRunId.clear();
 	if(indata.is_open()){
 		cout<<"read in total run number list and recode run number ...";

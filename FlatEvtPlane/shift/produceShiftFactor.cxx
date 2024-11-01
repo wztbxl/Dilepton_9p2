@@ -227,12 +227,12 @@ bool passEvent(miniDst const* const event)
 	// 	mReCenterQx = mRawQx - mEtaPlusNTrks*etapluszminusQx->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszminusQx->GetBinContent(runIndex+1, mCentrality);
 	// 	mReCenterQy = mRawQy - mEtaPlusNTrks*etapluszminusQy->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszminusQy->GetBinContent(runIndex+1, mCentrality);
 	// }
-	mPlusQx = mPlusQx/mEtaPlusPtWeight-etaplusQx_cent->GetBinContent(mCentrality);
-	mPlusQy = mPlusQy/mEtaPlusPtWeight-etaplusQy_cent->GetBinContent(mCentrality);
-	mMinusQx = mMinusQx/mEtaMinusPtWeight-etaminusQx_cent->GetBinContent(mCentrality);
-	mMinusQy = mMinusQy/mEtaMinusPtWeight-etaminusQy_cent->GetBinContent(mCentrality);
-	mReCenterQx = mPlusQx - mMinusQx; 
-	mReCenterQy = mPlusQy - mMinusQy;
+	mPlusQx = mPlusQx/mEtaPlusPtWeight-etaplusQx_cent->GetBinContent(mCentrality+1);
+	mPlusQy = mPlusQy/mEtaPlusPtWeight-etaplusQy_cent->GetBinContent(mCentrality+1);
+	mMinusQx = mMinusQx/mEtaMinusPtWeight-etaminusQx_cent->GetBinContent(mCentrality+1);
+	mMinusQy = mMinusQy/mEtaMinusPtWeight-etaminusQy_cent->GetBinContent(mCentrality+1);
+	mReCenterQx = mPlusQx + mMinusQx; 
+	mReCenterQy = mPlusQy + mMinusQy;
 
     TVector2 *mReCenterQ = new TVector2(mReCenterQx, mReCenterQy);
 	Double_t mReCenterEventPlane;
@@ -282,7 +282,8 @@ bool Init()
 
 	ifstream indata;
 
-	indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList.dat");
+	// indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList.dat");
+  indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList_noPeriodA.dat");
 	mTotalRunId.clear();
 	if(indata.is_open()){
 		cout<<"read in total run number list and recode run number ...";
@@ -303,6 +304,7 @@ bool Init()
 	cout<<endl;
 
 	indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalDayList.dat");
+  // indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList_noPeriodA.dat");
 	mTotalDayId.clear();
 	if(indata.is_open()){
 		cout<<"read in day number list and recode day number ...";

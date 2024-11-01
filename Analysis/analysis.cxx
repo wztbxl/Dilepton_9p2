@@ -877,11 +877,12 @@ void makeRealPairs()
 
 					//for v2 calculation
 					deltaphi = pair.Phi()-finalEventPlane;
-					if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
+					// if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
 					hMassvsDelta_Phi_Psi2_ULS[cenBufferPointer]->Fill(deltaphi,pair.M());
 					hpTvsDelta_Phi_Psi2_ULS[cenBufferPointer]->Fill(deltaphi,pair.Pt());
 					hCosPsi2_ULS[cenBufferPointer]->Fill(pair.M(),cos(2*(deltaphi)));
 					hCosPsi2_ULS_pT[cenBufferPointer]->Fill(pair.Pt(),cos(2*(deltaphi)));
+					hPairPhiPt->Fill(pair.Phi(),pair.Pt());
 
 					GetPtPhiCentBin(pair, current_ePlus[i], mCentrality, finalEventPlane, _PtIndex, _YIndex, _PhiIndex, _CentIndex,costhetastar, 0, 1);// 0 for how to calculate costheta* 1 for nonsense 
 					hCosthetastar->Fill(costhetastar);
@@ -942,7 +943,7 @@ void makeRealPairs()
 					// }
 					//for v2 calculation
 					deltaphi = pair.Phi()-finalEventPlane;
-					if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
+					// if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
 					hMassvsDelta_Phi_Psi2_LSPos[cenBufferPointer]->Fill(deltaphi,pair.M());
 					hpTvsDelta_Phi_Psi2_LSPos[cenBufferPointer]->Fill(deltaphi,pair.Pt());
 					hCosPsi2_LSPos[cenBufferPointer]->Fill(pair.M(),cos(2*(deltaphi)));
@@ -1006,7 +1007,7 @@ void makeRealPairs()
 					// }
 					//for v2 calculation
 					deltaphi = pair.Phi()-finalEventPlane;
-					if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
+					// if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
 					hMassvsDelta_Phi_Psi2_LSNeg[cenBufferPointer]->Fill(deltaphi,pair.M());
 					hpTvsDelta_Phi_Psi2_LSNeg[cenBufferPointer]->Fill(deltaphi,pair.Pt());
 					hCosPsi2_LSNeg[cenBufferPointer]->Fill(pair.M(),cos(2*(deltaphi)));
@@ -1063,7 +1064,7 @@ void makeMixPairs()
 						// if (pair.M()>0.2 && pair.M() < 1.1 )
 						// {
 							deltaphi = pair.Phi()-finalEventPlane;
-							if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
+							// if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
 							hMassvsDelta_Phi_Psi2_Mix_ULS[cenBufferPointer]->Fill(deltaphi,pair.M());
 							hpTvsDelta_Phi_Psi2_Mix_ULS[cenBufferPointer]->Fill(deltaphi,pair.Pt());
 							hCosPsi2_Mix_ULS[cenBufferPointer]->Fill(pair.M(),cos(2*(deltaphi)));
@@ -1113,7 +1114,7 @@ void makeMixPairs()
 						// {
 						//for v2 calculation
 							deltaphi = pair.Phi()-finalEventPlane;
-							if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
+							// if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
 							hMassvsDelta_Phi_Psi2_Mix_ULS[cenBufferPointer]->Fill(deltaphi,pair.M());
 							hpTvsDelta_Phi_Psi2_Mix_ULS[cenBufferPointer]->Fill(deltaphi,pair.Pt());
 							hCosPsi2_Mix_ULS[cenBufferPointer]->Fill(pair.M(),cos(2*(deltaphi)));
@@ -1166,7 +1167,7 @@ void makeMixPairs()
 					// {
 						//for v2 calculation
 						deltaphi = pair.Phi()-finalEventPlane;
-						if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
+						// if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
 						hMassvsDelta_Phi_Psi2_Mix_LSPos[cenBufferPointer]->Fill(deltaphi,pair.M());
 						hpTvsDelta_Phi_Psi2_Mix_LSPos[cenBufferPointer]->Fill(deltaphi,pair.Pt());
 						hCosPsi2_Mix_LSPos[cenBufferPointer]->Fill(pair.M(),cos(2*(deltaphi)));
@@ -1217,7 +1218,7 @@ void makeMixPairs()
 					// {
 						//for v2 calculation
 						deltaphi = pair.Phi()-finalEventPlane;
-						if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
+						// if(deltaphi < -TMath::Pi()) deltaphi = deltaphi+2*-TMath::Pi();
 						hMassvsDelta_Phi_Psi2_Mix_LSNeg[cenBufferPointer]->Fill(deltaphi,pair.M());
 						hpTvsDelta_Phi_Psi2_Mix_LSNeg[cenBufferPointer]->Fill(deltaphi,pair.Pt());
 						hCosPsi2_Mix_LSNeg[cenBufferPointer]->Fill(pair.M(),cos(2*(deltaphi)));
