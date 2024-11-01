@@ -203,7 +203,7 @@ bool passEvent(miniDst const* const event)
     Double_t reweight  = mRefMultCorr->getWeight(); 
     // cout << "after refMultCorr getWeight" << endl;
     mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin 
-     // cout << "after refMultCorr getCentralityBin9" << endl;
+    // cout << "after refMultCorr getCentralityBin9" << endl;
     //offical pile up pileupRejection
     if  ( mRefMultCorr->isPileUpEvent(refMult,mnTOFMatch,vz ) ) return kFALSE
 
@@ -271,60 +271,128 @@ bool passEvent(miniDst const* const event)
 	// 	}
 	// }
 
+	//add the electron selection cut to reject the electrons
+	Int_t npTrks = event->mNTrks;
+	for(int j=0;j<npTrks;j++)
+	{
+		Int_t charge = event->mCharge[j];
+		Int_t nHitsFit = event->mNHitsFit[j];
+		Int_t nHitsDedx = event->mNHitsDedx[j];
+		Int_t nHitsPoss = event->mNHitsPoss[j];
+		Float_t nSigmaE = event->mNSigmaE[j];
+		Float_t dca = event->mDca[j];
+		Float_t pt = event->mPt[j];
+		Float_t eta = event->mEta[j];
+		Float_t phi = event->mPhi[j];
+		Float_t beta2TOF = event->mBeta2TOF[j];
+		Float_t TOFLoaclY = event->mTOFLocalY[j];
+		Float_t ratio = 1.0*nHitsFit/nHitsPoss;
+		int CellID = event->mTOFCellID[j];
+		TVector3 mom;
+		mom.SetPtEtaPhi(pt,eta,phi);
+		Float_t p = mom.Mag();
+		double msquare =  -999;
+		msquare = pow(p, 2) * (1 - pow(beta2TOF, 2)) / pow(beta2TOF, 2);
+
+		if(pt<0.2 || pt>30.) continue;;
+		// if(nHitsFit<15) continue;;
+		if(nHitsFit<20) continue;;
+		if(ratio<0.52) continue;;
+		// if(nHitsDedx<20) continue;;
+		if(nHitsDedx<15) continue;;
+		// if(dca>0.8) continue;;
+		if(dca>1.) continue;;
+		if(TMath::Abs(eta)>1.) continue;;
+		if(beta2TOF<=0. || TMath::Abs(1.-1./beta2TOF)>0.025) continue;;
+		if(abs(TOFLoaclY) > 1.8) continue;;
+		Float_t mTpceNSigmaECutLow;
+		if(p<.8){
+			mTpceNSigmaECutLow = 3.0*p - 3.15; 
+		}else{
+			mTpceNSigmaECutLow = -0.75;
+		}
+		if(nSigmaE<mTpceNSigmaECutLow+mNSigmaEShift || nSigmaE>2.0+mNSigmaEShift) continue;;
+		
+		if (eta < 0)
+			{
+				mEtaMinusQx_rejectE -= pt*TMath::Cos(2*phi);
+				mEtaMinusQy_rejectE -= pt*TMath::Sin(2*phi);
+
+			} else if (eta > 0)
+			{
+				mEtaPlusQx_rejectE -= pt*TMath::Cos(2*phi);
+				mEtaPlusQy_rejectE -= pt*TMath::Sin(2*phi);
+			}
+
+	}
+
+	if(mEtaPlusNTrks > 0)
+	{
+		etaplusQx_cent_RejectE->Fill(mCentrality,mEtaPlusQx_rejectE);
+		etaplusQy_cent_RejectE->Fill(mCentrality,mEtaPlusQy_rejectE);
+	} 
+	if(mEtaMinusNTrks > 0)
+	{
+		etaminusQx_cent_RejectE->Fill(mCentrality,mEtaMinusQx_rejectE);
+		etaminusQy_cent_RejectE->Fill(mCentrality,mEtaMinusQy_rejectE);
+	}
+
 	//pT weight
 	if(vz>0){
 		if(mEtaPlusNTrks>0){
-			etapluszplusQx->Fill(runIndex, mCentrality, mEtaPlusQx/mEtaPlusPtWeight);
-			etapluszplusQy->Fill(runIndex, mCentrality, mEtaPlusQy/mEtaPlusPtWeight);
-			hQXvsQYvsRunIndex_west->Fill(mEtaPlusQx/mEtaPlusPtWeight,mEtaPlusQy/mEtaPlusPtWeight,runIndex);
-			etaplusQx->Fill(runIndex,mCentrality,mEtaPlusQx/mEtaPlusPtWeight);
-			etaplusQy->Fill(runIndex,mCentrality,mEtaPlusQy/mEtaPlusPtWeight);
-			etaplusQx_cent->Fill(mCentrality,mEtaPlusQx/mEtaPlusPtWeight);
-			etaplusQy_cent->Fill(mCentrality,mEtaPlusQy/mEtaPlusPtWeight);
-			hQXvsQYvsCent_west->Fill(mEtaPlusQx/mEtaPlusPtWeight,mEtaPlusQy/mEtaPlusPtWeight,mCentrality);
+			etapluszplusQx->Fill(runIndex, mCentrality, mEtaPlusQx);
+			etapluszplusQy->Fill(runIndex, mCentrality, mEtaPlusQy);
+			hQXvsQYvsRunIndex_west->Fill(mEtaPlusQx,mEtaPlusQy,runIndex);
+			etaplusQx->Fill(runIndex,mCentrality,mEtaPlusQx);
+			etaplusQy->Fill(runIndex,mCentrality,mEtaPlusQy);
+			etaplusQx_cent->Fill(mCentrality,mEtaPlusQx);
+			etaplusQy_cent->Fill(mCentrality,mEtaPlusQy);
+			hQXvsQYvsCent_west->Fill(mEtaPlusQx,mEtaPlusQy,mCentrality);
 			
 		}
 
 		if(mEtaMinusNTrks>0){
-			etaminuszplusQx->Fill(runIndex, mCentrality, mEtaMinusQx/mEtaMinusPtWeight);
-			etaminuszplusQy->Fill(runIndex, mCentrality, mEtaMinusQy/mEtaMinusPtWeight);
-			hQXvsQYvsRunIndex_east->Fill(mEtaMinusQx/mEtaMinusPtWeight,mEtaMinusQy/mEtaMinusPtWeight,runIndex);
-			etaminusQx->Fill(runIndex,mCentrality,mEtaMinusQx/mEtaMinusPtWeight);
-			etaminusQy->Fill(runIndex,mCentrality,mEtaMinusQy/mEtaMinusPtWeight);
-			etaminusQx_cent->Fill(mCentrality,mEtaMinusQx/mEtaMinusPtWeight);
-			etaminusQy_cent->Fill(mCentrality,mEtaMinusQy/mEtaMinusPtWeight);
-			hQXvsQYvsCent_east->Fill(mEtaMinusQx/mEtaMinusPtWeight,mEtaMinusQy/mEtaMinusPtWeight,mCentrality);
+			etaminuszplusQx->Fill(runIndex, mCentrality, mEtaMinusQx);
+			etaminuszplusQy->Fill(runIndex, mCentrality, mEtaMinusQy);
+			hQXvsQYvsRunIndex_east->Fill(mEtaMinusQx,mEtaMinusQy,runIndex);
+			etaminusQx->Fill(runIndex,mCentrality,mEtaMinusQx);
+			etaminusQy->Fill(runIndex,mCentrality,mEtaMinusQy);
+			etaminusQx_cent->Fill(mCentrality,mEtaMinusQx);
+			etaminusQy_cent->Fill(mCentrality,mEtaMinusQy);
+			hQXvsQYvsCent_east->Fill(mEtaMinusQx,mEtaMinusQy,mCentrality);
 			
 		}
 	}
 	else{
 		if(mEtaPlusNTrks>0){
-			etapluszminusQx->Fill(runIndex, mCentrality, mEtaPlusQx/mEtaPlusPtWeight);
-			etapluszminusQy->Fill(runIndex, mCentrality, mEtaPlusQy/mEtaPlusPtWeight);
-			hQXvsQYvsRunIndex_west->Fill(mEtaPlusQx/mEtaPlusPtWeight,mEtaPlusQy/mEtaPlusPtWeight,runIndex);
-			etaplusQx->Fill(runIndex,mCentrality,mEtaPlusQx/mEtaPlusPtWeight);
-			etaplusQy->Fill(runIndex,mCentrality,mEtaPlusQy/mEtaPlusPtWeight);
-			etaplusQx_cent->Fill(mCentrality,mEtaPlusQx/mEtaPlusPtWeight);
-			etaplusQy_cent->Fill(mCentrality,mEtaPlusQy/mEtaPlusPtWeight);
-			hQXvsQYvsCent_west->Fill(mEtaPlusQx/mEtaPlusPtWeight,mEtaPlusQy/mEtaPlusPtWeight,mCentrality);
+			etapluszminusQx->Fill(runIndex, mCentrality, mEtaPlusQx);
+			etapluszminusQy->Fill(runIndex, mCentrality, mEtaPlusQy);
+			hQXvsQYvsRunIndex_west->Fill(mEtaPlusQx,mEtaPlusQy,runIndex);
+			etaplusQx->Fill(runIndex,mCentrality,mEtaPlusQx);
+			etaplusQy->Fill(runIndex,mCentrality,mEtaPlusQy);
+			etaplusQx_cent->Fill(mCentrality,mEtaPlusQx);
+			etaplusQy_cent->Fill(mCentrality,mEtaPlusQy);
+			hQXvsQYvsCent_west->Fill(mEtaPlusQx,mEtaPlusQy,mCentrality);
 		}
 
 		if(mEtaMinusNTrks>0){
-			etaminuszminusQx->Fill(runIndex, mCentrality, mEtaMinusQx/mEtaMinusPtWeight);
-			etaminuszminusQy->Fill(runIndex, mCentrality, mEtaMinusQy/mEtaMinusPtWeight);
-			hQXvsQYvsRunIndex_east->Fill(mEtaMinusQx/mEtaMinusPtWeight,mEtaMinusQy/mEtaMinusPtWeight,runIndex);
-			etaminusQx->Fill(runIndex,mCentrality,mEtaMinusQx/mEtaMinusPtWeight);
-			etaminusQy->Fill(runIndex,mCentrality,mEtaMinusQy/mEtaMinusPtWeight);
-			etaminusQx_cent->Fill(mCentrality,mEtaMinusQx/mEtaMinusPtWeight);
-			etaminusQy_cent->Fill(mCentrality,mEtaMinusQy/mEtaMinusPtWeight);
-			hQXvsQYvsCent_east->Fill(mEtaMinusQx/mEtaMinusPtWeight,mEtaMinusQy/mEtaMinusPtWeight,mCentrality);
+			etaminuszminusQx->Fill(runIndex, mCentrality, mEtaMinusQx);
+			etaminuszminusQy->Fill(runIndex, mCentrality, mEtaMinusQy);
+			hQXvsQYvsRunIndex_east->Fill(mEtaMinusQx,mEtaMinusQy,runIndex);
+			etaminusQx->Fill(runIndex,mCentrality,mEtaMinusQx);
+			etaminusQy->Fill(runIndex,mCentrality,mEtaMinusQy);
+			etaminusQx_cent->Fill(mCentrality,mEtaMinusQx);
+			etaminusQy_cent->Fill(mCentrality,mEtaMinusQy);
+			hQXvsQYvsCent_east->Fill(mEtaMinusQx,mEtaMinusQy,mCentrality);
 		}
 	}
 	
-	double Qx = mEtaPlusQx/mEtaPlusPtWeight+mEtaMinusQx/mEtaMinusPtWeight;
-	double Qy = mEtaPlusQy/mEtaPlusPtWeight+mEtaMinusQy/mEtaMinusPtWeight;
+	double Qx = mEtaPlusQx+mEtaMinusQx;
+	double Qy = mEtaPlusQy+mEtaMinusQy;
 
 	hQXvsQYvsRunIndex->Fill(Qx,Qy,mCentrality);
+	hQXvsQYvsCentrality_east->Fill(mEtaMinusQx,mEtaMinusQy,mCentrality);
+	hQXvsQYvsCentrality_west->Fill(mEtaPlusQx,mEtaPlusQy,mCentrality);
 	hQXvsQYvsRunIndex_runindex->Fill(Qx,Qy,runIndex);
 
 	return kTRUE;
@@ -360,13 +428,19 @@ void bookHistograms(char* outFile)
 	etaminusQx_cent = new TProfile("etaminusQx_cent","etaminusQx_cent;Centrality;Q_{x}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
 	etaplusQy_cent = new TProfile("etaplusQy_cent","etaplusQy_cent;Centrality;Q_{y}^{#eta>0} ",mTotalCentrality,0,mTotalCentrality);
 	etaminusQy_cent = new TProfile("etaminusQy_cent","etaminusQy_cent;Centrality;Q_{y}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
+	etaplusQx_cent_RejectE = new TProfile("etaplusQx_cent_RejectE","etaplusQx_cent_rejectE;Centrality;Q_{x}^{#eta>0} ",mTotalCentrality,0,mTotalCentrality);
+	etaminusQx_cent_RejectE = new TProfile("etaminusQx_cent_RejectE","etaminusQx_cent_rejectE;Centrality;Q_{x}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
+	etaplusQy_cent_RejectE = new TProfile("etaplusQy_cent_RejectE","etaplusQy_cent_rejectE;Centrality;Q_{y}^{#eta>0} ",mTotalCentrality,0,mTotalCentrality);
+	etaminusQy_cent_RejectE = new TProfile("etaminusQy_cent_RejectE","etaminusQy_cent_rejectE;Centrality;Q_{y}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
 
-	hQXvsQYvsRunIndex = new TH3F("hQXvsQYvsRunIndex","; Qx; Qy; Centrality",200,-10,10,200,-10,10,10,0,10);
-	hQXvsQYvsRunIndex_runindex = new TH3F("hQXvsQYvsRunIndex_runindex","; Qx; Qy; runindex",200,-10,10,200,-10,10,mTotalRun,0,mTotalRun);
-	hQXvsQYvsRunIndex_east = new TH3F("hQXvsQYvsRunIndex_east","; Qx; Qy; runindex",200,-10,10,200,-10,10,mTotalRun,0,mTotalRun);
-	hQXvsQYvsRunIndex_west = new TH3F("hQXvsQYvsRunIndex_west","; Qx; Qy; runindex",200,-10,10,200,-10,10,mTotalRun,0,mTotalRun);
-	hQXvsQYvsCent_east = new TH3F("hQXvsQYvsCent_east","; Qx; Qy; Centrality",400,-10,10,400,-10,10,mTotalCentrality,0,mTotalCentrality);
-	hQXvsQYvsCent_west = new TH3F("hQXvsQYvsCent_west","; Qx; Qy; Centrality",400,-10,10,400,-10,10,mTotalCentrality,0,mTotalCentrality);
+	hQXvsQYvsRunIndex = new TH3F("hQXvsQYvsRunIndex","; Qx; Qy; Centrality",300,-20,20,300,-20,20,10,0,10);
+	hQXvsQYvsCentrality_east = new TH3F("hQXvsQYvsCentrality_east","; Qx; Qy; Centrality",300,-20,20,300,-20,20,10,0,10);
+	hQXvsQYvsCentrality_west = new TH3F("hQXvsQYvsCentrality_west","; Qx; Qy; Centrality",300,-20,20,300,-20,20,10,0,10);
+	hQXvsQYvsRunIndex_runindex = new TH3F("hQXvsQYvsRunIndex_runindex","; Qx; Qy; runindex",300,-20,20,300,-20,20,mTotalRun,0,mTotalRun);
+	hQXvsQYvsRunIndex_east = new TH3F("hQXvsQYvsRunIndex_east","; Qx; Qy; runindex",300,-20,20,300,-20,20,mTotalRun,0,mTotalRun);
+	hQXvsQYvsRunIndex_west = new TH3F("hQXvsQYvsRunIndex_west","; Qx; Qy; runindex",300,-20,20,300,-20,20,mTotalRun,0,mTotalRun);
+	hQXvsQYvsCent_east = new TH3F("hQXvsQYvsCent_east","; Qx; Qy; Centrality",300,-20,20,300,-20,20,mTotalCentrality,0,mTotalCentrality);
+	hQXvsQYvsCent_west = new TH3F("hQXvsQYvsCent_west","; Qx; Qy; Centrality",300,-20,20,300,-20,20,mTotalCentrality,0,mTotalCentrality);
 
 	hRefMult  = new TH1F("RefMult","RefMult;RefMult",600,0,600);
 	hRefMultCorZ  = new TH1F("RefMultCorZ","RefMult corrected for z dependence ;RefMult",600,0,600);
