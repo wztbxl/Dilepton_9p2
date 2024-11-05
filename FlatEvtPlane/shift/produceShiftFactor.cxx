@@ -40,7 +40,7 @@ TProfile *etaminusQx_cent_rejectE;
 TProfile *etaplusQy_cent_rejectE;
 TProfile *etaminusQy_cent_rejectE;
 
-
+const int nCent = 9;
 //define histograms
 TH1D *hRawEventPlane;
 TH1D *hReCenterEventPlane;
