@@ -47,11 +47,11 @@ TH1F *hRefMultCor;
 TH1F *hCentrality;
 TH1F *hCentralityCor;
 TH3F *hQXvsQYvsRunIndex;
-TH3F *hQXvsQYvsRunIndex_runindex;
+// TH3F *hQXvsQYvsRunIndex_runindex;
 TH3F* hQXvsQYvsCentrality_east;
 TH3F* hQXvsQYvsCentrality_west;
-TH3F *hQXvsQYvsRunIndex_east;
-TH3F *hQXvsQYvsRunIndex_west;
+// TH3F *hQXvsQYvsRunIndex_east;
+// TH3F *hQXvsQYvsRunIndex_west;
 TH3F *hQXvsQYvsCent_east;
 TH3F *hQXvsQYvsCent_west;
 
@@ -337,7 +337,7 @@ bool passEvent(miniDst const* const event)
 		if(mEtaPlusNTrks>0){
 			etapluszplusQx->Fill(runIndex, mCentrality, mEtaPlusQx);
 			etapluszplusQy->Fill(runIndex, mCentrality, mEtaPlusQy);
-			hQXvsQYvsRunIndex_west->Fill(mEtaPlusQx,mEtaPlusQy,runIndex);
+			// hQXvsQYvsRunIndex_west->Fill(mEtaPlusQx,mEtaPlusQy,runIndex);
 			etaplusQx->Fill(runIndex,mCentrality,mEtaPlusQx);
 			etaplusQy->Fill(runIndex,mCentrality,mEtaPlusQy);
 			etaplusQx_cent->Fill(mCentrality,mEtaPlusQx);
@@ -349,7 +349,7 @@ bool passEvent(miniDst const* const event)
 		if(mEtaMinusNTrks>0){
 			etaminuszplusQx->Fill(runIndex, mCentrality, mEtaMinusQx);
 			etaminuszplusQy->Fill(runIndex, mCentrality, mEtaMinusQy);
-			hQXvsQYvsRunIndex_east->Fill(mEtaMinusQx,mEtaMinusQy,runIndex);
+			// hQXvsQYvsRunIndex_east->Fill(mEtaMinusQx,mEtaMinusQy,runIndex);
 			etaminusQx->Fill(runIndex,mCentrality,mEtaMinusQx);
 			etaminusQy->Fill(runIndex,mCentrality,mEtaMinusQy);
 			etaminusQx_cent->Fill(mCentrality,mEtaMinusQx);
@@ -362,7 +362,7 @@ bool passEvent(miniDst const* const event)
 		if(mEtaPlusNTrks>0){
 			etapluszminusQx->Fill(runIndex, mCentrality, mEtaPlusQx);
 			etapluszminusQy->Fill(runIndex, mCentrality, mEtaPlusQy);
-			hQXvsQYvsRunIndex_west->Fill(mEtaPlusQx,mEtaPlusQy,runIndex);
+			// hQXvsQYvsRunIndex_west->Fill(mEtaPlusQx,mEtaPlusQy,runIndex);
 			etaplusQx->Fill(runIndex,mCentrality,mEtaPlusQx);
 			etaplusQy->Fill(runIndex,mCentrality,mEtaPlusQy);
 			etaplusQx_cent->Fill(mCentrality,mEtaPlusQx);
@@ -373,7 +373,7 @@ bool passEvent(miniDst const* const event)
 		if(mEtaMinusNTrks>0){
 			etaminuszminusQx->Fill(runIndex, mCentrality, mEtaMinusQx);
 			etaminuszminusQy->Fill(runIndex, mCentrality, mEtaMinusQy);
-			hQXvsQYvsRunIndex_east->Fill(mEtaMinusQx,mEtaMinusQy,runIndex);
+			// hQXvsQYvsRunIndex_east->Fill(mEtaMinusQx,mEtaMinusQy,runIndex);
 			etaminusQx->Fill(runIndex,mCentrality,mEtaMinusQx);
 			etaminusQy->Fill(runIndex,mCentrality,mEtaMinusQy);
 			etaminusQx_cent->Fill(mCentrality,mEtaMinusQx);
@@ -388,7 +388,7 @@ bool passEvent(miniDst const* const event)
 	hQXvsQYvsRunIndex->Fill(Qx,Qy,mCentrality);
 	hQXvsQYvsCentrality_east->Fill(mEtaMinusQx,mEtaMinusQy,mCentrality);
 	hQXvsQYvsCentrality_west->Fill(mEtaPlusQx,mEtaPlusQy,mCentrality);
-	hQXvsQYvsRunIndex_runindex->Fill(Qx,Qy,runIndex);
+	// hQXvsQYvsRunIndex_runindex->Fill(Qx,Qy,runIndex);
 
 	return kTRUE;
 }
@@ -431,9 +431,9 @@ void bookHistograms(char* outFile)
 	hQXvsQYvsRunIndex = new TH3F("hQXvsQYvsRunIndex","; Qx; Qy; Centrality",200,-20,20,200,-20,20,10,0,10);
 	hQXvsQYvsCentrality_east = new TH3F("hQXvsQYvsCentrality_east","; Qx; Qy; Centrality",200,-20,20,200,-20,20,10,0,10);
 	hQXvsQYvsCentrality_west = new TH3F("hQXvsQYvsCentrality_west","; Qx; Qy; Centrality",200,-20,20,200,-20,20,10,0,10);
-	hQXvsQYvsRunIndex_runindex = new TH3F("hQXvsQYvsRunIndex_runindex","; Qx; Qy; runindex",200,-20,20,200,-20,20,mTotalRun,0,mTotalRun);
-	hQXvsQYvsRunIndex_east = new TH3F("hQXvsQYvsRunIndex_east","; Qx; Qy; runindex",200,-20,20,200,-20,20,mTotalRun,0,mTotalRun);
-	hQXvsQYvsRunIndex_west = new TH3F("hQXvsQYvsRunIndex_west","; Qx; Qy; runindex",200,-20,20,200,-20,20,mTotalRun,0,mTotalRun);
+	// hQXvsQYvsRunIndex_runindex = new TH3F("hQXvsQYvsRunIndex_runindex","; Qx; Qy; runindex",200,-20,20,200,-20,20,mTotalRun,0,mTotalRun);
+	// hQXvsQYvsRunIndex_east = new TH3F("hQXvsQYvsRunIndex_east","; Qx; Qy; runindex",200,-20,20,200,-20,20,mTotalRun,0,mTotalRun);
+	// hQXvsQYvsRunIndex_west = new TH3F("hQXvsQYvsRunIndex_west","; Qx; Qy; runindex",200,-20,20,200,-20,20,mTotalRun,0,mTotalRun);
 	hQXvsQYvsCent_east = new TH3F("hQXvsQYvsCent_east","; Qx; Qy; Centrality",200,-20,20,200,-20,20,mTotalCentrality,0,mTotalCentrality);
 	hQXvsQYvsCent_west = new TH3F("hQXvsQYvsCent_west","; Qx; Qy; Centrality",200,-20,20,200,-20,20,mTotalCentrality,0,mTotalCentrality);
 
