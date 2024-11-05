@@ -331,7 +331,6 @@ bool passEvent(miniDst const* const event)
 		etaminusQy_cent_RejectE->Fill(mCentrality,mEtaMinusQy_rejectE);
 	}
 
-	
 
 	//pT weight
 	if(vz>0){
@@ -429,14 +428,14 @@ void bookHistograms(char* outFile)
 	etaplusQy_cent_RejectE = new TProfile("etaplusQy_cent_RejectE","etaplusQy_cent_rejectE;Centrality;Q_{y}^{#eta>0} ",mTotalCentrality,0,mTotalCentrality);
 	etaminusQy_cent_RejectE = new TProfile("etaminusQy_cent_RejectE","etaminusQy_cent_rejectE;Centrality;Q_{y}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
 
-	hQXvsQYvsRunIndex = new TH3F("hQXvsQYvsRunIndex","; Qx; Qy; Centrality",300,-20,20,300,-20,20,10,0,10);
-	hQXvsQYvsCentrality_east = new TH3F("hQXvsQYvsCentrality_east","; Qx; Qy; Centrality",300,-20,20,300,-20,20,10,0,10);
-	hQXvsQYvsCentrality_west = new TH3F("hQXvsQYvsCentrality_west","; Qx; Qy; Centrality",300,-20,20,300,-20,20,10,0,10);
-	hQXvsQYvsRunIndex_runindex = new TH3F("hQXvsQYvsRunIndex_runindex","; Qx; Qy; runindex",300,-20,20,300,-20,20,mTotalRun,0,mTotalRun);
-	hQXvsQYvsRunIndex_east = new TH3F("hQXvsQYvsRunIndex_east","; Qx; Qy; runindex",300,-20,20,300,-20,20,mTotalRun,0,mTotalRun);
-	hQXvsQYvsRunIndex_west = new TH3F("hQXvsQYvsRunIndex_west","; Qx; Qy; runindex",300,-20,20,300,-20,20,mTotalRun,0,mTotalRun);
-	hQXvsQYvsCent_east = new TH3F("hQXvsQYvsCent_east","; Qx; Qy; Centrality",300,-20,20,300,-20,20,mTotalCentrality,0,mTotalCentrality);
-	hQXvsQYvsCent_west = new TH3F("hQXvsQYvsCent_west","; Qx; Qy; Centrality",300,-20,20,300,-20,20,mTotalCentrality,0,mTotalCentrality);
+	hQXvsQYvsRunIndex = new TH3F("hQXvsQYvsRunIndex","; Qx; Qy; Centrality",200,-20,20,200,-20,20,10,0,10);
+	hQXvsQYvsCentrality_east = new TH3F("hQXvsQYvsCentrality_east","; Qx; Qy; Centrality",200,-20,20,200,-20,20,10,0,10);
+	hQXvsQYvsCentrality_west = new TH3F("hQXvsQYvsCentrality_west","; Qx; Qy; Centrality",200,-20,20,200,-20,20,10,0,10);
+	hQXvsQYvsRunIndex_runindex = new TH3F("hQXvsQYvsRunIndex_runindex","; Qx; Qy; runindex",200,-20,20,200,-20,20,mTotalRun,0,mTotalRun);
+	hQXvsQYvsRunIndex_east = new TH3F("hQXvsQYvsRunIndex_east","; Qx; Qy; runindex",200,-20,20,200,-20,20,mTotalRun,0,mTotalRun);
+	hQXvsQYvsRunIndex_west = new TH3F("hQXvsQYvsRunIndex_west","; Qx; Qy; runindex",200,-20,20,200,-20,20,mTotalRun,0,mTotalRun);
+	hQXvsQYvsCent_east = new TH3F("hQXvsQYvsCent_east","; Qx; Qy; Centrality",200,-20,20,200,-20,20,mTotalCentrality,0,mTotalCentrality);
+	hQXvsQYvsCent_west = new TH3F("hQXvsQYvsCent_west","; Qx; Qy; Centrality",200,-20,20,200,-20,20,mTotalCentrality,0,mTotalCentrality);
 
 	hRefMult  = new TH1F("RefMult","RefMult;RefMult",600,0,600);
 	hRefMultCorZ  = new TH1F("RefMultCorZ","RefMult corrected for z dependence ;RefMult",600,0,600);
