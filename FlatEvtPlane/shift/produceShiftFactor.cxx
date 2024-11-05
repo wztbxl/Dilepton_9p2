@@ -3,6 +3,8 @@
 #include "/star/u/wangzhen/run20/Dielectron/Analysis/cuts.h"
 #include "/star/u/wangzhen/run20/Dielectron/Analysis/RefMfun.h"
 
+#include "CentralityMaker.h"
+#include "StRefMultCorr.h"
 #include "miniDst.h"
 
 TFile *fOutFile;
@@ -33,14 +35,30 @@ TProfile *etaplusQx_cent;
 TProfile *etaminusQx_cent;
 TProfile *etaplusQy_cent;
 TProfile *etaminusQy_cent;
+TProfile *etaplusQx_cent_rejectE;
+TProfile *etaminusQx_cent_rejectE;
+TProfile *etaplusQy_cent_rejectE;
+TProfile *etaminusQy_cent_rejectE;
+
 
 //define histograms
 TH1D *hRawEventPlane;
 TH1D *hReCenterEventPlane;
+TH1D* hReCenterEventPlane_rejectE;
+TH2D* hRawQxQy[nCent];
+TH2D* hRecenterQxQy[nCent];
+TH1D* hReCenterEventPlaneEast;
+TH1D* hReCenterEventPlaneWest;
 TProfile2D *shiftfactorcos[mArrayLength];
 TProfile2D *shiftfactorsin[mArrayLength];
 TProfile *shiftfactorcos_cent[mArrayLength];
 TProfile *shiftfactorsin_cent[mArrayLength];
+TProfile *shiftfactorcos_cent_rejectE[mArrayLength];
+TProfile *shiftfactorsin_cent_rejectE[mArrayLength];
+TProfile *shiftfactorcos_cent_east_rejectE[mArrayLength];
+TProfile *shiftfactorcos_cent_west_rejectE[mArrayLength];
+TProfile *shiftfactorsin_cent_east_rejectE[mArrayLength];
+TProfile *shiftfactorsin_cent_west_rejectE[mArrayLength];
 
 
 int main(int argc, char** argv)
@@ -171,27 +189,51 @@ bool passEvent(miniDst const* const event)
 	Double_t vz           = event->mVertexZ;
 	Int_t  refMult       = event->mRefMult;
 	Int_t mnTOFMatch = event->mnTOFMatch;
+	Float_t zdcRate = event->mZDCRate;
 	Float_t vpdVz        = event->mVpdVz;
 	Float_t vr           = sqrt(vx*vx + vy*vy);    
 	Float_t vzDiff       = vz - vpdVz;
+
+	//for  the official centrality defination
+	StRefMultCorr* mRefMultCorr = CentralityMaker::instance()->getRefMultCorr();
+	// cout << "after refMultCorr defination" << endl;
+	//using offical badrun list
+	mRefMultCorr->init((Int_t)runId);
+	// cout << "after refMultCorr init" << endl;
+	mRefMultCorr->initEvent(refMult,vz,zdcRate);
+	// cout << "after refMultCorr initEvent" << endl;
+	if (mRefMultCorr->isBadRun(runId))
+	{
+		return kFALSE;
+	}
+	// cout << "after refMultCorr isBadRun" << endl;
+	Double_t RefMultCorr  = mRefMultCorr->getRefMultCorr();
+	// cout << "after refMultCorr getRefMultCorr " << endl;
+	Double_t reweight  = mRefMultCorr->getWeight();
+	// cout << "after refMultCorr getWeight" << endl;
+	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
+	// cout << "centrality = " << mCentrality << endl;
+	// cout << "after refMultCorr getCentralityBin9" << endl;
+	//offical pile up pileupRejection
+	if  ( mRefMultCorr->isPileUpEvent(refMult,mnTOFMatch,vz ) ) return kFALSE;
 
 	if(vr>mVrCut)                     return kFALSE;
 	if(TMath::Abs(vz)>mVzCut)         return kFALSE;
 	// if(TMath::Abs(vzDiff)>mVzDiffCut) return kFALSE;
 	if(mCentrality<0)                 return kFALSE;
 
-    Double_t RefMultCorr = refMult;
+    // Double_t RefMultCorr = refMult;
 	// if(RefMVzCorFlag)RefMultCorr = GetRefMultCorr(refMult, vz);	
     // Double_t reweight = GetWeight(RefMultCorr);	
 	// hnTofHitsvsRefMult_noCut->Fill(refMult,mnTOFMatch);
 	if(vr>mVrCut)                     return kFALSE;
 	if(TMath::Abs(vz)>mVzCut)         return kFALSE;
 	// if(TMath::Abs(vzDiff)>mVzDiffCut) return kFALSE;
-	if (mnTOFMatch < Pileuplimit->Eval(refMult)) return kFALSE;
+	// if (mnTOFMatch < Pileuplimit->Eval(refMult)) return kFALSE;
  	//  hnTofHitsvsRefMult->Fill(refMult,mnTOFMatch);
 	  if(mCentrality<0)                 return kFALSE;
-	mCentrality = GetCentrality(RefMultCorr);
-	if(mCentrality < 1 || mCentrality > 9 ) return kFALSE;
+	// mCentrality = GetCentrality(RefMultCorr);
+	// if(mCentrality < 1 || mCentrality > 9 ) return kFALSE;
 
 	Float_t  mEtaPlusQx        = event->mEtaPlusQx;
 	Float_t  mEtaPlusQy        = event->mEtaPlusQy;
@@ -201,13 +243,22 @@ bool passEvent(miniDst const* const event)
 	Float_t  mEtaMinusQy       = event->mEtaMinusQy;
 	Float_t  mEtaMinusPtWeight = event->mEtaMinusPtWeight;
 	Short_t  mEtaMinusNTrks    = event->mEtaMinusNTrks;
+
+	//for the electron rejection
+	Float_t  mEtaPlusQx_rejectE        = event->mEtaPlusQx;
+	Float_t  mEtaPlusQy_rejectE        = event->mEtaPlusQy;
+	Float_t  mEtaPlusPtWeight_rejectE  = event->mEtaPlusPtWeight;
+	Float_t  mEtaMinusQx_rejectE       = event->mEtaMinusQx;
+	Float_t  mEtaMinusQy_rejectE       = event->mEtaMinusQy;
+	Float_t  mEtaMinusPtWeight_rejectE = event->mEtaMinusPtWeight;
 	double mPlusQx = mEtaPlusQx;
 	double mPlusQy = mEtaPlusQy;
 	double mMinusQx = mEtaMinusQx;
 	double mMinusQy = mEtaMinusQy;
 
-	Double_t mRawQx = mPlusQx/mEtaPlusPtWeight - mMinusQx/mEtaMinusPtWeight; 
-	Double_t mRawQy = mPlusQy/mEtaPlusPtWeight - mMinusQy/mEtaMinusPtWeight;
+	Double_t mRawQx = mPlusQx + mMinusQx; 
+	Double_t mRawQy = mPlusQy + mMinusQy;
+	hRawQxQy[mCentrality]->Fill(mRawQx,mRawQy);
 
 	TVector2 *mRawQ = new TVector2(mRawQx, mRawQy);
 	if(mRawQ->Mod() > 0){
@@ -216,9 +267,71 @@ bool passEvent(miniDst const* const event)
 		if(mRawEventPlane<0.) mRawEventPlane += TMath::Pi();
 		hRawEventPlane->Fill(mRawEventPlane);
 	}
+
+	//add the electron selection cut to reject the electrons
+	Int_t npTrks = event->mNTrks;
+	for(int j=0;j<npTrks;j++)
+	{
+		Int_t charge = event->mCharge[j];
+		Int_t nHitsFit = event->mNHitsFit[j];
+		Int_t nHitsDedx = event->mNHitsDedx[j];
+		Int_t nHitsPoss = event->mNHitsPoss[j];
+		Float_t nSigmaE = event->mNSigmaE[j];
+		Float_t dca = event->mDca[j];
+		Float_t pt = event->mPt[j];
+		Float_t eta = event->mEta[j];
+		Float_t phi = event->mPhi[j];
+		Float_t beta2TOF = event->mBeta2TOF[j];
+		Float_t TOFLoaclY = event->mTOFLocalY[j];
+		Float_t ratio = 1.0*nHitsFit/nHitsPoss;
+		int CellID = event->mTOFCellID[j];
+		TVector3 mom;
+		mom.SetPtEtaPhi(pt,eta,phi);
+		Float_t p = mom.Mag();
+		double msquare =  -999;
+		msquare = pow(p, 2) * (1 - pow(beta2TOF, 2)) / pow(beta2TOF, 2);
+
+		if(pt<0.2 || pt>30.) continue;;
+		// if(nHitsFit<15) continue;;
+		if(nHitsFit<20) continue;;
+		if(ratio<0.52) continue;;
+		// if(nHitsDedx<20) continue;;
+		if(nHitsDedx<15) continue;;
+		// if(dca>0.8) continue;;
+		if(dca>1.) continue;;
+		if(TMath::Abs(eta)>1.) continue;;
+		if(beta2TOF<=0. || TMath::Abs(1.-1./beta2TOF)>0.025) continue;;
+		if(abs(TOFLoaclY) > 1.8) continue;;
+		Float_t mTpceNSigmaECutLow;
+		if(p<.8){
+			mTpceNSigmaECutLow = 3.0*p - 3.15; 
+		}else{
+			mTpceNSigmaECutLow = -0.75;
+		}
+		if(nSigmaE<mTpceNSigmaECutLow+mNSigmaEShift || nSigmaE>2.0+mNSigmaEShift) continue;;
+		
+		if (eta < 0)
+			{
+				mEtaMinusQx_rejectE -= pt*TMath::Cos(2*phi);
+				mEtaMinusQy_rejectE -= pt*TMath::Sin(2*phi);
+
+			} else if (eta > 0)
+			{
+				mEtaPlusQx_rejectE -= pt*TMath::Cos(2*phi);
+				mEtaPlusQy_rejectE -= pt*TMath::Sin(2*phi);
+			}
+
+	}
+	double mPlusQx_rejectE 	= mEtaPlusQx_rejectE;
+	double mPlusQy_rejectE 	= mEtaPlusQy_rejectE;
+	double mMinusQx_rejectE = mEtaMinusQx_rejectE;
+	double mMinusQy_rejectE = mEtaMinusQy_rejectE;
 	
 	// reCenter process
 	Double_t mReCenterQx, mReCenterQy;
+	Double_t mReCenterQx_rejectE, mReCenterQy_rejectE;
+	Double_t mReCenterQx_east, mReCenterQy_east; 
+	Double_t mReCenterQx_west, mReCenterQy_west; 
 	// if(vz>0){
 	// 	mReCenterQx = mRawQx - mEtaPlusNTrks*etapluszplusQx->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszplusQx->GetBinContent(runIndex+1, mCentrality);
 	// 	mReCenterQy = mRawQy - mEtaPlusNTrks*etapluszplusQy->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszplusQy->GetBinContent(runIndex+1, mCentrality);
@@ -227,20 +340,64 @@ bool passEvent(miniDst const* const event)
 	// 	mReCenterQx = mRawQx - mEtaPlusNTrks*etapluszminusQx->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszminusQx->GetBinContent(runIndex+1, mCentrality);
 	// 	mReCenterQy = mRawQy - mEtaPlusNTrks*etapluszminusQy->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszminusQy->GetBinContent(runIndex+1, mCentrality);
 	// }
-	mPlusQx = mPlusQx/mEtaPlusPtWeight-etaplusQx_cent->GetBinContent(mCentrality+1);
-	mPlusQy = mPlusQy/mEtaPlusPtWeight-etaplusQy_cent->GetBinContent(mCentrality+1);
-	mMinusQx = mMinusQx/mEtaMinusPtWeight-etaminusQx_cent->GetBinContent(mCentrality+1);
-	mMinusQy = mMinusQy/mEtaMinusPtWeight-etaminusQy_cent->GetBinContent(mCentrality+1);
-	mReCenterQx = mPlusQx + mMinusQx; 
+	mPlusQx     = mPlusQx-etaplusQx_cent->GetBinContent(mCentrality+1);
+	mPlusQy     = mPlusQy-etaplusQy_cent->GetBinContent(mCentrality+1);
+	mMinusQx    = mMinusQx-etaminusQx_cent->GetBinContent(mCentrality+1);
+	mMinusQy    = mMinusQy-etaminusQy_cent->GetBinContent(mCentrality+1);
+	mPlusQx_rejectE     = mPlusQx_rejectE-etaplusQx_cent_rejectE->GetBinContent(mCentrality+1);
+	mPlusQy_rejectE     = mPlusQy_rejectE-etaplusQy_cent_rejectE->GetBinContent(mCentrality+1);
+	mMinusQx_rejectE    = mMinusQx_rejectE-etaminusQx_cent_rejectE->GetBinContent(mCentrality+1);
+	mMinusQy_rejectE    = mMinusQy_rejectE-etaminusQy_cent_rejectE->GetBinContent(mCentrality+1);
+	mReCenterQx = mPlusQx + mMinusQx;
 	mReCenterQy = mPlusQy + mMinusQy;
+	mReCenterQx_rejectE = mPlusQx_rejectE+mPlusQy_rejectE;
+	mReCenterQy_rejectE = mPlusQy_rejectE+mMinusQy_rejectE;
+	mReCenterQx_east = mMinusQx_rejectE;
+	mReCenterQy_east = mMinusQy_rejectE;
+	mReCenterQx_west = mPlusQx_rejectE;
+	mReCenterQy_west = mPlusQy_rejectE;
+	hRecenterQxQy[mCentrality]->Fill(mReCenterQx,mReCenterQy);
+
+	// reCenter process
+	Double_t mReCenterQx_run, mReCenterQy_run;
+	if(vz>0){
+		mReCenterQx_run = mRawQx - etapluszplusQx->GetBinContent(runIndex+1, mCentrality+1) - etaminuszplusQx->GetBinContent(runIndex+1, mCentrality+1);
+		mReCenterQy_run = mRawQy - etapluszplusQy->GetBinContent(runIndex+1, mCentrality+1) - etaminuszplusQy->GetBinContent(runIndex+1, mCentrality+1);
+	}
+	else{
+		mReCenterQx_run = mRawQx - etapluszminusQx->GetBinContent(runIndex+1, mCentrality+1) - etaminuszminusQx->GetBinContent(runIndex+1, mCentrality+1);
+		mReCenterQy_run = mRawQy - etapluszminusQy->GetBinContent(runIndex+1, mCentrality+1) - etaminuszminusQy->GetBinContent(runIndex+1, mCentrality+1);
+	}
 
     TVector2 *mReCenterQ = new TVector2(mReCenterQx, mReCenterQy);
+	TVector2 *mReCenterQEast = new TVector2(mReCenterQx_east, mReCenterQy_east);
+    TVector2 *mReCenterQWest = new TVector2(mReCenterQx_west, mReCenterQy_west);
+    TVector2 *mReCenterQ_rejectE = new TVector2(mReCenterQx_rejectE, mReCenterQy_rejectE);
 	Double_t mReCenterEventPlane;
+	Double_t mReCenterEventPlane_rejectE;
+	Double_t recenterEPEast;
+	Double_t recenterEPWest;
 	if(mReCenterQ->Mod() > 0){
 		mReCenterEventPlane = 0.5*TMath::ATan2(mReCenterQy,mReCenterQx);
 		// mReCenterEventPlane = 0.5*mReCenterQ->Phi();
 		if(mReCenterEventPlane<0.) mReCenterEventPlane += TMath::Pi();
 		hReCenterEventPlane->Fill(mReCenterEventPlane);
+	}
+	if(mReCenterQ->Mod() > 0){
+		mReCenterEventPlane_rejectE = 0.5*TMath::ATan2(mReCenterQy,mReCenterQx);
+		// mReCenterEventPlane = 0.5*mReCenterQ->Phi();
+		if(mReCenterEventPlane_rejectE<0.) mReCenterEventPlane_rejectE += TMath::Pi();
+		hReCenterEventPlane_rejectE->Fill(mReCenterEventPlane_rejectE);
+	}
+		if(mReCenterQWest->Mod() > 0){
+		recenterEPWest = 0.5*mReCenterQWest->Phi();
+		if(recenterEPWest<0.) recenterEPWest += TMath::Pi();
+		hReCenterEventPlaneWest->Fill(recenterEPWest);
+	}
+	if(mReCenterQEast->Mod() > 0){
+		recenterEPEast = 0.5*mReCenterQEast->Phi();
+		if(recenterEPEast<0.) recenterEPEast += TMath::Pi();
+		hReCenterEventPlaneEast->Fill(recenterEPEast);
 	}
 
 	for(Int_t j=0; j<mArrayLength; j++){
@@ -248,6 +405,12 @@ bool passEvent(miniDst const* const event)
 			shiftfactorsin[j]->Fill(dayIndex,mCentrality,sin(2*(j+1)*mReCenterEventPlane));
 			shiftfactorcos_cent[j]->Fill(mCentrality,cos(2*(j+1)*mReCenterEventPlane));
 			shiftfactorsin_cent[j]->Fill(mCentrality,sin(2*(j+1)*mReCenterEventPlane));
+			shiftfactorcos_cent_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*mReCenterEventPlane));
+			shiftfactorsin_cent_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*mReCenterEventPlane));
+			shiftfactorcos_cent_east_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*recenterEPEast));
+			shiftfactorcos_cent_west_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*recenterEPWest));
+			shiftfactorsin_cent_east_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*recenterEPEast));
+			shiftfactorsin_cent_west_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*recenterEPWest));
 	}
 
 	return kTRUE;
@@ -269,10 +432,31 @@ void bookHistograms(char* outFile)
 		shiftfactorcos_cent[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
 		sprintf(buf,"shiftfactorsin_cent_%d",i);
 		shiftfactorsin_cent[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+		sprintf(buf,"shiftfactorcos_cent_rejectE_%d",i);
+		shiftfactorcos_cent_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+		sprintf(buf,"shiftfactorsin_cent_rejectE_%d",i);
+		shiftfactorsin_cent_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+		sprintf(buf,"shiftfactorcos_cent_east_rejectE_%d",i);
+		shiftfactorcos_cent_east_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+		sprintf(buf,"shiftfactorcos_cent_west_rejectE_%d",i);
+		shiftfactorcos_cent_west_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+		sprintf(buf,"shiftfactorsin_cent_east_rejectE_%d",i);
+		shiftfactorsin_cent_east_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+		sprintf(buf,"shiftfactorsin_cent_west_rejectE_%d",i);
+		shiftfactorsin_cent_west_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+	}
+	hReCenterEventPlaneEast = new TH1D("hReCenterEventPlaneEast","hReCenterEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
+	hReCenterEventPlaneWest = new TH1D("hReCenterEventPlaneWest","hReCenterEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
+
+	for(int i = 0; i < nCent; i++)
+	{
+		hRawQxQy[i] = new TH2D(Form("hRawQxQy_icent%d",i),Form("hRawQxQy_icent%d; Qx, Qy",i),400,-10,10,400,-10,10);
+		hRecenterQxQy[i] = new TH2D(Form("hRecenterQxQy_icent%d",i),Form("hRecenterQxQy_icent%d; Qx, Qy",i),400,-10,10,400,-10,10);
 	}
 
 	hRawEventPlane = new TH1D("hRawEventPlane","hRawEventPlane,Event Plane",360,0,TMath::Pi());
-	hReCenterEventPlane = new TH1D("hReCenterEventPlane","hReCenterEventPlane,Event Plane",360,0,TMath::Pi());
+	hReCenterEventPlane = new TH1D("hReCenterEventPlane","hReCenterEventPlane;Event Plane",360,0,TMath::Pi());
+	hReCenterEventPlane_rejectE = new TH1D("hReCenterEventPlane_rejectE","hReCenterEventPlane_rejectE;Event Plane",360,0,TMath::Pi());
 	Pileuplimit = new TF1("Pileuplimit","0.7*x-10",0,1000);
 }
 //____________________________________________________________
@@ -282,8 +466,7 @@ bool Init()
 
 	ifstream indata;
 
-	// indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList.dat");
-  indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList_noPeriodA.dat");
+	indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList.dat");
 	mTotalRunId.clear();
 	if(indata.is_open()){
 		cout<<"read in total run number list and recode run number ...";
@@ -304,7 +487,6 @@ bool Init()
 	cout<<endl;
 
 	indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalDayList.dat");
-  // indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList_noPeriodA.dat");
 	mTotalDayId.clear();
 	if(indata.is_open()){
 		cout<<"read in day number list and recode day number ...";
@@ -363,6 +545,10 @@ bool Init()
 	etaminusQx_cent  = (TProfile*)fReCenter->Get("etaminusQx_cent");
 	etaplusQy_cent   = (TProfile*)fReCenter->Get("etaplusQy_cent");
 	etaminusQy_cent  = (TProfile*)fReCenter->Get("etaminusQy_cent");
+	etaplusQx_cent_rejectE   = (TProfile*)fReCenter->Get("etaplusQx_cent_RejectE");
+	etaminusQx_cent_rejectE  = (TProfile*)fReCenter->Get("etaminusQx_cent_RejectE");
+	etaplusQy_cent_rejectE   = (TProfile*)fReCenter->Get("etaplusQy_cent_RejectE");
+	etaminusQy_cent_rejectE  = (TProfile*)fReCenter->Get("etaminusQy_cent_RejectE");
 
 	cout<<"Initialization DONE !!!"<<endl;
 	cout<<endl;
