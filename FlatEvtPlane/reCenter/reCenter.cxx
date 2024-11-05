@@ -174,6 +174,7 @@ bool passEvent(miniDst const* const event)
 	Int_t   mCentrality  = event->mCentrality;
 	Int_t	refMult 	 = event->mRefMult;
   Int_t mnTOFMatch = event->mnTOFMatch;
+  Float_t zdcRate = event->mZDCRate;
 	Float_t vx           = event->mVertexX;
 	Float_t vy           = event->mVertexY;
 	Float_t vz           = event->mVertexZ;
