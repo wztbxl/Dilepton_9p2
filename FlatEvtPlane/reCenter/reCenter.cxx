@@ -58,6 +58,7 @@ TH3F *hQXvsQYvsCent_west;
 TH2D *hnTofHitsvsRefMult;
 TH2D* hnTofHitsvsRefMult_noCut;
 TH2D* hnTofHitsvsRefMult_Vz35;
+TH3D* hnPlusTrkvsnMinusTrkvsCent;
 TF1* Pileuplimit;
 TF1* PileupUplimit;
 TF1* PileupLowlimit;
@@ -330,6 +331,7 @@ bool passEvent(miniDst const* const event)
 		etaminusQx_cent_RejectE->Fill(mCentrality,mEtaMinusQx_rejectE);
 		etaminusQy_cent_RejectE->Fill(mCentrality,mEtaMinusQy_rejectE);
 	}
+	hnPlusTrkvsnMinusTrkvsCent->Fill(mEtaPlusNTrks,mEtaMinusNTrks,mCentrality);
 
 
 	//pT weight
@@ -445,6 +447,7 @@ void bookHistograms(char* outFile)
   hnTofHitsvsRefMult = new TH2D("hnTofHitsvsRefMult",";RefMult;nTofHits",500,0,500,500,0,500);
   hnTofHitsvsRefMult_noCut = new TH2D("hnTofHitsvsRefMult_noCut",";RefMult;nTofHits",500,0,500,500,0,500); 
   hnTofHitsvsRefMult_Vz35 = new TH2D("hnTofHitsvsRefMult_Vz35",";RefMult;nTofHits",500,0,500,500,0,500);
+  hnPlusTrkvsnMinusTrkvsCent = new TH3D("hnPlusTrkvsnMinusTrkvsCent","nPlusTrk;nMinusTrk;Cent",500,0,500,500,0,500,10,0,10);
   Pileuplimit = new TF1("Pileuplimit","0.7*x-10",0,1000);
 
 }
