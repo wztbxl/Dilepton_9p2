@@ -373,8 +373,8 @@ bool passEvent(miniDst const* const event)
 	TVector2 *mReCenterQEast = new TVector2(mReCenterQx_east, mReCenterQy_east);
     TVector2 *mReCenterQWest = new TVector2(mReCenterQx_west, mReCenterQy_west);
     TVector2 *mReCenterQ_rejectE = new TVector2(mReCenterQx_rejectE, mReCenterQy_rejectE);
-	Double_t mReCenterEventPlane;
-	Double_t mReCenterEventPlane_rejectE;
+	Double_t mReCenterEventPlane = -1;
+	Double_t mReCenterEventPlane_rejectE = -1;
 	Double_t recenterEPEast;
 	Double_t recenterEPWest;
 	if(mReCenterQ->Mod() > 0){
@@ -401,16 +401,27 @@ bool passEvent(miniDst const* const event)
 	}
 
 	for(Int_t j=0; j<mArrayLength; j++){
-			shiftfactorcos[j]->Fill(dayIndex,mCentrality,cos(2*(j+1)*mReCenterEventPlane));
-			shiftfactorsin[j]->Fill(dayIndex,mCentrality,sin(2*(j+1)*mReCenterEventPlane));
-			shiftfactorcos_cent[j]->Fill(mCentrality,cos(2*(j+1)*mReCenterEventPlane));
-			shiftfactorsin_cent[j]->Fill(mCentrality,sin(2*(j+1)*mReCenterEventPlane));
-			shiftfactorcos_cent_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*mReCenterEventPlane));
-			shiftfactorsin_cent_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*mReCenterEventPlane));
-			shiftfactorcos_cent_east_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*recenterEPEast));
-			shiftfactorcos_cent_west_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*recenterEPWest));
-			shiftfactorsin_cent_east_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*recenterEPEast));
-			shiftfactorsin_cent_west_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*recenterEPWest));
+
+			if (mEtaPlusNTrks>0)
+			{
+				shiftfactorcos_cent_west_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*recenterEPWest));
+				shiftfactorsin_cent_west_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*recenterEPWest));
+			}
+			if(mEtaMinusNTrks>0)
+			{
+				shiftfactorcos_cent_east_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*recenterEPEast));
+				shiftfactorsin_cent_east_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*recenterEPEast));
+			}
+			if(mEtaPlusNTrks>0 &&  mEtaPlusNTrks > 0)
+			{
+				shiftfactorcos[j]->Fill(dayIndex,mCentrality,cos(2*(j+1)*mReCenterEventPlane));
+				shiftfactorsin[j]->Fill(dayIndex,mCentrality,sin(2*(j+1)*mReCenterEventPlane));
+				shiftfactorcos_cent[j]->Fill(mCentrality,cos(2*(j+1)*mReCenterEventPlane));
+				shiftfactorsin_cent[j]->Fill(mCentrality,sin(2*(j+1)*mReCenterEventPlane));
+				shiftfactorcos_cent_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*mReCenterEventPlane));
+				shiftfactorsin_cent_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*mReCenterEventPlane));
+			}
+			
 	}
 
 	return kTRUE;
