@@ -326,6 +326,12 @@ bool passEvent(miniDst const* const event)
 	double mPlusQy_rejectE 	= mEtaPlusQy_rejectE;
 	double mMinusQx_rejectE = mEtaMinusQx_rejectE;
 	double mMinusQy_rejectE = mEtaMinusQy_rejectE;
+	Float_t Qx = mEtaPlusQx_rejectE + mEtaMinusQx_rejectE; 
+	Float_t Qy = mEtaPlusQy_rejectE + mEtaMinusQy_rejectE;
+	TVector2 Q(Qx,Qy);
+	TVector2 mRawQWest(mEtaPlusQx_rejectE,mEtaPlusQy_rejectE);
+	TVector2 mRawQEast(mEtaMinusQx_rejectE,mEtaMinusQy_rejectE);
+	if (mRawQEast.Mod() <= 0 && mRawQWest.Mod() <= 0 ) return kFALSE;
 	
 	// reCenter process
 	Double_t mReCenterQx, mReCenterQy;
