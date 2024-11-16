@@ -390,8 +390,8 @@ bool passEvent(miniDst const* const event)
 		}
 	}
 	
-	double Qx = mEtaPlusQx+mEtaMinusQx;
-	double Qy = mEtaPlusQy+mEtaMinusQy;
+	Qx = mEtaPlusQx+mEtaMinusQx;
+	Qy = mEtaPlusQy+mEtaMinusQy;
 
 	hQXvsQYvsRunIndex->Fill(Qx,Qy,mCentrality);
 	hQXvsQYvsCentrality_east->Fill(mEtaMinusQx,mEtaMinusQy,mCentrality);
