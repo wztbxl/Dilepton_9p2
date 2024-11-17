@@ -338,7 +338,7 @@ bool passEvent(miniDst const* const event)
 	TVector2 Q(Qx,Qy);
 	TVector2 mRawQWest(mEtaPlusQx_rejectE,mEtaPlusQy_rejectE);
 	TVector2 mRawQEast(mEtaMinusQx_rejectE,mEtaMinusQy_rejectE);
-	if (mRawQEast.Mod() <= 0 && mRawQWest.Mod() <= 0 ) return kFALSE;
+	if (mRawQEast.Mod() <= 0 || mRawQWest.Mod() <= 0 ) return kFALSE;
 
 	//pT weight
 	if(vz>0){
