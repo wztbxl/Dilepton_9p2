@@ -1620,7 +1620,7 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 		deltaPhi += 3./(i+1)*(-1.*shiftCorrsin[i]*cos(2.*(i+1)*recenterEP) + shiftCorrcos[i]*sin(2.*(i+1)*recenterEP));
 		// deltaPhi += 1./(i+1)*(-1.*shiftCorrsin[i]*cos(2.*(i+1)*recenterEP) + shiftCorrcos[i]*sin(2.*(i+1)*recenterEP));
 	}
-	deltaPhi = deltaPhi/2.;
+	// deltaPhi = deltaPhi/2.;
 	if(deltaPhi<0.) deltaPhi += TMath::Pi();
 	if(deltaPhi>=TMath::Pi()) deltaPhi -= TMath::Pi();
 	hDelta_Psi2_1D->Fill(deltaPhi);
