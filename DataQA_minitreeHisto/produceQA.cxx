@@ -85,7 +85,7 @@ int main(int argc, char** argv)
 	//+---------------------------------+
 	//| open files and add to the chain |
 	//+---------------------------------+
-	TFile* inputFile = new TFile("/star/u/wangzhen/run20/Dielectron/miniTree/output/DetailCheck/C783432E7624E926B2C15D19C283DBFF_987.root");
+	TFile* inputFile = new TFile("/star/u/wangzhen/run20/Dielectron_Common/minitree/output/9p2_Phiweight/DD0E67C29473FCB5A275A2F2CDC9A2A0_602.root");
 	//TH1
 	mHisto_1D["hEvent"]                  = (TH1D*)inputFile->Get("hEvent");
 	mHisto_1D["hVzDiff"]                 = (TH1D*)inputFile->Get("hVzDiff");
@@ -121,6 +121,19 @@ int main(int argc, char** argv)
 	mHisto_2D["hEEtavsPt"]               = (TH2D*)inputFile->Get("hEEtavsPt");
 	mHisto_2D["hEPhivsPt"]               = (TH2D*)inputFile->Get("hEPhivsPt");
 	mHisto_2D["hnTOFMatchvsRefmult"]     = (TH2D*)inputFile->Get("hnTOFMatchvsRefmult");
+	mHisto_2D["hPrimaryTrackPhiVsEta_Cent0"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent0");
+	mHisto_2D["hPrimaryTrackPhiVsEta_Cent1"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent1");
+	mHisto_2D["hPrimaryTrackPhiVsEta_Cent2"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent2");
+	mHisto_2D["hPrimaryTrackPhiVsEta_Cent3"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent3");
+	mHisto_2D["hPrimaryTrackPhiVsEta_Cent4"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent4");
+	mHisto_2D["hPrimaryTrackPhiVsEta_Cent5"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent5");
+	mHisto_2D["hPrimaryTrackPhiVsEta_Cent6"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent6");
+	mHisto_2D["hPrimaryTrackPhiVsEta_Cent7"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent7");
+	mHisto_2D["hPrimaryTrackPhiVsEta_Cent8"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent8");
+
+	//try to load the histograms without any hard code
+	//you can reference that https://root-forum.cern.ch/t/accessing-all-histograms-inside-a-rootfile/36070/24
+	//https://root-forum.cern.ch/t/reading-all-histograms-from-a-root-file/11607/2
 
 	for( auto his : mHisto_1D )
 	{
@@ -132,7 +145,7 @@ int main(int argc, char** argv)
 	}
 
 	vector <TString>histo_name1D = { "hEvent", "hVzDiff", "hCentrality", "hRawQx", "hRawQy", "hRawEventPlane", "hVz", "hNHitsFit", "hNHitsPoss", "hNHitsdEdx"};
-	vector <TString>histo_name2D = {"hVtxYvsVtxX", "hVPDVzvsTPCVz", "hGRefMultvsGRefMultCorr", "hdEdxvsP", "hdNdxvsP", "hnSigEvsP", "hBetavsP", "hDcavsPt", "hBetavsEta", "hBetavsPhi", "dEdxvsEta", "dEdxvsPhi", "hNSigmaEvsEta", "hNSigmaEvsPhi", "hMSquarevsP", "hEtavsPhi", "hEtavsPt", "hPhivsPt", "hEEtavsPhi", "hEEtavsPt", "hEPhivsPt", "hnTOFMatchvsRefmult"};
+	vector <TString>histo_name2D = {"hVtxYvsVtxX", "hVPDVzvsTPCVz", "hGRefMultvsGRefMultCorr", "hdEdxvsP", "hdNdxvsP", "hnSigEvsP", "hBetavsP", "hDcavsPt", "hBetavsEta", "hBetavsPhi", "dEdxvsEta", "dEdxvsPhi", "hNSigmaEvsEta", "hNSigmaEvsPhi", "hMSquarevsP", "hEtavsPhi", "hEtavsPt", "hPhivsPt", "hEEtavsPhi", "hEEtavsPt", "hEPhivsPt", "hnTOFMatchvsRefmult", "hPrimaryTrackPhiVsEta_Cent0", "hPrimaryTrackPhiVsEta_Cent1", "hPrimaryTrackPhiVsEta_Cent2", "hPrimaryTrackPhiVsEta_Cent3", "hPrimaryTrackPhiVsEta_Cent4", "hPrimaryTrackPhiVsEta_Cent5", "hPrimaryTrackPhiVsEta_Cent6", "hPrimaryTrackPhiVsEta_Cent7", "hPrimaryTrackPhiVsEta_Cent8"};
 	Int_t ifile=0;
 	char filename[512];
 	ifstream *inputStream = new ifstream;
