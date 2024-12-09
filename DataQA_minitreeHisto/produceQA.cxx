@@ -130,6 +130,15 @@ int main(int argc, char** argv)
 	mHisto_2D["hPrimaryTrackPhiVsEta_Cent6"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent6");
 	mHisto_2D["hPrimaryTrackPhiVsEta_Cent7"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent7");
 	mHisto_2D["hPrimaryTrackPhiVsEta_Cent8"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_Cent8");
+	mHisto_2D["hPrimaryTrackPhiVsEta_PhiWeight_Cent0"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_PhiWeight_Cent0");
+	mHisto_2D["hPrimaryTrackPhiVsEta_PhiWeight_Cent1"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_PhiWeight_Cent1");
+	mHisto_2D["hPrimaryTrackPhiVsEta_PhiWeight_Cent2"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_PhiWeight_Cent2");
+	mHisto_2D["hPrimaryTrackPhiVsEta_PhiWeight_Cent3"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_PhiWeight_Cent3");
+	mHisto_2D["hPrimaryTrackPhiVsEta_PhiWeight_Cent4"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_PhiWeight_Cent4");
+	mHisto_2D["hPrimaryTrackPhiVsEta_PhiWeight_Cent5"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_PhiWeight_Cent5");
+	mHisto_2D["hPrimaryTrackPhiVsEta_PhiWeight_Cent6"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_PhiWeight_Cent6");
+	mHisto_2D["hPrimaryTrackPhiVsEta_PhiWeight_Cent7"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_PhiWeight_Cent7");
+	mHisto_2D["hPrimaryTrackPhiVsEta_PhiWeight_Cent8"]     = (TH2D*)inputFile->Get("hPrimaryTrackPhiVsEta_PhiWeight_Cent8");
 
 	//try to load the histograms without any hard code
 	//you can reference that https://root-forum.cern.ch/t/accessing-all-histograms-inside-a-rootfile/36070/24
