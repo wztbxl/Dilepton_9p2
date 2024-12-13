@@ -85,7 +85,7 @@ int main(int argc, char** argv)
 	//+---------------------------------+
 	//| open files and add to the chain |
 	//+---------------------------------+
-	TFile* inputFile = new TFile("/star/u/wangzhen/run20/Dielectron_Common/minitree/output/9p2_Phiweight/DD0E67C29473FCB5A275A2F2CDC9A2A0_602.root");
+	TFile* inputFile = new TFile("/star/u/wangzhen/run20/Dielectron_Common/minitree/output/9p2_Phiweight/5FF996E2A80307DFB9814EABBF6F030C_589.root");
 	//TH1
 	mHisto_1D["hEvent"]                  = (TH1D*)inputFile->Get("hEvent");
 	mHisto_1D["hVzDiff"]                 = (TH1D*)inputFile->Get("hVzDiff");
